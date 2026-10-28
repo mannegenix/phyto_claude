@@ -25,7 +25,7 @@ export const products: Product[] = [
     ],
     intro:
       "Our flagship extract and the product our team knows best. Every lot is tested against our hydroxycitric acid specification before it carries the Phyto Elements label.",
-    swatch: "#b58b4f",
+    swatch: "#f2a93b",
     reviewNote:
       "Confirm botanical nomenclature (G. gummi-gutta vs G. cambogia) and the HCA grades Phyto Elements will commit to.",
   },
@@ -47,7 +47,7 @@ export const products: Product[] = [
     ],
     intro:
       "Standardized turmeric extract for nutraceutical, functional-food and colour applications, tested lot by lot against a defined curcuminoid specification.",
-    swatch: "#e0a11b",
+    swatch: "#f39c12",
     reviewNote: "Confirm curcuminoid grade range and whether colour-application grades will be offered at launch.",
   },
   {
@@ -67,7 +67,7 @@ export const products: Product[] = [
       "Private-label products",
     ],
     intro: "Root extract standardized to withanolides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
-    swatch: "#b39a73",
+    swatch: "#e4572e",
     reviewNote: "Confirm plant part (root only vs root + leaf) and withanolide test method.",
   },
   {
@@ -87,7 +87,7 @@ export const products: Product[] = [
       "Private-label products",
     ],
     intro: "Resin extract offered by boswellic-acid or AKBA grade, each lot tested against the grade the formulator specifies.",
-    swatch: "#d8c79c",
+    swatch: "#e9b44c",
     reviewNote:
       "Confirm which grades (total boswellic acids vs AKBA-enriched) are offered. Review 'joint-support category' wording for claims compliance.",
   },
@@ -108,7 +108,7 @@ export const products: Product[] = [
       "Contract cosmetic manufacturing",
     ],
     intro: "A specialty ingredient for cosmetic and personal-care formulators, tested and supplied by bakuchiol assay grade.",
-    swatch: "#c9a54e",
+    swatch: "#9b6fc7",
     reviewNote:
       "Brief flags Bakuchiol specifically: source terminology may differ by raw-material vendor (Psoralea corylifolia / Cullen corylifolium). QA to confirm before publishing.",
   },
@@ -129,7 +129,7 @@ export const products: Product[] = [
       "Private-label products",
     ],
     intro: "Herb extract standardized to bacosides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
-    swatch: "#8d7f55",
+    swatch: "#5fb04a",
     reviewNote: "Confirm plant part and bacoside test method (HPLC vs UV) used for the grade claim.",
   },
 ];

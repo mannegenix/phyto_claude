@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/content/types";
-import { BotanicalArt } from "@/components/botanicals/BotanicalArt";
+import { ProductOrb } from "./ProductOrb";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -9,7 +9,6 @@ export function ProductCard({ product }: { product: Product }) {
       className="card relative overflow-hidden"
       style={{ ["--sw" as string]: product.swatch }}
     >
-      <BotanicalArt slug={product.slug} className="card-art" draw />
       <div className="flex items-center justify-between gap-2.5">
         <span className="mono text-[0.74rem] text-muted">{product.code}</span>
         {product.flagship ? (
@@ -19,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
         )}
       </div>
       <div className="flex items-center gap-3.5">
-        <div className="swatch" style={{ ["--sw" as string]: product.swatch }} />
+        <ProductOrb product={product} size="md" uid="card" />
         <div className="min-w-0">
           <h3>{product.name}</h3>
           <div className="mt-1 text-[0.92rem] text-muted italic">{product.botanicalSource.split(" (")[0]}</div>

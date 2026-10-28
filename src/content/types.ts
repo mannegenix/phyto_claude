@@ -15,8 +15,10 @@ export type Product = {
   applicationArea: string;
   applications: string[];
   intro: string;
-  /** Decorative swatch colour for cards; not a specification claim. */
+  /** Decorative product colour (orb tint, page colour wash); not a specification claim. */
   swatch: string;
+  /** Optional product photo in /public (e.g. "/images/products/garcinia.webp"). Without it the illustration is shown. */
+  image?: string;
   /** Internal QA note, shown only when review notes are enabled. */
   reviewNote: string;
   /** Verified spec values. Leave undefined until approved; the UI shows "Shared on request". */

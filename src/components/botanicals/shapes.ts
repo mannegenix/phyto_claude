@@ -7,10 +7,10 @@
  * illustrations, not botanical references.
  */
 
-const f = (n: number) => Math.round(n * 10) / 10;
+export const f = (n: number) => Math.round(n * 10) / 10;
 
 /** Closed wavy outline: a circle whose radius ripples with `lobes` bumps. */
-function blob(cx: number, cy: number, r: number, lobes: number, amp: number, sx = 1, sy = 1, rot = 0) {
+export function blob(cx: number, cy: number, r: number, lobes: number, amp: number, sx = 1, sy = 1, rot = 0) {
   const pts: string[] = [];
   const steps = 96;
   for (let i = 0; i <= steps; i += 1) {
@@ -22,7 +22,7 @@ function blob(cx: number, cy: number, r: number, lobes: number, amp: number, sx 
 }
 
 /** Leaf from base (x1,y1) to tip (x2,y2): outline, midrib and `veins` pairs of side veins. */
-function leaf(x1: number, y1: number, x2: number, y2: number, w: number, veins = 0): string[] {
+export function leaf(x1: number, y1: number, x2: number, y2: number, w: number, veins = 0): string[] {
   const dx = x2 - x1;
   const dy = y2 - y1;
   const len = Math.hypot(dx, dy);
@@ -46,16 +46,16 @@ function leaf(x1: number, y1: number, x2: number, y2: number, w: number, veins =
 }
 
 /** Teardrop pointing up, e.g. a resin tear. */
-function drop(cx: number, cy: number, r: number) {
+export function drop(cx: number, cy: number, r: number) {
   return `M${f(cx)} ${f(cy - r * 2.1)} C${f(cx + r * 0.4)} ${f(cy - r * 1.2)} ${f(cx + r * 1.05)} ${f(cy - r * 0.6)} ${f(cx + r)} ${f(cy)} A${r} ${r} 0 0 1 ${f(cx - r)} ${f(cy)} C${f(cx - r * 1.05)} ${f(cy - r * 0.6)} ${f(cx - r * 0.4)} ${f(cy - r * 1.2)} ${f(cx)} ${f(cy - r * 2.1)}Z`;
 }
 
-function ellipse(cx: number, cy: number, rx: number, ry: number, deg = 0) {
+export function ellipse(cx: number, cy: number, rx: number, ry: number, deg = 0) {
   return rotate(blob(cx, cy, 1, 0, 0, rx, ry), cx, cy, deg);
 }
 
 /** Rotates every absolute M/L point of a polyline path around (cx, cy). */
-function rotate(d: string, cx: number, cy: number, deg: number) {
+export function rotate(d: string, cx: number, cy: number, deg: number) {
   if (!deg) return d;
   const a = (deg * Math.PI) / 180;
   const c = Math.cos(a);

@@ -1,4 +1,5 @@
 import type { Product } from "@/content/types";
+import { ProductOrb } from "./ProductOrb";
 
 /** Deterministic decorative barcode widths (pure function, computed outside render). */
 function barcodeBars(seed: number) {
@@ -35,7 +36,7 @@ export function BatchTag({ product }: { product: Product }) {
           <div className="tag-name">{product.name}</div>
           <div className="tag-src">{product.botanicalSource}</div>
         </div>
-        <div className="swatch mt-[18px]" style={{ ["--sw" as string]: product.swatch }} />
+        <ProductOrb product={product} size="sm" uid="tag" className="mt-3.5" />
       </div>
       <dl>
         <dt>Plant part</dt>

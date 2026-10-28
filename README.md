@@ -210,3 +210,9 @@ Photography: none yet. When the client supplies macro botanical photos (Indena-s
 **Lab light** (`lablight`) and **Lab daylight** (`labday`) share Lab green's layout and motion in lighter tones. Lab light keeps a light page with bright green hero and band scenes; Lab daylight is fully light, with a pale lime glow and deep-green instruments. Each lab route sets its scene colours as `--lab-*` and `--specimen-*` tokens in `themes.css`; the shared rules are in `lab.css`.
 
 **Neon and blue in the lab routes.** All three lab routes use the same neon lime (`#8fd14f` → `#c4f06a`, with glow on the hero headline and button). A blue splash from the Blue + green palette (`--splash`, cyan `#15dbeb`; `--splash-text` for readable blue text on light) marks everything about testing: the test gate and scan line, "Testing…" status, the five check codes, "Tested" badges, source-to-seal step numbers, the seal ring and the product page "02 · Test" chapter. Green stays for nature and "passed".
+
+## Product imagery
+
+Each product shows its botanical inside a tinted glass orb (`components/product/ProductOrb.tsx`). Until photos are supplied the orb uses a full-colour illustration (`components/botanicals/Illustration.tsx`). To use a photo, add it to `public/images/products/` and set `image: "/images/products/<slug>.webp"` on the product in `src/content/products.ts`; every orb (cards, labels, products carousel) switches to the photo. Square images, at least 800 × 800, work best.
+
+The products page is a showcase carousel (`components/products/ProductCarousel.tsx`), an application filter grid (`ProductFinder.tsx`) and a collapsible comparison table. Cards site-wide are neumorphic in the lab routes (`--neu-*` tokens in `lab.css`).

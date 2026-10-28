@@ -10,15 +10,34 @@ import type { Group } from "three";
  * section. Replace with a real model later (e.g. useGLTF("/models/garcinia.glb")).
  * Colours are read from the active theme's tokens.
  */
+/**
+ * Converts any CSS colour (lab(), oklch(), color(display-p3 …), hex …) to an sRGB hex
+ * string three.js understands, by painting one pixel and reading it back.
+ * The wide-gamut theme layer makes browsers report token colours as lab()/oklch().
+ */
+function toHex(css: string, fallback: string, ctx: CanvasRenderingContext2D | null) {
+  if (!css || !ctx) return fallback;
+  ctx.clearRect(0, 0, 1, 1);
+  ctx.fillStyle = fallback;
+  ctx.fillStyle = css;
+  ctx.fillRect(0, 0, 1, 1);
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+  return `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+}
+
 function useThemeColors() {
   const [c, setC] = useState({ a: "#2b8530", b: "#9bd866", line: "#a9c0b2" });
   useEffect(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = 1;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const read = () => {
       const s = getComputedStyle(document.documentElement);
       setC({
-        a: s.getPropertyValue("--accent").trim() || "#2b8530",
-        b: s.getPropertyValue("--pop").trim() || "#9bd866",
-        line: s.getPropertyValue("--on-band-muted").trim() || "#a9c0b2",
+        a: toHex(s.getPropertyValue("--accent").trim(), "#2b8530", ctx),
+        b: toHex(s.getPropertyValue("--pop").trim(), "#9bd866", ctx),
+        line: toHex(s.getPropertyValue("--on-band-muted").trim(), "#a9c0b2", ctx),
       });
     };
     read();

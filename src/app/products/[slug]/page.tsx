@@ -10,6 +10,9 @@ import { EnquiryButtons } from "@/components/product/EnquiryButtons";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ReviewNote } from "@/components/ui/ReviewNote";
 
+// Only the known products exist; any other slug is a static 404.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const products = await getProducts();
   return products.map((p) => ({ slug: p.slug }));

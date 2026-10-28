@@ -1,0 +1,8 @@
+# Runtime secrets for `npm run preview` (local Cloudflare Workers runtime).
+# Copy to .dev.vars. In production set these in the Cloudflare dashboard
+# (Worker → Settings → Variables and Secrets) or with `npx wrangler secret put NAME`.
+NEXTJS_ENV=development
+RESEND_API_KEY=
+TURNSTILE_SECRET_KEY=
+CRM_WEBHOOK_URL=
+ANTHROPIC_API_KEY=

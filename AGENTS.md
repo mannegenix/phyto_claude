@@ -15,6 +15,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Styling: use theme tokens only (`bg-paper`, `text-heading`, `bg-accent`, `text-accent-text`, `.band`, `.card` …). No raw hex colours in components; colour routes live in `src/styles/themes.css`.
 - Buttons: `.btn` (primary, accent fill) and `.btn btn-ghost` (outline in `--accent-text`). Keep this consistent in every theme.
 - Content governance: never add unverified specs, certifications, capacities, customer names or health claims. Unverified spec fields stay undefined so the UI shows "Shared on request".
-- Motion: client components only; respect `prefers-reduced-motion`; content must be visible at rest (no opacity: 0 waiting on scroll). Clean up GSAP with `useGSAP` / `ctx.revert()`. Cache Components keeps hidden routes mounted (React Activity), so effects must clean up.
+- Motion: client components only; respect `prefers-reduced-motion`; content must be visible at rest (no opacity: 0 waiting on scroll). Clean up GSAP with `useGSAP` / `ctx.revert()`. Effects must clean up (client navigation).
 - 3D: keep three.js behind `LazyScene` (dynamic import, viewport + reduced-motion gate).
+- Deployment target is Cloudflare Workers via OpenNext. Do NOT enable `cacheComponents` / `use cache` (not reliable on the Workers runtime). Keep pages statically generatable; read env vars via `getEnv()` at request time.
 - Before finishing a change: `npm run lint && npm run typecheck && npm run build`.

@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cache Components is deliberately off: it is not reliable on the Cloudflare Workers runtime.
+  // Every page is statically generated at build time instead.
   turbopack: {
     rules: {
       "*.css": {
@@ -39,3 +40,6 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Makes Cloudflare bindings (R2, vars, secrets from .dev.vars) available during `next dev`.
+initOpenNextCloudflareForDev();

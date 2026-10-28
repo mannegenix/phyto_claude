@@ -1,0 +1,38 @@
+{
+  // Cloudflare Workers config for the OpenNext adapter.
+  // Deployed with Workers Builds (Workers & Pages → Create → Import a repository) or `npm run deploy`.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "phyto-elements",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "services": [
+    {
+      // Self-reference used by OpenNext for cache revalidation. Must match "name" above.
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "phyto-elements",
+    },
+  ],
+  "r2_buckets": [
+    {
+      // Next.js incremental cache. Create once before the first deploy:
+      //   npx wrangler r2 bucket create phyto-elements-opennext-cache
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "phyto-elements-opennext-cache",
+    },
+  ],
+  "observability": { "enabled": true },
+  "upload_source_maps": true,
+  // Non-secret runtime variables. Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY, ANTHROPIC_API_KEY,
+  // CRM_WEBHOOK_URL) go in the dashboard: Worker → Settings → Variables and Secrets, or `npx wrangler secret put`.
+  "vars": {
+    "ENQUIRY_FROM": "Phyto Elements Website <website@phytoelements.in>",
+    "ENQUIRY_TO": "sales@phytoelements.in",
+    "SAMPLES_CC": "samples@phytoelements.in",
+    "CHAT_MODEL": "claude-haiku-5-5",
+  },
+}

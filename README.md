@@ -22,6 +22,8 @@ Requires Node.js 20.9+ (Node 22 or 24 recommended). For scroll-video frames you 
 | `npm run lint`                         | ESLint (includes React Compiler rules)                                              |
 | `npm run typecheck`                    | Generates route types, runs `tsc`                                                   |
 | `npm run format`                       | Prettier + Tailwind class sorting                                                   |
+| `npm run preview`                      | Build for Cloudflare and run it in the local Workers runtime                        |
+| `npm run deploy`                       | Build for Cloudflare and deploy                                                     |
 | `npm run frames -- <video.mp4> <name>` | Converts a video into a scroll-scrubbed WebP sequence in `public/sequences/<name>/` |
 
 ## Stack
@@ -104,6 +106,53 @@ Buyer specification uploads: PDF/Word/Excel up to 5 MB, attached to the email.
 
 Set `ANTHROPIC_API_KEY` and `NEXT_PUBLIC_CHAT_ENABLED=true`. Instructions are built from `src/content` in `src/lib/chat-context.ts`; the assistant is told never to state unpublished specs, certifications or health claims, and to route quotes/samples to the form. Default model `claude-haiku-5-5` (`CHAT_MODEL` to change). Add rate limiting (e.g. Upstash) before launch.
 
+## Deploying to Cloudflare (Workers)
+
+The site deploys to **Cloudflare Workers** through the [OpenNext adapter](https://opennext.js.org/cloudflare) (`@opennextjs/cloudflare`).
+A full Next.js app (server actions, the chat API, server rendering) needs Workers. Cloudflare Pages only hosts static sites or the deprecated `next-on-pages`; both live under **Workers & Pages** in the dashboard.
+
+### One-time setup
+
+1. **R2 bucket** for the Next.js cache: dashboard → R2 → Create bucket → `phyto-elements-opennext-cache`
+   (or `npx wrangler r2 bucket create phyto-elements-opennext-cache`).
+2. **Connect the repo**: Workers & Pages → Create → Workers → _Import a repository_ → pick the GitHub repo.
+3. **Build settings** (Worker → Settings → Build):
+
+   | Setting                              | Value                                                        |
+   | ------------------------------------ | ------------------------------------------------------------ |
+   | Project / Worker name                | `phyto-elements` (must match `name` in `wrangler.jsonc`)     |
+   | Root directory                       | `/`                                                          |
+   | Build command                        | `npx opennextjs-cloudflare build`                            |
+   | Deploy command                       | `npx opennextjs-cloudflare deploy`                           |
+   | Non-production branch deploy command | `npx opennextjs-cloudflare upload` (preview URLs per branch) |
+   | Node version                         | from `.node-version` (22)                                    |
+
+4. **Build variables** (Settings → Build → Variables and secrets). `NEXT_PUBLIC_*` values are baked in at build time:
+   `NEXT_PUBLIC_SITE_URL=https://phytoelements.in`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_CHAT_ENABLED`,
+   and for review deployments only `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true`, `NEXT_PUBLIC_SHOW_REVIEW_NOTES=true`.
+5. **Runtime secrets** (Worker → Settings → Variables and Secrets, type _Secret_), or `npx wrangler secret put NAME`:
+   `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `ANTHROPIC_API_KEY`, `CRM_WEBHOOK_URL`.
+   Non-secret routing values (`ENQUIRY_TO`, `SAMPLES_CC`, `ENQUIRY_FROM`, `CHAT_MODEL`) are in `wrangler.jsonc` → `vars`.
+6. **Custom domain**: Worker → Settings → Domains & Routes → Add → `phytoelements.in` (and `www`).
+
+Every push to the production branch then builds and deploys automatically.
+
+### From your machine
+
+```bash
+npx wrangler login
+npm run preview   # build + run in the local Workers runtime (http://localhost:8787); secrets from .dev.vars
+npm run deploy    # build + deploy to Cloudflare
+```
+
+### Cloudflare notes
+
+- `cacheComponents` / `"use cache"` are **off on purpose**: they hang on the Workers runtime. Pages are statically generated at build time and served from R2 + static assets.
+- Env vars are read at request time through `getEnv()` (src/lib/env.ts), because Workers inject secrets per request.
+- Static files (frames in `/sequences`, `/_next/static`) get long-lived cache headers from `public/_headers`.
+- Worker bundle is ~1.6 MB gzipped, within the Free plan's 3 MB limit. Keep three.js and other heavy libraries client-side (they already are).
+- Node.js middleware isn't supported by the adapter; the project doesn't use middleware.
+
 ## Content governance (from the brief)
 
 - Spec values (`spec` in `products.ts`) stay empty until QA-approved; the UI shows "Shared on request".
@@ -123,4 +172,6 @@ Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/c
 - [ ] Legal name/address on contact page and footer
 - [ ] Privacy notice reviewed (DPDP Act 2023 / GDPR); cookie controls if analytics added
 - [ ] Analytics + form-conversion events
-- [ ] Scroll-video frames on a CDN; Lighthouse check on mobile
+- [ ] R2 bucket created; Workers Builds connected; build variables and secrets set
+- [ ] Custom domain attached; HTTPS verified
+- [ ] Scroll-video frames served with cache headers; Lighthouse check on mobile

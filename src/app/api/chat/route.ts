@@ -6,13 +6,14 @@ import {
   toUIMessageStream,
   type UIMessage,
 } from "ai";
-import { env } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 import { buildChatInstructions } from "@/lib/chat-context";
 
 const MAX_MESSAGES = 20;
 const MAX_CHARS = 2000;
 
 export async function POST(req: Request) {
+  const env = getEnv();
   if (!env.ANTHROPIC_API_KEY) {
     return Response.json({ error: "Chat is not configured." }, { status: 503 });
   }

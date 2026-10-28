@@ -4,7 +4,6 @@ import { siteConfig } from "@/config/site";
 import { Logo } from "./Logo";
 
 export async function Footer() {
-  "use cache"; // cached with the static shell (also allows new Date() for the copyright year)
   const [products, { mailboxes }] = await Promise.all([getProducts(), getCompany()]);
 
   return (

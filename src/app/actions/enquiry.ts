@@ -1,11 +1,12 @@
 "use server";
 
 import { Resend } from "resend";
-import { env } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 import { getProduct } from "@/lib/content";
 import { enquirySchema, SPEC_FILE_MAX_BYTES, SPEC_FILE_TYPES, type EnquiryState } from "@/lib/enquiry-schema";
 
 async function verifyTurnstile(token: FormDataEntryValue | null): Promise<boolean> {
+  const env = getEnv();
   if (!env.TURNSTILE_SECRET_KEY) return true; // not configured (local dev)
   if (typeof token !== "string" || !token) return false;
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
@@ -25,6 +26,7 @@ function escapeHtml(s: string) {
  * validate → spam check → email sales@ (cc samples@ for sample requests) → optional CRM webhook.
  */
 export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Promise<EnquiryState> {
+  const env = getEnv();
   // Honeypot: bots fill hidden fields.
   if (formData.get("website")) return { status: "error", message: "Submission blocked." };
 

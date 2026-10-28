@@ -2,18 +2,27 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV } from "@/config/site";
 import { Logo } from "./Logo";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Transparent at the top of the page; frosted once the page scrolls.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href);
 
   return (
-    <header className="hdr">
+    <header className={`hdr ${pathname === "/" ? "on-hero" : ""} ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
       <div className="wrap relative flex min-h-[68px] items-center gap-5">
         <Link href="/" aria-label="Phyto Elements home" className="flex-none no-underline">
           <Logo />
@@ -21,7 +30,7 @@ export function Header() {
 
         <button
           type="button"
-          className="ml-auto inline-flex rounded-brand border border-line px-3 py-2 text-sm font-semibold text-ink min-[1121px]:hidden"
+          className="hdr-menu ml-auto inline-flex rounded-brand border px-3 py-2 text-sm font-semibold min-[1121px]:hidden"
           aria-expanded={open}
           aria-controls="primary-nav"
           onClick={() => setOpen((v) => !v)}

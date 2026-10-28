@@ -110,7 +110,7 @@
   & .hero {
     position: relative;
     isolation: isolate;
-    min-height: min(calc(100svh - 68px), 880px);
+    min-height: min(100svh, calc(880px + var(--hdr-h)));
     display: grid;
     align-items: center;
     background: var(--lab-hero-bg);
@@ -314,6 +314,44 @@
   :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-bits {
     display: none;
   }
+}
+
+/* ── Header over the lab hero: instrument-style menu, light on the green scenes ── */
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-inline: 9px;
+}
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .btn {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding-inline: 16px;
+}
+@media (max-width: 1280px) {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    padding-inline: 7px;
+  }
+}
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link[aria-current="page"]::after {
+  background: var(--splash);
+}
+:is([data-theme="labgreen"], [data-theme="lablight"]) {
+  --hdr-top-ink: #ffffff;
+  --hdr-top-muted: rgb(255 255 255 / 0.84);
+  --hdr-top-flag: var(--lab-hero-eyebrow);
+}
+[data-theme="lablight"] .hdr.on-hero:not(.is-scrolled):not(.is-open) {
+  --logo-green: #f4f8f2;
+  --logo-vein: #5f8a6f;
+  --logo-sage: #bfe0c8;
+}
+[data-theme="labday"] {
+  --hdr-top-flag: var(--accent-text);
 }
 
 /* ── Blue splash: blue marks testing, green marks nature and "passed" ── */

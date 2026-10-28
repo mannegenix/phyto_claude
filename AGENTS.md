@@ -19,6 +19,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Content governance: never add unverified specs, certifications, capacities, customer names or health claims. Unverified spec fields stay undefined so the UI shows "Shared on request".
 - Motion: client components only; respect `prefers-reduced-motion`; content must be visible at rest (no opacity: 0 waiting on scroll). Clean up GSAP with `useGSAP` / `ctx.revert()`. Effects must clean up (client navigation).
 - Motion components: preloader (`motion/Preloader`, CSS only, once per session), hero (`hero/SpecimenHero`, canvas), `sections/QualityFunnel` (GSAP scrub), line art (`botanicals/*`, CSS scroll-driven), wave edges (`.wave-top`). Styles live in `src/styles/motion.css`.
+- Lab green route and the review compare page live in `src/styles/lab.css`, `hero/HeroScene.tsx` and `app/compare/`. Compare is review-only (404 unless NEXT_PUBLIC_SHOW_THEME_SWITCHER=true).
 - 3D: keep three.js behind `LazyScene` (dynamic import, viewport + reduced-motion gate).
 - Deployment target is Cloudflare Workers via OpenNext. Do NOT enable `cacheComponents` / `use cache` (not reliable on the Workers runtime). Keep pages statically generatable; read env vars via `getEnv()` at request time.
 - Before finishing a change: `npm run lint && npm run typecheck && npm run build`.

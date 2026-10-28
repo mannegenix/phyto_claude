@@ -16,6 +16,8 @@ gsap.registerPlugin(ScrollTrigger);
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Inside the review compare page the parent drives scrolling, so keep native scroll.
+    if (document.documentElement.classList.contains("pe-embed")) return;
 
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);

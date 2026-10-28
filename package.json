@@ -14,7 +14,8 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "dev:review": "NEXT_PUBLIC_SHOW_THEME_SWITCHER=true NEXT_PUBLIC_SHOW_REVIEW_NOTES=true next dev"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.90",

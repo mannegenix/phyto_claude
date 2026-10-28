@@ -196,3 +196,13 @@ Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/c
 | Product "specimen sheet" | `src/app/products/[slug]/page.tsx` | Graph-paper background, product colour wash, scroll-drawn botanical, chapters 01 to 05, next extract. |
 
 Photography: none yet. When the client supplies macro botanical photos (Indena-style, vivid), use the `.photo` treatment in `motion.css`.
+
+## Client review: side-by-side route comparison
+
+`npm run dev:review`, then open `http://localhost:3000/compare`.
+
+- Two panes show the same page in two colour routes (default: Green light vs Lab green), rendered at real desktop width and scaled to fit, with synced scrolling. Pick the page, swap sides, or switch to mobile.
+- Any page also accepts `?theme=<route id>` in review mode.
+- `/compare`, the route switcher and `?theme=` exist only when `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` at build time. For a client preview on Cloudflare, set that variable on the preview build only, never on production.
+
+**Lab green** (`labgreen`) is the Indena-style route: charcoal base, glowing forest-green scenes, neon lime, thin uppercase display type, square corners, and a full-screen hero with instrument rings, rotating ring text, pointer parallax and a glowing specimen (`hero/HeroScene.tsx`, `styles/lab.css`).

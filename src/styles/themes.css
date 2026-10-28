@@ -73,6 +73,35 @@
   --logo-sage: #608474;
 }
 
+/* ── Lab green: Indena-style. Charcoal base, glowing forest-green scenes, neon lime ── */
+[data-theme="labgreen"] {
+  color-scheme: dark;
+  --radius: 3px;
+  --paper: #141615;
+  --surface: #1c1f1d;
+  --sunk: #181a19;
+  --ink: #eaefe8;
+  --muted: #aab4ac;
+  --line: #2d322e;
+  --accent: #8fd14f;
+  --accent-hover: #a7e06e;
+  --on-accent: #0f1f0a;
+  --accent-text: #9de05c;
+  --label: #9de05c;
+  --label-soft: #23311b;
+  --pop: #c4f06a;
+  --band: #0f3d1c;
+  --band-2: #0a2a14;
+  --on-band: #f0f6ec;
+  --on-band-muted: #b6cbb7;
+  --band-eyebrow: #a7e06e;
+  --note: #e9c45c;
+  --note-bg: #2a2210;
+  --ok: #8fd14f;
+  --err: #f08a7e;
+  --specimen-glow: 1;
+}
+
 /* ── Green dark: dark backgrounds, deep green with lime ──────────────────── */
 [data-theme="greendark"] {
   color-scheme: dark;
@@ -351,7 +380,7 @@
 }
 
 /* ── Logo reversed on dark surfaces (footer is dark in every theme but Green light) ── */
-:is([data-theme="greendark"], [data-theme="bluedark"]),
+:is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]),
 footer {
   --logo-green: #eef3ec;
   --logo-vein: #56786a;
@@ -368,6 +397,14 @@ footer {
  * Same lightness and hue as the sRGB tokens above (so contrast is unchanged), higher chroma.
  * Generated from the sRGB values: see scripts note in README → Colour. */
 @media (color-gamut: p3) {
+  [data-theme="labgreen"] {
+    --accent: oklch(0.79 0.235 132);
+    --accent-hover: oklch(0.85 0.21 132);
+    --accent-text: oklch(0.83 0.235 132);
+    --label: oklch(0.83 0.235 132);
+    --pop: oklch(0.9 0.22 125);
+    --band-eyebrow: oklch(0.85 0.21 132);
+  }
   [data-theme="greenlight"] {
     --accent: oklch(0.545 0.215 144);
     --accent-hover: oklch(0.476 0.185 144.3);

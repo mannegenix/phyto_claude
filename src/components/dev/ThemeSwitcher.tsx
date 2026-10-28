@@ -34,7 +34,7 @@ export function ThemeSwitcher({ initial }: { initial: ThemeId }) {
     <div
       role="group"
       aria-label="Colour route"
-      className="fixed bottom-4 left-4 z-40 flex items-center gap-1 rounded-full border border-line bg-surface p-1.5 text-[0.78rem] font-medium text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,.3)]"
+      className="theme-switcher fixed bottom-4 left-4 z-40 flex items-center gap-1 rounded-full border border-line bg-surface p-1.5 text-[0.78rem] font-medium text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,.3)]"
     >
       <span className="hidden px-2 text-muted md:inline">Colour route</span>
       {THEMES.map((t) => (
@@ -62,4 +62,4 @@ export function ThemeSwitcher({ initial }: { initial: ThemeId }) {
 }
 
 /** Inline script that applies the saved review theme before first paint (avoids a flash). */
-export const themeBootScript = `try{var t=localStorage.getItem("${KEY}");if(t)document.documentElement.dataset.theme=t}catch(e){}`;
+export const themeBootScript = `try{var d=document.documentElement,q=new URLSearchParams(location.search),t=q.get("theme")||localStorage.getItem("${KEY}");if(t)d.dataset.theme=t;if(q.get("embed")){d.classList.add("pe-embed","pe-seen")}}catch(e){}`;

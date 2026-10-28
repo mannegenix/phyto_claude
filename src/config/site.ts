@@ -12,6 +12,7 @@ export const THEMES = [
   { id: "bluevivid", label: "Blue vivid", swatch: ["#1d6bf3", "#15dbeb"] },
   { id: "bluegreen", label: "Blue + green", swatch: ["#15dbeb", "#22c55e"] },
   { id: "bluedark", label: "Blue dark", swatch: ["#0d838c", "#ffb627"] },
+  { id: "labgreen", label: "Lab green", swatch: ["#141615", "#8fd14f"] },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]["id"];

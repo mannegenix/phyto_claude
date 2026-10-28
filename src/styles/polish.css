@@ -20,7 +20,7 @@
     -moz-osx-font-smoothing: auto;
   }
   /* Light text on dark backgrounds looks bolder than it is; thin it back slightly. */
-  :is([data-theme="greendark"], [data-theme="bluedark"]) body,
+  :is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]) body,
   .band,
   footer.site-footer {
     -webkit-font-smoothing: antialiased;

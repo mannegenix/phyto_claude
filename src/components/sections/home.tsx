@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { LazyScene } from "@/components/three/LazyScene";
 import { ReviewNote } from "@/components/ui/ReviewNote";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
+import { HeroScene } from "@/components/hero/HeroScene";
 import { QualityFunnel } from "@/components/sections/QualityFunnel";
 
 export function Hero({ products, positioning }: { products: Product[]; positioning: string }) {
@@ -18,6 +19,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
   }));
   return (
     <section className="hero hero-glow">
+      <HeroScene />
       <div className="wrap grid items-center gap-[clamp(24px,4vw,56px)] min-[961px]:grid-cols-[1fr_1.1fr]">
         <div className="relative z-[1]">
           <span className="eyebrow">Bulk plant extracts · Tested lot by lot</span>

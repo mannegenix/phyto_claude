@@ -22,7 +22,7 @@ const TO_SHAPE = 1.5;
 const DISSOLVE_AT = 7.4;
 const SHAPE_SAMPLE = 320;
 
-type Colors = { pass: string; raw: string; reject: string; line: string };
+type Colors = { pass: string; raw: string; reject: string; line: string; glow: boolean };
 
 const easeIn = (t: number) => t * t * t;
 const easeOut = (t: number) => 1 - (1 - t) ** 3;
@@ -61,6 +61,7 @@ function readColors(): Colors {
     raw: v("--muted", "#777"),
     reject: v("--muted", "#888"),
     line: v("--label", "#2b8530"),
+    glow: v("--specimen-glow", "0") === "1",
   };
 }
 
@@ -203,6 +204,14 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
           }
         }
         if (a <= 0.01) continue;
+        if (colors.glow && color === colors.pass) {
+          // Lab green: a soft halo under each passed particle, added light rather than paint.
+          ctx.globalCompositeOperation = "lighter";
+          ctx.globalAlpha = a * 0.12;
+          ctx.fillStyle = color;
+          ctx.fillRect(x - r * 2.5, y - r * 2.5, r * 5, r * 5);
+          ctx.globalCompositeOperation = "source-over";
+        }
         ctx.globalAlpha = a;
         ctx.fillStyle = color;
         ctx.fillRect(x - r / 2, y - r / 2, r, r);

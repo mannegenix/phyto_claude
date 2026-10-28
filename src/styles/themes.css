@@ -116,6 +116,13 @@
   --lab-hero-eyebrow: #9de05c;
   --lab-em-1: #8fd14f;
   --lab-em-2: #c4f06a;
+  --lab-em-glow: rgb(143 209 79 / 0.35);
+  /* Blue splash (from the Blue + green route): marks testing everywhere */
+  --splash: #15dbeb;
+  --splash-text: #4fe3f0;
+  --splash-scene: #4fe3f0;
+  --splash-ink: #06343a;
+  --specimen-test: #15dbeb;
 }
 
 /* ── Lab light: Lab green's look on a light page; hero and bands are bright green scenes ── */
@@ -128,13 +135,13 @@
   --muted: #4b5c4d;
   --line: #d6e4cc;
   --heading: #12351a;
-  --accent: #7ccc3a;
-  --accent-hover: #6cbb2b;
+  --accent: #8fd14f;
+  --accent-hover: #a7e06e;
   --on-accent: #0f1f0a;
   --accent-text: #2c7a12;
   --label: #2c7a12;
   --label-soft: #e2f2d2;
-  --pop: #a8e063;
+  --pop: #c4f06a;
   --band: #2f8f2e;
   --band-2: #1f7a2a;
   --on-band: #ffffff;
@@ -145,12 +152,14 @@
   --ok: #2c7a12;
   --err: #b42318;
   --specimen-glow: 1;
-  --specimen-pass: #f4ffdf;
+  --specimen-pass: #d8fb8a;
+  --specimen-test: #8ff4fc;
   --specimen-raw: #d2ecc4;
   --specimen-reject: #a9d3a2;
   --specimen-line: #eaffcf;
   --lab-si: rgb(232 255 200);
   --lab-hero-bg:
+    linear-gradient(90deg, rgb(8 50 18 / 0.5) 0%, rgb(8 50 18 / 0.25) 40%, transparent 60%),
     radial-gradient(50% 60% at 70% 46%, rgb(200 255 140 / 0.55), transparent 62%),
     radial-gradient(130% 120% at 62% 42%, #6fcb45 0%, #3ea33a 32%, #23832e 62%, #1a6e28 100%);
   --lab-band-bg:
@@ -163,11 +172,16 @@
   --lab-hero-ink: #ffffff;
   --lab-hero-lede: #e6f5de;
   --lab-hero-eyebrow: #e3fbb8;
-  --lab-em-1: #e8ffb3;
-  --lab-em-2: #c2f27a;
-  --lab-hero-btn: #e8ffb3;
-  --lab-hero-btn-ink: #12351a;
+  --lab-em-1: #8fd14f;
+  --lab-em-2: #c4f06a;
+  --lab-em-glow: rgb(160 230 90 / 0.45);
+  --lab-hero-btn: #8fd14f;
+  --lab-hero-btn-ink: #0f1f0a;
   --lab-hero-ghost: #ffffff;
+  --splash: #15dbeb;
+  --splash-text: #0a76b3;
+  --splash-scene: #9ff3fb;
+  --splash-ink: #06343a;
 }
 
 /* ── Lab daylight: fully light. Pale lime glow, deep-green instruments and type ── */
@@ -180,8 +194,8 @@
   --muted: #4b5c4d;
   --line: #d9e7cf;
   --heading: #12351a;
-  --accent: #7ccc3a;
-  --accent-hover: #6cbb2b;
+  --accent: #8fd14f;
+  --accent-hover: #a7e06e;
   --on-accent: #0f1f0a;
   --accent-text: #2c7a12;
   --label: #2c7a12;
@@ -215,6 +229,12 @@
   --lab-hero-eyebrow: #2c7a12;
   --lab-em-1: #2a8a17;
   --lab-em-2: #3fa31c;
+  --lab-em-glow: transparent;
+  --splash: #15dbeb;
+  --splash-text: #0a76b3;
+  --splash-scene: #0a76b3;
+  --splash-ink: #06343a;
+  --specimen-test: #0a9fd8;
 }
 
 /* ── Green dark: dark backgrounds, deep green with lime ──────────────────── */
@@ -513,10 +533,16 @@ footer {
  * Generated from the sRGB values: see scripts note in README → Colour. */
 @media (color-gamut: p3) {
   :is([data-theme="lablight"], [data-theme="labday"]) {
-    --accent: oklch(0.77 0.22 132);
-    --accent-hover: oklch(0.72 0.22 132);
+    --accent: oklch(0.79 0.235 132);
+    --accent-hover: oklch(0.85 0.21 132);
     --accent-text: oklch(0.52 0.17 136);
     --label: oklch(0.52 0.17 136);
+  }
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+    --splash: oklch(0.82 0.17 205);
+  }
+  [data-theme="lablight"] {
+    --pop: oklch(0.9 0.22 125);
   }
   [data-theme="labgreen"] {
     --accent: oklch(0.79 0.235 132);

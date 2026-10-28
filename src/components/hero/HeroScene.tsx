@@ -82,7 +82,7 @@ export function HeroScene() {
       </div>
       <div className="scene-layer scene-pulse" style={{ ["--d" as string]: 0.1 }} />
       <div className="scene-layer scene-bits" style={{ ["--d" as string]: 0.5 }}>
-        <span style={{ right: "4%", top: "20%" }}>ID · PU · PO · SA · ST</span>
+        <span className="is-test" style={{ right: "4%", top: "20%" }}>ID · PU · PO · SA · ST</span>
         <span style={{ left: "56%", top: "84%" }}>SPECIMEN · LINE SCAN</span>
         <span style={{ right: "4%", top: "66%" }}>SPEC ▸ PASS</span>
       </div>

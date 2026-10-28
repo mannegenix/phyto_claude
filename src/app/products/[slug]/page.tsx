@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </p>
             </article>
 
-            <article className="chapter">
+            <article className="chapter is-test">
               <span className="chapter-num">02 · Test</span>
               <h2>Checked before it carries our label</h2>
               <p className="max-w-[60ch] text-muted">

@@ -143,6 +143,10 @@
     background: linear-gradient(90deg, var(--lab-em-1), var(--lab-em-2));
     -webkit-background-clip: text;
     background-clip: text;
+    filter: drop-shadow(0 0 22px var(--lab-em-glow, transparent));
+  }
+  & .hero .btn:not(.btn-ghost) {
+    box-shadow: 0 0 34px -6px var(--lab-em-glow, transparent);
   }
   & .hero .btn:not(.btn-ghost) {
     background: var(--lab-hero-btn, var(--accent));
@@ -309,6 +313,49 @@
   }
   :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-bits {
     display: none;
+  }
+}
+
+/* ── Blue splash: blue marks testing, green marks nature and "passed" ── */
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+  & .ring-dash {
+    stroke: color-mix(in srgb, var(--splash-scene) 70%, transparent);
+  }
+  & .specimen-label.is-test,
+  & .scene-bits .is-test {
+    color: var(--splash-scene);
+  }
+  & .specimen-status:not(.is-passed) {
+    color: var(--splash-scene);
+  }
+  & .pillar-code {
+    color: var(--splash-text);
+  }
+  & .band .pillar-code {
+    color: var(--splash-scene);
+  }
+  & .pillars li::after {
+    background: var(--splash);
+  }
+  & .ticker-ok {
+    background: var(--splash);
+    color: var(--splash-ink);
+  }
+  & .funnel-num {
+    color: var(--splash-text);
+  }
+  & .funnel-step.is-active .funnel-num {
+    font-weight: 700;
+  }
+  & .seal-ring {
+    stroke: var(--splash);
+    stroke-width: 6;
+  }
+  & .chapter.is-test .chapter-num {
+    color: var(--splash-text);
+  }
+  & :focus-visible {
+    outline-color: var(--splash);
   }
 }
 

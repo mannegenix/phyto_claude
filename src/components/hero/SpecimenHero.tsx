@@ -22,7 +22,7 @@ const TO_SHAPE = 1.5;
 const DISSOLVE_AT = 7.4;
 const SHAPE_SAMPLE = 320;
 
-type Colors = { pass: string; raw: string; reject: string; line: string; glow: boolean };
+type Colors = { pass: string; raw: string; reject: string; line: string; test: string; glow: boolean };
 
 const easeIn = (t: number) => t * t * t;
 const easeOut = (t: number) => 1 - (1 - t) ** 3;
@@ -61,6 +61,7 @@ function readColors(): Colors {
     raw: v("--specimen-raw", v("--muted", "#777")),
     reject: v("--specimen-reject", v("--muted", "#888")),
     line: v("--specimen-line", v("--label", "#2b8530")),
+    test: v("--specimen-test", v("--specimen-pass", v("--accent", "#2b8530"))),
     glow: v("--specimen-glow", "0") === "1",
   };
 }
@@ -143,7 +144,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
 
       // Test gate: a dashed rule with a scanning highlight.
       ctx.globalAlpha = 0.45;
-      ctx.strokeStyle = colors.line;
+      ctx.strokeStyle = colors.test;
       ctx.lineWidth = 1;
       ctx.setLineDash([3, 5]);
       ctx.beginPath();
@@ -154,7 +155,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       const scanY = gateTop + (Math.sin(time * 1.4) * 0.5 + 0.5) * (gateBottom - gateTop - 70);
       const grad = ctx.createLinearGradient(0, scanY, 0, scanY + 70);
       grad.addColorStop(0, "transparent");
-      grad.addColorStop(0.5, colors.pass);
+      grad.addColorStop(0.5, colors.test);
       grad.addColorStop(1, "transparent");
       ctx.globalAlpha = 0.9;
       ctx.strokeStyle = grad;
@@ -306,7 +307,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
         <span className="specimen-label" style={{ left: "3%" }}>
           01 · Lots in
         </span>
-        <span className="specimen-label" style={{ left: "40%", transform: "translateX(-50%)" }}>
+        <span className="specimen-label is-test" style={{ left: "40%", transform: "translateX(-50%)" }}>
           02 · Test
         </span>
         <span className="specimen-label" style={{ left: "71%", transform: "translateX(-50%)" }}>

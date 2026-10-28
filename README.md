@@ -70,7 +70,7 @@ scripts/extract-frames.mjs video → WebP frames + manifest
 Six routes from the client reviews: `greenlight`, `greendark`, `bluelight`, `bluevivid`, `bluegreen`, `bluedark`.
 
 - The live site uses `siteConfig.defaultTheme` in `src/config/site.ts`.
-- `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` shows the switcher (bottom-left) for client reviews.
+- `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` turns on review mode: `/compare` and `?theme=<id>` previews. There is no on-page route switcher; the live route is `defaultTheme` in `src/config/site.ts` (currently R07 Lab green + blue).
 - When the client picks a route: set `defaultTheme`, turn the switcher off, and optionally delete the unused routes from `themes.css`.
 - Components only use tokens (`bg-paper`, `text-heading`, `bg-accent`, `.band`, …), never raw colours.
 
@@ -203,7 +203,7 @@ Photography: none yet. When the client supplies macro botanical photos (Indena-s
 
 - Two panes show the same page in two colour routes (default: Lab green vs Lab light), rendered at real desktop width and scaled to fit, with synced scrolling. Pick the page, swap sides, or switch to mobile.
 - Any page also accepts `?theme=<route id>` in review mode.
-- `/compare`, the route switcher and `?theme=` exist only when `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` at build time. For a client preview on Cloudflare, set that variable on the preview build only, never on production.
+- `/compare` and `?theme=` exist only when `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` at build time. For a client preview on Cloudflare, set that variable on the preview build only, never on production.
 
 **Lab green** (`labgreen`) is the Indena-style route: charcoal base, glowing forest-green scenes, neon lime, thin uppercase display type, square corners, and a full-screen hero with instrument rings, rotating ring text, pointer parallax and a glowing specimen (`hero/HeroScene.tsx`, `styles/lab.css`).
 

@@ -63,7 +63,7 @@ export function ScrollVideo({ steps, sequence = "process" }: { steps: ScrollStep
   function render() {
     const c = canvas.current;
     if (!c) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const dpr = Math.min(3, window.devicePixelRatio || 1); // up to 3× for 4K / Retina
     const { width, height } = c.getBoundingClientRect();
     if (c.width !== Math.round(width * dpr)) {
       c.width = Math.round(width * dpr);
@@ -82,6 +82,7 @@ export function ScrollVideo({ steps, sequence = "process" }: { steps: ScrollStep
       const scale = Math.max(c.width / img.naturalWidth, c.height / img.naturalHeight); // cover
       const w = img.naturalWidth * scale;
       const h = img.naturalHeight * scale;
+      ctx.imageSmoothingQuality = "high";
       ctx.drawImage(img, (c.width - w) / 2, (c.height - h) / 2, w, h);
     } else {
       drawPlaceholder(ctx, c.width, c.height, p, steps.length);

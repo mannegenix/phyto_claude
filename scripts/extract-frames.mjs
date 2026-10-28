@@ -3,14 +3,15 @@
  * Turns a video into a scroll-scrubbable image sequence for <ScrollVideo>.
  *
  * Usage:
- *   npm run frames -- path/to/video.mp4 process [--fps 24] [--width 1280] [--quality 72]
+ *   npm run frames -- path/to/video.mp4 process [--fps 24] [--width 1920] [--quality 72]
  *
  * Output: public/sequences/<name>/frame_0001.webp … + manifest.json
  * Requires ffmpeg on your PATH (macOS: `brew install ffmpeg`).
  *
- * Guidance: keep clips 5–15 s. At 24 fps and 1280 px wide, WebP frames are
- * typically 40–90 KB each, so a 10 s clip is roughly 10–20 MB in total. Lower
- * --fps (e.g. 15) for mobile-first pages.
+ * Guidance: keep clips 5–15 s. Default 1920 px wide (sharp on Retina laptops).
+ * For 4K displays use --width 2560 (≈2× the file size). At 24 fps and 1920 px,
+ * WebP frames are typically 80–160 KB each, so a 10 s clip is roughly 20–40 MB.
+ * Lower --fps (e.g. 15) for lighter pages.
  */
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -24,12 +25,12 @@ const opt = (flag, fallback) => {
 };
 
 if (!input || !name) {
-  console.error("Usage: npm run frames -- <video.mp4> <sequence-name> [--fps 24] [--width 1280] [--quality 72]");
+  console.error("Usage: npm run frames -- <video.mp4> <sequence-name> [--fps 24] [--width 1920] [--quality 72]");
   process.exit(1);
 }
 
 const fps = Number(opt("--fps", 24));
-const width = Number(opt("--width", 1280));
+const width = Number(opt("--width", 1920));
 const quality = Number(opt("--quality", 72));
 const outDir = resolve("public/sequences", name);
 

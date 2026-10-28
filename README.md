@@ -74,6 +74,12 @@ Six routes from the client reviews: `greenlight`, `greendark`, `bluelight`, `blu
 - When the client picks a route: set `defaultTheme`, turn the switcher off, and optionally delete the unused routes from `themes.css`.
 - Components only use tokens (`bg-paper`, `text-heading`, `bg-accent`, `.band`, …), never raw colours.
 
+### Colour depth, text clarity and 4K
+
+- **Wide-gamut colour:** `themes.css` ends with a `@media (color-gamut: p3)` layer. On Display P3 screens (recent Macs, iPhones, most 4K monitors) brand colours render 30–45% more saturated; other screens get a smaller sRGB boost. Lightness is unchanged, so contrast is identical. If you edit a brand colour, update its P3 line too (same hue/lightness, higher chroma, written as `oklch(...)`).
+- **Polish layer:** `src/styles/polish.css` holds the depth effects (button gradients and glows, hero colour glow, section sheen, coloured shadows, card top edges) and the typography tuning (17px / weight 420 body text, optical sizing, stronger secondary text at ≥7:1 contrast).
+- **High-DPI:** the scroll-video canvas and the 3D scene render at up to 3× device pixels; frames extract at 1920px by default (`--width 2560` for 4K). All logos and illustrations are vector.
+
 ## Sticky split-screen scroll video
 
 `<ScrollVideo steps={…} sequence="process" />` pins the media panel while the step panels scroll; the frame shown is tied to scroll position.

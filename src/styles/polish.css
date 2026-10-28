@@ -1,0 +1,230 @@
+/*
+ * Visual polish: crisper type, depth and colour accents.
+ * Everything here reads theme tokens, so it adapts to every colour route.
+ */
+
+/* ── Typography: clearer, slightly heavier text ──────────────────────────── */
+@layer base {
+  html {
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    font-optical-sizing: auto; /* Bricolage Grotesque adjusts letterforms to size */
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 420; /* variable font: a touch heavier than 400 for sharper strokes */
+    /* Subpixel-style rendering keeps light-theme text full-weight on macOS. */
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+  /* Light text on dark backgrounds looks bolder than it is; thin it back slightly. */
+  :is([data-theme="greendark"], [data-theme="bluedark"]) body,
+  .band,
+  footer.site-footer {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  strong,
+  b {
+    font-weight: 650;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 35%, transparent);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  .lede {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+  /* Short colour bar before section labels. */
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--pop), var(--accent));
+    flex: none;
+  }
+  .band .eyebrow::before {
+    background: var(--band-eyebrow);
+  }
+  .nav-link {
+    font-weight: 550;
+  }
+  .hero-title {
+    font-weight: 650;
+    letter-spacing: -0.035em;
+  }
+
+  /* ── Buttons: subtle gradient, inner highlight, coloured glow ──────────── */
+  .btn {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 86%, white), var(--accent));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      0 10px 24px -12px color-mix(in oklab, var(--accent) 80%, transparent);
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s,
+      background 0.15s,
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .btn:hover {
+    background: linear-gradient(180deg, var(--accent), var(--accent-hover));
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      0 14px 30px -12px color-mix(in oklab, var(--accent) 90%, transparent);
+  }
+  /* Outlined buttons stay transparent (the gradient above is for filled buttons only). */
+  .btn.btn-ghost,
+  .band .btn.btn-ghost {
+    background: transparent;
+    box-shadow: none;
+  }
+  .btn.btn-ghost:hover {
+    background: color-mix(in oklab, var(--accent-text) 8%, transparent);
+  }
+  .band .btn.btn-ghost:hover {
+    background: rgb(255 255 255 / 0.14);
+  }
+  .band .btn:not(.btn-ghost) {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 86%, white), var(--accent));
+  }
+
+  /* ── Hero: soft colour glows behind the headline ─────────────────────────── */
+  .hero-glow {
+    position: relative;
+    isolation: isolate;
+  }
+  .hero-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 60% at 88% 18%, color-mix(in oklab, var(--pop) 18%, transparent), transparent 70%),
+      radial-gradient(45% 55% at 6% 92%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%);
+  }
+
+  /* ── Coloured sections: light sheen so flat colour reads as rich ─────────── */
+  .band {
+    position: relative;
+    isolation: isolate;
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 70% at 85% 0%, rgb(255 255 255 / 0.12), transparent 60%),
+      radial-gradient(60% 60% at 0% 100%, color-mix(in oklab, var(--pop) 18%, transparent), transparent 65%);
+  }
+
+  /* ── Cards & signature tag: coloured shadows and lift ────────────────────── */
+  .card {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
+  .card:hover {
+    box-shadow: 0 18px 40px -22px color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+  .tag {
+    box-shadow:
+      0 1px 0 var(--line),
+      0 30px 60px -30px color-mix(in oklab, var(--accent) 55%, transparent),
+      0 12px 24px -18px rgb(0 0 0 / 0.25);
+  }
+  .swatch {
+    box-shadow:
+      inset 0 -6px 12px rgb(0 0 0 / 0.18),
+      0 6px 14px -6px color-mix(in oklab, var(--sw) 70%, transparent);
+  }
+  .chip-flag {
+    font-weight: 600;
+  }
+  .dot-list span::before,
+  .dot-rows li::before {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--pop) 18%, transparent);
+  }
+}
+
+/* ── Rotating card top edges for every theme (blue themes define their own in themes.css) ── */
+[data-theme="greenlight"] {
+  --edge-1: var(--accent);
+  --edge-2: #6bbf3a;
+  --edge-3: #c37f56;
+}
+[data-theme="greendark"] {
+  --edge-1: var(--accent);
+  --edge-2: #4fbf8a;
+  --edge-3: #c37f56;
+}
+[data-theme="bluedark"] {
+  --edge-1: var(--accent);
+  --edge-2: var(--pop);
+  --edge-3: #ffb627;
+}
+:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) :is(.card, .funcs li, .values > div) {
+  border-top: 3px solid var(--edge-1);
+}
+:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"])
+  :is(.card, .values > div):nth-child(3n + 2) {
+  border-top-color: var(--edge-2);
+}
+:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"])
+  :is(.card, .values > div):nth-child(3n) {
+  border-top-color: var(--edge-3);
+}
+:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) .values {
+  gap: 12px;
+  background: none;
+  border: 0;
+}
+:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) .values > div {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--edge-1);
+  border-radius: var(--radius);
+}
+
+/* Green themes: two-tone headline highlight to match the blue themes' gradients. */
+[data-theme="greenlight"] .hero-title em {
+  background: linear-gradient(90deg, var(--accent), #4f9f1f 60%, #7ab800);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-theme="greendark"] .hero-title em {
+  background: linear-gradient(90deg, var(--accent), #c8f08f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover {
+    transform: none;
+  }
+}

@@ -13,6 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Read `README.md` first: stack, structure, themes, scroll video, forms, chatbot.
 - All site copy lives in `src/content/*` and is read only through `src/lib/content.ts` (async, CMS-ready). Never hard-code product data in components.
 - Styling: use theme tokens only (`bg-paper`, `text-heading`, `bg-accent`, `text-accent-text`, `.band`, `.card` …). No raw hex colours in components; colour routes live in `src/styles/themes.css`.
+- Colour: when changing a brand token in `themes.css`, also update its Display P3 line at the end of the file. Depth/typography effects live in `src/styles/polish.css`.
 - Buttons: `.btn` (primary, accent fill) and `.btn btn-ghost` (outline in `--accent-text`). Keep this consistent in every theme.
 - Content governance: never add unverified specs, certifications, capacities, customer names or health claims. Unverified spec fields stay undefined so the UI shows "Shared on request".
 - Motion: client components only; respect `prefers-reduced-motion`; content must be visible at rest (no opacity: 0 waiting on scroll). Clean up GSAP with `useGSAP` / `ctx.revert()`. Effects must clean up (client navigation).

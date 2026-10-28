@@ -75,7 +75,7 @@ function Molecule() {
       ))}
       {atoms.map((p, i) => (
         <mesh key={i} position={p}>
-          <sphereGeometry args={[i < 6 ? 0.32 : 0.22, 32, 32]} />
+          <sphereGeometry args={[i < 6 ? 0.32 : 0.22, 64, 64]} />
           <meshStandardMaterial color={i < 6 ? colors.a : colors.b} roughness={0.35} metalness={0.1} />
         </mesh>
       ))}
@@ -85,7 +85,11 @@ function Molecule() {
 
 export default function MoleculeScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 8], fov: 45 }} dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+    <Canvas
+      camera={{ position: [0, 0, 8], fov: 45 }}
+      dpr={[1, 3]}
+      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+    >
       <ambientLight intensity={0.7} />
       <directionalLight position={[4, 6, 5]} intensity={1.4} />
       <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.6}>

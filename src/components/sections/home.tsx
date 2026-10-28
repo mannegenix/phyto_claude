@@ -9,7 +9,7 @@ import { ReviewNote } from "@/components/ui/ReviewNote";
 
 export function Hero({ flagship, positioning }: { flagship: Product; positioning: string }) {
   return (
-    <section className="py-[clamp(48px,7vw,88px)]">
+    <section className="hero-glow py-[clamp(48px,7vw,88px)]">
       <div className="wrap grid items-center gap-[clamp(32px,5vw,72px)] min-[881px]:grid-cols-[1.25fr_.9fr]">
         <div>
           <span className="eyebrow">Bulk plant extracts · Manufactured in India</span>

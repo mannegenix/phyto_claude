@@ -1,7 +1,8 @@
 /*
  * Lab green route (Indena-style): charcoal base, glowing forest-green scenes,
  * neon lime accents, thin uppercase display type, square corners and an
- * immersive full-screen hero. Every rule is scoped to [data-theme="labgreen"].
+ * immersive full-screen hero. Shared by the three lab routes (labgreen, lablight,
+ * labday); each route sets the --lab-* scene colours in themes.css.
  */
 
 /* Hero scene layers exist in every route but only show here. */
@@ -9,7 +10,7 @@
   display: none;
 }
 
-[data-theme="labgreen"] {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
   /* ── Type: thin uppercase display, like instrument labelling ── */
   & :is(h1, h2) {
     font-weight: 380;
@@ -57,18 +58,30 @@
 
   /* Coloured sections become glowing forest-green scenes */
   & .band {
-    background:
-      radial-gradient(55% 80% at 78% 30%, rgb(140 220 70 / 0.22), transparent 65%),
-      radial-gradient(120% 120% at 30% 40%, #1d5a1e 0%, #0f3517 45%, #08180d 85%);
+    background: var(--lab-band-bg);
   }
   & .band::before {
     background:
-      radial-gradient(circle at 1px 1px, rgb(190 240 120 / 0.16) 1px, transparent 1.5px) 0 0 / 22px 22px;
+      radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--lab-si) 16%, transparent) 1px, transparent 1.5px) 0 0 / 22px 22px;
     mask-image: radial-gradient(70% 80% at 60% 40%, #000, transparent);
   }
   & .band .pillars li {
-    background: rgb(10 22 12 / 0.55);
-    border-color: rgb(160 230 90 / 0.18);
+    background: var(--lab-panel);
+    border-color: color-mix(in srgb, var(--lab-si) 22%, transparent);
+  }
+  & .band .pillars h3 {
+    color: var(--on-band);
+  }
+  & .band .pillars p {
+    color: var(--on-band-muted);
+  }
+  & .band .pillar-code {
+    color: var(--band-eyebrow);
+  }
+  & .band .btn.btn-ghost {
+    background: transparent;
+    border-color: var(--on-band);
+    color: var(--on-band);
   }
 
   /* Cards: dark panels with a lime hairline on hover */
@@ -81,7 +94,7 @@
   }
   & .card:hover {
     border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent), 0 24px 50px -30px rgb(143 209 79 / 0.6);
+    box-shadow: 0 0 0 1px var(--accent), 0 24px 50px -30px color-mix(in srgb, var(--accent) 60%, transparent);
   }
   & .card-art {
     color: var(--accent);
@@ -90,7 +103,7 @@
 
   /* Ticker: dark strip with lime badges */
   & .ticker {
-    background: #101211;
+    background: var(--lab-ticker);
   }
 
   /* ── Immersive hero ─────────────────────────────────────────── */
@@ -100,10 +113,8 @@
     min-height: min(calc(100svh - 68px), 880px);
     display: grid;
     align-items: center;
-    background:
-      radial-gradient(55% 65% at 70% 46%, rgb(130 210 60 / 0.3), transparent 62%),
-      radial-gradient(130% 110% at 55% 40%, #22621e 0%, #12401a 38%, #0a2311 70%, #050c07 100%);
-    color: var(--ink);
+    background: var(--lab-hero-bg);
+    color: var(--lab-hero-ink);
   }
   & .hero.hero-glow::before {
     display: none;
@@ -118,9 +129,28 @@
       grid-template-columns: 1.05fr 1.15fr;
     }
   }
+  & .hero :is(h1, .hero-title) {
+    color: var(--lab-hero-ink);
+  }
   & .hero .lede,
   & .hero .dot-list {
-    color: #c9d6ca;
+    color: var(--lab-hero-lede);
+  }
+  & .hero .eyebrow {
+    color: var(--lab-hero-eyebrow);
+  }
+  & .hero .hero-title em {
+    background: linear-gradient(90deg, var(--lab-em-1), var(--lab-em-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  & .hero .btn:not(.btn-ghost) {
+    background: var(--lab-hero-btn, var(--accent));
+    color: var(--lab-hero-btn-ink, var(--on-accent));
+  }
+  & .hero .btn.btn-ghost {
+    border-color: var(--lab-hero-ghost, var(--accent));
+    color: var(--lab-hero-ghost, var(--accent-text));
   }
 
   & .hero-scene {
@@ -138,7 +168,7 @@
     will-change: transform;
   }
   & .scene-grid {
-    background: radial-gradient(circle at 1px 1px, rgb(200 245 140 / 0.28) 1px, transparent 1.6px) 0 0 / 24px 24px;
+    background: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--lab-si) 28%, transparent) 1px, transparent 1.6px) 0 0 / 24px 24px;
     mask-image: radial-gradient(60% 70% at 68% 46%, #000 20%, transparent 75%);
     opacity: 0.5;
   }
@@ -151,7 +181,7 @@
     aspect-ratio: 1;
     translate: -50% -50%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgb(170 240 90 / 0.28), rgb(120 200 60 / 0.08) 45%, transparent 70%);
+    background: radial-gradient(circle, var(--lab-halo), transparent 70%);
     filter: blur(8px);
   }
   & .scene-rings svg,
@@ -167,22 +197,22 @@
   }
   & .ring {
     fill: none;
-    stroke: rgb(190 240 120 / 0.32);
+    stroke: color-mix(in srgb, var(--lab-si) 32%, transparent);
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
   & .ring-faint {
-    stroke: rgb(190 240 120 / 0.14);
+    stroke: color-mix(in srgb, var(--lab-si) 14%, transparent);
   }
   & .ring-strong {
-    stroke: rgb(210 250 150 / 0.7);
+    stroke: color-mix(in srgb, var(--lab-si) 70%, transparent);
   }
   & .ring-dash {
     stroke-dasharray: 2 10;
-    stroke: rgb(190 240 120 / 0.45);
+    stroke: color-mix(in srgb, var(--lab-si) 45%, transparent);
   }
   & .ticks line {
-    stroke: rgb(190 240 120 / 0.35);
+    stroke: color-mix(in srgb, var(--lab-si) 35%, transparent);
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
@@ -198,7 +228,7 @@
     font-family: var(--font-mono);
     font-size: 9.4px;
     letter-spacing: 0.32em;
-    fill: rgb(200 245 140 / 0.75);
+    fill: color-mix(in srgb, var(--lab-si) 80%, transparent);
   }
   & .spin {
     animation: lab-spin 80s linear infinite;
@@ -212,7 +242,7 @@
     aspect-ratio: 1;
     translate: -50% -50%;
     border-radius: 50%;
-    border: 1px solid rgb(190 240 120 / 0.55);
+    border: 1px solid color-mix(in srgb, var(--lab-si) 55%, transparent);
     animation: lab-pulse 6s ease-out infinite;
   }
   & .scene-bits span {
@@ -220,13 +250,13 @@
     font-family: var(--font-mono);
     font-size: 0.62rem;
     letter-spacing: 0.18em;
-    color: rgb(200 245 140 / 0.55);
+    color: color-mix(in srgb, var(--lab-si) 60%, transparent);
     white-space: nowrap;
   }
   & .scene-vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(120% 100% at 55% 45%, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+    background: radial-gradient(120% 100% at 55% 45%, transparent 55%, var(--lab-vignette) 100%);
   }
 
   /* The specimen loses its frame and floats in the scene */
@@ -236,18 +266,25 @@
     aspect-ratio: 1.05;
   }
   & .specimen-label {
-    color: rgb(200 245 140 / 0.7);
+    color: color-mix(in srgb, var(--lab-si) 75%, transparent);
   }
   & .specimen-still {
     color: var(--pop);
   }
   & .specimen-card {
-    background: rgb(8 18 10 / 0.55);
-    border-color: rgb(160 230 90 / 0.22);
+    background: var(--lab-panel);
+    border-color: color-mix(in srgb, var(--lab-si) 24%, transparent);
     backdrop-filter: blur(10px);
   }
   & .specimen-name {
-    color: #f0f6ec;
+    color: var(--lab-hero-ink);
+  }
+  & .specimen :is(.specimen-meta, .specimen-status) {
+    color: var(--lab-hero-lede);
+  }
+  & .specimen-code,
+  & .specimen-status.is-passed {
+    color: var(--lab-hero-eyebrow);
   }
 
   /* Waves sit on charcoal */
@@ -257,20 +294,20 @@
 }
 
 @media (max-width: 960px) {
-  [data-theme="labgreen"] .scene-rings svg,
-  [data-theme="labgreen"] .scene-text svg,
-  [data-theme="labgreen"] .scene-halo::after,
-  [data-theme="labgreen"] .scene-pulse::after {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-rings svg,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-text svg,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-halo::after,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-pulse::after {
     left: 50%;
     top: 72%;
   }
-  [data-theme="labgreen"] .scene-rings svg {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-rings svg {
     width: 130vw;
   }
-  [data-theme="labgreen"] .scene-text svg {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-text svg {
     width: 70vw;
   }
-  [data-theme="labgreen"] .scene-bits {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-bits {
     display: none;
   }
 }

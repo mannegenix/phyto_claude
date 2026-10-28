@@ -28,8 +28,8 @@ export default async function ComparePage() {
     <ComparePanes
       themes={THEMES.map((t) => ({ id: t.id, label: t.label }))}
       pages={pages}
-      left={siteConfig.defaultTheme}
-      right="labgreen"
+      left="labgreen"
+      right="lablight"
     />
   );
 }

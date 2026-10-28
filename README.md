@@ -201,8 +201,10 @@ Photography: none yet. When the client supplies macro botanical photos (Indena-s
 
 `npm run dev:review`, then open `http://localhost:3000/compare`.
 
-- Two panes show the same page in two colour routes (default: Green light vs Lab green), rendered at real desktop width and scaled to fit, with synced scrolling. Pick the page, swap sides, or switch to mobile.
+- Two panes show the same page in two colour routes (default: Lab green vs Lab light), rendered at real desktop width and scaled to fit, with synced scrolling. Pick the page, swap sides, or switch to mobile.
 - Any page also accepts `?theme=<route id>` in review mode.
 - `/compare`, the route switcher and `?theme=` exist only when `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` at build time. For a client preview on Cloudflare, set that variable on the preview build only, never on production.
 
 **Lab green** (`labgreen`) is the Indena-style route: charcoal base, glowing forest-green scenes, neon lime, thin uppercase display type, square corners, and a full-screen hero with instrument rings, rotating ring text, pointer parallax and a glowing specimen (`hero/HeroScene.tsx`, `styles/lab.css`).
+
+**Lab light** (`lablight`) and **Lab daylight** (`labday`) share Lab green's layout and motion in lighter tones. Lab light keeps a light page with bright green hero and band scenes; Lab daylight is fully light, with a pale lime glow and deep-green instruments. Each lab route sets its scene colours as `--lab-*` and `--specimen-*` tokens in `themes.css`; the shared rules are in `lab.css`.

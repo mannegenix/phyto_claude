@@ -57,10 +57,10 @@ function readColors(): Colors {
   const cs = getComputedStyle(document.documentElement);
   const v = (name: string, fallback: string) => cs.getPropertyValue(name).trim() || fallback;
   return {
-    pass: v("--accent", "#2b8530"),
-    raw: v("--muted", "#777"),
-    reject: v("--muted", "#888"),
-    line: v("--label", "#2b8530"),
+    pass: v("--specimen-pass", v("--accent", "#2b8530")),
+    raw: v("--specimen-raw", v("--muted", "#777")),
+    reject: v("--specimen-reject", v("--muted", "#888")),
+    line: v("--specimen-line", v("--label", "#2b8530")),
     glow: v("--specimen-glow", "0") === "1",
   };
 }

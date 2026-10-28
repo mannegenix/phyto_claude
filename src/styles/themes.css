@@ -100,6 +100,121 @@
   --ok: #8fd14f;
   --err: #f08a7e;
   --specimen-glow: 1;
+  --lab-si: rgb(190 240 120);
+  --lab-hero-bg:
+    radial-gradient(55% 65% at 70% 46%, rgb(130 210 60 / 0.3), transparent 62%),
+    radial-gradient(130% 110% at 55% 40%, #22621e 0%, #12401a 38%, #0a2311 70%, #050c07 100%);
+  --lab-band-bg:
+    radial-gradient(55% 80% at 78% 30%, rgb(140 220 70 / 0.22), transparent 65%),
+    radial-gradient(120% 120% at 30% 40%, #1d5a1e 0%, #0f3517 45%, #08180d 85%);
+  --lab-halo: rgb(170 240 90 / 0.26);
+  --lab-vignette: rgb(0 0 0 / 0.55);
+  --lab-panel: rgb(8 18 10 / 0.55);
+  --lab-ticker: #101211;
+  --lab-hero-ink: #f0f6ec;
+  --lab-hero-lede: #c9d6ca;
+  --lab-hero-eyebrow: #9de05c;
+  --lab-em-1: #8fd14f;
+  --lab-em-2: #c4f06a;
+}
+
+/* ── Lab light: Lab green's look on a light page; hero and bands are bright green scenes ── */
+[data-theme="lablight"] {
+  --radius: 3px;
+  --paper: #f6faf1;
+  --surface: #ffffff;
+  --sunk: #edf5e4;
+  --ink: #142114;
+  --muted: #4b5c4d;
+  --line: #d6e4cc;
+  --heading: #12351a;
+  --accent: #7ccc3a;
+  --accent-hover: #6cbb2b;
+  --on-accent: #0f1f0a;
+  --accent-text: #2c7a12;
+  --label: #2c7a12;
+  --label-soft: #e2f2d2;
+  --pop: #a8e063;
+  --band: #2f8f2e;
+  --band-2: #1f7a2a;
+  --on-band: #ffffff;
+  --on-band-muted: #e2f1da;
+  --band-eyebrow: #e3fbb8;
+  --note: #8a5d00;
+  --note-bg: #fff4d6;
+  --ok: #2c7a12;
+  --err: #b42318;
+  --specimen-glow: 1;
+  --specimen-pass: #f4ffdf;
+  --specimen-raw: #d2ecc4;
+  --specimen-reject: #a9d3a2;
+  --specimen-line: #eaffcf;
+  --lab-si: rgb(232 255 200);
+  --lab-hero-bg:
+    radial-gradient(50% 60% at 70% 46%, rgb(200 255 140 / 0.55), transparent 62%),
+    radial-gradient(130% 120% at 62% 42%, #6fcb45 0%, #3ea33a 32%, #23832e 62%, #1a6e28 100%);
+  --lab-band-bg:
+    radial-gradient(55% 80% at 78% 25%, rgb(200 255 140 / 0.4), transparent 65%),
+    radial-gradient(120% 120% at 30% 40%, #3fa33a 0%, #2a8a30 45%, #1d7229 100%);
+  --lab-halo: rgb(225 255 170 / 0.5);
+  --lab-vignette: rgb(10 60 20 / 0.28);
+  --lab-panel: rgb(255 255 255 / 0.14);
+  --lab-ticker: #ffffff;
+  --lab-hero-ink: #ffffff;
+  --lab-hero-lede: #e6f5de;
+  --lab-hero-eyebrow: #e3fbb8;
+  --lab-em-1: #e8ffb3;
+  --lab-em-2: #c2f27a;
+  --lab-hero-btn: #e8ffb3;
+  --lab-hero-btn-ink: #12351a;
+  --lab-hero-ghost: #ffffff;
+}
+
+/* ── Lab daylight: fully light. Pale lime glow, deep-green instruments and type ── */
+[data-theme="labday"] {
+  --radius: 3px;
+  --paper: #fbfdf7;
+  --surface: #ffffff;
+  --sunk: #f1f8e8;
+  --ink: #142114;
+  --muted: #4b5c4d;
+  --line: #d9e7cf;
+  --heading: #12351a;
+  --accent: #7ccc3a;
+  --accent-hover: #6cbb2b;
+  --on-accent: #0f1f0a;
+  --accent-text: #2c7a12;
+  --label: #2c7a12;
+  --label-soft: #e6f5d6;
+  --pop: #8fd14f;
+  --band: #e4f6cf;
+  --band-2: #d2efb2;
+  --on-band: #12351a;
+  --on-band-muted: #3c5a40;
+  --band-eyebrow: #2c7a12;
+  --note: #8a5d00;
+  --note-bg: #fff4d6;
+  --ok: #2c7a12;
+  --err: #b42318;
+  --specimen-glow: 0;
+  --specimen-pass: #2f8f1a;
+  --specimen-line: #2c7a12;
+  --lab-si: rgb(44 122 18);
+  --lab-hero-bg:
+    radial-gradient(48% 58% at 70% 46%, rgb(196 240 130 / 0.7), transparent 64%),
+    radial-gradient(130% 120% at 60% 40%, #eefadf 0%, #f5fcec 45%, #fbfdf7 100%);
+  --lab-band-bg:
+    radial-gradient(55% 80% at 78% 25%, rgb(196 240 130 / 0.55), transparent 65%),
+    linear-gradient(135deg, #eef9e0 0%, #def3c4 100%);
+  --lab-halo: rgb(180 235 110 / 0.45);
+  --lab-vignette: transparent;
+  --lab-panel: rgb(255 255 255 / 0.72);
+  --lab-ticker: #ffffff;
+  --lab-hero-ink: #10260f;
+  --lab-hero-lede: #3c4f3e;
+  --lab-hero-eyebrow: #2c7a12;
+  --lab-em-1: #2a8a17;
+  --lab-em-2: #3fa31c;
 }
 
 /* ── Green dark: dark backgrounds, deep green with lime ──────────────────── */
@@ -397,6 +512,12 @@ footer {
  * Same lightness and hue as the sRGB tokens above (so contrast is unchanged), higher chroma.
  * Generated from the sRGB values: see scripts note in README → Colour. */
 @media (color-gamut: p3) {
+  :is([data-theme="lablight"], [data-theme="labday"]) {
+    --accent: oklch(0.77 0.22 132);
+    --accent-hover: oklch(0.72 0.22 132);
+    --accent-text: oklch(0.52 0.17 136);
+    --label: oklch(0.52 0.17 136);
+  }
   [data-theme="labgreen"] {
     --accent: oklch(0.79 0.235 132);
     --accent-hover: oklch(0.85 0.21 132);

@@ -1,7 +1,7 @@
 import type { Doc, Mailbox, OperatingFunction, ProcessStage, TestPillar, ValuePoint } from "./types";
 
 export const positioning =
-  "Phyto Elements supplies bulk plant extracts that have passed our testing. We source from qualified producers, test every lot against our specification, and put our name only on extracts that meet it.";
+  "Phyto Elements supplies bulk plant extracts held to very high standards. We source from qualified producers, test every lot rigorously against our specification, and put our name only on extracts that meet it.";
 
 export const introduction =
   "Sourcing is flexible; our standard is not. We buy from producers we have qualified, test what arrives, and supply ingredient distributors, nutraceutical companies, formulators and contract manufacturers only with lots that pass.";
@@ -12,11 +12,11 @@ export const promise = "Sourced widely. Tested rigorously. Only the best carries
 export const values: ValuePoint[] = [
   {
     title: "Tested before it carries our name",
-    body: "Every lot is tested against the Phyto Elements specification before it is labelled and offered for sale.",
+    body: "Every lot is rigorously tested against the Phyto Elements specification before it is labelled and offered for sale.",
   },
   {
     title: "Only the best passes",
-    body: "Lots that fall short of specification are not sold under our label. What reaches you is what passed.",
+    body: "Our acceptance standards are deliberately high. Lots that fall short are not sold under our label; what reaches you is what passed.",
   },
   {
     title: "Sourced widely, chosen carefully",
@@ -53,7 +53,7 @@ export const stages: ProcessStage[] = [
   },
   {
     title: "Test",
-    body: "Each lot is tested against the Phyto Elements specification for the product and grade.",
+    body: "Each lot is rigorously tested against the Phyto Elements specification for the product and grade.",
   },
   {
     title: "Pass or reject",

@@ -29,8 +29,8 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
             <Link href="/sample" className="btn">
               Request a Sample
             </Link>
-            <Link href="/quality" className="btn btn-ghost">
-              How we test
+            <Link href="/manufacturing" className="btn btn-ghost">
+              Our quality standards
             </Link>
           </div>
           <div className="dot-list mt-[34px]">

@@ -44,7 +44,7 @@ Requires Node.js 20.9+ (Node 22 or 24 recommended). For scroll-video frames you 
 ```
 src/
   app/                     routes: /, /about, /products, /products/[slug], /operations,
-                           /quality, /resources, /sample, /contact, /privacy
+                           /manufacturing, /resources, /sample, /contact, /privacy
     actions/enquiry.ts     enquiry Server Action (validate → spam check → email → CRM)
     api/chat/route.ts      grounded chatbot endpoint
   components/

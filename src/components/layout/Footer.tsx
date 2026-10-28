@@ -38,7 +38,7 @@ export async function Footer() {
                 <Link href="/operations">How we work</Link>
               </li>
               <li>
-                <Link href="/quality">Testing &amp; Quality</Link>
+                <Link href="/manufacturing">Manufacturing &amp; Quality</Link>
               </li>
               <li>
                 <Link href="/resources">Documents / Resources</Link>

@@ -20,8 +20,8 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
-    // The old Manufacturing page became Testing & Quality when the site was repositioned around testing.
-    return [{ source: "/manufacturing", destination: "/quality", permanent: true }];
+    // /quality was briefly the address of Manufacturing & Quality; keep old links working.
+    return [{ source: "/quality", destination: "/manufacturing", permanent: true }];
   },
   async headers() {
     return [

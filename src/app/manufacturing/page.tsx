@@ -5,38 +5,42 @@ import { ReviewNote } from "@/components/ui/ReviewNote";
 import { SourceToSeal, TestPillars } from "@/components/sections/home";
 
 export const metadata: Metadata = {
-  title: "Testing & Quality",
+  title: "Manufacturing & Quality",
   description:
-    "Every lot is checked for identity, purity, potency, safety and stability against the Phyto Elements specification. Only lots that pass carry our name.",
+    "Bulk plant extracts made and sourced to the Phyto Elements specification, then held to rigorous testing standards. Only lots that pass carry our name.",
 };
 
-export default async function QualityPage() {
+export default async function ManufacturingPage() {
   const c = await getCompany();
   return (
     <>
       <PageHead
-        title="Testing & Quality"
-        crumbs={[{ label: "Testing & Quality" }]}
-        lede="We source from several qualified producers. What we sell is decided by testing: every lot is held to our specification, and only the lots that pass carry the Phyto Elements label."
+        title="Manufacturing & Quality"
+        crumbs={[{ label: "Manufacturing & Quality" }]}
+        lede="Every extract we supply is made to our specification and held to rigorous, very high testing standards. Only the lots that pass carry the Phyto Elements label."
       />
       <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
-            <span className="eyebrow">Our guarantee</span>
-            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">The label is the promise</h2>
+            <span className="eyebrow">Manufacturing</span>
+            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Made to our specification</h2>
             <p>
-              Sourcing is how we secure supply; it can change with season, region and producer. Our specification does
-              not change. Each lot is tested against it, and the Phyto Elements label goes only on lots that meet it.
+              Our extracts are produced in our own manufacturing and by qualified manufacturing partners. Wherever a lot
+              is made, it is made against the same Phyto Elements specification for botanical source, plant part,
+              marker compound and grade.
             </p>
+            <span className="eyebrow mt-6">Quality</span>
+            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Rigorous testing, very high standards</h2>
             <p>
-              Lots that fall short are rejected or returned. They are never relabelled, blended in or sold under our
-              name.
+              Quality is decided in testing. Each lot is checked rigorously against our specification, and our acceptance
+              standards are set high on purpose. Lots that fall short are rejected or returned. They are never
+              relabelled, blended in or sold under our name.
             </p>
           </div>
           <div className="grid gap-[18px]">
             <p className="callout">{c.promise}</p>
             <ReviewNote>
-              Verify before naming specific tests, laboratories or certifications:
+              Verify before naming specific tests, laboratories, facilities or certifications:
               <ul className="mt-1.5 list-disc pl-[18px]">
                 {c.qualityChecklist.map((i) => (
                   <li key={i}>{i}</li>

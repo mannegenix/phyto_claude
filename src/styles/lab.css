@@ -354,6 +354,55 @@
   --hdr-top-flag: var(--accent-text);
 }
 
+/* ── Light lab editions: heavier, darker type for readability ── */
+:is([data-theme="lablight"], [data-theme="labday"]) {
+  & body {
+    font-weight: 460;
+  }
+  & :is(h1, h2) {
+    font-weight: 440;
+  }
+  & .hero-title {
+    font-weight: 400;
+  }
+  & .hero .hero-title em {
+    font-weight: 500;
+  }
+  & :is(.lede, .muted, p) {
+    font-weight: 460;
+  }
+  & .eyebrow {
+    font-weight: 600;
+    opacity: 1;
+  }
+  & .hdr .nav-link {
+    font-weight: 600;
+  }
+  & .pillar-code {
+    text-shadow: 0 0 18px color-mix(in srgb, var(--splash) 25%, transparent);
+  }
+  & .funnel-step {
+    opacity: 0.78;
+  }
+  & .funnel-step.is-active,
+  & .funnel-step:hover {
+    opacity: 1;
+  }
+}
+[data-theme="lablight"] {
+  /* White type on the green scenes gets a faint shadow so it holds on the brightest parts */
+  & :is(.hero, .band) :is(p, .lede, .dot-list, h3) {
+    text-shadow: 0 1px 2px rgb(6 40 14 / 0.28);
+  }
+  & .hero .lede,
+  & .band .lede {
+    font-weight: 500;
+  }
+  & :is(.hero, .band) :is(.specimen-label, .scene-bits span, .is-test, .pillar-code) {
+    text-shadow: 0 0 12px rgb(127 220 255 / 0.55);
+  }
+}
+
 /* ── Blue splash: blue marks testing, green marks nature and "passed" ── */
 :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
   & .ring-dash {

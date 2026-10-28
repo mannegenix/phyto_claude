@@ -131,9 +131,9 @@
   --paper: #f6faf1;
   --surface: #ffffff;
   --sunk: #edf5e4;
-  --ink: #142114;
-  --muted: #4b5c4d;
-  --line: #d6e4cc;
+  --ink: #0e1c10;
+  --muted: #2f4033;
+  --line: #cfdfc4;
   --heading: #12351a;
   --accent: #8fd14f;
   --accent-hover: #a7e06e;
@@ -145,7 +145,7 @@
   --band: #2f8f2e;
   --band-2: #1f7a2a;
   --on-band: #ffffff;
-  --on-band-muted: #e2f1da;
+  --on-band-muted: #f4fbef;
   --band-eyebrow: #e3fbb8;
   --note: #8a5d00;
   --note-bg: #fff4d6;
@@ -153,7 +153,7 @@
   --err: #b42318;
   --specimen-glow: 1;
   --specimen-pass: #d8fb8a;
-  --specimen-test: #8ff4fc;
+  --specimen-test: #7fdcff;
   --specimen-raw: #d2ecc4;
   --specimen-reject: #a9d3a2;
   --specimen-line: #eaffcf;
@@ -163,14 +163,14 @@
     radial-gradient(50% 60% at 70% 46%, rgb(200 255 140 / 0.55), transparent 62%),
     radial-gradient(130% 120% at 62% 42%, #6fcb45 0%, #3ea33a 32%, #23832e 62%, #1a6e28 100%);
   --lab-band-bg:
-    radial-gradient(55% 80% at 78% 25%, rgb(200 255 140 / 0.4), transparent 65%),
-    radial-gradient(120% 120% at 30% 40%, #3fa33a 0%, #2a8a30 45%, #1d7229 100%);
+    radial-gradient(45% 70% at 82% 20%, rgb(200 255 140 / 0.34), transparent 62%),
+    radial-gradient(120% 120% at 30% 40%, #2a8a30 0%, #1f7a2b 45%, #175f23 100%);
   --lab-halo: rgb(225 255 170 / 0.5);
   --lab-vignette: rgb(10 60 20 / 0.28);
   --lab-panel: rgb(255 255 255 / 0.14);
   --lab-ticker: #ffffff;
   --lab-hero-ink: #ffffff;
-  --lab-hero-lede: #e6f5de;
+  --lab-hero-lede: #ffffff;
   --lab-hero-eyebrow: #e3fbb8;
   --lab-em-1: #8fd14f;
   --lab-em-2: #c4f06a;
@@ -178,10 +178,10 @@
   --lab-hero-btn: #8fd14f;
   --lab-hero-btn-ink: #0f1f0a;
   --lab-hero-ghost: #ffffff;
-  --splash: #15dbeb;
-  --splash-text: #0a76b3;
-  --splash-scene: #9ff3fb;
-  --splash-ink: #06343a;
+  --splash: #0b7cf2;
+  --splash-text: #0a66d6;
+  --splash-scene: #7fdcff;
+  --splash-ink: #ffffff;
 }
 
 /* ── Lab daylight: fully light. Pale lime glow, deep-green instruments and type ── */
@@ -190,8 +190,8 @@
   --paper: #fbfdf7;
   --surface: #ffffff;
   --sunk: #f1f8e8;
-  --ink: #142114;
-  --muted: #4b5c4d;
+  --ink: #0e1c10;
+  --muted: #2f4033;
   --line: #d9e7cf;
   --heading: #12351a;
   --accent: #8fd14f;
@@ -204,7 +204,7 @@
   --band: #e4f6cf;
   --band-2: #d2efb2;
   --on-band: #12351a;
-  --on-band-muted: #3c5a40;
+  --on-band-muted: #253d29;
   --band-eyebrow: #2c7a12;
   --note: #8a5d00;
   --note-bg: #fff4d6;
@@ -225,16 +225,16 @@
   --lab-panel: rgb(255 255 255 / 0.72);
   --lab-ticker: #ffffff;
   --lab-hero-ink: #10260f;
-  --lab-hero-lede: #3c4f3e;
+  --lab-hero-lede: #24362a;
   --lab-hero-eyebrow: #2c7a12;
   --lab-em-1: #2a8a17;
   --lab-em-2: #3fa31c;
   --lab-em-glow: transparent;
-  --splash: #15dbeb;
-  --splash-text: #0a76b3;
-  --splash-scene: #0a76b3;
-  --splash-ink: #06343a;
-  --specimen-test: #0a9fd8;
+  --splash: #0b7cf2;
+  --splash-text: #0a66d6;
+  --splash-scene: #0a66d6;
+  --splash-ink: #ffffff;
+  --specimen-test: #0b7cf2;
 }
 
 /* ── Green dark: dark backgrounds, deep green with lime ──────────────────── */
@@ -538,8 +538,12 @@ footer {
     --accent-text: oklch(0.52 0.17 136);
     --label: oklch(0.52 0.17 136);
   }
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+  [data-theme="labgreen"] {
     --splash: oklch(0.82 0.17 205);
+  }
+  :is([data-theme="lablight"], [data-theme="labday"]) {
+    --splash: oklch(0.6 0.23 254);
+    --splash-text: oklch(0.54 0.22 256);
   }
   [data-theme="lablight"] {
     --pop: oklch(0.9 0.22 125);

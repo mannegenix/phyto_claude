@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Phyto Elements · phytoelements.in
 
-## Getting Started
+Product-led B2B website for Phyto Elements, a manufacturer of bulk plant extracts.
+Built for scroll-driven video, 3D, animation, a grounded chatbot and a CMS.
 
-First, run the development server:
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local     # review switches are on; integrations optional
+npm run dev                    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Requires Node.js 20.9+ (Node 22 or 24 recommended). For scroll-video frames you also need ffmpeg (`brew install ffmpeg`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command                                | What it does                                                                        |
+| -------------------------------------- | ----------------------------------------------------------------------------------- |
+| `npm run dev`                          | Dev server (Turbopack)                                                              |
+| `npm run build` / `npm start`          | Production build / serve                                                            |
+| `npm run lint`                         | ESLint (includes React Compiler rules)                                              |
+| `npm run typecheck`                    | Generates route types, runs `tsc`                                                   |
+| `npm run format`                       | Prettier + Tailwind class sorting                                                   |
+| `npm run frames -- <video.mp4> <name>` | Converts a video into a scroll-scrubbed WebP sequence in `public/sequences/<name>/` |
 
-## Learn More
+## Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Layer           | Choice                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------ |
+| Framework       | Next.js 16 (App Router, Turbopack, Cache Components), React 19, TypeScript                       |
+| Styling         | Tailwind CSS v4 + theme tokens (CSS variables) in `src/styles/themes.css`                        |
+| Scroll & motion | GSAP + ScrollTrigger, Lenis smooth scroll, Motion (Framer Motion)                                |
+| 3D              | three.js via React Three Fiber + drei, lazy-loaded                                               |
+| Forms           | Server Action + zod validation, Cloudflare Turnstile, Resend email, CRM webhook                  |
+| Chatbot         | Vercel AI SDK + Claude (Anthropic provider), answers only from site content                      |
+| Fonts           | Self-hosted variable fonts via @fontsource (Bricolage Grotesque, Hanken Grotesk, JetBrains Mono) |
+| Content         | Typed local content in `src/content/`, read through `src/lib/content.ts` (CMS-ready)             |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/                     routes: /, /about, /products, /products/[slug], /operations,
+                           /manufacturing, /resources, /sample, /contact, /privacy
+    actions/enquiry.ts     enquiry Server Action (validate → spam check → email → CRM)
+    api/chat/route.ts      grounded chatbot endpoint
+  components/
+    layout/                Header, Footer, Logo (traced vector mark)
+    sections/              homepage sections, EnquirySection
+    product/               BatchTag, ProductCard, SpecSheet, EnquiryButtons
+    forms/EnquiryForm.tsx  client form (keeps input on validation errors)
+    motion/                SmoothScroll, Reveal, ScrollVideo (+ placeholder animation)
+    three/                 MoleculeScene (R3F), LazyScene (viewport + reduced-motion gate)
+    chat/ChatWidget.tsx    floating assistant
+    dev/ThemeSwitcher.tsx  colour-route switcher for client reviews
+    ui/                    PageHead, MailList, ReviewNote
+  content/                 products.ts, company.ts, types.ts  ← all site copy lives here
+  config/site.ts           site settings, default theme, nav, feature flags
+  lib/                     content access, env, enquiry schema, chatbot instructions
+  styles/                  themes.css (6 colour routes), components.css
+public/sequences/          scroll-video frame sequences
+scripts/extract-frames.mjs video → WebP frames + manifest
+```
 
-## Deploy on Vercel
+## Colour routes (themes)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Six routes from the client reviews: `greenlight`, `greendark`, `bluelight`, `bluevivid`, `bluegreen`, `bluedark`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The live site uses `siteConfig.defaultTheme` in `src/config/site.ts`.
+- `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true` shows the switcher (bottom-left) for client reviews.
+- When the client picks a route: set `defaultTheme`, turn the switcher off, and optionally delete the unused routes from `themes.css`.
+- Components only use tokens (`bg-paper`, `text-heading`, `bg-accent`, `.band`, …), never raw colours.
+
+## Sticky split-screen scroll video
+
+`<ScrollVideo steps={…} sequence="process" />` pins the media panel while the step panels scroll; the frame shown is tied to scroll position.
+
+1. Get the clip (5–15 s, 1080p MP4 works best).
+2. `npm run frames -- ~/Downloads/process.mp4 process --fps 24 --width 1280`
+3. Reload. The component reads `public/sequences/process/manifest.json` and plays the frames.
+
+Until frames exist it draws a procedural placeholder (botanical → extraction → standardization → testing → packed drum).
+Tips: use `--fps 15` for lighter pages; serve `/sequences` from a CDN in production (cache headers are already immutable).
+
+## 3D
+
+`LazyScene` mounts `MoleculeScene` only when the panel nears the viewport and never for reduced-motion visitors, so three.js is not in the initial bundle. To use a real model: put a `.glb` in `public/models/`, load it with drei's `useGLTF`, and keep the fallback image.
+
+## Enquiry form
+
+Fields follow the brief (§7). Behaviour without keys: submissions validate and are logged to the server console.
+
+| Variable                                                 | Purpose                                                                |
+| -------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `RESEND_API_KEY`, `ENQUIRY_FROM`                         | Email delivery. Verify phytoelements.in in Resend (SPF/DKIM).          |
+| `ENQUIRY_TO`, `SAMPLES_CC`                               | Routing: sales@, plus samples@ for sample requests                     |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Spam protection                                                        |
+| `CRM_WEBHOOK_URL`                                        | Posts each lead as JSON to Zoho Flow / HubSpot (via Make/Zapier) / n8n |
+
+Buyer specification uploads: PDF/Word/Excel up to 5 MB, attached to the email.
+
+## Chatbot
+
+Set `ANTHROPIC_API_KEY` and `NEXT_PUBLIC_CHAT_ENABLED=true`. Instructions are built from `src/content` in `src/lib/chat-context.ts`; the assistant is told never to state unpublished specs, certifications or health claims, and to route quotes/samples to the form. Default model `claude-haiku-5-5` (`CHAT_MODEL` to change). Add rate limiting (e.g. Upstash) before launch.
+
+## Content governance (from the brief)
+
+- Spec values (`spec` in `products.ts`) stay empty until QA-approved; the UI shows "Shared on request".
+- No capacity, certification, equipment or years-in-operation claims until verified.
+- `NEXT_PUBLIC_SHOW_REVIEW_NOTES=true` shows the "review before launch" notes on every page.
+
+## Moving to a CMS
+
+Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/content.ts` with Sanity or Payload queries. Types in `src/content/types.ts` define the schema; pages don't change.
+
+## Launch checklist (brief §10)
+
+- [ ] Client colour route set in `site.ts`; switcher and review notes off
+- [ ] Botanical sources, plant parts and any spec values QA-approved
+- [ ] Resend domain verified; test emails to all five mailboxes
+- [ ] Turnstile keys set; CRM webhook tested
+- [ ] Legal name/address on contact page and footer
+- [ ] Privacy notice reviewed (DPDP Act 2023 / GDPR); cookie controls if analytics added
+- [ ] Analytics + form-conversion events
+- [ ] Scroll-video frames on a CDN; Lighthouse check on mobile

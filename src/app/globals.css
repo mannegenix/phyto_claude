@@ -1,26 +1,75 @@
 @import "tailwindcss";
+@import "../styles/themes.css";
+@import "../styles/components.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Expose theme tokens to Tailwind utilities: bg-paper, text-ink, border-line, bg-accent, text-heading … */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-heading: var(--heading);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-text: var(--accent-text);
+  --color-label: var(--label);
+  --color-label-soft: var(--label-soft);
+  --color-pop: var(--pop);
+  --color-band: var(--band);
+  --color-band-2: var(--band-2);
+  --color-on-band: var(--on-band);
+  --color-on-band-muted: var(--on-band-muted);
+  --radius-brand: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Fonts are self-hosted via @fontsource-variable (imported in the root layout). */
+@theme static {
+  --font-display: "Bricolage Grotesque Variable", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk Variable", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 80px;
   }
-}
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--heading);
+    font-family: var(--font-display);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  a {
+    color: var(--accent-text);
+  }
+  :focus-visible {
+    outline: 2px solid var(--label);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

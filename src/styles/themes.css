@@ -1,0 +1,364 @@
+/*
+ * Colour routes. The active route is set on <html data-theme="...">.
+ * Every component reads these tokens, so changing the theme never needs component edits.
+ *
+ * Token roles
+ *   --paper / --surface / --sunk   page, cards, alternate sections
+ *   --ink / --muted / --line       body text, secondary text, borders
+ *   --heading                      h1–h4
+ *   --accent / --accent-hover / --on-accent   primary buttons (fill + text)
+ *   --accent-text                  links and outlined buttons
+ *   --label / --label-soft         small section labels, flagship tags
+ *   --pop                          dots, step markers, headline highlight
+ *   --band / --band-2 / --on-band / --on-band-muted / --band-eyebrow   coloured sections + footer
+ *   --band-btn-ring / --band-ghost optional button outline tweaks inside coloured sections
+ *   --logo-*                       logo colours (reversed on dark surfaces)
+ */
+
+:root {
+  color-scheme: light;
+  --paper: #fdfcf6;
+  --surface: #ffffff;
+  --sunk: #f3f6e9;
+  --ink: #17241a;
+  --muted: #526456;
+  --line: #e4e8d5;
+  --heading: var(--ink);
+  --accent: #2b8530;
+  --accent-hover: #236e28;
+  --on-accent: #ffffff;
+  --accent-text: #2e7d32;
+  --label: #2e7d32;
+  --label-soft: #eaf6df;
+  --pop: var(--label);
+  --band: #eef6e3;
+  --band-2: #e2efd3;
+  --on-band: #17241a;
+  --on-band-muted: #405545;
+  --band-eyebrow: #2e7d32;
+  --note: #8a6a12;
+  --note-bg: #fbf3d9;
+  --ok: #1d6b45;
+  --err: #b4372a;
+  --logo-green: #114132;
+  --logo-copper: #c37f56;
+  --logo-vein: #8fae9f;
+  --logo-sage: #608474;
+  --radius: 6px;
+}
+
+/* ── Green light: cream backgrounds, lush leaf green ─────────────────────── */
+[data-theme="greenlight"] {
+  --paper: #fdfcf6;
+  --surface: #ffffff;
+  --sunk: #f3f6e9;
+  --ink: #17241a;
+  --muted: #526456;
+  --line: #e4e8d5;
+  --accent: #2b8530;
+  --accent-hover: #236e28;
+  --on-accent: #ffffff;
+  --accent-text: #2e7d32;
+  --label: #2e7d32;
+  --label-soft: #eaf6df;
+  --band: #eef6e3;
+  --band-2: #e2efd3;
+  --on-band: #17241a;
+  --on-band-muted: #405545;
+  --band-eyebrow: #2e7d32;
+}
+[data-theme="greenlight"] footer {
+  --logo-green: #114132;
+  --logo-vein: #8fae9f;
+  --logo-sage: #608474;
+}
+
+/* ── Green dark: dark backgrounds, deep green with lime ──────────────────── */
+[data-theme="greendark"] {
+  color-scheme: dark;
+  --paper: #0e1512;
+  --surface: #151e19;
+  --sunk: #111a15;
+  --ink: #e3ebe4;
+  --muted: #9caba2;
+  --line: #26332c;
+  --accent: #9bd866;
+  --accent-hover: #b3e489;
+  --on-accent: #0d1f12;
+  --accent-text: #9bd866;
+  --label: #9bd866;
+  --label-soft: #1f2e17;
+  --band: #0d3b2e;
+  --band-2: #0a2f24;
+  --on-band: #eef4ea;
+  --on-band-muted: #a9c0b2;
+  --band-eyebrow: #9bd866;
+  --note: #e9c45c;
+  --note-bg: #2a2210;
+  --ok: #7fd1a2;
+  --err: #f08a7e;
+}
+
+/* ── Blue light: white/aqua, cyan primary, ocean/azure/teal family, orange pop ── */
+[data-theme="bluelight"] {
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --sunk: #ecf9fc;
+  --ink: #0f2629;
+  --muted: #4b6669;
+  --line: #d4eef3;
+  --heading: #0b4f6c;
+  --accent: #15dbeb;
+  --accent-hover: #13ccdb;
+  --on-accent: #04262a;
+  --accent-text: #0a6f9e;
+  --label: #0a6f9e;
+  --label-soft: #e0f5fb;
+  --pop: #f04e12;
+  --band: #e8fafc;
+  --band-2: #d5f4f7;
+  --on-band: #0f2629;
+  --on-band-muted: #3f5d61;
+  --band-eyebrow: #c2410c;
+  --ok: #0b6b52;
+}
+[data-theme="bluelight"] .hdr {
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #15dbeb, #0a9fd8, #0b4f6c) 1;
+}
+[data-theme="bluelight"] .band {
+  background: linear-gradient(135deg, #e6fafd 0%, #d3f3fa 55%, #c6e9f7 100%);
+}
+[data-theme="bluelight"] .band h2 {
+  color: var(--heading);
+}
+[data-theme="bluelight"] .flag-specs div {
+  background: rgba(255, 255, 255, 0.6);
+}
+[data-theme="bluelight"] .flag-art {
+  background: rgba(255, 255, 255, 0.45);
+}
+[data-theme="bluelight"] .chip-flag {
+  border-color: #0a9fd8;
+  color: #0a6f9e;
+  background: #e0f5fb;
+}
+[data-theme="bluelight"] .tag-foot {
+  background: linear-gradient(90deg, #e0f8fc, #d6eefa);
+}
+[data-theme="bluelight"] .page-head {
+  background: linear-gradient(180deg, #e6f8fc, transparent);
+}
+[data-theme="bluelight"] footer {
+  background: linear-gradient(160deg, #0b4f6c, #0a3d55);
+  --on-band: #ffffff;
+  --on-band-muted: #bfe4ef;
+}
+
+/* ── Blue vivid: light page saturated with electric blue + cyan ──────────── */
+[data-theme="bluevivid"] {
+  --paper: #f7fbff;
+  --surface: #ffffff;
+  --sunk: #e8f2ff;
+  --ink: #0d1b33;
+  --muted: #4a5d78;
+  --line: #d3e3f7;
+  --heading: #0b3b8c;
+  --accent: #1d6bf3;
+  --accent-hover: #0b4fd6;
+  --on-accent: #ffffff;
+  --accent-text: #1556d6;
+  --label: #0967b3;
+  --label-soft: #dff0ff;
+  --pop: #00b4f0;
+  --band: #1d6bf3;
+  --band-2: #0a2a66;
+  --on-band: #ffffff;
+  --on-band-muted: #d3e5ff;
+  --band-eyebrow: #8ff3ff;
+  --band-btn-ring: #ffffff;
+  --band-ghost: #ffffff;
+  --ok: #0b6b52;
+}
+[data-theme="bluevivid"] .hdr {
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #1d6bf3, #15dbeb) 1;
+}
+[data-theme="bluevivid"] .band {
+  background: linear-gradient(135deg, #0b4fd6 0%, #1d6bf3 45%, #14c6e6 100%);
+}
+[data-theme="bluevivid"] .flag-specs {
+  background: rgba(255, 255, 255, 0.22);
+}
+[data-theme="bluevivid"] .flag-specs div,
+[data-theme="bluevivid"] .flag-art {
+  background: rgba(6, 28, 92, 0.32);
+}
+[data-theme="bluevivid"] .hero-title em {
+  background: linear-gradient(90deg, #1d6bf3, #00b4f0 60%, #15dbeb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-theme="bluevivid"] .tag-foot {
+  background: linear-gradient(90deg, #e3efff, #dcfaff);
+}
+[data-theme="bluevivid"] .page-head {
+  background: linear-gradient(180deg, #e8f2ff, transparent);
+}
+
+/* ── Blue + green: cyan primary with bright greens ───────────────────────── */
+[data-theme="bluegreen"] {
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --sunk: #effbf7;
+  --ink: #0e2427;
+  --muted: #4a6466;
+  --line: #d3efe8;
+  --heading: #0b4f6c;
+  --accent: #15dbeb;
+  --accent-hover: #13ccdb;
+  --on-accent: #04262a;
+  --accent-text: #0a6f9e;
+  --label: #15803d;
+  --label-soft: #e3f8ea;
+  --pop: #22c55e;
+  --band: #15dbeb;
+  --band-2: #0b4f6c;
+  --on-band: #05272b;
+  --on-band-muted: #164a4f;
+  --band-eyebrow: #0a5a2b;
+  --band-btn-ring: #0b4f6c;
+  --band-ghost: #06343a;
+  --ok: #15803d;
+}
+[data-theme="bluegreen"] .hdr {
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #15dbeb, #2fbf71, #7ed957) 1;
+}
+[data-theme="bluegreen"] .hero-title em {
+  background: linear-gradient(90deg, #0fb6c8, #22c55e 70%, #5cc93a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-theme="bluegreen"] .band {
+  background: linear-gradient(135deg, #15dbeb 0%, #3fe0c0 50%, #7ed957 100%);
+}
+[data-theme="bluegreen"] .band h2 {
+  color: #06343a;
+}
+[data-theme="bluegreen"] .flag-specs {
+  background: rgba(255, 255, 255, 0.5);
+}
+[data-theme="bluegreen"] .flag-specs div {
+  background: rgba(255, 255, 255, 0.55);
+}
+[data-theme="bluegreen"] .flag-art {
+  background: rgba(255, 255, 255, 0.35);
+}
+[data-theme="bluegreen"] .chip-flag {
+  border-color: #22c55e;
+  color: #15803d;
+  background: #e3f8ea;
+}
+[data-theme="bluegreen"] .tag-foot {
+  background: linear-gradient(90deg, #dcfafd, #e3f8ea);
+}
+[data-theme="bluegreen"] .page-head {
+  background: linear-gradient(180deg, #e6fbf6, transparent);
+}
+[data-theme="bluegreen"] footer {
+  background: linear-gradient(135deg, #0b4f6c, #0d5a48 60%, #14633a);
+  --on-band: #ffffff;
+  --on-band-muted: #c3e8dc;
+}
+
+/* ── Blue dark: dark backgrounds, teal/cyan with orange ──────────────────── */
+[data-theme="bluedark"] {
+  color-scheme: dark;
+  --paper: #0b1517;
+  --surface: #121e20;
+  --sunk: #0f1a1c;
+  --ink: #e1eef0;
+  --muted: #97aeb1;
+  --line: #21353a;
+  --accent: #2fbfca;
+  --accent-hover: #5fd2db;
+  --on-accent: #03201f;
+  --accent-text: #4fd0da;
+  --label: #ff8a4c;
+  --label-soft: #3a1f12;
+  --pop: #ff7a3d;
+  --band: #0d3f44;
+  --band-2: #082f33;
+  --on-band: #effafb;
+  --on-band-muted: #b6dfe3;
+  --band-eyebrow: #ffb627;
+  --note: #e9c45c;
+  --note-bg: #2a2210;
+  --ok: #7fd1a2;
+  --err: #f08a7e;
+}
+
+/* ── Card top edges for the blue light themes (rotating brand colours) ────── */
+[data-theme="bluelight"] {
+  --edge-1: #15dbeb;
+  --edge-2: #0a9fd8;
+  --edge-3: #0b7680;
+}
+[data-theme="bluevivid"] {
+  --edge-1: #1d6bf3;
+  --edge-2: #00b4f0;
+  --edge-3: #15dbeb;
+}
+[data-theme="bluegreen"] {
+  --edge-1: #15dbeb;
+  --edge-2: #22c55e;
+  --edge-3: #0a9fd8;
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"]) :is(.card, .funcs li, .values > div) {
+  border-top: 3px solid var(--edge-1);
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"])
+  :is(.card, .values > div):nth-child(3n + 2) {
+  border-top-color: var(--edge-2);
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"])
+  :is(.card, .values > div):nth-child(3n) {
+  border-top-color: var(--edge-3);
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"]) .values {
+  gap: 12px;
+  background: none;
+  border: 0;
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"]) .values > div {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--edge-1);
+  border-radius: var(--radius);
+}
+:is([data-theme="bluelight"], [data-theme="bluevivid"], [data-theme="bluegreen"]) .kv > div {
+  border-top-color: var(--edge-2);
+}
+
+/* ── Light coloured sections: visible dividers ───────────────────────────── */
+:is([data-theme="greenlight"], [data-theme="bluelight"]) .flag-specs {
+  background: var(--line);
+}
+[data-theme="greenlight"] footer .legal {
+  border-color: var(--line);
+}
+
+/* ── Logo reversed on dark surfaces (footer is dark in every theme but Green light) ── */
+:is([data-theme="greendark"], [data-theme="bluedark"]),
+footer {
+  --logo-green: #eef3ec;
+  --logo-vein: #56786a;
+  --logo-sage: #a3c3b3;
+}
+[data-theme="greenlight"] footer {
+  --logo-green: #114132;
+  --logo-vein: #8fae9f;
+  --logo-sage: #608474;
+}

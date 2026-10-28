@@ -1,0 +1,135 @@
+import type { Product } from "./types";
+
+/**
+ * Six-product launch portfolio (brief §4).
+ * Botanical sources and plant parts must be QA-reviewed before publication.
+ * Spec values stay undefined until verified, so the site shows "Shared on request".
+ */
+export const products: Product[] = [
+  {
+    slug: "garcinia",
+    code: "PE-01",
+    name: "Garcinia Cambogia Extract",
+    short: "Garcinia Cambogia",
+    role: "Flagship product",
+    flagship: true,
+    botanicalSource: "Garcinia gummi-gutta (syn. Garcinia cambogia)",
+    plantPart: "Fruit rind",
+    marker: "Hydroxycitric Acid (HCA)",
+    applicationArea: "Nutraceutical and wellness formulations",
+    applications: [
+      "Dietary-supplement formulations",
+      "Wellness formulations",
+      "Powder and capsule blends",
+      "Private-label products",
+    ],
+    intro:
+      "Our flagship extract, built on the team's existing product knowledge and market experience. Produced to an approved specification for supplement manufacturers, distributors and private-label formulators.",
+    swatch: "#b58b4f",
+    reviewNote:
+      "Confirm botanical nomenclature (G. gummi-gutta vs G. cambogia) and the HCA grades Phyto Elements will commit to.",
+  },
+  {
+    slug: "curcumin",
+    code: "PE-02",
+    name: "Curcumin Extract",
+    short: "Curcumin",
+    role: "Core product",
+    botanicalSource: "Curcuma longa",
+    plantPart: "Rhizome",
+    marker: "Curcuminoids",
+    applicationArea: "Nutraceuticals, functional foods and colour applications",
+    applications: [
+      "Nutraceutical formulations",
+      "Functional foods",
+      "Food colour applications",
+      "Traditional-product manufacturing",
+    ],
+    intro:
+      "Standardized turmeric extract for nutraceutical, functional-food and colour applications, supplied against a defined curcuminoid specification.",
+    swatch: "#e0a11b",
+    reviewNote: "Confirm curcuminoid grade range and whether colour-application grades will be offered at launch.",
+  },
+  {
+    slug: "ashwagandha",
+    code: "PE-03",
+    name: "Ashwagandha Extract",
+    short: "Ashwagandha",
+    role: "Core product",
+    botanicalSource: "Withania somnifera",
+    plantPart: "Root",
+    marker: "Withanolides",
+    applicationArea: "Nutraceutical and wellness formulations",
+    applications: [
+      "Nutraceutical formulations",
+      "Wellness formulations",
+      "Ayurvedic products",
+      "Private-label products",
+    ],
+    intro: "Root extract standardized to withanolides for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    swatch: "#b39a73",
+    reviewNote: "Confirm plant part (root only vs root + leaf) and withanolide test method.",
+  },
+  {
+    slug: "boswellia",
+    code: "PE-04",
+    name: "Boswellia Extract",
+    short: "Boswellia",
+    role: "Core product",
+    botanicalSource: "Boswellia serrata",
+    plantPart: "Oleo-gum resin",
+    marker: "Boswellic acids / AKBA, depending on grade",
+    applicationArea: "Nutraceutical formulations",
+    applications: [
+      "Nutraceutical formulations",
+      "Joint-support category blends",
+      "Ayurvedic products",
+      "Private-label products",
+    ],
+    intro: "Resin extract offered by boswellic-acid or AKBA grade, matched to the formulator's specification.",
+    swatch: "#d8c79c",
+    reviewNote:
+      "Confirm which grades (total boswellic acids vs AKBA-enriched) are manufactured. Review 'joint-support category' wording for claims compliance.",
+  },
+  {
+    slug: "bakuchiol",
+    code: "PE-05",
+    name: "Bakuchiol Extract",
+    short: "Bakuchiol",
+    role: "Specialty product",
+    botanicalSource: "Psoralea corylifolia (Babchi)",
+    plantPart: "Seed",
+    marker: "Bakuchiol assay, depending on grade",
+    applicationArea: "Cosmetic and personal-care formulations",
+    applications: [
+      "Skin-care formulations",
+      "Cosmetic actives",
+      "Personal-care products",
+      "Contract cosmetic manufacturing",
+    ],
+    intro: "A specialty ingredient for cosmetic and personal-care formulators, supplied by bakuchiol assay grade.",
+    swatch: "#c9a54e",
+    reviewNote:
+      "Brief flags Bakuchiol specifically: source terminology may differ by raw-material vendor (Psoralea corylifolia / Cullen corylifolium). QA to confirm before publishing.",
+  },
+  {
+    slug: "bacopa",
+    code: "PE-06",
+    name: "Bacopa Extract",
+    short: "Bacopa",
+    role: "Core product",
+    botanicalSource: "Bacopa monnieri",
+    plantPart: "Whole herb / aerial parts",
+    marker: "Bacosides",
+    applicationArea: "Nutraceutical and wellness formulations",
+    applications: [
+      "Nutraceutical formulations",
+      "Wellness formulations",
+      "Ayurvedic products",
+      "Private-label products",
+    ],
+    intro: "Herb extract standardized to bacosides for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    swatch: "#8d7f55",
+    reviewNote: "Confirm plant part and bacoside test method (HPLC vs UV) used for the grade claim.",
+  },
+];

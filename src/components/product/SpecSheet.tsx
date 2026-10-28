@@ -21,7 +21,7 @@ export function SpecSheet({ product }: { product: Product }) {
     <div className="sheet">
       <div className="sheet-h">
         <span>PRODUCT SPECIFICATION SUMMARY · {product.code}</span>
-        <span>Representative · not a batch COA</span>
+        <span>Representative · not a lot COA</span>
       </div>
       <div className="overflow-x-auto">
         <table>
@@ -36,8 +36,8 @@ export function SpecSheet({ product }: { product: Product }) {
         </table>
       </div>
       <div className="sheet-f">
-        Grade, assay and physical parameters are confirmed in the product specification sheet. Batch-specific results
-        appear only in the batch Certificate of Analysis.
+        Grade, assay and physical parameters are confirmed in the product specification sheet. Lot-specific results
+        appear only in the lot Certificate of Analysis.
       </div>
     </div>
   );

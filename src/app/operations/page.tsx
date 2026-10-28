@@ -4,8 +4,8 @@ import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 
 export const metadata: Metadata = {
-  title: "Operations",
-  description: "Nine operating functions from product development to domestic and export fulfilment.",
+  title: "How we work",
+  description: "From specification and producer qualification to testing, release and fulfilment: how Phyto Elements decides what carries its name.",
 };
 
 export default async function OperationsPage() {
@@ -13,9 +13,9 @@ export default async function OperationsPage() {
   return (
     <>
       <PageHead
-        title="Operations"
-        crumbs={[{ label: "Operations" }]}
-        lede="Our operating role as an extract manufacturer runs from product and process development through to domestic and export fulfilment. Documentation is linked to the manufactured batch and its approved specification."
+        title="How we work"
+        crumbs={[{ label: "How we work" }]}
+        lede="We write the specification, qualify the producers, test every lot and release only what passes. Documentation is linked to the lot you receive."
       />
       <section className="section">
         <div className="wrap">
@@ -40,8 +40,8 @@ export default async function OperationsPage() {
           <div className="grid gap-[18px]">
             <p className="lede">
               Technical and commercial records are exchanged by email: specifications, Certificates of Analysis,
-              quotations, purchase orders and shipment documents. No batch COA is sent without confirming the correct
-              product and batch reference.
+              quotations, purchase orders and shipment documents. No lot COA is sent without confirming the correct
+              product and lot reference.
             </p>
             <div>
               <Link href="/contact" className="btn">

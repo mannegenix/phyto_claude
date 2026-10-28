@@ -15,7 +15,7 @@ export async function Footer() {
               <Logo />
             </Link>
             <p className="max-w-[34ch]">
-              {siteConfig.tagline}. Bulk plant extracts manufactured in India for Indian and export B2B buyers.
+              {siteConfig.tagline}. Bulk plant extracts, tested lot by lot, for Indian and export B2B buyers.
             </p>
           </div>
           <div>
@@ -35,10 +35,10 @@ export async function Footer() {
                 <Link href="/about">About Phyto Elements</Link>
               </li>
               <li>
-                <Link href="/operations">Operations</Link>
+                <Link href="/operations">How we work</Link>
               </li>
               <li>
-                <Link href="/manufacturing">Manufacturing &amp; Quality</Link>
+                <Link href="/quality">Testing &amp; Quality</Link>
               </li>
               <li>
                 <Link href="/resources">Documents / Resources</Link>

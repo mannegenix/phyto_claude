@@ -4,7 +4,7 @@ import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
 
 const SUGGESTIONS = [
-  "Which extracts do you manufacture?",
+  "Which extracts do you supply?",
   "How do I request a sample?",
   "What documents do you provide?",
 ];

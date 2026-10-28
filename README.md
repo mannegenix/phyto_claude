@@ -1,6 +1,6 @@
 # Phyto Elements · phytoelements.in
 
-Product-led B2B website for Phyto Elements, a manufacturer of bulk plant extracts.
+Product-led B2B website for Phyto Elements, a supplier of bulk plant extracts: sourced widely, tested lot by lot, and only what passes carries the Phyto Elements name.
 Built for scroll-driven video, 3D, animation, a grounded chatbot and a CMS.
 
 ## Quick start
@@ -44,7 +44,7 @@ Requires Node.js 20.9+ (Node 22 or 24 recommended). For scroll-video frames you 
 ```
 src/
   app/                     routes: /, /about, /products, /products/[slug], /operations,
-                           /manufacturing, /resources, /sample, /contact, /privacy
+                           /quality, /resources, /sample, /contact, /privacy
     actions/enquiry.ts     enquiry Server Action (validate → spam check → email → CRM)
     api/chat/route.ts      grounded chatbot endpoint
   components/
@@ -181,3 +181,18 @@ Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/c
 - [ ] R2 bucket created; Workers Builds connected; build variables and secrets set
 - [ ] Custom domain attached; HTTPS verified
 - [ ] Scroll-video frames served with cache headers; Lighthouse check on mobile
+
+## Creative layer (motion)
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Preloader "The Drop" | `src/components/motion/Preloader.tsx` | Pure CSS, about 2 s, once per session, skipped for reduced motion. |
+| Hero "The Living Specimen" | `src/components/hero/SpecimenHero.tsx` | Canvas particles: lots in, test gate, rejects fall, passes form the botanical. Cycles the six products. Pauses off screen. |
+| Product ticker | `ProductTicker` in `sections/home.tsx` | CSS marquee, pauses on hover. |
+| Liquid section edges | `.wave-top` in `motion.css` | Masked wave on a section's top edge, slow drift. |
+| Test pillars | `TestPillars` | Identity, purity, potency, safety, stability. Generic until the client confirms methods. |
+| Source to seal | `sections/QualityFunnel.tsx` | GSAP scrub: lots narrow through screening and testing into the seal. Marked illustrative. |
+| Botanical line art | `src/components/botanicals/` | One set of paths drives card art, the product-page background and the hero particle targets. |
+| Product "specimen sheet" | `src/app/products/[slug]/page.tsx` | Graph-paper background, product colour wash, scroll-drawn botanical, chapters 01 to 05, next extract. |
+
+Photography: none yet. When the client supplies macro botanical photos (Indena-style, vivid), use the `.photo` treatment in `motion.css`.

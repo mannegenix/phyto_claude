@@ -43,12 +43,12 @@ export function BatchTag({ product }: { product: Product }) {
         <dt>Marker</dt>
         <dd>{product.marker.split(",")[0]}</dd>
         <dt>Grade / assay</dt>
-        <dd className="req">Per approved specification</dd>
+        <dd className="req">Per our specification</dd>
         <dt>Documents</dt>
         <dd>Spec · COA · SDS</dd>
       </dl>
       <div className="tag-foot">
-        <span>Batch No. ________</span>
+        <span>Lot No. ________ · Tested</span>
         <Barcode seed={product.code.charCodeAt(4) * 7} />
       </div>
     </div>

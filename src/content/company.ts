@@ -1,31 +1,34 @@
-import type { Doc, Mailbox, OperatingFunction, ProcessStage, ValuePoint } from "./types";
+import type { Doc, Mailbox, OperatingFunction, ProcessStage, TestPillar, ValuePoint } from "./types";
 
 export const positioning =
-  "Phyto Elements manufactures bulk plant extracts for Indian and global B2B customers through controlled processing, defined specifications, batch quality documentation and commercially reliable fulfilment.";
+  "Phyto Elements supplies bulk plant extracts that have passed our testing. We source from qualified producers, test every lot against our specification, and put our name only on extracts that meet it.";
 
 export const introduction =
-  "We develop and manufacture standardized extracts for ingredient distributors, nutraceutical companies, formulators and contract manufacturers, supported by product specifications, samples, quality documentation and commercial fulfilment.";
+  "Sourcing is flexible; our standard is not. We buy from producers we have qualified, test what arrives, and supply ingredient distributors, nutraceutical companies, formulators and contract manufacturers only with lots that pass.";
+
+/** The promise, in one line, used by the hero and the testing section. */
+export const promise = "Sourced widely. Tested rigorously. Only the best carries our name.";
 
 export const values: ValuePoint[] = [
   {
-    title: "Focused manufacturing",
-    body: "Production capability centred on six extracts, led by Garcinia Cambogia Extract.",
+    title: "Tested before it carries our name",
+    body: "Every lot is tested against the Phyto Elements specification before it is labelled and offered for sale.",
   },
   {
-    title: "Specification-driven batches",
-    body: "Every batch is planned against an approved product specification and your requirements.",
+    title: "Only the best passes",
+    body: "Lots that fall short of specification are not sold under our label. What reaches you is what passed.",
   },
   {
-    title: "One point of contact",
-    body: "Discuss specification, quantity, sample, price, packing, lead time and documents with one team.",
+    title: "Sourced widely, chosen carefully",
+    body: "We work with several qualified producers, so supply stays steady while the standard stays fixed.",
   },
   {
-    title: "Batch documentation",
-    body: "Specifications, Certificates of Analysis, quotations, POs and shipment documents exchanged by email.",
+    title: "Six extracts, Garcinia first",
+    body: "A focused portfolio led by Garcinia Cambogia Extract, with five more extracts held to the same standard.",
   },
   {
-    title: "Indian and global reach",
-    body: "Supplying buyers in India and export markets, subject to product and destination requirements.",
+    title: "Documents tied to your lot",
+    body: "Specifications, Certificates of Analysis, quotations and shipment documents matched to the lot you receive.",
   },
 ];
 
@@ -38,67 +41,71 @@ export const customers = [
   "Ayurvedic and traditional-product manufacturers",
 ];
 
-/** Brief §6: five-stage "from botanicals to batch". Contract farming deliberately excluded. */
+/** From source to seal: the five gates every lot goes through. */
 export const stages: ProcessStage[] = [
   {
-    title: "Raw-material sourcing",
-    body: "Botanical raw materials are selected against product identity, quality and process requirements.",
+    title: "Source",
+    body: "We request material from qualified producers against our product specification, so every lot starts with a defined target.",
   },
   {
-    title: "Extraction",
-    body: "Approved botanical material is processed using the extraction system and controlled parameters appropriate to the product and required grade.",
+    title: "Screen",
+    body: "Incoming lots are checked against their documentation and our acceptance criteria before they go on to testing.",
   },
   {
-    title: "Standardization",
-    body: "The manufactured extract is adjusted or blended to meet the specified active-marker range and other approved product parameters.",
+    title: "Test",
+    body: "Each lot is tested against the Phyto Elements specification for the product and grade.",
   },
   {
-    title: "Quality testing",
-    body: "The batch is assessed against the approved specification, with results reported in the batch Certificate of Analysis.",
+    title: "Pass or reject",
+    body: "Only lots that meet the specification go forward. Lots that fall short are not sold under our label.",
   },
   {
-    title: "Packaging and dispatch",
-    body: "Product is packed to the agreed configuration and dispatched with the approved commercial and quality documentation.",
+    title: "Label and supply",
+    body: "Passed lots are packed under the Phyto Elements label and supplied with lot-linked documentation.",
   },
 ];
 
-/** Brief §5: nine operating functions. */
+/**
+ * What every lot is checked for. Framed as the standard Phyto Elements holds lots to;
+ * the exact tests and methods per product are confirmed with the client (see qualityChecklist).
+ */
+export const testPillars: TestPillar[] = [
+  { code: "ID", title: "Identity", body: "The right botanical and the right plant part, confirmed before anything else." },
+  { code: "PU", title: "Purity", body: "Checked for foreign matter and contaminants against our acceptance limits." },
+  { code: "PO", title: "Potency", body: "Marker-compound content measured against the grade on the specification." },
+  { code: "SA", title: "Safety", body: "Screened against the safety limits that apply to the product and its market." },
+  { code: "ST", title: "Stability", body: "Packed and stored so the lot holds its specification through its shelf life." },
+];
+
+/** How we work: the functions behind the promise. */
 export const operatingFunctions: OperatingFunction[] = [
   {
-    title: "Product and process development",
-    body: "Define the botanical source, plant part, extraction route, target marker compounds, process parameters and finished-product specification for each focus extract.",
+    title: "Specification development",
+    body: "Define the botanical source, plant part, marker compound and acceptance limits for each extract and grade we offer.",
   },
   {
-    title: "Raw-material procurement and qualification",
-    body: "Source identified botanical raw materials and approve vendors against identity, quality, contaminant, traceability and commercial requirements.",
+    title: "Producer qualification",
+    body: "Evaluate and approve producers against identity, quality, traceability and commercial requirements before we buy from them.",
   },
   {
-    title: "Incoming quality control",
-    body: "Inspect and test incoming botanical materials against approved acceptance criteria before release to production.",
+    title: "Incoming screening",
+    body: "Check each arriving lot against its documentation and our acceptance criteria before it is accepted for testing.",
   },
   {
-    title: "Extraction and processing",
-    body: "Carry out extraction under controlled solvent, temperature, time and equipment conditions appropriate to the product and target grade.",
+    title: "Testing against specification",
+    body: "Test each lot against the Phyto Elements specification for the product and grade.",
   },
   {
-    title: "Concentration, drying and milling",
-    body: "Concentrate the extract, apply the appropriate drying process, mill or sieve where required, and produce a stable, free-flowing bulk ingredient.",
+    title: "Release decision",
+    body: "Release only lots that meet the specification. Lots that fall short are rejected or returned, never relabelled.",
   },
   {
-    title: "Standardization and blending",
-    body: "Adjust or blend the extract to the approved active-marker range and other product parameters to achieve batch consistency.",
-  },
-  {
-    title: "Quality control and batch release",
-    body: "Test identity, assay, physical parameters, contaminants and microbiological limits as applicable; release only batches meeting the approved specification.",
-  },
-  {
-    title: "Packing and documentation",
-    body: "Pack released product in the approved bulk format and issue batch-linked quality and commercial documentation, including the Certificate of Analysis.",
+    title: "Packing and labelling",
+    body: "Pack released lots in the agreed bulk format under the Phyto Elements label, with lot-linked quality documentation.",
   },
   {
     title: "Domestic and export fulfilment",
-    body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery customer support for Indian and global buyers.",
+    body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery support.",
   },
 ];
 
@@ -118,7 +125,7 @@ export const mailboxes: Mailbox[] = [
   {
     address: "quality@phytoelements.in",
     label: "Quality & documents",
-    use: "Specifications, representative or batch COAs, SDS and technical questions.",
+    use: "Specifications, representative or lot COAs, SDS and technical questions.",
   },
   {
     address: "orders@phytoelements.in",
@@ -132,13 +139,13 @@ export const documents: Doc[] = [
   {
     name: "Company profile",
     tag: "PDF",
-    body: "Overview of Phyto Elements, portfolio and operating model.",
+    body: "Overview of Phyto Elements, portfolio, sourcing and testing approach.",
     access: "Email on request · info@",
   },
   {
     name: "Product specification sheet",
     tag: "SPEC",
-    body: "Grade, marker compound, physical parameters and limits per product.",
+    body: "The grade, marker compound, parameters and acceptance limits each lot is tested against.",
     access: "Email on request · quality@",
   },
   {
@@ -148,9 +155,9 @@ export const documents: Doc[] = [
     access: "Email on request · quality@",
   },
   {
-    name: "Batch-specific COA",
+    name: "Lot-specific COA",
     tag: "COA",
-    body: "Issued after batch identification and matched to the batch reference.",
+    body: "Issued for the identified lot and matched to its lot reference.",
     access: "With quotation or order · quality@",
   },
   {
@@ -179,13 +186,13 @@ export const documents: Doc[] = [
   },
 ];
 
-export const manufacturingChecklist = [
-  "Manufacturing-site legal identity and operating authority",
-  "Location and legal name of the manufacturing entity",
-  "Production capacity and equipment claims",
-  "GMP, ISO, FSSAI, organic, Halal, Kosher or other certifications",
-  "In-house vs third-party testing capability",
-  "Extraction solvents and process technologies",
-  "Batch traceability, test panels and release procedures",
+/** Verify with the client before replacing the generic testing wording. */
+export const qualityChecklist = [
+  "Where testing happens: in-house laboratory, third-party laboratories, or both",
+  "Test panel per product (identity, marker assay, contaminants, microbiology) and the methods used",
+  "Acceptance limits per grade and how rejected lots are handled",
+  "Producer qualification steps and how often producers are re-evaluated",
+  "GMP, ISO, FSSAI, organic, Halal, Kosher or other certifications, with documents",
+  "Garcinia manufacturing facility: legal entity, location, and whether to mention it at all",
   "Historical volumes, customers, countries, years in operation",
 ];

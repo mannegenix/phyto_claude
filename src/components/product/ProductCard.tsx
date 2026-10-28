@@ -1,9 +1,15 @@
 import Link from "next/link";
 import type { Product } from "@/content/types";
+import { BotanicalArt } from "@/components/botanicals/BotanicalArt";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <Link href={`/products/${product.slug}`} className="card">
+    <Link
+      href={`/products/${product.slug}`}
+      className="card relative overflow-hidden"
+      style={{ ["--sw" as string]: product.swatch }}
+    >
+      <BotanicalArt slug={product.slug} className="card-art" draw />
       <div className="flex items-center justify-between gap-2.5">
         <span className="mono text-[0.74rem] text-muted">{product.code}</span>
         {product.flagship ? (

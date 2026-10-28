@@ -8,7 +8,7 @@ import { EnquirySection } from "@/components/sections/EnquirySection";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Six bulk plant extracts manufactured to approved specifications: Garcinia Cambogia, Curcumin, Ashwagandha, Boswellia, Bakuchiol and Bacopa.",
+    "Six bulk plant extracts, each lot tested against our specification: Garcinia Cambogia, Curcumin, Ashwagandha, Boswellia, Bakuchiol and Bacopa.",
 };
 
 export default async function ProductsPage() {
@@ -18,7 +18,7 @@ export default async function ProductsPage() {
       <PageHead
         title="Products"
         crumbs={[{ label: "Products" }]}
-        lede="Six bulk extracts, each manufactured to an approved specification. Select a product for its specification summary, documents and enquiry form."
+        lede="Six bulk extracts. Every lot is tested against our specification, and only lots that pass carry our label. Select a product for its specification summary, documents and enquiry form."
       />
       <section className="pt-[clamp(40px,6vw,72px)]">
         <div className="wrap">

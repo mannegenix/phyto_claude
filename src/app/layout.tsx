@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ThemeSwitcher, themeBootScript } from "@/components/dev/ThemeSwitcher";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -29,8 +30,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" data-theme={siteConfig.defaultTheme} suppressHydrationWarning>
-      <head>{siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}</head>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: preloaderBootScript }} />
+        {siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}
+      </head>
       <body>
+        <Preloader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-brand focus:bg-surface focus:px-4 focus:py-2"

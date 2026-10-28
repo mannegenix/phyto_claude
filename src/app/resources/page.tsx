@@ -7,7 +7,7 @@ import { ReviewNote } from "@/components/ui/ReviewNote";
 
 export const metadata: Metadata = {
   title: "Documents & Resources",
-  description: "Specifications, representative and batch COAs, SDS and commercial documents, shared by email.",
+  description: "Specifications, representative and lot COAs, SDS and commercial documents, shared by email.",
 };
 
 export default async function ResourcesPage() {
@@ -17,7 +17,7 @@ export default async function ResourcesPage() {
       <PageHead
         title="Documents & Resources"
         crumbs={[{ label: "Documents / Resources" }]}
-        lede="Technical and commercial documents are shared by email so each one matches the product, grade and batch you are evaluating."
+        lede="Technical and commercial documents are shared by email so each one matches the product, grade and lot you are evaluating."
       />
       <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
@@ -46,7 +46,7 @@ export default async function ResourcesPage() {
               </Link>
             </div>
             <ReviewNote>
-              Company profile PDF and per-product spec sheets can move to direct downloads once approved. Batch COAs
+              Company profile PDF and per-product spec sheets can move to direct downloads once approved. Lot COAs
               stay email-only.
             </ReviewNote>
           </div>

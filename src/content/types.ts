@@ -32,6 +32,7 @@ export type Product = {
 
 export type ProcessStage = { title: string; body: string };
 export type OperatingFunction = { title: string; body: string };
+export type TestPillar = { code: string; title: string; body: string };
 export type ValuePoint = { title: string; body: string };
 export type Mailbox = { address: string; label: string; use: string };
 export type Doc = { name: string; tag: string; body: string; access: string };

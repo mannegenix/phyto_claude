@@ -2,9 +2,10 @@ import { getCompany, getProducts } from "@/lib/content";
 import {
   FlagshipBand,
   Hero,
-  ManufacturingBand,
-  ProcessScroll,
   ProductGrid,
+  ProductTicker,
+  SourceToSeal,
+  TestPillars,
   ValuesSection,
   WhyUs,
 } from "@/components/sections/home";
@@ -18,13 +19,14 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero flagship={flagship} positioning={c.positioning} />
+      <Hero products={products} positioning={c.positioning} />
+      <ProductTicker products={products} />
       <ValuesSection intro={c.introduction} values={c.values} />
+      <TestPillars pillars={c.testPillars} />
+      <SourceToSeal stages={c.stages} />
       <FlagshipBand product={flagship} />
       <ProductGrid products={products} />
-      <ProcessScroll stages={c.stages} />
       <WhyUs functions={c.operatingFunctions} />
-      <ManufacturingBand />
       <EnquirySection />
       <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">

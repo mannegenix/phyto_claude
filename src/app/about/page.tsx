@@ -5,7 +5,7 @@ import { PageHead } from "@/components/ui/PageHead";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "India-based B2B manufacturer of bulk plant extracts and specialty botanical ingredients.",
+  description: "India-based B2B supplier of tested bulk plant extracts. Sourced widely, tested rigorously, only the best carries our name.",
 };
 
 export default async function AboutPage() {
@@ -15,20 +15,20 @@ export default async function AboutPage() {
       <PageHead
         title="About Phyto Elements"
         crumbs={[{ label: "About" }]}
-        lede="An India-based B2B manufacturer of bulk plant extracts and specialty botanical ingredients for Indian and global markets."
+        lede="An India-based B2B supplier of bulk plant extracts. We source widely, test every lot, and put our name only on what passes."
       />
       <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
             <p>{c.introduction}</p>
             <p>
-              Our initial manufacturing portfolio is built around six extracts with applications across nutraceutical,
+              Our portfolio is built around six extracts with applications across nutraceutical,
               wellness, food, cosmetic and personal-care markets. Garcinia Cambogia Extract is the flagship product.
               Curcumin, Ashwagandha, Boswellia, Bakuchiol and Bacopa form the remaining focus portfolio.
             </p>
             <p>
-              Additional extracts are considered only after process development, quality validation and commercial
-              evaluation.
+              Sourcing is how we secure supply. Testing is how we decide what we sell. Additional extracts join the
+              portfolio only once we have a specification, qualified producers and a testing route for them.
             </p>
           </div>
           <div className="grid gap-[18px]">

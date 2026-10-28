@@ -24,7 +24,7 @@ export const products: Product[] = [
       "Private-label products",
     ],
     intro:
-      "Our flagship extract, built on the team's existing product knowledge and market experience. Produced to an approved specification for supplement manufacturers, distributors and private-label formulators.",
+      "Our flagship extract and the product our team knows best. Every lot is tested against our hydroxycitric acid specification before it carries the Phyto Elements label.",
     swatch: "#b58b4f",
     reviewNote:
       "Confirm botanical nomenclature (G. gummi-gutta vs G. cambogia) and the HCA grades Phyto Elements will commit to.",
@@ -46,7 +46,7 @@ export const products: Product[] = [
       "Traditional-product manufacturing",
     ],
     intro:
-      "Standardized turmeric extract for nutraceutical, functional-food and colour applications, supplied against a defined curcuminoid specification.",
+      "Standardized turmeric extract for nutraceutical, functional-food and colour applications, tested lot by lot against a defined curcuminoid specification.",
     swatch: "#e0a11b",
     reviewNote: "Confirm curcuminoid grade range and whether colour-application grades will be offered at launch.",
   },
@@ -66,7 +66,7 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Root extract standardized to withanolides for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Root extract standardized to withanolides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
     swatch: "#b39a73",
     reviewNote: "Confirm plant part (root only vs root + leaf) and withanolide test method.",
   },
@@ -86,10 +86,10 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Resin extract offered by boswellic-acid or AKBA grade, matched to the formulator's specification.",
+    intro: "Resin extract offered by boswellic-acid or AKBA grade, each lot tested against the grade the formulator specifies.",
     swatch: "#d8c79c",
     reviewNote:
-      "Confirm which grades (total boswellic acids vs AKBA-enriched) are manufactured. Review 'joint-support category' wording for claims compliance.",
+      "Confirm which grades (total boswellic acids vs AKBA-enriched) are offered. Review 'joint-support category' wording for claims compliance.",
   },
   {
     slug: "bakuchiol",
@@ -107,7 +107,7 @@ export const products: Product[] = [
       "Personal-care products",
       "Contract cosmetic manufacturing",
     ],
-    intro: "A specialty ingredient for cosmetic and personal-care formulators, supplied by bakuchiol assay grade.",
+    intro: "A specialty ingredient for cosmetic and personal-care formulators, tested and supplied by bakuchiol assay grade.",
     swatch: "#c9a54e",
     reviewNote:
       "Brief flags Bakuchiol specifically: source terminology may differ by raw-material vendor (Psoralea corylifolia / Cullen corylifolium). QA to confirm before publishing.",
@@ -128,7 +128,7 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Herb extract standardized to bacosides for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Herb extract standardized to bacosides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
     swatch: "#8d7f55",
     reviewNote: "Confirm plant part and bacoside test method (HPLC vs UV) used for the grade claim.",
   },

@@ -22,7 +22,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in",
   tagline: "Botanical Ingredients for Global Markets",
   description:
-    "Phyto Elements is an India-based B2B manufacturer of bulk plant extracts for Indian and global markets.",
+    "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested against our specification, and only what passes carries our name.",
   defaultTheme: "greenlight" as ThemeId,
   /** Shows the colour-route switcher for client reviews. Never enable in production. */
   showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",
@@ -37,8 +37,8 @@ export const NAV = [
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
   { href: "/products/garcinia", label: "Flagship: Garcinia", flag: true },
-  { href: "/operations", label: "Operations" },
-  { href: "/manufacturing", label: "Manufacturing & Quality" },
+  { href: "/operations", label: "How we work" },
+  { href: "/quality", label: "Testing & Quality" },
   { href: "/resources", label: "Resources" },
   { href: "/contact", label: "Contact" },
 ] as const;

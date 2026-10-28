@@ -1,41 +1,65 @@
 import Link from "next/link";
-import type { Product, ValuePoint, OperatingFunction, ProcessStage } from "@/content/types";
-import { BatchTag } from "@/components/product/BatchTag";
+import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { ScrollVideo } from "@/components/motion/ScrollVideo";
 import { LazyScene } from "@/components/three/LazyScene";
 import { ReviewNote } from "@/components/ui/ReviewNote";
+import { SpecimenHero } from "@/components/hero/SpecimenHero";
+import { QualityFunnel } from "@/components/sections/QualityFunnel";
 
-export function Hero({ flagship, positioning }: { flagship: Product; positioning: string }) {
+export function Hero({ products, positioning }: { products: Product[]; positioning: string }) {
+  const items = products.map((p) => ({
+    slug: p.slug,
+    code: p.code,
+    name: p.name,
+    marker: p.marker,
+    plantPart: p.plantPart,
+    swatch: p.swatch,
+  }));
   return (
-    <section className="hero-glow py-[clamp(48px,7vw,88px)]">
-      <div className="wrap grid items-center gap-[clamp(32px,5vw,72px)] min-[881px]:grid-cols-[1.25fr_.9fr]">
-        <div>
-          <span className="eyebrow">Bulk plant extracts · Manufactured in India</span>
+    <section className="hero hero-glow">
+      <div className="wrap grid items-center gap-[clamp(24px,4vw,56px)] min-[961px]:grid-cols-[1fr_1.1fr]">
+        <div className="relative z-[1]">
+          <span className="eyebrow">Bulk plant extracts · Tested lot by lot</span>
           <h1 className="hero-title mt-[18px] mb-[22px]">
-            Bulk Plant Extracts for <em>Global Markets</em>
+            Only the best extracts <em>carry our name</em>
           </h1>
           <p className="lede">{positioning}</p>
           <div className="mt-[30px] flex flex-wrap gap-3">
             <Link href="/sample" className="btn">
               Request a Sample
             </Link>
-            <Link href="/products" className="btn btn-ghost">
-              Explore Products
+            <Link href="/quality" className="btn btn-ghost">
+              How we test
             </Link>
           </div>
           <div className="dot-list mt-[34px]">
             <span>Six focus extracts</span>
-            <span>Batch-linked COA</span>
+            <span>Every lot tested</span>
             <span>India &amp; export supply</span>
           </div>
         </div>
-        <Reveal delay={0.15}>
-          <BatchTag product={flagship} />
-        </Reveal>
+        <SpecimenHero items={items} />
       </div>
     </section>
+  );
+}
+
+/** Product ticker under the hero: every extract, every lot, the same check. */
+export function ProductTicker({ products }: { products: Product[] }) {
+  const row = products.map((p) => (
+    <span key={p.slug} className="ticker-item">
+      <b>{p.code}</b> {p.short} <span className="ticker-marker">{p.marker.split(/[,/(]/)[0].trim()}</span>
+      <span className="ticker-ok">Tested</span>
+    </span>
+  ));
+  return (
+    <div className="ticker" aria-hidden="true">
+      <div className="ticker-track">
+        {row}
+        {row}
+      </div>
+    </div>
   );
 }
 
@@ -45,7 +69,7 @@ export function ValuesSection({ intro, values }: { intro: string; values: ValueP
       <div className="wrap">
         <Reveal className="sec-head">
           <span className="eyebrow">Who we are</span>
-          <h2>A focused manufacturer of specification-driven botanical ingredients</h2>
+          <h2>Sourced widely. Tested rigorously. Only the best carries our name.</h2>
           <p className="lede">{intro}</p>
         </Reveal>
         <div className="values">
@@ -88,7 +112,7 @@ function FruitFallback() {
 
 export function FlagshipBand({ product }: { product: Product }) {
   return (
-    <section className="section band">
+    <section className="section band wave-top">
       <div className="wrap grid items-center gap-[clamp(32px,5vw,64px)] min-[881px]:grid-cols-2">
         <div>
           <span className="eyebrow">Flagship · {product.code}</span>
@@ -110,8 +134,8 @@ export function FlagshipBand({ product }: { product: Product }) {
               <span>{product.marker}</span>
             </div>
             <div>
-              <small>Grade</small>
-              <span>Per approved specification</span>
+              <small>Every lot</small>
+              <span>Tested before labelling</span>
             </div>
           </div>
           <div className="mt-7 flex flex-wrap gap-3">
@@ -137,15 +161,15 @@ export function FlagshipBand({ product }: { product: Product }) {
 
 export function ProductGrid({ products, heading = true }: { products: Product[]; heading?: boolean }) {
   return (
-    <section className="section">
+    <section className={`section ${heading ? "wave-top" : ""}`}>
       <div className="wrap">
         {heading && (
           <Reveal className="sec-head">
-            <span className="eyebrow">Manufacturing portfolio</span>
-            <h2>Six extracts, each made to an approved specification</h2>
+            <span className="eyebrow">Portfolio</span>
+            <h2>Six extracts, one standard</h2>
             <p className="lede">
-              Every product has its own page, specification summary and enquiry form. Additional extracts are added only
-              after process development, quality validation and commercial evaluation.
+              Garcinia Cambogia leads the portfolio, and the other five are held to exactly the same test. Every product
+              has its own page, specification summary and enquiry form.
             </p>
           </Reveal>
         )}
@@ -159,16 +183,53 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
   );
 }
 
-/** Sticky split-screen scroll: process steps scroll on one side, the scrubbed video stays pinned. */
-export function ProcessScroll({ stages }: { stages: ProcessStage[] }) {
+/** "From source to seal": the stages scroll beside a field of lots that narrows to the ones that pass. */
+export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   return (
-    <section className="section sunk">
+    <section className="section wave-top">
       <div className="wrap">
         <div className="sec-head">
-          <span className="eyebrow">From botanicals to batch</span>
-          <h2>Five stages between raw material and your dock</h2>
+          <span className="eyebrow">From source to seal</span>
+          <h2>Many lots come in. Only the ones that pass go out under our name.</h2>
+          <p className="lede">
+            We source from several qualified producers so supply stays steady. What keeps the standard fixed is the test
+            every lot has to pass.
+          </p>
         </div>
-        <ScrollVideo steps={stages} sequence="process" />
+        <QualityFunnel stages={stages} />
+      </div>
+    </section>
+  );
+}
+
+/** The five things every lot is checked for. */
+export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]; heading?: boolean }) {
+  return (
+    <section className="section band wave-top">
+      <div className="wrap">
+        {heading && (
+          <div className="sec-head">
+            <span className="eyebrow">Our guarantee</span>
+            <h2>What every lot is checked for</h2>
+            <p className="lede">
+              Before a lot carries the Phyto Elements label, it is held against five questions. If the answer to any of
+              them is no, it does not go out under our name.
+            </p>
+          </div>
+        )}
+        <ol className="pillars">
+          {pillars.map((t, i) => (
+            <li key={t.code} style={{ ["--i" as string]: i }}>
+              <span className="pillar-code">{t.code}</span>
+              <h3>{t.title}</h3>
+              <p>{t.body}</p>
+            </li>
+          ))}
+        </ol>
+        <ReviewNote>
+          Confirm the actual test panel and methods per product with the client before naming any (for example HPLC,
+          heavy metals, microbiology). Until then the five pillars stay generic.
+        </ReviewNote>
       </div>
     </section>
   );
@@ -179,15 +240,15 @@ export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
     <section className="section">
       <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
         <Reveal className="grid gap-[18px]">
-          <span className="eyebrow">Why work with Phyto Elements</span>
-          <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Every document traces back to the batch you receive</h2>
+          <span className="eyebrow">How we work</span>
+          <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Every document traces back to the lot you receive</h2>
           <p className="lede">
-            Our operating role covers product and process development, raw-material qualification, controlled
-            extraction, standardization, quality testing, batch release, packing and fulfilment.
+            From writing the specification to the release decision, every step exists to make sure what you receive is
+            what passed.
           </p>
           <div>
             <Link href="/operations" className="btn btn-ghost">
-              See all nine operating functions
+              See how we work
             </Link>
           </div>
         </Reveal>
@@ -196,36 +257,6 @@ export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
             <li key={f.title}>{f.title}</li>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-export function ManufacturingBand() {
-  return (
-    <section className="section band">
-      <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
-        <div className="grid gap-[18px]">
-          <span className="eyebrow">Manufacturing &amp; quality</span>
-          <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Controlled extract manufacturing</h2>
-        </div>
-        <div className="grid gap-[18px]">
-          <p className="lede">
-            Phyto Elements manufactures bulk botanical extracts using controlled, product-specific processing designed
-            around approved specifications and customer requirements. Each commercial batch is supported by
-            manufacturing records, applicable quality tests, approved packing and a batch-linked Certificate of
-            Analysis.
-          </p>
-          <div>
-            <Link href="/manufacturing" className="btn btn-ghost">
-              Manufacturing &amp; Quality
-            </Link>
-          </div>
-          <ReviewNote>
-            Certifications, capacity, equipment and in-house testing are intentionally absent. Add only once verified
-            with records.
-          </ReviewNote>
-        </div>
       </div>
     </section>
   );

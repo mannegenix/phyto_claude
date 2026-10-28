@@ -37,7 +37,8 @@
 
 @layer base {
   html {
-    scroll-padding-top: 80px;
+    /* Anchor targets land just below the fixed header (Lenis honours this too). */
+    scroll-padding-top: 84px;
   }
   body {
     background: var(--paper);

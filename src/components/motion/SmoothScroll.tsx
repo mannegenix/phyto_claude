@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,28 +9,107 @@ import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Anchor targets land this far below the top, clearing the fixed header. */
+const ANCHOR_GAP = 84;
+
+/** Page Y for an anchor target, measured from the real scroll position. */
+const anchorY = (el: Element) => Math.max(0, el.getBoundingClientRect().top + window.scrollY - ANCHOR_GAP);
+
 /**
  * Lenis smooth scrolling, driven by GSAP's ticker so ScrollTrigger animations
  * (pinned sections, scroll-scrubbed video) stay perfectly in sync.
  * Disabled for visitors who prefer reduced motion.
+ *
+ * Navigation: a click while the scroll is still gliding must not carry that glide
+ * onto the next page. Lenis is stopped on every internal link click, and each new
+ * page starts at the top (or at its #anchor). Back/forward keeps the browser's
+ * restored position.
  */
 export function SmoothScroll() {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+  const fromHistory = useRef(false);
+  const firstRender = useRef(true);
+
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Inside the review compare page the parent drives scrolling, so keep native scroll.
-    if (document.documentElement.classList.contains("pe-embed")) return;
+    const onPop = () => {
+      fromHistory.current = true;
+    };
+    window.addEventListener("popstate", onPop);
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      // Inside the review compare page the parent drives scrolling, so keep native scroll.
+      document.documentElement.classList.contains("pe-embed")
+    ) {
+      return () => window.removeEventListener("popstate", onPop);
+    }
 
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    // Freeze any glide the moment an internal link to another page is clicked.
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      if (!a || a.getAttribute("target") === "_blank") return;
+      const url = new URL((a as HTMLAnchorElement).href, location.href);
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) {
+        // Same-page #anchor: glide to it, just below the header.
+        const target = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+        if (!target) return;
+        e.preventDefault();
+        history.pushState(null, "", url.hash);
+        lenis.scrollTo(anchorY(target), { force: true });
+        return;
+      }
+      // Another page: freeze any glide so it is not carried onto the next page.
+      lenis.scrollTo(window.scrollY, { immediate: true, force: true });
+    };
+    document.addEventListener("click", onClick, true);
+
     return () => {
+      window.removeEventListener("popstate", onPop);
+      document.removeEventListener("click", onClick, true);
       gsap.ticker.remove(tick);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  // Every new page starts at the top (or its #anchor); back/forward keeps the restored position.
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    const back = fromHistory.current;
+    fromHistory.current = false;
+    // On first load (or reload) leave the browser's own position alone, except for #anchors.
+    const initial = firstRender.current;
+    firstRender.current = false;
+    if (initial && !location.hash) return;
+
+    const id = requestAnimationFrame(() => {
+      const hash = decodeURIComponent(location.hash.slice(1));
+      const target = hash ? document.getElementById(hash) : null;
+      if (back) {
+        lenis?.scrollTo(window.scrollY, { immediate: true, force: true });
+      } else if (target) {
+        if (lenis) lenis.scrollTo(anchorY(target), { immediate: true, force: true });
+        else window.scrollTo(0, anchorY(target));
+      } else if (lenis) {
+        lenis.scrollTo(0, { immediate: true, force: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+      lenis?.resize();
+      ScrollTrigger.refresh();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
 
   return null;
 }

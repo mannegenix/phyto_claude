@@ -42,10 +42,23 @@ const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matc
  * one; the flask glows "tested" and gives way to six glass cards. A card opens a
  * glass lightbox that grows out of the card (across, then down) with the extract's
  * 3D model and details, and Previous / Next to move through all six.
+ *
+ * Scrolling is held while the intro plays (from the moment the screen has settled
+ * until the cards are in), so nobody scrolls past the products mid-animation. Until
+ * a visitor opens a card, the flagship card carries a pulsing "Click to explore" cue.
  */
 export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: TestPillar[] }) {
   const root = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<"cards" | "armed" | "playing">("cards");
+  // Has this visitor opened a card yet (this session)? Until then the cards invite a click.
+  const [explored, setExplored] = useState(true);
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("pe-explored") === "1";
+    } catch {}
+    if (!seen) requestAnimationFrame(() => setExplored(false));
+  }, []);
 
   // ── Intro: spheres into the flask, then the cards ─────────────────────────
   useEffect(() => {
@@ -56,11 +69,30 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
     if (r.top < window.innerHeight * 0.5 || location.hash === "#products") return;
     setPhase("armed");
     let tl: gsap.core.Timeline | null = null;
+    let held = false;
+    let holdRaf = 0;
+    // Hold scrolling once the incoming glide has settled on this screen.
+    const hold = () => {
+      const lenis = getLenis();
+      if (!lenis) return;
+      if (lenis.isScrolling) {
+        holdRaf = requestAnimationFrame(hold);
+        return;
+      }
+      lenis.stop();
+      held = true;
+    };
+    const release = () => {
+      cancelAnimationFrame(holdRaf);
+      if (held) getLenis()?.start();
+      held = false;
+    };
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
         setPhase("playing");
+        hold();
         const q = gsap.utils.selector(el);
         const orbs = q(".sc-drop");
         const flask = q(".sc-flask")[0];
@@ -76,6 +108,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
         tl = gsap.timeline({
           delay: 0.55,
           onComplete: () => {
+            release();
             setPhase("cards");
             requestAnimationFrame(() => gsap.set(q(".sc-card"), { clearProps: "opacity,transform" }));
           },
@@ -125,6 +158,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
             { opacity: 0, y: 34, scale: 0.92 },
             { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" },
           );
+        tl.timeScale(1.3);
       },
       { threshold: 0.55 },
     );
@@ -132,6 +166,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
     return () => {
       io.disconnect();
       tl?.kill();
+      release();
     };
   }, []);
 
@@ -143,6 +178,12 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
   const opener = useRef<HTMLButtonElement | null>(null);
 
   const openAt = (i: number, btn: HTMLButtonElement) => {
+    if (!explored) {
+      setExplored(true);
+      try {
+        sessionStorage.setItem("pe-explored", "1");
+      } catch {}
+    }
     opener.current = btn;
     origin.current = btn.getBoundingClientRect();
     setOpen(i);
@@ -263,7 +304,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
           </p>
         </div>
 
-        <div className={`sc-stage is-${phase}`}>
+        <div className={`sc-stage is-${phase} ${explored ? "" : "is-invite"}`}>
           <div className="sc-intro" aria-hidden="true">
             {items.map((x, i) => (
               <div key={x.slug} className="sc-drop">
@@ -306,8 +347,21 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
 
           <ul className="sc-grid">
             {items.map((x, i) => (
-              <li key={x.slug} className="sc-card" style={{ ["--sw" as string]: x.swatch }}>
-                <button type="button" className="sc-card-btn" onClick={(e) => openAt(i, e.currentTarget)}>
+              <li key={x.slug} className="sc-card" style={{ ["--sw" as string]: x.swatch, ["--k" as string]: i }}>
+                {i === 0 && (
+                  <span className="sc-tip" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                      <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.6 14.4a1.5 1.5 0 0 1 2.4-1.8L9 15" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="sc-hint-fine">Click to explore</span>
+                    <span className="sc-hint-touch">Tap to explore</span>
+                  </span>
+                )}
+                <button
+                  type="button"
+                  className="sc-card-btn"
+                  onClick={(e) => openAt(i, e.currentTarget)}
+                >
                   <span className="sc-card-top">
                     <span className="mono">{x.code}</span>
                     <span className={`sc-chip ${x.flagship ? "is-flag" : ""}`}>
@@ -323,7 +377,9 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
                   </span>
                   <span className="sc-card-foot">
                     <span>{x.marker.split(",")[0]}</span>
-                    <span className="sc-open">Open ↗</span>
+                    <span className="sc-open">
+                      Explore <span aria-hidden="true">+</span>
+                    </span>
                   </span>
                 </button>
               </li>

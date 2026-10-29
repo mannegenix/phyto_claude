@@ -60,6 +60,7 @@ export function PanelScroll() {
     let snap: Snap | null = null;
     const lenis = getLenis();
     let snapList: number[] = [];
+    let touchSnap: ((e: { event: Event }) => void) | null = null;
 
     const tops: number[] = [];
     const heights: number[] = [];
@@ -101,6 +102,7 @@ export function PanelScroll() {
       if (lenis) {
         // Touch: Lenis snap settles a swipe on the next screen. Wheel is stepped below.
         snap?.destroy();
+        if (touchSnap) lenis.off("virtual-scroll", touchSnap);
         snap = new Snap(lenis, {
           type: "lock",
           distanceThreshold: 1e6,
@@ -109,6 +111,15 @@ export function PanelScroll() {
           debounce: 60,
         });
         snapList.forEach((v) => snap?.add(v));
+        // Lenis snap listens to every virtual-scroll event; let it see touch only. Wheel
+        // gestures are stepped below, and a wheel tail it saw while scrolling was held
+        // would otherwise fire a snap the moment the hold is released.
+        const s = snap;
+        lenis.off("virtual-scroll", s.onSnapDebounced);
+        touchSnap = (e: { event: Event }) => {
+          if (e.event.type.startsWith("touch")) s.onSnapDebounced(e as Parameters<Snap["onSnapDebounced"]>[0]);
+        };
+        lenis.on("virtual-scroll", touchSnap);
       }
       ScrollTrigger.refresh();
     };
@@ -216,13 +227,20 @@ export function PanelScroll() {
     };
     if (lenis) {
       lenis.options.virtualScroll = ({ deltaY, event }) => {
-        if (!event.type.includes("wheel") || event.ctrlKey || lenis.isStopped) return true;
-        if (event.composedPath().some((n) => n instanceof HTMLElement && n.hasAttribute("data-lenis-prevent")))
-          return true;
-        if (event.cancelable) event.preventDefault();
+        if (!event.type.includes("wheel") || event.ctrlKey) return true;
         const now = performance.now();
         const abs = Math.abs(deltaY);
         const gap = now - lastWheel;
+        if (lenis.isStopped) {
+          // Scrolling is held (lightbox, showcase intro): track the gesture anyway, so its
+          // momentum tail is not taken for a new swipe the moment scrolling is released.
+          lastWheel = now;
+          lastAbs = abs;
+          return true;
+        }
+        if (event.composedPath().some((n) => n instanceof HTMLElement && n.hasAttribute("data-lenis-prevent")))
+          return true;
+        if (event.cancelable) event.preventDefault();
         const fresh = gap > QUIET || (!gliding && abs > Math.max(10, lastAbs * 1.5));
         lastWheel = now;
         lastAbs = abs;
@@ -259,6 +277,7 @@ export function PanelScroll() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
       snap?.destroy();
+      if (lenis && touchSnap) lenis.off("virtual-scroll", touchSnap);
       if (lenis) lenis.options.virtualScroll = undefined;
       ctx.revert();
       panels.forEach((p) => {

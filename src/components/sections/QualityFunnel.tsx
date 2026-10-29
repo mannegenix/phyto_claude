@@ -66,13 +66,13 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
         if (!el || !section) return;
         const steps = q(".funnel-step");
         const n = steps.length;
-        // Pinned mode: the section is (n + 2) screens tall and each screen is one step;
-        // the last two are "seal formed" and a short hold before the next section.
+        // Pinned mode: the section is (n + 1) screens tall and each screen is one step;
+        // the last screen is "seal formed" (the pause), then the next gesture moves on.
         const pinned = () => document.documentElement.classList.contains("has-panels");
 
         gsap.set(q(".funnel-seal"), { scale: 0.6, transformOrigin: "50% 50%" });
         const setActive = (progress: number) => {
-          const units = progress * (n + 1);
+          const units = progress * n;
           const idx = Math.min(n - 1, Math.max(0, Math.round(units)));
           steps.forEach((s, i) => s.classList.toggle("is-active", i === idx));
           el.classList.toggle("is-complete", units > n - 0.4);
@@ -94,7 +94,7 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
             onUpdate: (self) => setActive(self.progress),
           },
         });
-        // Each change finishes as its step settles: 1 Screen, 2 Test, 3 Pass, 4 Label, 5 Seal, 6 hold.
+        // Each change finishes as its step settles: 1 Screen, 2 Test, 3 Pass, 4 Label, 5 Seal formed.
         tl.to(q(".lot-screen"), { opacity: 0.07, y: 10, stagger: { each: 0.008, from: "random" }, duration: 0.5 }, 0.4)
           .to(q(".lot-test"), { opacity: 0.07, y: 10, stagger: { each: 0.006, from: "random" }, duration: 0.5 }, 1.4)
           .to(q(".lot-pass .lot-on"), { opacity: 1, duration: 0.5, stagger: { each: 0.006 } }, 2.4)
@@ -109,7 +109,7 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
             3.35,
           )
           .to(q(".funnel-seal"), { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, n - 0.6)
-          .to({}, { duration: 1 }, n);
+          .to({}, { duration: 0.1 }, n - 0.1);
         setActive(0);
       });
       return () => mm.revert();

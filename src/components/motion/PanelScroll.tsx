@@ -10,11 +10,11 @@ import { getLenis } from "./SmoothScroll";
 gsap.registerPlugin(ScrollTrigger);
 
 /** Each wheel gesture moves this far inside a section taller than the screen. */
-const STEP = 0.85;
+const STEP = 1;
 /** Glide time for one screen (seconds). Slower reads calmer and lets the reveal finish. */
-const GLIDE = 1.35;
+const GLIDE = 1.1;
 /** A new wheel gesture starts after this much quiet (ms); trackpad momentum is swallowed. */
-const QUIET = 260;
+const QUIET = 200;
 const ease = (t: number) => 1 - Math.pow(1 - t, 4);
 
 /**
@@ -223,7 +223,7 @@ export function PanelScroll() {
         const now = performance.now();
         const abs = Math.abs(deltaY);
         const gap = now - lastWheel;
-        const fresh = gap > QUIET || (!gliding && abs > Math.max(12, lastAbs * 1.8));
+        const fresh = gap > QUIET || (!gliding && abs > Math.max(10, lastAbs * 1.5));
         lastWheel = now;
         lastAbs = abs;
         if (!gliding && fresh && abs >= 2) step(Math.sign(deltaY));

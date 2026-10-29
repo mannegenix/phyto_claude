@@ -6,6 +6,7 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
+import { panelTop } from "./PanelScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,30 @@ const ANCHOR_GAP = 84;
 
 /** Page Y for an anchor target, measured from the real scroll position. */
 const anchorY = (el: Element) => Math.max(0, el.getBoundingClientRect().top + window.scrollY - ANCHOR_GAP);
+
+/**
+ * Jump to a #target once the page has settled. In full-screen section mode the target
+ * is a panel: wait until PanelScroll has measured it and land exactly on its screen
+ * (its natural top), since sticky panels report their stuck position.
+ */
+function jumpTo(target: Element, lenis: Lenis | null) {
+  let frames = 0;
+  let raf = 0;
+  const go = () => {
+    const panelMode = document.documentElement.classList.contains("has-panels");
+    const top = panelTop(target.closest(".panel") ?? target);
+    if (panelMode && top === undefined && frames++ < 60) {
+      raf = requestAnimationFrame(go);
+      return;
+    }
+    const y = top !== undefined ? Math.round(top) : anchorY(target);
+    if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+    else window.scrollTo(0, y);
+    ScrollTrigger.refresh();
+  };
+  raf = requestAnimationFrame(go);
+  return () => cancelAnimationFrame(raf);
+}
 
 /**
  * Lenis smooth scrolling, driven by GSAP's ticker so ScrollTrigger animations
@@ -98,14 +123,15 @@ export function SmoothScroll() {
     firstRender.current = false;
     if (initial && !location.hash) return;
 
+    let cancelJump: (() => void) | undefined;
     const id = requestAnimationFrame(() => {
       const hash = decodeURIComponent(location.hash.slice(1));
       const target = hash ? document.getElementById(hash) : null;
-      if (back) {
+      if (target) {
+        // A #section (including Back to "/#products" from a product page) lands on that section.
+        cancelJump = jumpTo(target, lenis);
+      } else if (back) {
         lenis?.scrollTo(window.scrollY, { immediate: true, force: true });
-      } else if (target) {
-        if (lenis) lenis.scrollTo(anchorY(target), { immediate: true, force: true });
-        else window.scrollTo(0, anchorY(target));
       } else if (lenis) {
         lenis.scrollTo(0, { immediate: true, force: true });
       } else {
@@ -114,7 +140,10 @@ export function SmoothScroll() {
       lenis?.resize();
       ScrollTrigger.refresh();
     });
-    return () => cancelAnimationFrame(id);
+    return () => {
+      cancelAnimationFrame(id);
+      cancelJump?.();
+    };
   }, [pathname]);
 
   return null;

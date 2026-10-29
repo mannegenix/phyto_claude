@@ -52,7 +52,8 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
     const el = root.current;
     if (!el || reduced() || document.documentElement.classList.contains("pe-embed")) return;
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.5) return; // already on screen: just show the cards
+    // Already on screen, or back from a product page (#products): just show the cards.
+    if (r.top < window.innerHeight * 0.5 || location.hash === "#products") return;
     setPhase("armed");
     let tl: gsap.core.Timeline | null = null;
     const io = new IntersectionObserver(
@@ -156,6 +157,15 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
     opener.current?.focus({ preventScroll: true });
   }, []);
 
+  /**
+   * "View more": remember the products section as this history entry's URL (keeping
+   * Next's own history state), so Back from the product page lands on the cards.
+   */
+  const viewMore = useCallback(() => {
+    if (location.pathname === "/") history.replaceState(history.state, "", "/#products");
+    finishClose();
+  }, [finishClose]);
+
   const close = useCallback(() => {
     const tl = motion.current;
     if (tl && tl.duration() > 0) {
@@ -242,7 +252,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
   const next = open !== null ? items[(open + 1) % items.length] : null;
 
   return (
-    <section className="section band wave-top bgphoto bgphoto-leaf showcase">
+    <section id="products" className="section band wave-top bgphoto bgphoto-leaf showcase">
       <div ref={root} className="wrap">
         <div className="sec-head">
           <span className="eyebrow">Portfolio</span>
@@ -319,6 +329,13 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
               </li>
             ))}
           </ul>
+          <p className="sc-hint">
+            <span className="sc-pulse" aria-hidden="true">
+              <i />
+            </span>
+            <span className="sc-hint-fine">Click on a product to reveal</span>
+            <span className="sc-hint-touch">Tap a product to reveal</span>
+          </p>
         </div>
       </div>
 
@@ -386,8 +403,8 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <Link href={`/products/${p.slug}`} className="btn" onClick={finishClose}>
-                    View specimen sheet
+                  <Link href={`/products/${p.slug}`} className="btn" onClick={viewMore}>
+                    View more <span aria-hidden="true">→</span>
                   </Link>
                   <Link href="/sample" className="btn btn-ghost" onClick={finishClose}>
                     Request a sample

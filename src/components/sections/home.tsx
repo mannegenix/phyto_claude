@@ -117,8 +117,8 @@ export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   return (
     <section
       className="section wave-top s2s bgphoto bgphoto-dropper"
-      data-steps={stages.length + 2}
-      style={{ ["--s2s-n" as string]: stages.length + 2 }}
+      data-steps={stages.length + 1}
+      style={{ ["--s2s-n" as string]: stages.length + 1 }}
     >
       <div className="wrap">
         <div className="sec-head">

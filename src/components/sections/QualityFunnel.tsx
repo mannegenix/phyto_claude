@@ -60,30 +60,50 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const q = gsap.utils.selector(root);
+        const el = root.current;
+        const section = el?.closest<HTMLElement>(".s2s") ?? el;
+        if (!el || !section) return;
+        const steps = q(".funnel-step");
+        const n = steps.length;
+        // Pinned mode: the section is (n + 2) screens tall and each screen is one step;
+        // the last two are "seal formed" and a short hold before the next section.
+        const pinned = () => document.documentElement.classList.contains("has-panels");
+
         gsap.set(q(".funnel-seal"), { scale: 0.6, transformOrigin: "50% 50%" });
+        const setActive = (progress: number) => {
+          const units = progress * (n + 1);
+          const idx = Math.min(n - 1, Math.max(0, Math.round(units)));
+          steps.forEach((s, i) => s.classList.toggle("is-active", i === idx));
+          el.classList.toggle("is-complete", units > n - 0.4);
+        };
         const tl = gsap.timeline({
           defaults: { ease: "power2.inOut" },
-          scrollTrigger: { trigger: q(".funnel-steps")[0], start: "top 55%", end: "bottom 70%", scrub: 0.6 },
+          scrollTrigger: {
+            trigger: section,
+            start: () => (pinned() ? "top top" : "top 45%"),
+            end: () => (pinned() ? "bottom bottom" : "bottom 75%"),
+            scrub: pinned() ? 0.4 : 0.6,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => setActive(self.progress),
+          },
         });
-        tl.to(q(".lot-screen"), { opacity: 0.07, y: 10, stagger: { each: 0.01, from: "random" }, duration: 0.6 }, 0.6)
-          .to(q(".lot-test"), { opacity: 0.07, y: 10, stagger: { each: 0.008, from: "random" }, duration: 0.6 }, 1.6)
-          .to(q(".lot-pass .lot-on"), { opacity: 1, duration: 0.5, stagger: { each: 0.008 } }, 2.6)
+        // Each change finishes as its step settles: 1 Screen, 2 Test, 3 Pass, 4 Label, 5 Seal, 6 hold.
+        tl.to(q(".lot-screen"), { opacity: 0.07, y: 10, stagger: { each: 0.008, from: "random" }, duration: 0.5 }, 0.4)
+          .to(q(".lot-test"), { opacity: 0.07, y: 10, stagger: { each: 0.006, from: "random" }, duration: 0.5 }, 1.4)
+          .to(q(".lot-pass .lot-on"), { opacity: 1, duration: 0.5, stagger: { each: 0.006 } }, 2.4)
           .to(
             q(".lot-pass"),
             {
-              x: (i: number, el: Element) => Number((el as SVGGElement).dataset.rx),
-              y: (i: number, el: Element) => Number((el as SVGGElement).dataset.ry),
-              duration: 0.9,
-              stagger: 0.006,
+              x: (i: number, t: Element) => Number((t as SVGGElement).dataset.rx),
+              y: (i: number, t: Element) => Number((t as SVGGElement).dataset.ry),
+              duration: 0.55,
+              stagger: 0.004,
             },
-            3.5,
+            3.35,
           )
-          .to(q(".funnel-seal"), { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 4.1)
-          .to({}, { duration: 0.4 });
-
-        q(".funnel-step").forEach((el) => {
-          ScrollTrigger.create({ trigger: el, start: "top 60%", end: "bottom 60%", toggleClass: "is-active" });
-        });
+          .to(q(".funnel-seal"), { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, n - 0.6)
+          .to({}, { duration: 1 }, n);
+        setActive(0);
       });
       return () => mm.revert();
     },
@@ -124,6 +144,9 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
               </text>
             </g>
           </svg>
+          <div className="funnel-hint" aria-hidden="true">
+            Every lot checked · scroll to continue ↓
+          </div>
           <div className="funnel-legend">
             <span>
               <i className="lg-raw" /> Sourced

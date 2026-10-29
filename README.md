@@ -220,3 +220,5 @@ The products page is a showcase carousel (`components/products/ProductCarousel.t
 ## Full-screen sections
 
 Every page reads as a series of screens (`components/motion/PanelScroll.tsx`): each top-level `<section>` fills the viewport and stays put while the next one rises over it; one wheel or trackpad gesture moves one screen, and taller sections are stepped through. The background pattern is fixed, so only the content changes; incoming content drifts up, outgoing content recedes, and a drop of extract falls with ripples at each change. Touch devices scroll natively with the same stacking. Reduced-motion visitors get a normal page.
+
+"From source to seal" is a pinned, step-by-step section: it is (steps + 2) screens tall (`data-steps` on the section), stays fixed while each gesture advances one step, then shows the formed seal and holds for one more gesture (with a "scroll to continue" hint) before the next section rises. Any section can opt in the same way with `data-steps` and a sticky `.wrap`.

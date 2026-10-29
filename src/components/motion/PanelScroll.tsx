@@ -73,7 +73,11 @@ export function PanelScroll() {
         p.style.setProperty("--panel-top", `${Math.min(0, vh - h)}px`);
         if (i === 0 && y > 4) snaps.push(0);
         snaps.push(Math.max(0, Math.round(y)));
-        if (h - vh > 60) {
+        const declared = Number(p.dataset.steps);
+        if (declared > 1 && h > vh) {
+          // A pinned step-by-step section: one snap per step, evenly through its scroll length.
+          for (let k = 1; k < declared; k += 1) snaps.push(Math.round(y + ((h - vh) * k) / (declared - 1)));
+        } else if (h - vh > 60) {
           for (let s = y + vh * STEP; s < y + h - vh - 60; s += vh * STEP) snaps.push(Math.round(s));
           snaps.push(Math.round(y + h - vh));
         }

@@ -189,7 +189,11 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
 /** "From source to seal": the stages scroll beside a field of lots that narrows to the ones that pass. */
 export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   return (
-    <section className="section wave-top">
+    <section
+      className="section wave-top s2s"
+      data-steps={stages.length + 2}
+      style={{ ["--s2s-n" as string]: stages.length + 2 }}
+    >
       <div className="wrap">
         <div className="sec-head">
           <span className="eyebrow">From source to seal</span>

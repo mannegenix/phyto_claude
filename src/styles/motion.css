@@ -1360,3 +1360,126 @@ html.has-panels .panel {
 .hero {
   padding-bottom: calc(clamp(28px, 4vw, 48px) + 56px);
 }
+
+/* ── Source to seal, pinned: one screen per step, then the seal, then a short hold ── */
+.funnel-hint {
+  display: none;
+}
+html.has-panels .s2s.panel {
+  height: calc(var(--s2s-n, 7) * 100svh);
+  min-height: 0;
+  justify-content: flex-start;
+  padding-block: 0;
+}
+html.has-panels .s2s > .wrap {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--hdr-h) + 12px);
+  padding-bottom: 20px;
+}
+.has-panels .s2s .sec-head {
+  margin-bottom: clamp(12px, 2.4svh, 28px);
+  gap: 8px;
+}
+.has-panels .s2s .sec-head h2 {
+  font-size: clamp(1.5rem, min(2.6vw, 4.4svh), 2.4rem);
+}
+.has-panels .s2s .sec-head .lede {
+  font-size: 0.98rem;
+}
+.has-panels .s2s .funnel {
+  align-items: center;
+}
+.has-panels .s2s .funnel-panel {
+  position: static;
+}
+.has-panels .s2s .funnel-step {
+  padding-block: clamp(8px, 1.6svh, 16px);
+  opacity: 0.5;
+}
+.has-panels .s2s .funnel-step:first-child {
+  padding-top: clamp(8px, 1.6svh, 16px);
+}
+.has-panels .s2s .funnel-step h3 {
+  font-size: clamp(1.1rem, min(1.8vw, 3svh), 1.5rem);
+}
+.has-panels .s2s .funnel-step p {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s ease,
+    opacity 0.35s ease;
+}
+.has-panels .s2s .funnel-step.is-active {
+  opacity: 1;
+}
+.has-panels .s2s .funnel-step.is-active p {
+  max-height: 7em;
+  opacity: 1;
+}
+.has-panels .s2s .funnel-svg {
+  max-height: min(42svh, 360px);
+}
+.has-panels .s2s .funnel-hint {
+  display: block;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--splash-text, var(--accent-text));
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+  margin-bottom: 6px;
+}
+.has-panels .s2s .is-complete .funnel-hint {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 860px) {
+  .has-panels .s2s .sec-head .lede {
+    display: none;
+  }
+  .has-panels .s2s .sec-head h2 {
+    font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+  }
+  .has-panels .s2s .funnel-svg {
+    max-height: 30svh;
+  }
+  .has-panels .s2s .funnel {
+    gap: 10px;
+  }
+  .has-panels .s2s .funnel-card {
+    padding: 12px 14px;
+  }
+  .has-panels .s2s .funnel-legend {
+    font-size: 0.6rem;
+    gap: 4px 12px;
+  }
+  /* Phones show only the current step, with its number as progress */
+  .has-panels .s2s .funnel-step {
+    display: none;
+    border-top: 0;
+    padding-block: 4px;
+  }
+  .has-panels .s2s .funnel-step.is-active {
+    display: grid;
+  }
+  .has-panels .s2s .funnel-num::after {
+    content: " / 05";
+    color: var(--muted);
+  }
+}
+@media (max-height: 760px) {
+  .has-panels .s2s .sec-head .lede {
+    display: none;
+  }
+}

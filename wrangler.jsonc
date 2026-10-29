@@ -2,7 +2,7 @@
   // Cloudflare Workers config for the OpenNext adapter.
   // Deployed with Workers Builds (Workers & Pages → Create → Import a repository) or `npm run deploy`.
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "phyto-elements",
+  "name": "phytoelements-claude",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -14,7 +14,7 @@
     {
       // Self-reference used by OpenNext for cache revalidation. Must match "name" above.
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "phyto-elements",
+      "service": "phytoelements-claude",
     },
   ],
   "r2_buckets": [

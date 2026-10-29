@@ -126,7 +126,7 @@ A full Next.js app (server actions, the chat API, server rendering) needs Worker
 
    | Setting                              | Value                                                        |
    | ------------------------------------ | ------------------------------------------------------------ |
-   | Project / Worker name                | `phyto-elements` (must match `name` in `wrangler.jsonc`)     |
+   | Project / Worker name                | `phytoelements-claude` (must match `name` in `wrangler.jsonc`) |
    | Root directory                       | `/`                                                          |
    | Build command                        | `npx opennextjs-cloudflare build`                            |
    | Deploy command                       | `npx opennextjs-cloudflare deploy`                           |

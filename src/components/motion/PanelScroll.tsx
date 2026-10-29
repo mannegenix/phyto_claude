@@ -6,7 +6,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Snap from "lenis/snap";
 import { getLenis } from "./SmoothScroll";
-import { LeafDropArt } from "./LeafDropArt";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,8 +27,8 @@ export const panelTop = (el: Element) => naturalTops.get(el);
  * (sticky) while the next one rises over it, so the page reads as a series of
  * screens rather than one long scroll. A wheel gesture moves one screen (Lenis
  * snap, "lock"); sections taller than the screen are stepped through. Incoming
- * content drifts up, outgoing content recedes, and a drop of extract falls into
- * the incoming section's liquid edge.
+ * content drifts up and outgoing content recedes; on the homepage each section's
+ * content is revealed by a ripple from the centre.
  *
  * Off for reduced motion and inside the review compare panes. Without JavaScript
  * the page is an ordinary scrolling page.
@@ -56,12 +55,12 @@ export function PanelScroll() {
     let snap: Snap | null = null;
     const lenis = getLenis();
 
-    const drop = () => {
-      const el = fx.current;
-      if (!el) return;
-      el.classList.remove("is-dropping");
-      void el.offsetWidth; // restart the CSS animation
-      el.classList.add("is-dropping");
+    // Homepage only: each incoming section's content is revealed by a ripple from the centre.
+    const ripple = pathname === "/";
+    const play = (p: HTMLElement) => {
+      p.classList.remove("rip-armed", "rip-play");
+      void p.offsetWidth; // restart the CSS animation
+      p.classList.add("rip-play");
     };
 
     const tops: number[] = [];
@@ -122,13 +121,19 @@ export function PanelScroll() {
       panels.forEach((p, i) => {
         const content = p.querySelector<HTMLElement>(":scope > .wrap");
         if (i > 0) {
-          // A drop falls whenever a new section starts to rise.
-          ScrollTrigger.create({
-            start: () => tops[i] - vh() * 0.8,
-            end: () => tops[i] + 1,
-            onEnter: drop,
-            onLeaveBack: drop,
-          });
+          if (ripple) {
+            const ring = document.createElement("span");
+            ring.className = "rip-ring";
+            ring.setAttribute("aria-hidden", "true");
+            p.appendChild(ring);
+            ScrollTrigger.create({
+              start: () => tops[i] - vh() * 0.3,
+              end: () => tops[i] + 1,
+              onEnter: () => play(p),
+              onLeaveBack: () => p.classList.add("rip-armed"),
+              onEnterBack: () => play(p),
+            });
+          }
           if (content) {
             gsap.fromTo(
               content,
@@ -178,6 +183,12 @@ export function PanelScroll() {
 
     const relayout = () => {
       layout();
+      if (ripple) {
+        // Sections still below the fold wait behind a closed ripple until they settle.
+        panels.forEach((p, i) => {
+          if (i > 0 && !p.classList.contains("rip-play") && window.scrollY < tops[i] - vh() * 0.6) p.classList.add("rip-armed");
+        });
+      }
       covered = [];
       updateCovered();
     };
@@ -205,7 +216,8 @@ export function PanelScroll() {
       snap?.destroy();
       ctx.revert();
       panels.forEach((p) => {
-        p.classList.remove("panel", "is-covered");
+        p.classList.remove("panel", "is-covered", "rip-armed", "rip-play");
+        p.querySelectorAll(":scope > .rip-ring").forEach((r) => r.remove());
         p.style.removeProperty("z-index");
         p.style.removeProperty("--panel-top");
       });
@@ -214,8 +226,6 @@ export function PanelScroll() {
   }, [pathname]);
 
   return (
-    <div ref={fx} className="drop-fx" aria-hidden="true">
-      <LeafDropArt id="dfx" />
-    </div>
+    <div ref={fx} hidden />
   );
 }

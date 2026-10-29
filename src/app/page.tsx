@@ -1,13 +1,12 @@
 import { getCompany, getProducts } from "@/lib/content";
 import {
   Hero,
-  ProductGrid,
   SourceToSeal,
   TestPillars,
   ValuesSection,
   WhyUs,
 } from "@/components/sections/home";
-import { ProductSpotlight } from "@/components/sections/ProductSpotlight";
+import { ProductShowcase } from "@/components/sections/ProductShowcase";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { MailList } from "@/components/ui/MailList";
 import { Reveal } from "@/components/motion/Reveal";
@@ -22,7 +21,8 @@ export default async function HomePage() {
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} />
-      <ProductSpotlight
+      <ProductShowcase
+        pillars={c.testPillars}
         items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
           slug: p.slug,
           code: p.code,
@@ -34,11 +34,11 @@ export default async function HomePage() {
           botanicalSource: p.botanicalSource,
           plantPart: p.plantPart,
           marker: p.marker,
+          applications: p.applications,
           swatch: p.swatch,
           image: p.image,
         }))}
       />
-      <ProductGrid products={products} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />
       <section className="section">

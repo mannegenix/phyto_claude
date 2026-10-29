@@ -8,6 +8,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { PanelScroll } from "@/components/motion/PanelScroll";
+import { RouteTransition } from "@/components/motion/RouteTransition";
 import { themeBootScript } from "@/components/dev/theme-boot";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <SmoothScroll />
         <PanelScroll />
+        <RouteTransition />
         <Header />
         <main id="main">{children}</main>
         <Footer />

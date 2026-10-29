@@ -6,9 +6,10 @@ import { LeafDropArt } from "./LeafDropArt";
  * Preloader: a full "lot release" screen. A drop falls from a leaf into a bottle,
  * a counter runs to 100 %, the five checks tick through, and the six extracts are
  * marked tested. Pure CSS animation (see motion.css), so it never blocks content
- * when JavaScript fails. Plays once per browser session; never for reduced motion.
+ * when JavaScript fails. Plays on every full page load (visit or refresh); client-side
+ * page changes use the extract transition instead. Never for reduced motion.
  */
-export const preloaderBootScript = `try{var s=sessionStorage;if(s.getItem("pe-intro"))document.documentElement.classList.add("pe-seen");else s.setItem("pe-intro","1")}catch(e){}`;
+export const preloaderBootScript = `try{if(new URLSearchParams(location.search).get("embed"))document.documentElement.classList.add("pe-seen")}catch(e){}`;
 
 const STATUS = [
   "lot.intake  ·  sourced from qualified producers",

@@ -1744,11 +1744,11 @@ html.has-panels .s2s > .wrap {
 }
 
 /* ── Photo backdrops: real lab and nature photos, very faint, fixed behind the content ── */
-.photo {
+.bgphoto {
   position: relative;
   isolation: isolate;
 }
-.photo::after {
+.bgphoto::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1763,42 +1763,42 @@ html.has-panels .s2s > .wrap {
   -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
   mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
 }
-.has-panels .photo::after {
+.has-panels .bgphoto::after {
   background-attachment: fixed;
 }
-.photo-instrument {
+.bgphoto-instrument {
   --photo: url("/images/bg/lab-instrument.webp");
   --photo-op: 0.2;
   --photo-blend: normal;
 }
-.photo-instrument-soft {
+.bgphoto-instrument-soft {
   --photo: url("/images/bg/lab-instrument.webp");
   --photo-op: 0.12;
 }
-.photo-pipette {
+.bgphoto-pipette {
   --photo: url("/images/bg/lab-pipette.webp");
   --photo-op: 0.16;
 }
-.photo-dropper {
+.bgphoto-dropper {
   --photo: url("/images/bg/dropper-bottle.webp");
   --photo-op: 0.12;
   --photo-pos: right bottom;
 }
-.photo-amber {
+.bgphoto-amber {
   --photo: url("/images/bg/amber-bottle.webp");
   --photo-op: 0.12;
 }
-.photo-leaf {
+.bgphoto-leaf {
   --photo: url("/images/bg/leaf-dew.webp");
   --photo-op: 0.22;
   --photo-blend: luminosity;
 }
-.photo-leaf-soft {
+.bgphoto-leaf-soft {
   --photo: url("/images/bg/leaf-dew.webp");
   --photo-op: 0.1;
 }
 @media (max-width: 860px) {
-  .photo::after {
+  .bgphoto::after {
     --photo-size: cover;
     -webkit-mask-image: linear-gradient(180deg, transparent 30%, #000 85%);
     mask-image: linear-gradient(180deg, transparent 30%, #000 85%);

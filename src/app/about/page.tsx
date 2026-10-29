@@ -17,7 +17,7 @@ export default async function AboutPage() {
         crumbs={[{ label: "About" }]}
         lede="An India-based B2B supplier of bulk plant extracts. We source widely, test every lot, and put our name only on what passes."
       />
-      <section className="section photo photo-leaf-soft">
+      <section className="section bgphoto bgphoto-leaf-soft">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
             <p>{c.introduction}</p>

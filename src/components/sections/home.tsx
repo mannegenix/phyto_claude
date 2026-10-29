@@ -67,7 +67,7 @@ export function ProductTicker({ products }: { products: Product[] }) {
 
 export function ValuesSection({ intro, values }: { intro: string; values: ValuePoint[] }) {
   return (
-    <section className="section sunk photo photo-pipette">
+    <section className="section sunk bgphoto bgphoto-pipette">
       <div className="wrap">
         <Reveal className="sec-head">
           <span className="eyebrow">Who we are</span>
@@ -89,7 +89,7 @@ export function ValuesSection({ intro, values }: { intro: string; values: ValueP
 
 export function ProductGrid({ products, heading = true }: { products: Product[]; heading?: boolean }) {
   return (
-    <section className={`section photo photo-amber ${heading ? "wave-top" : ""}`}>
+    <section className={`section bgphoto bgphoto-amber ${heading ? "wave-top" : ""}`}>
       <div className="wrap">
         {heading && (
           <Reveal className="sec-head">
@@ -115,7 +115,7 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
 export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   return (
     <section
-      className="section wave-top s2s photo photo-dropper"
+      className="section wave-top s2s bgphoto bgphoto-dropper"
       data-steps={stages.length + 2}
       style={{ ["--s2s-n" as string]: stages.length + 2 }}
     >
@@ -137,7 +137,7 @@ export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
 /** The five things every lot is checked for. */
 export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]; heading?: boolean }) {
   return (
-    <section className="section band wave-top photo photo-instrument">
+    <section className="section band wave-top bgphoto bgphoto-instrument">
       <div className="wrap">
         {heading && (
           <div className="sec-head">

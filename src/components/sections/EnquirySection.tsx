@@ -15,7 +15,7 @@ export async function EnquirySection({
 }) {
   const [products, { customers }] = await Promise.all([getProducts(), getCompany()]);
   return (
-    <section id="enquire" className="section sunk photo photo-amber">
+    <section id="enquire" className="section sunk bgphoto bgphoto-amber">
       <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[901px]:grid-cols-[.8fr_1.2fr]">
         <div className="grid gap-[22px]">
           <span className="eyebrow">{eyebrow}</span>

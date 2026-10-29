@@ -29,7 +29,7 @@ export function ProductSpotlight({ items }: { items: Item[] }) {
   const p = items[i] ?? items[0];
 
   return (
-    <section className="section band wave-top photo photo-leaf spotlight">
+    <section className="section band wave-top bgphoto bgphoto-leaf spotlight">
       <div className="wrap grid items-center gap-[clamp(28px,4vw,56px)] min-[881px]:grid-cols-2">
         <div className="grid gap-5">
           <div className="spot-tabs" role="tablist" aria-label="Choose an extract">

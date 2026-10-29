@@ -13,6 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 const STEP = 0.85;
 
 /**
+ * Natural (unstuck) document position of each panel, computed from the layout once
+ * per resize. Animations use these numbers rather than measuring sticky elements,
+ * which report their stuck position and would make timings drift further down the page.
+ */
+const naturalTops = new WeakMap<Element, number>();
+export const panelTop = (el: Element) => naturalTops.get(el);
+
+/**
  * Full-screen section mode.
  *
  * Every top-level section becomes a panel that fills the screen and stays put
@@ -55,6 +63,9 @@ export function PanelScroll() {
       el.classList.add("is-dropping");
     };
 
+    const tops: number[] = [];
+    const heights: number[] = [];
+
     const layout = () => {
       const vh = window.innerHeight;
       // Natural (unstuck) document positions, from the main element and each panel's flow.
@@ -69,6 +80,9 @@ export function PanelScroll() {
         // The first panel's margin collapses into <main>, so it is already in main's position.
         if (i > 0) y += parseFloat(cs.marginTop) || 0;
         const h = p.offsetHeight;
+        tops[i] = y;
+        heights[i] = h;
+        naturalTops.set(p, y);
         // Tall panels scroll through, then stick at their bottom while the next one covers them.
         p.style.setProperty("--panel-top", `${Math.min(0, vh - h)}px`);
         if (i === 0 && y > 4) snaps.push(0);
@@ -102,42 +116,83 @@ export function PanelScroll() {
       ScrollTrigger.refresh();
     };
 
+    const vh = () => window.innerHeight;
     const ctx = gsap.context(() => {
       panels.forEach((p, i) => {
         const content = p.querySelector<HTMLElement>(":scope > .wrap");
         if (i > 0) {
           // A drop falls whenever a new section starts to rise.
-          ScrollTrigger.create({ trigger: p, start: "top 80%", onEnter: drop, onLeaveBack: drop });
+          ScrollTrigger.create({
+            start: () => tops[i] - vh() * 0.8,
+            end: () => tops[i] + 1,
+            onEnter: drop,
+            onLeaveBack: drop,
+          });
           if (content) {
             gsap.fromTo(
               content,
-              { y: () => window.innerHeight * 0.1 },
+              { y: () => vh() * 0.1 },
               {
                 y: 0,
                 ease: "none",
-                scrollTrigger: { trigger: p, start: "top bottom", end: "clamp(top top)", scrub: true },
+                scrollTrigger: { start: () => tops[i] - vh(), end: () => tops[i], scrub: true, invalidateOnRefresh: true },
               },
             );
           }
         }
         const next = panels[i + 1];
         if (next && content) {
+          // A 3D canvas measures its on-screen size, so it must not be scaled mid-animation.
+          const hasCanvas = !!content.querySelector("canvas, .flag-art");
           gsap.to(content, {
-            scale: 0.94,
+            scale: hasCanvas ? 1 : 0.94,
             yPercent: -3,
             opacity: 0.45,
             ease: "none",
-            scrollTrigger: { trigger: next, start: "top bottom", end: "clamp(top top)", scrub: true },
+            scrollTrigger: {
+              // Starts only once this section is fully settled (wavy edges overlap a little).
+              start: () => Math.max(tops[i + 1] - vh(), tops[i] + heights[i] - vh()) + 1,
+              end: () => tops[i + 1],
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
           });
         }
       });
     });
 
-    const id = requestAnimationFrame(() => requestAnimationFrame(layout));
+    // Sections fully covered by the next one are hidden, so only the visible pair repaints.
+    let covered: boolean[] = [];
+    const updateCovered = () => {
+      const y = window.scrollY;
+      panels.forEach((p, i) => {
+        const c = i < panels.length - 1 && tops[i + 1] !== undefined && y >= tops[i + 1] + 2;
+        if (c !== covered[i]) {
+          covered[i] = c;
+          p.classList.toggle("is-covered", c);
+        }
+      });
+    };
+    window.addEventListener("scroll", updateCovered, { passive: true });
+
+    const relayout = () => {
+      layout();
+      covered = [];
+      updateCovered();
+    };
+    const id = requestAnimationFrame(() => requestAnimationFrame(relayout));
+    // Re-measure only when the page really changes size (not on every inner animation).
     let t = 0;
+    let lastH = 0;
+    let lastW = 0;
     const ro = new ResizeObserver(() => {
+      const h = main.offsetHeight;
+      const w = window.innerWidth;
+      if (Math.abs(h - lastH) < 2 && w === lastW) return;
+      lastH = h;
+      lastW = w;
       clearTimeout(t);
-      t = window.setTimeout(layout, 150);
+      t = window.setTimeout(relayout, 150);
     });
     ro.observe(main);
 
@@ -145,10 +200,11 @@ export function PanelScroll() {
       cancelAnimationFrame(id);
       clearTimeout(t);
       ro.disconnect();
+      window.removeEventListener("scroll", updateCovered);
       snap?.destroy();
       ctx.revert();
       panels.forEach((p) => {
-        p.classList.remove("panel");
+        p.classList.remove("panel", "is-covered");
         p.style.removeProperty("z-index");
         p.style.removeProperty("--panel-top");
       });

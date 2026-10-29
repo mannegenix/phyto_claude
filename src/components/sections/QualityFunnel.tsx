@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import type { ProcessStage } from "@/content/types";
+import { panelTop } from "@/components/motion/PanelScroll";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -80,8 +81,14 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
           defaults: { ease: "power2.inOut" },
           scrollTrigger: {
             trigger: section,
-            start: () => (pinned() ? "top top" : "top 45%"),
-            end: () => (pinned() ? "bottom bottom" : "bottom 75%"),
+            start: () => {
+              const top = pinned() ? panelTop(section) : undefined;
+              return top === undefined ? "top 45%" : top;
+            },
+            end: () => {
+              const top = pinned() ? panelTop(section) : undefined;
+              return top === undefined ? "bottom 75%" : top + section.offsetHeight - window.innerHeight;
+            },
             scrub: pinned() ? 0.4 : 0.6,
             invalidateOnRefresh: true,
             onUpdate: (self) => setActive(self.progress),

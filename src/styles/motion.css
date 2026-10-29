@@ -1483,3 +1483,8 @@ html.has-panels .s2s > .wrap {
     display: none;
   }
 }
+
+/* Sections fully covered by the next one are not painted */
+.has-panels .panel.is-covered {
+  visibility: hidden;
+}

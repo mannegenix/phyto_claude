@@ -28,6 +28,14 @@ export const siteConfig = {
   name: "Phyto Elements",
   domain: "phytoelements.in",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in",
+  /**
+   * Search engines may index the site only on the live domain. Any other address
+   * (dev2.phytoelements.in, *.workers.dev, previews) is served with noindex and a
+   * disallow-all robots.txt so it never competes with the real site.
+   */
+  indexable: ["phytoelements.in", "www.phytoelements.in"].includes(
+    new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in").hostname,
+  ),
   tagline: "Botanical Ingredients for Global Markets",
   description:
     "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested against our specification, and only what passes carries our name.",

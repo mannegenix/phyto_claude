@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   openGraph: { siteName: siteConfig.name, type: "website", locale: "en_IN" },
+  robots: siteConfig.indexable ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

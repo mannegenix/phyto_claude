@@ -1,3 +1,4 @@
+import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProducts } from "@/lib/content";
@@ -43,7 +44,8 @@ export default async function ProductsPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section labart-host">
+        <LabArt kind="chromatogram" backdrop pos="tr" />
         <div className="wrap grid gap-10">
           <div className="sec-head">
             <span className="eyebrow">Find by application</span>

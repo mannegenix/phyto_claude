@@ -1,3 +1,4 @@
+import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import { getCompany } from "@/lib/content";
 import { siteConfig } from "@/config/site";
@@ -17,7 +18,7 @@ export default async function AboutPage() {
         crumbs={[{ label: "About" }]}
         lede="An India-based B2B supplier of bulk plant extracts. We source widely, test every lot, and put our name only on what passes."
       />
-      <section className="section bgphoto bgphoto-leaf-soft">
+      <section className="section bgphoto bgphoto-grove">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
             <p>{c.introduction}</p>
@@ -42,7 +43,8 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section sunk">
+      <section className="section sunk labart-host">
+        <LabArt kind="drums" backdrop pos="tr" />
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow">Who we serve</span>
@@ -58,7 +60,8 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section">
+      <section className="section labart-host">
+        <LabArt kind="vials" backdrop pos="tr" />
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow">How we create value</span>

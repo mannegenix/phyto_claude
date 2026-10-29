@@ -12,7 +12,6 @@
  *   --pop                          dots, step markers, headline highlight
  *   --band / --band-2 / --on-band / --on-band-muted / --band-eyebrow   coloured sections + footer
  *   --band-btn-ring / --band-ghost optional button outline tweaks inside coloured sections
- *   --logo-*                       logo colours (reversed on dark surfaces)
  */
 
 :root {
@@ -40,10 +39,6 @@
   --note-bg: #fbf3d9;
   --ok: #1d6b45;
   --err: #b4372a;
-  --logo-green: #114132;
-  --logo-copper: #c37f56;
-  --logo-vein: #8fae9f;
-  --logo-sage: #608474;
   --radius: 6px;
 }
 
@@ -68,9 +63,6 @@
   --band-eyebrow: #0c801e;
 }
 [data-theme="greenlight"] footer {
-  --logo-green: #114132;
-  --logo-vein: #8fae9f;
-  --logo-sage: #608474;
 }
 
 /* ── Lab green: Indena-style. Charcoal base, glowing forest-green scenes, neon lime ── */
@@ -515,16 +507,10 @@
 }
 
 /* ── Logo reversed on dark surfaces (footer is dark in every theme but Green light) ── */
-:is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]),
-footer {
-  --logo-green: #eef3ec;
-  --logo-vein: #56786a;
-  --logo-sage: #a3c3b3;
-}
-[data-theme="greenlight"] footer {
-  --logo-green: #114132;
-  --logo-vein: #8fae9f;
-  --logo-sage: #608474;
+:is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]) .logo,
+html:not([data-theme="greenlight"]) footer .logo {
+  & .logo-pos { display: none; }
+  & .logo-neg { display: inline-flex; }
 }
 
 /* ── Wide-gamut (Display P3) layer ─────────────────────────────────────────

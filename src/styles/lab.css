@@ -345,10 +345,9 @@
   --hdr-top-muted: rgb(255 255 255 / 0.84);
   --hdr-top-flag: var(--lab-hero-eyebrow);
 }
-[data-theme="lablight"] .hdr.on-hero:not(.is-scrolled):not(.is-open) {
-  --logo-green: #f4f8f2;
-  --logo-vein: #5f8a6f;
-  --logo-sage: #bfe0c8;
+[data-theme="lablight"] .hdr.on-hero:not(.is-scrolled):not(.is-open) .logo {
+  & .logo-pos { display: none; }
+  & .logo-neg { display: inline-flex; }
 }
 [data-theme="labday"] {
   --hdr-top-flag: var(--accent-text);

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -79,6 +81,12 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <div className="grid min-w-0">
             <article className="chapter">
               <span className="chapter-num">01 · Source</span>
+              {product.image && (
+                <figure className="chapter-photo">
+                  <Image src={product.image.replace(".webp", "-wide.webp")} alt={`${product.short}: raw botanical and extract powder`} width={1600} height={940} sizes="(max-width: 960px) 92vw, 760px" unoptimized />
+                  <figcaption>Representative image · not a specific lot</figcaption>
+                </figure>
+              )}
               <h2>
                 <i>{product.botanicalSource.split(" (")[0]}</i>, {product.plantPart.toLowerCase()}
               </h2>
@@ -99,6 +107,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <ol className="pillars pillars-compact">
                 {testPillars.map((t) => (
                   <li key={t.code}>
+                    {t.art && <LabArt kind={t.art} className="la-ico pillar-ico" />}
                     <span className="pillar-code">{t.code}</span>
                     <h3>{t.title}</h3>
                   </li>

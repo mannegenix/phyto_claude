@@ -48,7 +48,7 @@ src/
     actions/enquiry.ts     enquiry Server Action (validate → spam check → email → CRM)
     api/chat/route.ts      grounded chatbot endpoint
   components/
-    layout/                Header, Footer, Logo (traced vector mark)
+    layout/                Header, Footer, Logo (approved client artwork in public/brand)
     sections/              homepage sections, EnquirySection
     product/               BatchTag, ProductCard, SpecSheet, EnquiryButtons
     forms/EnquiryForm.tsx  client form (keeps input on validation errors)
@@ -78,7 +78,7 @@ Six routes from the client reviews: `greenlight`, `greendark`, `bluelight`, `blu
 
 - **Wide-gamut colour:** `themes.css` ends with a `@media (color-gamut: p3)` layer. On Display P3 screens (recent Macs, iPhones, most 4K monitors) brand colours render 30–45% more saturated; other screens get a smaller sRGB boost. Lightness is unchanged, so contrast is identical. If you edit a brand colour, update its P3 line too (same hue/lightness, higher chroma, written as `oklch(...)`).
 - **Polish layer:** `src/styles/polish.css` holds the depth effects (button gradients and glows, hero colour glow, section sheen, coloured shadows, card top edges) and the typography tuning (17px / weight 420 body text, optical sizing, stronger secondary text at ≥7:1 contrast).
-- **High-DPI:** the scroll-video canvas and the 3D scene render at up to 3× device pixels; frames extract at 1920px by default (`--width 2560` for 4K). All logos and illustrations are vector.
+- **High-DPI:** the scroll-video canvas and the 3D scene render at up to 3× device pixels; frames extract at 1920px by default (`--width 2560` for 4K). Illustrations are vector; the logo is the approved PNG artwork (public/brand, plus src/app/icon.png, apple-icon.png, favicon.ico).
 
 ## Sticky split-screen scroll video
 

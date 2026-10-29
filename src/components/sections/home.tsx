@@ -3,6 +3,7 @@ import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar }
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReviewNote } from "@/components/ui/ReviewNote";
+import { LabArt } from "@/components/botanicals/LabArt";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
 import { HeroScene } from "@/components/hero/HeroScene";
 import { QualityFunnel } from "@/components/sections/QualityFunnel";
@@ -67,7 +68,7 @@ export function ProductTicker({ products }: { products: Product[] }) {
 
 export function ValuesSection({ intro, values }: { intro: string; values: ValuePoint[] }) {
   return (
-    <section className="section sunk bgphoto bgphoto-pipette">
+    <section className="section sunk bgphoto bgphoto-quality">
       <div className="wrap">
         <Reveal className="sec-head">
           <span className="eyebrow">Who we are</span>
@@ -152,6 +153,7 @@ export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]
         <ol className="pillars">
           {pillars.map((t, i) => (
             <li key={t.code} style={{ ["--i" as string]: i }}>
+              {t.art && <LabArt kind={t.art} className="la-ico pillar-ico" />}
               <span className="pillar-code">{t.code}</span>
               <h3>{t.title}</h3>
               <p>{t.body}</p>
@@ -169,7 +171,8 @@ export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]
 
 export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
   return (
-    <section className="section">
+    <section className="section labart-host">
+      <LabArt kind="coa" backdrop pos="bl" className="labart-sm" />
       <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
         <Reveal className="grid gap-[18px]">
           <span className="eyebrow">How we work</span>
@@ -186,7 +189,10 @@ export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
         </Reveal>
         <ul className="dot-rows">
           {functions.map((f) => (
-            <li key={f.title}>{f.title}</li>
+            <li key={f.title}>
+              {f.art && <LabArt kind={f.art} className="la-ico" />}
+              {f.title}
+            </li>
           ))}
         </ul>
       </div>

@@ -70,41 +70,48 @@ export const stages: ProcessStage[] = [
  * the exact tests and methods per product are confirmed with the client (see qualityChecklist).
  */
 export const testPillars: TestPillar[] = [
-  { code: "ID", title: "Identity", body: "The right botanical and the right plant part, confirmed before anything else." },
-  { code: "PU", title: "Purity", body: "Checked for foreign matter and contaminants against our acceptance limits." },
-  { code: "PO", title: "Potency", body: "Marker-compound content measured against the grade on the specification." },
-  { code: "SA", title: "Safety", body: "Screened against the safety limits that apply to the product and its market." },
-  { code: "ST", title: "Stability", body: "Packed and stored so the lot holds its specification through its shelf life." },
+  { code: "ID", art: "magnifier", title: "Identity", body: "The right botanical and the right plant part, confirmed before anything else." },
+  { code: "PU", art: "filter", title: "Purity", body: "Checked for foreign matter and contaminants against our acceptance limits." },
+  { code: "PO", art: "chromatogram", title: "Potency", body: "Marker-compound content measured against the grade on the specification." },
+  { code: "SA", art: "petri", title: "Safety", body: "Screened against the safety limits that apply to the product and its market." },
+  { code: "ST", art: "hourglass", title: "Stability", body: "Packed and stored so the lot holds its specification through its shelf life." },
 ];
 
 /** How we work: the functions behind the promise. */
 export const operatingFunctions: OperatingFunction[] = [
   {
     title: "Specification development",
+    art: "coa",
     body: "Define the botanical source, plant part, marker compound and acceptance limits for each extract and grade we offer.",
   },
   {
     title: "Producer qualification",
+    art: "sourcing",
     body: "Evaluate and approve producers against identity, quality, traceability and commercial requirements before we buy from them.",
   },
   {
     title: "Incoming screening",
+    art: "microscope",
     body: "Check each arriving lot against its documentation and our acceptance criteria before it is accepted for testing.",
   },
   {
     title: "Testing against specification",
+    art: "vials",
     body: "Test each lot against the Phyto Elements specification for the product and grade.",
   },
   {
     title: "Release decision",
+    art: "seal",
     body: "Release only lots that meet the specification. Lots that fall short are rejected or returned, never relabelled.",
   },
   {
     title: "Packing and labelling",
+    art: "drums",
     body: "Pack released lots in the agreed bulk format under the Phyto Elements label, with lot-linked quality documentation.",
   },
   {
     title: "Domestic and export fulfilment",
+    art: "shipping",
     body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery support.",
   },
 ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompany } from "@/lib/content";
+import { LabArt } from "@/components/botanicals/LabArt";
 import { PageHead } from "@/components/ui/PageHead";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default async function OperationsPage() {
           <ol className="funcs">
             {c.operatingFunctions.map((f) => (
               <li key={f.title}>
+                {f.art && <LabArt kind={f.art} className="la-ico func-ico" />}
                 <h3>{f.title}</h3>
                 <p>{f.body}</p>
               </li>
@@ -29,7 +31,9 @@ export default async function OperationsPage() {
           </ol>
         </div>
       </section>
-      <section className="section band">
+      <section className="section band labart-host">
+        <LabArt kind="drums" backdrop pos="bl" />
+        <LabArt kind="shipping" backdrop pos="br" />
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid gap-[18px]">
             <span className="eyebrow">One interface</span>

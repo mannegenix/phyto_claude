@@ -11,6 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 /** Each wheel gesture moves this far inside a section taller than the screen. */
 const STEP = 0.85;
+/** Glide time for one screen (seconds). Slower reads calmer and lets the reveal finish. */
+const GLIDE = 1.35;
+/** A new wheel gesture starts after this much quiet (ms); trackpad momentum is swallowed. */
+const QUIET = 260;
+const ease = (t: number) => 1 - Math.pow(1 - t, 4);
 
 /**
  * Natural (unstuck) document position of each panel, computed from the layout once
@@ -54,6 +59,7 @@ export function PanelScroll() {
 
     let snap: Snap | null = null;
     const lenis = getLenis();
+    let snapList: number[] = [];
 
     const tops: number[] = [];
     const heights: number[] = [];
@@ -90,20 +96,19 @@ export function PanelScroll() {
         y += h + (parseFloat(cs.marginBottom) || 0);
       });
       snaps.push(Math.round(document.documentElement.scrollHeight - vh));
+      snapList = Array.from(new Set(snaps)).sort((a, b) => a - b);
 
       if (lenis) {
+        // Touch: Lenis snap settles a swipe on the next screen. Wheel is stepped below.
         snap?.destroy();
         snap = new Snap(lenis, {
           type: "lock",
-          // Lock: every gesture goes to the next or previous screen, however far it is.
           distanceThreshold: 1e6,
-          duration: 1.15,
-          easing: (t) => 1 - Math.pow(1 - t, 4),
+          duration: GLIDE,
+          easing: ease,
           debounce: 60,
         });
-        Array.from(new Set(snaps))
-          .sort((a, b) => a - b)
-          .forEach((v) => snap?.add(v));
+        snapList.forEach((v) => snap?.add(v));
       }
       ScrollTrigger.refresh();
     };
@@ -183,6 +188,49 @@ export function PanelScroll() {
     window.addEventListener("scroll", onScroll, { passive: true });
     const ctx = gsap.context(() => {});
 
+    /**
+     * Wheel stepping: one gesture moves exactly one screen. Lenis snap alone reacted to
+     * every pause in the wheel stream, so a fast trackpad flick (whose momentum keeps
+     * sending events for a second or more) opened a section and ran straight on to the
+     * next. Here the first event of a gesture starts the glide; everything after it is
+     * swallowed until the glide ends and the wheel has been quiet, unless a clearly new
+     * flick arrives (a sharp rise in speed) after the glide.
+     */
+    let gliding = false;
+    let lastWheel = 0;
+    let lastAbs = 0;
+    const step = (dir: number) => {
+      if (!lenis) return;
+      const y = lenis.targetScroll ?? window.scrollY;
+      const target = dir > 0 ? snapList.find((v) => v > y + 4) : [...snapList].reverse().find((v) => v < y - 4);
+      if (target === undefined) return;
+      gliding = true;
+      lenis.scrollTo(target, {
+        duration: GLIDE,
+        easing: ease,
+        lock: true,
+        onComplete: () => {
+          gliding = false;
+        },
+      });
+    };
+    if (lenis) {
+      lenis.options.virtualScroll = ({ deltaY, event }) => {
+        if (!event.type.includes("wheel") || event.ctrlKey || lenis.isStopped) return true;
+        if (event.composedPath().some((n) => n instanceof HTMLElement && n.hasAttribute("data-lenis-prevent")))
+          return true;
+        if (event.cancelable) event.preventDefault();
+        const now = performance.now();
+        const abs = Math.abs(deltaY);
+        const gap = now - lastWheel;
+        const fresh = gap > QUIET || (!gliding && abs > Math.max(12, lastAbs * 1.8));
+        lastWheel = now;
+        lastAbs = abs;
+        if (!gliding && fresh && abs >= 2) step(Math.sign(deltaY));
+        return false;
+      };
+    }
+
     const relayout = () => {
       layout();
       state.length = 0;
@@ -211,6 +259,7 @@ export function PanelScroll() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
       snap?.destroy();
+      if (lenis) lenis.options.virtualScroll = undefined;
       ctx.revert();
       panels.forEach((p) => {
         p.classList.remove("panel", "is-covered");

@@ -1,3 +1,4 @@
+import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import { getCompany } from "@/lib/content";
 import { siteConfig } from "@/config/site";
@@ -21,7 +22,8 @@ export default async function ContactPage() {
         crumbs={[{ label: "Contact" }]}
         lede="Write to the desk that fits your enquiry, or use the form below."
       />
-      <section className="section">
+      <section className="section labart-host">
+        <LabArt kind="shipping" backdrop pos="bl" />
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <MailList mailboxes={c.mailboxes} />
           <div className="grid gap-[18px]">

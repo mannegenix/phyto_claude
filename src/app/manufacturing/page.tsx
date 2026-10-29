@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 import { ReviewNote } from "@/components/ui/ReviewNote";
+import { LabArt } from "@/components/botanicals/LabArt";
 import { SourceToSeal, TestPillars } from "@/components/sections/home";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default async function ManufacturingPage() {
         crumbs={[{ label: "Manufacturing & Quality" }]}
         lede="Every extract we supply is made to our specification and held to rigorous, very high testing standards. Only the lots that pass carry the Phyto Elements label."
       />
-      <section className="section bgphoto bgphoto-instrument-soft">
+      <section className="section bgphoto bgphoto-quality">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
             <span className="eyebrow">Manufacturing</span>
@@ -52,7 +53,9 @@ export default async function ManufacturingPage() {
       </section>
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} />
-      <section className="section sunk bgphoto bgphoto-pipette">
+      <section className="section sunk labart-host">
+        <LabArt kind="coa" backdrop pos="tr" />
+        <LabArt kind="seal" backdrop pos="bl" />
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow">Quality documentation</span>

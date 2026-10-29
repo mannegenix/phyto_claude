@@ -2379,3 +2379,178 @@ html.has-panels .s2s > .wrap {
 .lb .lb-src {
   color: var(--muted);
 }
+
+/* ── Lab line art: testing, quality control, documents, logistics (botanicals/LabArt) ── */
+.labart {
+  display: block;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.labart path {
+  vector-effect: non-scaling-stroke;
+}
+.labart .la-a {
+  stroke: var(--splash-text);
+}
+.labart .la-dash {
+  stroke-dasharray: 3 5;
+}
+.band .labart .la-a {
+  stroke: var(--splash-scene);
+}
+/* Faint drawing behind a section's content */
+.labart-host {
+  isolation: isolate;
+}
+.labart-host:not(.bgphoto):not(.panel) {
+  position: relative;
+}
+.labart-bg {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: clamp(200px, 30vw, 440px);
+  height: auto;
+  color: var(--accent-text);
+  opacity: 0.16;
+  stroke-width: 1.2;
+}
+.labart-bg .la-a {
+  opacity: 0.9;
+}
+.band .labart-bg {
+  color: var(--on-band);
+  opacity: 0.14;
+}
+.labart-br {
+  right: clamp(8px, 3vw, 48px);
+  bottom: clamp(16px, 6vh, 64px);
+}
+.labart-tr {
+  right: clamp(8px, 3vw, 48px);
+  top: clamp(72px, 12vh, 120px);
+}
+.labart-bl {
+  left: clamp(8px, 3vw, 48px);
+  bottom: clamp(16px, 6vh, 64px);
+}
+.labart-tl {
+  left: clamp(8px, 3vw, 48px);
+  top: clamp(72px, 12vh, 120px);
+}
+.labart-r {
+  right: clamp(-40px, -2vw, 0px);
+  top: 50%;
+  translate: 0 -50%;
+}
+.labart-bg + .labart-bg {
+  width: clamp(150px, 20vw, 300px);
+}
+@media (max-width: 860px) {
+  .labart-bg {
+    width: 46vw;
+    opacity: 0.1;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .labart-draw path:not(.la-dash) {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: botanical-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 50%;
+    }
+  }
+}
+/* Small icons on steps and pillars */
+.la-ico {
+  width: 44px;
+  height: 44px;
+  color: var(--accent-text);
+  stroke-width: 1.5;
+}
+.band .la-ico {
+  color: var(--on-band);
+}
+.dot-rows .la-ico {
+  width: 26px;
+  height: 26px;
+}
+.bgphoto-quality {
+  --photo: url("/images/bg/quality-sample.webp");
+  --photo-op: 0.2;
+  --photo-blend: normal;
+}
+.bgphoto-grove {
+  --photo: url("/images/bg/garcinia-grove.webp");
+  --photo-op: 0.16;
+  --photo-blend: normal;
+}
+.pillars li {
+  position: relative;
+}
+.pillar-ico {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  opacity: 0.85;
+}
+.pillars-compact .pillar-ico {
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  right: 10px;
+}
+.func-ico {
+  width: 40px;
+  height: 40px;
+}
+.funcs li {
+  position: relative;
+}
+.funcs li .func-ico {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+.dot-rows li:has(.la-ico) {
+  align-items: center;
+}
+.dot-rows li:has(.la-ico)::before {
+  display: none;
+}
+.chapter-photo {
+  margin: 4px 0 6px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16 / 8;
+  box-shadow: var(--neu-out, 0 18px 40px -24px rgb(0 0 0 / 0.3));
+}
+.chapter-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.chapter-photo figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.78);
+  color: var(--muted);
+}
+.labart-bg.labart-sm {
+  width: clamp(140px, 16vw, 230px);
+  opacity: 0.12;
+}

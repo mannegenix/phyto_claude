@@ -1,3 +1,4 @@
+import { LabArt } from "@/components/botanicals/LabArt";
 import { getCompany, getProducts } from "@/lib/content";
 import {
   Hero,
@@ -41,7 +42,8 @@ export default async function HomePage() {
       />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />
-      <section className="section">
+      <section className="section labart-host">
+        <LabArt kind="shipping" backdrop pos="bl" />
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <Reveal className="grid gap-[18px]">
             <span className="eyebrow">Contact</span>

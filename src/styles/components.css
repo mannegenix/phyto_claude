@@ -146,24 +146,31 @@
     color: var(--label);
   }
 
-  /* Logo wordmark */
-  .wm {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.9;
-    font-family: var(--font-display);
+  /* Logo: approved artwork; the reversed set shows on dark surfaces */
+  .logo {
+    display: inline-flex;
   }
-  .wm b {
-    font-size: 1.32rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--logo-green);
+  .logo-set {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
   }
-  .wm span {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--logo-sage);
+  .logo-mark {
+    height: 40px;
+    width: auto;
+  }
+  .logo-word {
+    height: 34px;
+    width: auto;
+  }
+  .logo-neg {
+    display: none;
+  }
+  .logo-dark .logo-pos {
+    display: none;
+  }
+  .logo-dark .logo-neg {
+    display: inline-flex;
   }
 
   /* Hero */

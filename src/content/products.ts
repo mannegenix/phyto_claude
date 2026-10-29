@@ -8,6 +8,7 @@ import type { Product } from "./types";
 export const products: Product[] = [
   {
     slug: "garcinia",
+    image: "/images/products/garcinia.webp",
     code: "PE-01",
     name: "Garcinia Cambogia Extract",
     short: "Garcinia Cambogia",
@@ -31,6 +32,7 @@ export const products: Product[] = [
   },
   {
     slug: "curcumin",
+    image: "/images/products/curcumin.webp",
     code: "PE-02",
     name: "Curcumin Extract",
     short: "Curcumin",
@@ -52,6 +54,7 @@ export const products: Product[] = [
   },
   {
     slug: "ashwagandha",
+    image: "/images/products/ashwagandha.webp",
     code: "PE-03",
     name: "Ashwagandha Extract",
     short: "Ashwagandha",
@@ -72,6 +75,7 @@ export const products: Product[] = [
   },
   {
     slug: "boswellia",
+    image: "/images/products/boswellia.webp",
     code: "PE-04",
     name: "Boswellia Extract",
     short: "Boswellia",
@@ -93,6 +97,7 @@ export const products: Product[] = [
   },
   {
     slug: "bakuchiol",
+    image: "/images/products/bakuchiol.webp",
     code: "PE-05",
     name: "Bakuchiol Extract",
     short: "Bakuchiol",
@@ -114,6 +119,7 @@ export const products: Product[] = [
   },
   {
     slug: "bacopa",
+    image: "/images/products/bacopa.webp",
     code: "PE-06",
     name: "Bacopa Extract",
     short: "Bacopa",

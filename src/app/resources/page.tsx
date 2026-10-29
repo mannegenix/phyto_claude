@@ -1,3 +1,4 @@
+import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompany } from "@/lib/content";
@@ -19,7 +20,8 @@ export default async function ResourcesPage() {
         crumbs={[{ label: "Documents / Resources" }]}
         lede="Technical and commercial documents are shared by email so each one matches the product, grade and lot you are evaluating."
       />
-      <section className="section">
+      <section className="section labart-host">
+        <LabArt kind="coa" backdrop pos="br" />
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="border-t border-line">
             {c.documents.map((d) => (

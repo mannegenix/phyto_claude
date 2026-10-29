@@ -33,8 +33,12 @@ export type Product = {
 };
 
 export type ProcessStage = { title: string; body: string };
-export type OperatingFunction = { title: string; body: string };
-export type TestPillar = { code: string; title: string; body: string };
+/** Line drawing shown beside a step (see components/botanicals/LabArt). */
+export type ArtKind =
+  | "chromatogram" | "vials" | "coa" | "drums" | "shipping" | "microscope"
+  | "petri" | "magnifier" | "filter" | "sourcing" | "seal" | "hourglass";
+export type OperatingFunction = { title: string; body: string; art?: ArtKind };
+export type TestPillar = { code: string; title: string; body: string; art?: ArtKind };
 export type ValuePoint = { title: string; body: string };
 export type Mailbox = { address: string; label: string; use: string };
 export type Doc = { name: string; tag: string; body: string; access: string };

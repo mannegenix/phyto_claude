@@ -65,6 +65,23 @@ export function ProductCarousel({ items }: { items: Item[] }) {
 
   return (
     <div className="pc" aria-roledescription="carousel" aria-label="Our six extracts">
+      <div className="pc-picker" role="tablist" aria-label="Choose an extract">
+        {items.map((p, i) => (
+          <button
+            key={p.slug}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            className="pc-pick"
+            onClick={() => goTo(i)}
+            style={{ ["--sw" as string]: p.swatch }}
+          >
+            <ProductOrb product={p} size="md" uid={`pick-${i}`} />
+            <span className="pc-pick-name">{p.short}</span>
+            <span className="pc-pick-code mono">{p.code}</span>
+          </button>
+        ))}
+      </div>
       <div ref={track} className="pc-track" tabIndex={0} onKeyDown={onKey}>
         {items.map((p, i) => (
           <article
@@ -124,20 +141,9 @@ export function ProductCarousel({ items }: { items: Item[] }) {
         >
           ←
         </button>
-        <div className="pc-thumbs" role="tablist" aria-label="Choose an extract">
+        <div className="pc-dots" aria-hidden="true">
           {items.map((p, i) => (
-            <button
-              key={p.slug}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              className="pc-thumb"
-              onClick={() => goTo(i)}
-              style={{ ["--sw" as string]: p.swatch }}
-            >
-              <ProductOrb product={p} size="sm" uid={`thumb-${i}`} />
-              <span>{p.short}</span>
-            </button>
+            <i key={p.slug} className={i === active ? "on" : ""} style={{ ["--sw" as string]: p.swatch }} />
           ))}
         </div>
         <span className="pc-count mono" aria-live="polite">

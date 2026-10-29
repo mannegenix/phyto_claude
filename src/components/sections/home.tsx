@@ -43,6 +43,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
         </div>
         <SpecimenHero items={items} />
       </div>
+      <ProductTicker products={products} />
     </section>
   );
 }

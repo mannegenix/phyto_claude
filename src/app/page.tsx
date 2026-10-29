@@ -3,7 +3,6 @@ import {
   FlagshipBand,
   Hero,
   ProductGrid,
-  ProductTicker,
   SourceToSeal,
   TestPillars,
   ValuesSection,
@@ -20,7 +19,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero products={products} positioning={c.positioning} />
-      <ProductTicker products={products} />
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} />

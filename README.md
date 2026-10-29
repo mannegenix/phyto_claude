@@ -216,3 +216,7 @@ Photography: none yet. When the client supplies macro botanical photos (Indena-s
 Each product shows its botanical inside a tinted glass orb (`components/product/ProductOrb.tsx`). Until photos are supplied the orb uses a full-colour illustration (`components/botanicals/Illustration.tsx`). To use a photo, add it to `public/images/products/` and set `image: "/images/products/<slug>.webp"` on the product in `src/content/products.ts`; every orb (cards, labels, products carousel) switches to the photo. Square images, at least 800 × 800, work best.
 
 The products page is a showcase carousel (`components/products/ProductCarousel.tsx`), an application filter grid (`ProductFinder.tsx`) and a collapsible comparison table. Cards site-wide are neumorphic in the lab routes (`--neu-*` tokens in `lab.css`).
+
+## Full-screen sections
+
+Every page reads as a series of screens (`components/motion/PanelScroll.tsx`): each top-level `<section>` fills the viewport and stays put while the next one rises over it; one wheel or trackpad gesture moves one screen, and taller sections are stepped through. The background pattern is fixed, so only the content changes; incoming content drifts up, outgoing content recedes, and a drop of extract falls with ripples at each change. Touch devices scroll natively with the same stacking. Reduced-motion visitors get a normal page.

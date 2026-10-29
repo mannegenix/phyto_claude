@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { PanelScroll } from "@/components/motion/PanelScroll";
 import { themeBootScript } from "@/components/dev/theme-boot";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <SmoothScroll />
+        <PanelScroll />
         <Header />
         <main id="main">{children}</main>
         <Footer />

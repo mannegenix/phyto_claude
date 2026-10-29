@@ -608,9 +608,12 @@
     linear-gradient(color-mix(in oklab, var(--line) 45%, transparent) 1px, transparent 1px) 0 0 / 32px 32px,
     linear-gradient(90deg, color-mix(in oklab, var(--line) 45%, transparent) 1px, transparent 1px) 0 0 / 32px 32px;
 }
-.specimen-page > .section,
+html:not(.has-panels) .specimen-page > .section,
 .specimen-page .page-head {
   background: transparent;
+}
+.has-panels .specimen-page .panel.sunk {
+  background-color: var(--sunk);
 }
 .specimen-bg {
   position: fixed;
@@ -845,7 +848,7 @@ body {
   --orb: clamp(160px, 22vw, 240px);
 }
 .orb-xl {
-  --orb: clamp(220px, 34vw, 420px);
+  --orb: clamp(200px, min(30vw, 44svh), 400px);
 }
 .card:hover .orb-art,
 .p-slide:hover .orb-art {
@@ -854,7 +857,7 @@ body {
 
 /* ── Products page: showcase carousel, finder chips, compare table ────── */
 .products-stage {
-  padding-block: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 72px);
+  padding-block: clamp(84px, 9svh, 110px) clamp(24px, 4vw, 48px);
   overflow-x: clip;
 }
 .pc {
@@ -899,7 +902,7 @@ body {
 @media (min-width: 861px) {
   .p-slide {
     grid-template-columns: 1fr 1fr;
-    min-height: 480px;
+    min-height: min(460px, 50svh);
   }
 }
 .p-slide-visual {
@@ -1121,4 +1124,239 @@ body {
 }
 .compare-all[open] summary::after {
   content: "−";
+}
+
+/* All six extracts at a glance: pick one to jump straight to it */
+.pc-picker {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 860px) {
+  .pc-picker {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.pc-pick {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 8px 10px;
+  border-radius: 18px;
+  background: var(--neu-bg, var(--surface));
+  border: 1px solid var(--neu-edge, var(--line));
+  box-shadow: var(--neu-shadow, none);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+.pc-pick:hover {
+  transform: translateY(-3px);
+}
+.pc-pick[aria-selected="true"] {
+  box-shadow: var(--neu-press, inset 0 0 0 2px var(--accent));
+  outline: 2px solid color-mix(in oklab, var(--sw) 75%, transparent);
+  outline-offset: 3px;
+  transform: none;
+}
+.pc-pick .orb {
+  --orb: clamp(52px, min(5vw, 8svh), 68px);
+}
+.pc-pick-name {
+  font-weight: 650;
+  font-size: 0.92rem;
+  color: var(--heading);
+  text-align: center;
+  line-height: 1.2;
+}
+.pc-pick-code {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.pc-dots {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.pc-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--sw) 45%, transparent);
+  transition: width 0.35s;
+}
+.pc-dots i.on {
+  width: 28px;
+  background: var(--sw);
+}
+
+/* ── Full-screen section mode (enabled by PanelScroll: html.has-panels) ── */
+html.has-panels .panel {
+  position: sticky;
+  top: var(--panel-top, 0px);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.has-panels .panel:not(.band):not(.sunk):not(.hero) {
+  background-color: var(--paper);
+}
+.has-panels .panel > .wrap {
+  width: 100%;
+  transform-origin: 50% 30%;
+  will-change: transform;
+}
+/* Fixed backdrop: the pattern stays still while each section's content changes over it */
+.has-panels .panel:not(.band):not(.hero) {
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--accent-text) 12%, transparent) 1px, transparent 1.6px),
+    radial-gradient(60% 50% at 85% 15%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+  background-size:
+    26px 26px,
+    100% 100%;
+  background-attachment: fixed;
+}
+.has-panels .specimen-page .panel:not(.band) {
+  background-image:
+    radial-gradient(60% 50% at 85% 10%, color-mix(in oklab, var(--sw) 26%, transparent), transparent 70%),
+    linear-gradient(color-mix(in oklab, var(--line) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--line) 45%, transparent) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    32px 32px,
+    32px 32px;
+  background-attachment: fixed;
+}
+/* A soft shadow on each rising section's top edge gives depth to the stack */
+.has-panels .panel + .panel {
+  box-shadow: 0 -24px 48px -28px rgb(10 40 15 / 0.35);
+}
+.has-panels .wave-top.panel {
+  box-shadow: none;
+  filter: drop-shadow(0 -14px 22px rgb(10 40 15 / 0.16));
+}
+
+/* Drop of extract falling into the next section */
+.drop-fx {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  width: 200px;
+  height: 260px;
+  margin-left: -100px;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0;
+}
+.drop-fx svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.drop-fx.is-dropping {
+  animation: dfx-show 1.25s linear;
+}
+.dfx-drop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+}
+.is-dropping .dfx-drop {
+  animation: dfx-fall 0.62s cubic-bezier(0.55, 0, 0.9, 0.4) forwards;
+}
+.dfx-ring {
+  fill: none;
+  stroke: var(--splash, var(--accent));
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+.is-dropping .dfx-ring {
+  animation: dfx-ring 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.58s forwards;
+}
+.is-dropping .dfx-ring-2 {
+  animation-delay: 0.7s;
+  stroke: var(--accent);
+}
+.is-dropping .dfx-ring-3 {
+  animation-delay: 0.82s;
+}
+.dfx-splash circle {
+  fill: var(--accent);
+  opacity: 0;
+}
+.is-dropping .dfx-splash circle {
+  animation: dfx-splash 0.5s ease-out 0.58s forwards;
+}
+.is-dropping .dfx-splash circle:nth-child(2) {
+  animation-name: dfx-splash-r;
+}
+@keyframes dfx-show {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  4%,
+  90% {
+    opacity: 1;
+  }
+}
+@keyframes dfx-fall {
+  0% {
+    transform: translateY(-40px) scale(0.6, 0.8);
+  }
+  80% {
+    transform: translateY(150px) scale(0.85, 1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(176px) scale(1.4, 0.3);
+    opacity: 0;
+  }
+}
+@keyframes dfx-ring {
+  0% {
+    transform: scale(0.1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes dfx-splash {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-16px, -30px);
+    opacity: 0;
+  }
+}
+@keyframes dfx-splash-r {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(16px, -26px);
+    opacity: 0;
+  }
+}
+/* Hero: the product ticker sits on its bottom edge */
+.hero .ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
+.hero {
+  padding-bottom: calc(clamp(28px, 4vw, 48px) + 56px);
 }

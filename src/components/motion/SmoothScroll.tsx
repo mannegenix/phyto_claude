@@ -9,6 +9,10 @@ import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+let current: Lenis | null = null;
+/** The active Lenis instance (null when smooth scrolling is off). */
+export const getLenis = () => current;
+
 /** Anchor targets land this far below the top, clearing the fixed header. */
 const ANCHOR_GAP = 84;
 
@@ -47,6 +51,7 @@ export function SmoothScroll() {
 
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     lenisRef.current = lenis;
+    current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
@@ -79,6 +84,7 @@ export function SmoothScroll() {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      current = null;
     };
   }, []);
 

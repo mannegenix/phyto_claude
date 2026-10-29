@@ -17,14 +17,6 @@
       "service": "phytoelements-claude",
     },
   ],
-  "r2_buckets": [
-    {
-      // Next.js incremental cache. Create once before the first deploy:
-      //   npx wrangler r2 bucket create phyto-elements-opennext-cache
-      "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "phyto-elements-opennext-cache",
-    },
-  ],
   "observability": { "enabled": true },
   "upload_source_maps": true,
   // Non-secret runtime variables. Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY, ANTHROPIC_API_KEY,

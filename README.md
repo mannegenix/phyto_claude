@@ -119,8 +119,8 @@ A full Next.js app (server actions, the chat API, server rendering) needs Worker
 
 ### One-time setup
 
-1. **R2 bucket** for the Next.js cache: dashboard → R2 → Create bucket → `phyto-elements-opennext-cache`
-   (or `npx wrangler r2 bucket create phyto-elements-opennext-cache`).
+1. **No R2 bucket needed.** Pages are prerendered and the Next.js cache is served read-only from
+   Workers static assets (`open-next.config.ts`). Add R2 only if ISR/revalidation is introduced.
 2. **Connect the repo**: Workers & Pages → Create → Workers → _Import a repository_ → pick the GitHub repo.
 3. **Build settings** (Worker → Settings → Build):
 
@@ -153,7 +153,7 @@ npm run deploy    # build + deploy to Cloudflare
 
 ### Cloudflare notes
 
-- `cacheComponents` / `"use cache"` are **off on purpose**: they hang on the Workers runtime. Pages are statically generated at build time and served from R2 + static assets.
+- `cacheComponents` / `"use cache"` are **off on purpose**: they hang on the Workers runtime. Pages are statically generated at build time and served from Workers static assets.
 - Env vars are read at request time through `getEnv()` (src/lib/env.ts), because Workers inject secrets per request.
 - Static files (frames in `/sequences`, `/_next/static`) get long-lived cache headers from `public/_headers`.
 - Worker bundle is ~1.6 MB gzipped, within the Free plan's 3 MB limit. Keep three.js and other heavy libraries client-side (they already are).
@@ -178,7 +178,7 @@ Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/c
 - [ ] Legal name/address on contact page and footer
 - [ ] Privacy notice reviewed (DPDP Act 2023 / GDPR); cookie controls if analytics added
 - [ ] Analytics + form-conversion events
-- [ ] R2 bucket created; Workers Builds connected; build variables and secrets set
+- [ ] Workers Builds connected; build variables and secrets set
 - [ ] Custom domain attached; HTTPS verified
 - [ ] Scroll-video frames served with cache headers; Lighthouse check on mobile
 

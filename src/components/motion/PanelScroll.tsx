@@ -27,8 +27,8 @@ export const panelTop = (el: Element) => naturalTops.get(el);
  * (sticky) while the next one rises over it, so the page reads as a series of
  * screens rather than one long scroll. A wheel gesture moves one screen (Lenis
  * snap, "lock"); sections taller than the screen are stepped through. Incoming
- * content drifts up and outgoing content recedes; each section's content is
- * revealed by a ripple from the centre of the screen.
+ * section is held in place and uncovered by a circle growing from the centre of the
+ * screen, with a ripple ring on its edge, while the section underneath stays still.
  *
  * Off for reduced motion and inside the review compare panes. Without JavaScript
  * the page is an ordinary scrolling page.
@@ -54,14 +54,6 @@ export function PanelScroll() {
 
     let snap: Snap | null = null;
     const lenis = getLenis();
-
-    // Every page: each incoming section's content is revealed by a ripple from the centre.
-    const ripple = true;
-    const play = (p: HTMLElement) => {
-      p.classList.remove("rip-armed", "rip-play");
-      void p.offsetWidth; // restart the CSS animation
-      p.classList.add("rip-play");
-    };
 
     const tops: number[] = [];
     const heights: number[] = [];
@@ -117,80 +109,84 @@ export function PanelScroll() {
     };
 
     const vh = () => window.innerHeight;
-    const ctx = gsap.context(() => {
-      panels.forEach((p, i) => {
-        const content = p.querySelector<HTMLElement>(":scope > .wrap");
-        if (i > 0) {
-          if (ripple) {
-            const ring = document.createElement("span");
-            ring.className = "rip-ring";
-            ring.setAttribute("aria-hidden", "true");
-            p.appendChild(ring);
-            ScrollTrigger.create({
-              start: () => tops[i] - vh() * 0.3,
-              end: () => tops[i] + 1,
-              onEnter: () => play(p),
-              onLeaveBack: () => p.classList.add("rip-armed"),
-              onEnterBack: () => play(p),
-            });
-          }
-          if (content) {
-            gsap.fromTo(
-              content,
-              { y: () => vh() * 0.1 },
-              {
-                y: 0,
-                ease: "none",
-                scrollTrigger: { start: () => tops[i] - vh(), end: () => tops[i], scrub: true, invalidateOnRefresh: true },
-              },
-            );
-          }
-        }
-        const next = panels[i + 1];
-        if (next && content) {
-          // A 3D canvas measures its on-screen size, so it must not be scaled mid-animation.
-          const hasCanvas = !!content.querySelector("canvas, .flag-art");
-          gsap.to(content, {
-            scale: hasCanvas ? 1 : 0.94,
-            yPercent: -3,
-            opacity: 0.45,
-            ease: "none",
-            scrollTrigger: {
-              // Starts only once this section is fully settled (wavy edges overlap a little).
-              start: () => Math.max(tops[i + 1] - vh(), tops[i] + heights[i] - vh()) + 1,
-              end: () => tops[i + 1],
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          });
-        }
-      });
+
+    // Each incoming section gets a ripple ring that rides the edge of the reveal.
+    const rings = panels.map((p, i) => {
+      if (i === 0) return null;
+      const ring = document.createElement("span");
+      ring.className = "rip-ring";
+      ring.setAttribute("aria-hidden", "true");
+      p.appendChild(ring);
+      return ring;
     });
 
-    // Sections fully covered by the next one are hidden, so only the visible pair repaints.
-    let covered: boolean[] = [];
-    const updateCovered = () => {
+    /**
+     * The reveal, driven straight from the scroll position (no tweens to fall behind):
+     * while the snap glides from section i-1 to i, section i is held in place over the
+     * screen and uncovered only through a circle growing from the centre. The section
+     * underneath stays still, so nothing slides in ahead of the ripple.
+     */
+    const state: { p: number; covered: boolean }[] = [];
+    const update = () => {
       const y = window.scrollY;
+      const h = vh();
+      const w = window.innerWidth;
+      const maxR = Math.hypot(w / 2, h / 2) + 24;
       panels.forEach((p, i) => {
-        const c = i < panels.length - 1 && tops[i + 1] !== undefined && y >= tops[i + 1] + 2;
-        if (c !== covered[i]) {
-          covered[i] = c;
-          p.classList.toggle("is-covered", c);
+        const prev = state[i] ?? { p: -1, covered: false };
+        const covered = i < panels.length - 1 && tops[i + 1] !== undefined && y >= tops[i + 1] + 2;
+        if (covered !== prev.covered) p.classList.toggle("is-covered", covered);
+        // The reveal runs from the moment the previous section is fully settled (wavy
+        // edges overlap a little) until this section reaches the top of the screen.
+        let prog = 1;
+        let len = h;
+        if (i > 0 && tops[i] !== undefined) {
+          const settled = tops[i - 1] + Math.max(0, heights[i - 1] - h);
+          const start = Math.max(tops[i] - h, settled);
+          len = Math.max(1, tops[i] - start);
+          prog = Math.min(1, Math.max(0, (y - start) / len));
+          // Snap points are rounded to whole pixels: treat the last pixel either side as rest.
+          if (y - start < 2) prog = 0;
+          else if (tops[i] - y < 2) prog = 1;
         }
+        if (prog !== prev.p) {
+          if (i > 0) {
+            if (prog >= 1) {
+              p.style.removeProperty("clip-path");
+              p.style.removeProperty("translate");
+              p.style.removeProperty("visibility");
+            } else {
+              const r = maxR * prog;
+              p.style.translate = `0 ${-len * (1 - prog)}px`;
+              p.style.clipPath = `circle(${r.toFixed(1)}px at 50% ${(h / 2).toFixed(0)}px)`;
+              p.style.visibility = prog <= 0 ? "hidden" : "";
+            }
+            const ring = rings[i];
+            if (ring) {
+              const on = prog > 0.01 && prog < 0.99;
+              ring.style.opacity = on ? String(0.9 * (1 - prog) + 0.1) : "0";
+              ring.style.transform = `translate(-50%, -50%) scale(${((maxR * 2 * prog) / 100).toFixed(3)})`;
+            }
+            p.style.setProperty("--rip-p", prog.toFixed(3));
+          }
+        }
+        state[i] = { p: prog, covered };
       });
     };
-    window.addEventListener("scroll", updateCovered, { passive: true });
+    let raf = 0;
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    const ctx = gsap.context(() => {});
 
     const relayout = () => {
       layout();
-      if (ripple) {
-        // Sections still below the fold wait behind a closed ripple until they settle.
-        panels.forEach((p, i) => {
-          if (i > 0 && !p.classList.contains("rip-play") && window.scrollY < tops[i] - vh() * 0.6) p.classList.add("rip-armed");
-        });
-      }
-      covered = [];
-      updateCovered();
+      state.length = 0;
+      update();
     };
     const id = requestAnimationFrame(() => requestAnimationFrame(relayout));
     // Re-measure only when the page really changes size (not on every inner animation).
@@ -212,11 +208,16 @@ export function PanelScroll() {
       cancelAnimationFrame(id);
       clearTimeout(t);
       ro.disconnect();
-      window.removeEventListener("scroll", updateCovered);
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
       snap?.destroy();
       ctx.revert();
       panels.forEach((p) => {
-        p.classList.remove("panel", "is-covered", "rip-armed", "rip-play");
+        p.classList.remove("panel", "is-covered");
+        p.style.removeProperty("clip-path");
+        p.style.removeProperty("translate");
+        p.style.removeProperty("visibility");
+        p.style.removeProperty("--rip-p");
         p.querySelectorAll(":scope > .rip-ring").forEach((r) => r.remove());
         p.style.removeProperty("z-index");
         p.style.removeProperty("--panel-top");

@@ -1444,68 +1444,35 @@ html.has-panels .panel {
   filter: drop-shadow(0 -14px 22px rgb(10 40 15 / 0.16));
 }
 
-/* ── Ripple reveal (homepage): a ring spreads from the centre and opens the content ── */
-/* The ripple opens from the centre of the screen, also for sections taller than the screen */
-.has-panels .panel.rip-armed > .wrap {
-  clip-path: circle(0% at 50% min(50%, 50svh));
-}
-.has-panels .panel.rip-play > .wrap {
-  animation: rip-open 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.has-panels .panel.rip-play::after,
-.has-panels .panel.rip-play > .wrap::before {
-  pointer-events: none;
-}
+/* ── Ripple reveal: the next section is uncovered by a circle from the screen centre ── */
 .rip-ring {
   position: absolute;
   left: 50%;
   top: 50svh;
-  z-index: 3;
-  width: 60px;
-  aspect-ratio: 1;
+  z-index: 5;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  translate: -50% -50%;
   pointer-events: none;
   opacity: 0;
-  border: 1px solid color-mix(in oklab, var(--splash, var(--accent)) 55%, transparent);
+  transform: translate(-50%, -50%) scale(0);
+  border: 1px solid color-mix(in oklab, var(--splash, var(--accent)) 70%, transparent);
   box-shadow:
-    0 0 0 8px color-mix(in oklab, var(--accent) 10%, transparent),
-    0 0 0 22px color-mix(in oklab, var(--accent) 5%, transparent);
+    0 0 0 2px color-mix(in oklab, var(--accent) 22%, transparent),
+    0 0 24px 4px color-mix(in oklab, var(--accent) 22%, transparent),
+    inset 0 0 24px 4px color-mix(in oklab, var(--splash, var(--accent)) 18%, transparent);
+  will-change: transform, opacity;
 }
-.panel.rip-play > .rip-ring {
-  animation: rip-ring 1.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+.has-panels .panel {
+  will-change: clip-path;
 }
+/* Incoming content settles from a slight zoom as the ripple opens */
 .has-panels .panel > .wrap {
   position: relative;
+  scale: calc(1.035 - 0.035 * var(--rip-p, 1));
 }
-@keyframes rip-open {
-  from {
-    clip-path: circle(0% at 50% min(50%, 50svh));
-    filter: blur(6px);
-  }
-  60% {
-    filter: blur(0);
-  }
-  99.9% {
-    clip-path: circle(150% at 50% min(50%, 50svh));
-  }
-  to {
-    clip-path: none;
-    filter: none;
-  }
-}
-@keyframes rip-ring {
-  from {
-    scale: 0.3;
-    opacity: 1;
-  }
-  60% {
-    opacity: 0.35;
-  }
-  to {
-    scale: 32;
-    opacity: 0;
-  }
+.has-panels .s2s.panel > .wrap {
+  scale: none;
 }
 .drop-fx svg,
 .leafdrop {

@@ -27,8 +27,8 @@ export const panelTop = (el: Element) => naturalTops.get(el);
  * (sticky) while the next one rises over it, so the page reads as a series of
  * screens rather than one long scroll. A wheel gesture moves one screen (Lenis
  * snap, "lock"); sections taller than the screen are stepped through. Incoming
- * content drifts up and outgoing content recedes; on the homepage each section's
- * content is revealed by a ripple from the centre.
+ * content drifts up and outgoing content recedes; each section's content is
+ * revealed by a ripple from the centre of the screen.
  *
  * Off for reduced motion and inside the review compare panes. Without JavaScript
  * the page is an ordinary scrolling page.
@@ -55,8 +55,8 @@ export function PanelScroll() {
     let snap: Snap | null = null;
     const lenis = getLenis();
 
-    // Homepage only: each incoming section's content is revealed by a ripple from the centre.
-    const ripple = pathname === "/";
+    // Every page: each incoming section's content is revealed by a ripple from the centre.
+    const ripple = true;
     const play = (p: HTMLElement) => {
       p.classList.remove("rip-armed", "rip-play");
       void p.offsetWidth; // restart the CSS animation

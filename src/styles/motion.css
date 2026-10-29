@@ -1445,8 +1445,9 @@ html.has-panels .panel {
 }
 
 /* ── Ripple reveal (homepage): a ring spreads from the centre and opens the content ── */
+/* The ripple opens from the centre of the screen, also for sections taller than the screen */
 .has-panels .panel.rip-armed > .wrap {
-  clip-path: circle(0% at 50% 50%);
+  clip-path: circle(0% at 50% min(50%, 50svh));
 }
 .has-panels .panel.rip-play > .wrap {
   animation: rip-open 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -1479,14 +1480,17 @@ html.has-panels .panel {
 }
 @keyframes rip-open {
   from {
-    clip-path: circle(0% at 50% 50%);
+    clip-path: circle(0% at 50% min(50%, 50svh));
     filter: blur(6px);
   }
   60% {
     filter: blur(0);
   }
+  99.9% {
+    clip-path: circle(150% at 50% min(50%, 50svh));
+  }
   to {
-    clip-path: circle(150% at 50% 50%);
+    clip-path: none;
     filter: none;
   }
 }

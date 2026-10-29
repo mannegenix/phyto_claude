@@ -1,6 +1,5 @@
 import { getCompany, getProducts } from "@/lib/content";
 import {
-  FlagshipBand,
   Hero,
   ProductGrid,
   SourceToSeal,
@@ -8,6 +7,7 @@ import {
   ValuesSection,
   WhyUs,
 } from "@/components/sections/home";
+import { ProductSpotlight } from "@/components/sections/ProductSpotlight";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { MailList } from "@/components/ui/MailList";
 import { Reveal } from "@/components/motion/Reveal";
@@ -22,7 +22,22 @@ export default async function HomePage() {
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} />
-      <FlagshipBand product={flagship} />
+      <ProductSpotlight
+        items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
+          slug: p.slug,
+          code: p.code,
+          name: p.name,
+          short: p.short,
+          role: p.role,
+          flagship: p.flagship,
+          intro: p.intro,
+          botanicalSource: p.botanicalSource,
+          plantPart: p.plantPart,
+          marker: p.marker,
+          swatch: p.swatch,
+          image: p.image,
+        }))}
+      />
       <ProductGrid products={products} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />

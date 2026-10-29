@@ -10,6 +10,8 @@ import { EnquiryButtons } from "@/components/product/EnquiryButtons";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ReviewNote } from "@/components/ui/ReviewNote";
 import { BotanicalArt } from "@/components/botanicals/BotanicalArt";
+import { LazyScene } from "@/components/three/LazyScene";
+import { ProductOrb } from "@/components/product/ProductOrb";
 
 // Only the known products exist; any other slug is a static 404.
 export const dynamicParams = false;
@@ -151,7 +153,23 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           </div>
           <aside className="sticky-tag grid min-w-0 gap-5">
             <BatchTag product={product} />
-            <BotanicalArt slug={product.slug} className="mx-auto w-[min(100%,260px)] text-accent" draw label={`Line drawing of ${product.short}`} />
+            <div className="mol-card" style={{ ["--sw" as string]: product.swatch }}>
+              <div className="mol-stage">
+                <LazyScene
+                  variant={product.slug}
+                  tint={product.swatch}
+                  fallback={
+                    <div className="grid size-full place-items-center">
+                      <ProductOrb product={product} size="lg" uid="mol-fallback" />
+                    </div>
+                  }
+                />
+              </div>
+              <div className="mol-cap">
+                <span>3D · {product.marker.split(",")[0]} family</span>
+                <span>Illustrative</span>
+              </div>
+            </div>
           </aside>
         </div>
       </section>

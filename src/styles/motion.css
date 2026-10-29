@@ -5,17 +5,28 @@
  * (globals.css collapses animation durations).
  */
 
-/* ── Preloader: "The Drop" ─────────────────────────────────────────────── */
+/* ── Preloader: full "lot release" screen ──────────────────────────────── */
+@property --pl-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
 .preloader {
   position: fixed;
   inset: 0;
   z-index: 100;
   display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 6px;
-  background: var(--paper);
-  animation: pl-out 0.5s cubic-bezier(0.65, 0, 0.35, 1) 1.55s forwards;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(18px, 3vw, 36px);
+  background:
+    radial-gradient(50% 60% at 50% 45%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--accent-text) 14%, transparent) 1px, transparent 1.6px) 0 0 / 24px 24px,
+    var(--paper);
+  color: var(--heading);
+  font-family: var(--font-mono);
+  animation: pl-out 0.6s cubic-bezier(0.65, 0, 0.35, 1) 2.7s forwards;
+  --pl-n: 0;
+  counter-reset: pl var(--pl-n);
 }
 .pe-seen .preloader {
   display: none;
@@ -25,88 +36,281 @@
     display: none;
   }
 }
-.preloader-art {
-  width: 150px;
-  height: 188px;
-  overflow: visible;
+.pl-photo {
+  position: absolute;
+  inset: 0;
+  background: url("/images/bg/lab-instrument.webp") right center / auto 100% no-repeat;
+  opacity: 0.1;
+  -webkit-mask-image: linear-gradient(90deg, transparent 35%, #000 80%);
+  mask-image: linear-gradient(90deg, transparent 35%, #000 80%);
+  pointer-events: none;
 }
-.pl-drop {
-  fill: var(--accent);
-  transform-origin: 80px 30px;
-  animation: pl-drop 1.1s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+.pl-corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 0 solid var(--accent-text);
+  opacity: 0.6;
 }
-.pl-surface {
-  stroke: var(--label);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  transform-origin: 80px 150px;
-  transform: scaleX(0.2);
-  opacity: 0.5;
-  animation: pl-surface 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+.pl-tl {
+  top: 14px;
+  left: 14px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
 }
-.pl-ripple {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.4;
-  transform-origin: 80px 150px;
-  transform: scale(0.1);
-  opacity: 0;
-  animation: pl-ripple 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+.pl-tr {
+  top: 14px;
+  right: 14px;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
 }
-.pl-ripple-2 {
-  animation-delay: 1.18s;
+.pl-bl {
+  bottom: 14px;
+  left: 14px;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
 }
-.preloader-word {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
+.pl-br {
+  bottom: 14px;
+  right: 14px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+.pl-top,
+.pl-foot {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--muted);
+}
+.pl-top b {
   color: var(--heading);
+  font-weight: 700;
+}
+.pl-top em {
+  font-style: normal;
+  color: var(--accent-text);
+}
+.pl-online::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--splash, var(--accent));
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--splash, var(--accent)) 25%, transparent);
+  animation: pl-blink 1s steps(2) infinite;
+}
+.pl-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 72px);
+}
+.preloader .pl-art {
+  flex: none;
+  width: clamp(110px, 14vw, 190px);
+  height: auto;
+  aspect-ratio: 240 / 360;
+  max-height: 46svh;
+}
+.pl-art .ld-drop {
+  animation: ld-drop 0.95s cubic-bezier(0.55, 0, 0.85, 0.45) 0.15s 2 forwards;
+}
+.pl-art .ld-liquid {
+  animation: pl-fill 2.3s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+.pl-art .ld-ripple-1 {
+  animation: ld-ripple 0.8s ease-out 1.05s 2;
+}
+.pl-art .ld-ripple-2 {
+  animation: ld-ripple 0.8s ease-out 1.2s 2;
+}
+.pl-readout {
+  display: grid;
+  gap: 14px;
+  min-width: min(520px, 80vw);
+}
+.pl-count {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  font-size: clamp(5rem, 13vw, 10rem);
+  color: var(--heading);
+}
+.pl-num::after {
+  content: counter(pl);
+}
+.pl-pct {
+  font-size: 0.32em;
+  margin-left: 6px;
+  color: var(--accent-text);
+}
+.preloader {
+  animation:
+    pl-count 2.3s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards,
+    pl-out 0.6s cubic-bezier(0.65, 0, 0.35, 1) 2.7s forwards;
+}
+.pl-bar {
+  height: 3px;
+  background: color-mix(in oklab, var(--line) 80%, transparent);
+  overflow: hidden;
+}
+.pl-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--splash, var(--accent)));
+  animation: pl-bar 2.3s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+.pl-status {
+  position: relative;
+  height: 1.4em;
+  font-size: 0.74rem;
+  color: var(--muted);
+  white-space: pre;
+}
+.pl-status span {
+  position: absolute;
+  inset: 0;
   opacity: 0;
-  animation: pl-word 0.6s ease 0.9s forwards;
+  animation: pl-line 0.62s linear calc(0.25s + var(--i) * 0.58s) forwards;
 }
-@keyframes pl-drop {
-  0% {
-    transform: translateY(0) scale(0.2, 0);
+.pl-status span:last-child {
+  animation-name: pl-line-last;
+  color: var(--accent-text);
+}
+.pl-products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 6px;
+}
+.pl-products li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  list-style: none;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+.pl-orb {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  padding: 5px;
+  background: radial-gradient(circle at 35% 30%, #fff, color-mix(in oklab, var(--sw) 35%, white));
+  box-shadow: inset 0 -5px 10px color-mix(in oklab, var(--sw) 40%, transparent);
+  opacity: 0.35;
+  animation: pl-on 0.3s ease calc(0.5s + var(--i) * 0.28s) forwards;
+}
+.pl-orb svg {
+  width: 100%;
+  height: 100%;
+}
+.pl-code {
+  color: var(--muted);
+}
+.pl-ok {
+  padding: 2px 6px;
+  border-radius: 99px;
+  background: var(--splash, var(--accent));
+  color: var(--splash-ink, var(--on-accent));
+  opacity: 0;
+  transform: scale(0.6);
+  animation: pl-on 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.65s + var(--i) * 0.28s) forwards;
+}
+@media (max-width: 700px) {
+  .pl-center {
+    flex-direction: column;
+    gap: 14px;
   }
-  38% {
-    transform: translateY(0) scale(1, 1);
+  .pl-readout {
+    min-width: 0;
+    justify-items: center;
+    text-align: center;
   }
-  92% {
-    transform: translateY(84px) scale(0.86, 1.12);
-    opacity: 1;
+  .pl-status {
+    white-space: normal;
+    height: 2.8em;
+    width: 100%;
   }
-  100% {
-    transform: translateY(92px) scale(1.3, 0.3);
-    opacity: 0;
+  .pl-products {
+    justify-content: center;
+  }
+  .pl-top .pl-online,
+  .pl-foot span:last-child {
+    display: none;
   }
 }
-@keyframes pl-surface {
+@keyframes pl-count {
+  to {
+    --pl-n: 100;
+  }
+}
+@keyframes pl-bar {
   to {
     transform: scaleX(1);
-    opacity: 0.8;
   }
 }
-@keyframes pl-ripple {
+@keyframes pl-fill {
+  to {
+    transform: translateY(-34px);
+  }
+}
+@keyframes pl-line {
   0% {
-    transform: scale(0.1);
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  15%,
+  85% {
     opacity: 1;
+    transform: none;
   }
   100% {
-    transform: scale(1.5);
     opacity: 0;
+    transform: translateY(-6px);
   }
 }
-@keyframes pl-word {
+@keyframes pl-line-last {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  20%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pl-on {
   to {
-    opacity: 0.9;
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pl-blink {
+  50% {
+    opacity: 0.3;
   }
 }
 @keyframes pl-out {
   to {
     opacity: 0;
     visibility: hidden;
-    clip-path: circle(0% at 50% 75%);
+    transform: translateY(-2%);
   }
 }
 
@@ -1240,78 +1444,123 @@ html.has-panels .panel {
   filter: drop-shadow(0 -14px 22px rgb(10 40 15 / 0.16));
 }
 
-/* Drop of extract falling into the next section */
+/* Leaf drop into a bottle, centred, during each section change */
 .drop-fx {
   position: fixed;
   left: 50%;
-  top: 0;
-  width: 200px;
-  height: 260px;
-  margin-left: -100px;
+  top: 50%;
+  width: clamp(170px, 18vw, 250px);
+  aspect-ratio: 240 / 360;
+  transform: translate(-50%, -50%);
   z-index: 45;
   pointer-events: none;
   opacity: 0;
+  filter: drop-shadow(0 18px 30px rgb(10 50 20 / 0.22));
 }
-.drop-fx svg {
+.drop-fx::before {
+  /* soft light pool behind the bottle so it reads on any section */
+  content: "";
+  position: absolute;
+  inset: -30% -60%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--paper) 85%, transparent), transparent);
+  z-index: -1;
+}
+.drop-fx svg,
+.leafdrop {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 .drop-fx.is-dropping {
-  animation: dfx-show 1.25s linear;
+  animation: dfx-show 1.5s ease both;
 }
-.dfx-drop {
+.ld-label {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  fill: var(--heading);
+}
+.ld-drop {
   transform-box: fill-box;
-  transform-origin: 50% 100%;
-  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+  transform-origin: 50% 0%;
+  transform: scale(0);
 }
-.is-dropping .dfx-drop {
-  animation: dfx-fall 0.62s cubic-bezier(0.55, 0, 0.9, 0.4) forwards;
-}
-.dfx-ring {
-  fill: none;
-  stroke: var(--splash, var(--accent));
-  stroke-width: 2;
+.ld-ripple {
   transform-box: fill-box;
   transform-origin: center;
   opacity: 0;
 }
-.is-dropping .dfx-ring {
-  animation: dfx-ring 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.58s forwards;
-}
-.is-dropping .dfx-ring-2 {
-  animation-delay: 0.7s;
-  stroke: var(--accent);
-}
-.is-dropping .dfx-ring-3 {
-  animation-delay: 0.82s;
-}
-.dfx-splash circle {
+.ld-splash circle {
   fill: var(--accent);
   opacity: 0;
 }
-.is-dropping .dfx-splash circle {
-  animation: dfx-splash 0.5s ease-out 0.58s forwards;
+.ld-leaf {
+  transform-box: fill-box;
+  transform-origin: 80% 0%;
 }
-.is-dropping .dfx-splash circle:nth-child(2) {
-  animation-name: dfx-splash-r;
+.is-dropping .ld-leaf {
+  animation: ld-leaf 1.2s ease;
+}
+.is-dropping .ld-drop {
+  animation: ld-drop 0.95s cubic-bezier(0.55, 0, 0.85, 0.45) 0.1s forwards;
+}
+.is-dropping .ld-liquid {
+  animation: ld-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
+}
+.is-dropping .ld-ripple-1 {
+  animation: ld-ripple 0.8s ease-out 0.98s forwards;
+}
+.is-dropping .ld-ripple-2 {
+  animation: ld-ripple 0.8s ease-out 1.12s forwards;
+}
+.is-dropping .ld-splash circle {
+  animation: ld-splash 0.45s ease-out 0.95s forwards;
+}
+.is-dropping .ld-splash circle:nth-child(2) {
+  animation-name: ld-splash-r;
 }
 @keyframes dfx-show {
-  0%,
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.92);
+  }
+  12%,
+  82% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
   100% {
     opacity: 0;
-  }
-  4%,
-  90% {
-    opacity: 1;
+    transform: translate(-50%, -52%) scale(0.98);
   }
 }
-@keyframes dfx-fall {
-  0% {
-    transform: translateY(-40px) scale(0.6, 0.8);
+@keyframes ld-leaf {
+  0%,
+  30% {
+    transform: rotate(0);
   }
-  80% {
-    transform: translateY(150px) scale(0.85, 1.15);
+  42% {
+    transform: rotate(-5deg);
+  }
+  60% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes ld-drop {
+  0% {
+    transform: translateY(0) scale(0.2);
+  }
+  30% {
+    transform: translateY(0) scale(1, 1.05);
+  }
+  40% {
+    transform: translateY(4px) scale(0.95, 1.2);
+  }
+  92% {
+    transform: translateY(150px) scale(0.85, 1.2);
     opacity: 1;
   }
   100% {
@@ -1319,33 +1568,38 @@ html.has-panels .panel {
     opacity: 0;
   }
 }
-@keyframes dfx-ring {
+@keyframes ld-rise {
+  to {
+    transform: translateY(-10px);
+  }
+}
+@keyframes ld-ripple {
   0% {
-    transform: scale(0.1);
-    opacity: 0.95;
+    transform: scale(0.2);
+    opacity: 1;
   }
   100% {
-    transform: scale(1.9);
+    transform: scale(1.4);
     opacity: 0;
   }
 }
-@keyframes dfx-splash {
+@keyframes ld-splash {
   0% {
     transform: translate(0, 0);
     opacity: 1;
   }
   100% {
-    transform: translate(-16px, -30px);
+    transform: translate(-10px, -18px);
     opacity: 0;
   }
 }
-@keyframes dfx-splash-r {
+@keyframes ld-splash-r {
   0% {
     transform: translate(0, 0);
     opacity: 1;
   }
   100% {
-    transform: translate(16px, -26px);
+    transform: translate(10px, -16px);
     opacity: 0;
   }
 }
@@ -1487,4 +1741,150 @@ html.has-panels .s2s > .wrap {
 /* Sections fully covered by the next one are not painted */
 .has-panels .panel.is-covered {
   visibility: hidden;
+}
+
+/* ── Photo backdrops: real lab and nature photos, very faint, fixed behind the content ── */
+.photo {
+  position: relative;
+  isolation: isolate;
+}
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--photo);
+  background-repeat: no-repeat;
+  background-size: var(--photo-size, cover);
+  background-position: var(--photo-pos, right center);
+  opacity: var(--photo-op, 0.14);
+  mix-blend-mode: var(--photo-blend, multiply);
+  -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
+  mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
+}
+.has-panels .photo::after {
+  background-attachment: fixed;
+}
+.photo-instrument {
+  --photo: url("/images/bg/lab-instrument.webp");
+  --photo-op: 0.2;
+  --photo-blend: normal;
+}
+.photo-instrument-soft {
+  --photo: url("/images/bg/lab-instrument.webp");
+  --photo-op: 0.12;
+}
+.photo-pipette {
+  --photo: url("/images/bg/lab-pipette.webp");
+  --photo-op: 0.16;
+}
+.photo-dropper {
+  --photo: url("/images/bg/dropper-bottle.webp");
+  --photo-op: 0.12;
+  --photo-pos: right bottom;
+}
+.photo-amber {
+  --photo: url("/images/bg/amber-bottle.webp");
+  --photo-op: 0.12;
+}
+.photo-leaf {
+  --photo: url("/images/bg/leaf-dew.webp");
+  --photo-op: 0.22;
+  --photo-blend: luminosity;
+}
+.photo-leaf-soft {
+  --photo: url("/images/bg/leaf-dew.webp");
+  --photo-op: 0.1;
+}
+@media (max-width: 860px) {
+  .photo::after {
+    --photo-size: cover;
+    -webkit-mask-image: linear-gradient(180deg, transparent 30%, #000 85%);
+    mask-image: linear-gradient(180deg, transparent 30%, #000 85%);
+  }
+}
+
+/* ── Product spotlight (homepage): six tabs, Garcinia first, 3D model per extract ── */
+.spot-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.spot-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--on-band);
+  background: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+.spot-tab .orb {
+  --orb: 34px;
+}
+.spot-tab:hover {
+  transform: translateY(-2px);
+}
+.spot-tab[aria-selected="true"] {
+  background: rgb(255 255 255 / 0.92);
+  color: var(--heading);
+  box-shadow: 0 0 0 2px var(--splash, var(--accent));
+}
+.spot-body {
+  animation: spot-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes spot-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.spotlight .flag-art {
+  background:
+    radial-gradient(60% 60% at 50% 45%, color-mix(in oklab, var(--sw) 40%, transparent), transparent 70%),
+    rgb(0 30 8 / 0.25);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 22px;
+}
+@media (max-width: 860px) {
+  .spot-tab span {
+    display: none;
+  }
+  .spot-tab {
+    padding: 4px;
+  }
+}
+
+/* ── Product page: 3D model card ── */
+.mol-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--neu-bg, var(--surface));
+  border: 1px solid var(--neu-edge, var(--line));
+  box-shadow: var(--neu-shadow, none);
+}
+.mol-stage {
+  position: relative;
+  aspect-ratio: 1.15;
+  background: radial-gradient(60% 60% at 50% 48%, color-mix(in oklab, var(--sw) 28%, transparent), transparent 72%);
+}
+.mol-cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
 }

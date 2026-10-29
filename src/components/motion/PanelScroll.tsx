@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Snap from "lenis/snap";
 import { getLenis } from "./SmoothScroll";
+import { LeafDropArt } from "./LeafDropArt";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -214,26 +215,7 @@ export function PanelScroll() {
 
   return (
     <div ref={fx} className="drop-fx" aria-hidden="true">
-      <svg viewBox="0 0 200 260">
-        <defs>
-          <radialGradient id="drop-fx-fill" cx="0.35" cy="0.3" r="0.8">
-            <stop offset="0" style={{ stopColor: "#ffffff", stopOpacity: 0.95 }} />
-            <stop offset="0.35" style={{ stopColor: "var(--accent)" }} />
-            <stop offset="1" style={{ stopColor: "var(--accent-text)" }} />
-          </radialGradient>
-        </defs>
-        <ellipse className="dfx-ring dfx-ring-1" cx="100" cy="200" rx="70" ry="14" />
-        <ellipse className="dfx-ring dfx-ring-2" cx="100" cy="200" rx="70" ry="14" />
-        <ellipse className="dfx-ring dfx-ring-3" cx="100" cy="200" rx="70" ry="14" />
-        <g className="dfx-drop">
-          <path d="M100 20 C106 36 118 48 118 62 A18 18 0 0 1 82 62 C82 48 94 36 100 20Z" fill="url(#drop-fx-fill)" />
-        </g>
-        <g className="dfx-splash">
-          <circle cx="86" cy="192" r="3" />
-          <circle cx="114" cy="190" r="2.5" />
-          <circle cx="100" cy="184" r="2" />
-        </g>
-      </svg>
+      <LeafDropArt id="dfx" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { LazyScene } from "@/components/three/LazyScene";
 import { ReviewNote } from "@/components/ui/ReviewNote";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
 import { HeroScene } from "@/components/hero/HeroScene";
@@ -68,7 +67,7 @@ export function ProductTicker({ products }: { products: Product[] }) {
 
 export function ValuesSection({ intro, values }: { intro: string; values: ValuePoint[] }) {
   return (
-    <section className="section sunk">
+    <section className="section sunk photo photo-pipette">
       <div className="wrap">
         <Reveal className="sec-head">
           <span className="eyebrow">Who we are</span>
@@ -88,83 +87,9 @@ export function ValuesSection({ intro, values }: { intro: string; values: ValueP
   );
 }
 
-function FruitFallback() {
-  // Static illustration shown before the 3D scene loads (and for reduced-motion visitors).
-  return (
-    <svg viewBox="0 0 200 200" className="size-full" aria-hidden="true">
-      <circle cx="100" cy="96" r="62" fill="#d9a441" />
-      <circle cx="100" cy="96" r="56" fill="#f0c766" />
-      <circle cx="100" cy="96" r="46" fill="#f7e6b3" />
-      {Array.from({ length: 8 }, (_, i) => {
-        const a = ((i + 0.5) / 8) * Math.PI * 2;
-        return (
-          <ellipse
-            key={i}
-            cx={100 + Math.cos(a) * 25}
-            cy={96 + Math.sin(a) * 25}
-            rx="13"
-            ry="6.5"
-            transform={`rotate(${(a * 180) / Math.PI} ${100 + Math.cos(a) * 25} ${96 + Math.sin(a) * 25})`}
-            fill="#eccf84"
-          />
-        );
-      })}
-    </svg>
-  );
-}
-
-export function FlagshipBand({ product }: { product: Product }) {
-  return (
-    <section className="section band wave-top">
-      <div className="wrap grid items-center gap-[clamp(32px,5vw,64px)] min-[881px]:grid-cols-2">
-        <div>
-          <span className="eyebrow">Flagship · {product.code}</span>
-          <h2 className="mt-3.5 mb-[18px] text-[clamp(2rem,4vw,3.1rem)]">{product.name}</h2>
-          <p className="lede">{product.intro}</p>
-          <div className="flag-specs mt-7">
-            <div>
-              <small>Botanical source</small>
-              <span>
-                <i>{product.botanicalSource.split(" (")[0]}</i>
-              </span>
-            </div>
-            <div>
-              <small>Plant part</small>
-              <span>{product.plantPart}</span>
-            </div>
-            <div>
-              <small>Quality marker</small>
-              <span>{product.marker}</span>
-            </div>
-            <div>
-              <small>Every lot</small>
-              <span>Tested before labelling</span>
-            </div>
-          </div>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href={`/products/${product.slug}`} className="btn">
-              View {product.short}
-            </Link>
-            <Link href="/sample" className="btn btn-ghost">
-              Request a sample
-            </Link>
-          </div>
-        </div>
-        <div className="flag-art">
-          <LazyScene fallback={<FruitFallback />} />
-          <div className="mono pointer-events-none absolute inset-x-[18px] bottom-4 flex justify-between text-[0.72rem] text-on-band-muted">
-            <span>3D preview · drag to rotate</span>
-            <span>{product.marker.split(" (")[1]?.replace(")", "") ?? ""}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function ProductGrid({ products, heading = true }: { products: Product[]; heading?: boolean }) {
   return (
-    <section className={`section ${heading ? "wave-top" : ""}`}>
+    <section className={`section photo photo-amber ${heading ? "wave-top" : ""}`}>
       <div className="wrap">
         {heading && (
           <Reveal className="sec-head">
@@ -190,7 +115,7 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
 export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   return (
     <section
-      className="section wave-top s2s"
+      className="section wave-top s2s photo photo-dropper"
       data-steps={stages.length + 2}
       style={{ ["--s2s-n" as string]: stages.length + 2 }}
     >
@@ -212,7 +137,7 @@ export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
 /** The five things every lot is checked for. */
 export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]; heading?: boolean }) {
   return (
-    <section className="section band wave-top">
+    <section className="section band wave-top photo photo-instrument">
       <div className="wrap">
         {heading && (
           <div className="sec-head">

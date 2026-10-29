@@ -10,7 +10,15 @@ const MoleculeScene = dynamic(() => import("./MoleculeScene"), { ssr: false });
  * visitors without reduced-motion. Everyone else (and the first paint) sees `fallback`.
  * This keeps three.js out of the initial page load entirely.
  */
-export function LazyScene({ fallback }: { fallback: ReactNode }) {
+export function LazyScene({
+  fallback,
+  variant,
+  tint,
+}: {
+  fallback: ReactNode;
+  variant?: string;
+  tint?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
 
@@ -33,7 +41,7 @@ export function LazyScene({ fallback }: { fallback: ReactNode }) {
 
   return (
     <div ref={ref} className="absolute inset-0">
-      {show ? <MoleculeScene /> : fallback}
+      {show ? <MoleculeScene variant={variant} tint={tint} /> : fallback}
     </div>
   );
 }

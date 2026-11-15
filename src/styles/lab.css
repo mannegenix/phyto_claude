@@ -10,7 +10,7 @@
   display: none;
 }
 
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) {
   /* ── Type: thin uppercase display, like instrument labelling ── */
   & :is(h1, h2) {
     font-weight: 380;
@@ -298,26 +298,26 @@
 }
 
 @media (max-width: 960px) {
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-rings svg,
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-text svg,
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-halo::after,
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-pulse::after {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-rings svg,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-text svg,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-halo::after,
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-pulse::after {
     left: 50%;
     top: 72%;
   }
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-rings svg {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-rings svg {
     width: 130vw;
   }
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-text svg {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-text svg {
     width: 70vw;
   }
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .scene-bits {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .scene-bits {
     display: none;
   }
 }
 
 /* ── Header over the lab hero: instrument-style menu, light on the green scenes ── */
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hdr .nav-link {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
@@ -325,22 +325,22 @@
   text-transform: uppercase;
   padding-inline: 9px;
 }
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .btn {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hdr .btn {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   padding-inline: 16px;
 }
 @media (max-width: 1280px) {
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hdr .nav-link {
     font-size: 0.68rem;
     letter-spacing: 0.06em;
     padding-inline: 7px;
   }
 }
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) .hdr .nav-link[aria-current="page"]::after {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hdr .nav-link[aria-current="page"]::after {
   background: var(--splash);
 }
-:is([data-theme="labgreen"], [data-theme="lablight"]) {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="verdan"]) {
   --hdr-top-ink: #ffffff;
   --hdr-top-muted: rgb(255 255 255 / 0.84);
   --hdr-top-flag: var(--lab-hero-eyebrow);
@@ -417,7 +417,7 @@
   --neu-hover: 14px 14px 30px rgb(0 0 0 / 0.6), -10px -10px 26px rgb(255 255 255 / 0.05);
   --neu-press: inset 6px 6px 14px rgb(0 0 0 / 0.55), inset -6px -6px 14px rgb(255 255 255 / 0.04);
 }
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) {
   & :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div) {
     background: var(--neu-bg);
     border: 1px solid var(--neu-edge);
@@ -494,7 +494,7 @@
 }
 
 /* ── Blue splash: blue marks testing, green marks nature and "passed" ── */
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"]) {
+:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) {
   & .ring-dash {
     stroke: color-mix(in srgb, var(--splash-scene) 70%, transparent);
   }

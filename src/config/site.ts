@@ -20,7 +20,16 @@ export const THEMES = [
   /** Dark edition of the lab route, kept for reference. */
   { id: "labgreen", no: "R08", label: "Lab green dark", swatch: ["#141615", "#8fd14f", "#15dbeb"] },
   { id: "labday", no: "R09", label: "Lab daylight", swatch: ["#e4f6cf", "#8fd14f", "#0a76b3"] },
+  /** Verdan: forest glass + sage + chartreuse, from the client's "Verdan Farm OS" reference. Used by /althome. */
+  { id: "verdan", no: "R10", label: "Verdan forest glass", swatch: ["#0c160d", "#7a8970", "#c8e068"] },
 ] as const;
+
+/**
+ * Pages shown in a different colour route from the rest of the site (review copies).
+ * Applied before first paint by `routeThemeBootScript` and kept in sync on client
+ * navigation by `motion/RouteTheme`.
+ */
+export const ROUTE_THEMES: Record<string, ThemeId> = { "/althome": "verdan" };
 
 export type ThemeId = (typeof THEMES)[number]["id"];
 
@@ -50,6 +59,7 @@ export const siteConfig = {
 
 export const NAV = [
   { href: "/", label: "Home" },
+  { href: "/althome", label: "AltHome" },
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
   { href: "/products/garcinia", label: "Flagship: Garcinia", flag: true },

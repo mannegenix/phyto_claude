@@ -203,7 +203,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
    * Next's own history state), so Back from the product page lands on the cards.
    */
   const viewMore = useCallback(() => {
-    if (location.pathname === "/") history.replaceState(history.state, "", "/#products");
+    history.replaceState(history.state, "", `${location.pathname}#products`);
     finishClose();
   }, [finishClose]);
 

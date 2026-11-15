@@ -1,0 +1,71 @@
+import { LabArt } from "@/components/botanicals/LabArt";
+import { getCompany, getProducts } from "@/lib/content";
+import {
+  Hero,
+  SourceToSeal,
+  TestPillars,
+  ValuesSection,
+  WhyUs,
+} from "@/components/sections/home";
+import { ProductShowcase } from "@/components/sections/ProductShowcase";
+import { EnquirySection } from "@/components/sections/EnquirySection";
+import { MailList } from "@/components/ui/MailList";
+import { Reveal } from "@/components/motion/Reveal";
+import type { Metadata } from "next";
+
+/**
+ * AltHome: a review copy of the homepage in the R10 "Verdan" colour route (forest glass,
+ * sage canvas, chartreuse), from the client's Verdan Farm OS reference video. Same
+ * sections and content as "/"; the route is applied by ROUTE_THEMES in config/site.ts.
+ * Not indexed, so it never competes with the real homepage.
+ */
+export const metadata: Metadata = {
+  title: "AltHome",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/" },
+};
+
+export default async function AltHomePage() {
+  const [products, c] = await Promise.all([getProducts(), getCompany()]);
+  const flagship = products.find((p) => p.flagship) ?? products[0];
+
+  return (
+    <>
+      <Hero products={products} positioning={c.positioning} />
+      <ValuesSection intro={c.introduction} values={c.values} />
+      <TestPillars pillars={c.testPillars} />
+      <SourceToSeal stages={c.stages} />
+      <ProductShowcase
+        pillars={c.testPillars}
+        items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
+          slug: p.slug,
+          code: p.code,
+          name: p.name,
+          short: p.short,
+          role: p.role,
+          flagship: p.flagship,
+          intro: p.intro,
+          botanicalSource: p.botanicalSource,
+          plantPart: p.plantPart,
+          marker: p.marker,
+          applications: p.applications,
+          swatch: p.swatch,
+          image: p.image,
+        }))}
+      />
+      <WhyUs functions={c.operatingFunctions} />
+      <EnquirySection />
+      <section className="section labart-host">
+        <LabArt kind="shipping" backdrop pos="bl" />
+        <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
+          <Reveal className="grid gap-[18px]">
+            <span className="eyebrow">Contact</span>
+            <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Write to the right desk</h2>
+            <p className="muted">Five role-based inboxes keep quotations, samples, documents and orders organised.</p>
+          </Reveal>
+          <MailList mailboxes={c.mailboxes} />
+        </div>
+      </section>
+    </>
+  );
+}

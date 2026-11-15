@@ -1,0 +1,165 @@
+/*
+ * R10 "Verdan" (used by /althome): the look of the client's Verdan Farm OS reference.
+ *  - Deep forest base with dark botanicals behind the hero
+ *  - Muted sage canvas sections (like the frame around the dashboard), with dark type
+ *  - Every block is a dark frosted-glass panel: translucent forest fill, blur, hairline
+ *    light edge, soft drop shadow, 18–22px corners
+ *  - Chartreuse for numbers, pills and highlights; pills are tinted lime with lime text
+ * Lab-route behaviour (hero scene, header, splash) comes from lab.css; this file only
+ * restyles surfaces.
+ */
+
+[data-theme="verdan"] {
+  --glass: rgb(17 29 18 / 0.62);
+  --glass-strong: rgb(12 22 13 / 0.8);
+  --glass-edge: rgb(255 255 255 / 0.09);
+  --glass-hi: inset 0 1px 0 rgb(255 255 255 / 0.07);
+  --glass-shadow: 0 24px 48px -22px rgb(0 0 0 / 0.65), var(--glass-hi);
+  --neu-bg: linear-gradient(160deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.015));
+  --neu-edge: var(--glass-edge);
+  --neu-shadow: var(--glass-shadow);
+  --neu-hover: 0 28px 56px -22px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(200 224 104 / 0.28), var(--glass-hi);
+  --neu-press: inset 0 2px 10px rgb(0 0 0 / 0.45);
+
+  & body {
+    background: var(--paper);
+  }
+
+  /* Type: calmer than the lab routes — sentence case display, light weights, like the reference */
+  & :is(h1, h2) {
+    text-transform: none;
+    font-weight: 420;
+    letter-spacing: -0.015em;
+  }
+  & .hero-title {
+    font-weight: 380;
+  }
+  & .eyebrow {
+    color: var(--label);
+  }
+
+  /* ── Glass blocks everywhere ── */
+  & :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div, .pillars li) {
+    background: var(--neu-bg), var(--glass);
+    border: 1px solid var(--glass-edge);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
+  }
+  & .band :is(.pillars li, .flag-specs) {
+    background: var(--neu-bg), rgb(20 34 21 / 0.55);
+    border: 1px solid var(--glass-edge);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Products band: the showcase cards become the reference's dark glass tiles */
+  & .sc-card-btn {
+    background:
+      radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.08), transparent 55%),
+      rgb(14 26 15 / 0.6);
+    border-color: var(--glass-edge);
+    box-shadow:
+      var(--glass-hi),
+      0 24px 44px -20px rgb(0 0 0 / 0.7);
+  }
+  & .sc-card-btn:hover,
+  & .sc-card-btn:focus-visible {
+    border-color: rgb(200 224 104 / 0.4);
+  }
+
+  /* Pills: lime tint + lime text, like "Healthy" / "2 running" */
+  & :is(.sc-chip, .chip, .badge) {
+    background: rgb(200 224 104 / 0.16);
+    border-color: rgb(200 224 104 / 0.28);
+    color: #dceb8f;
+  }
+  & .sc-chip.is-flag {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  /* Buttons: rounded pills */
+  & .btn {
+    border-radius: 999px;
+  }
+
+  /* Orbs (product photos) sit in dark glass, no light neumorphic shadow */
+  & .orb {
+    box-shadow:
+      inset 0 -10px 22px color-mix(in oklab, var(--sw) 40%, transparent),
+      inset 0 4px 10px rgb(255 255 255 / 0.25),
+      0 12px 24px -10px rgb(0 0 0 / 0.6);
+  }
+
+  /* ── Sage canvas sections (values, source-to-seal, enquiry) with dark type ── */
+  & :is(.sunk, .s2s) {
+    --ink: #0d170e;
+    --heading: #0a120a;
+    --muted: #1f2c1d;
+    --line: rgb(13 23 14 / 0.18);
+    --accent-text: #233f0e;
+    --label: #233f0e;
+    --band-eyebrow: #233f0e;
+    --pop: #1c3a0a;
+    color: var(--ink);
+    /* !important: the full-screen panel rule paints plain sections with --paper at a
+       higher specificity; on this route these sections are sage. */
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.12), transparent 60%),
+      radial-gradient(90% 80% at 10% 100%, rgb(13 23 14 / 0.18), transparent 60%),
+      #7a8970 !important;
+  }
+  /* …and blocks inside them are the dark glass device panels again, with light type */
+  & :is(.sunk, .s2s) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
+    --ink: #eef3ea;
+    --heading: #f4f8f0;
+    --muted: #aab6a4;
+    --line: #2b3a2a;
+    --accent-text: #cfe57a;
+    --label: #cfe57a;
+    --pop: #dbf27a;
+    color: var(--ink);
+    background: var(--neu-bg), var(--glass-strong);
+  }
+  /* Section photos tone into the sage instead of washing it out */
+  & :is(.sunk, .s2s).bgphoto {
+    --photo-blend: multiply;
+    --photo-op: 0.28;
+  }
+
+  /* Source-to-seal steps sit on sage: active step reads dark, number in deep lime */
+  & .s2s .funnel-step {
+    color: var(--ink);
+  }
+  & .s2s .funnel-num {
+    color: #233f0e;
+  }
+
+  /* Header after scrolling: dark frosted glass */
+  & .hdr.is-scrolled,
+  & .hdr.is-open {
+    background: rgb(10 19 11 / 0.72);
+    border-bottom-color: var(--glass-edge);
+  }
+
+  /* Footer: the darkest forest */
+  & footer {
+    background: #070e08;
+  }
+
+  /* Lab line art and wave edges pick up the lime */
+  & .labart-bg {
+    color: var(--accent);
+    opacity: 0.12;
+  }
+  & :is(.sunk, .s2s) .labart-bg {
+    color: #0d170e;
+    opacity: 0.16;
+  }
+}
+[data-theme="verdan"] :is(.sunk, .s2s) > .wrap .eyebrow,
+[data-theme="verdan"] :is(.sunk, .s2s) .sec-head .eyebrow {
+  color: #233f0e;
+}

@@ -1,25 +1,26 @@
 /*
- * R10 "Verdan" (used by /althome): the look of the client's Verdan Farm OS reference.
- *  - Deep forest base with dark botanicals behind the hero
- *  - Muted sage canvas sections (like the frame around the dashboard), with dark type
- *  - Every block is a dark frosted-glass panel: translucent forest fill, blur, hairline
- *    light edge, soft drop shadow, 18–22px corners
- *  - Chartreuse for numbers, pills and highlights; pills are tinted lime with lime text
- * Lab-route behaviour (hero scene, header, splash) comes from lab.css; this file only
- * restyles surfaces.
+ * R10 "Verdan light" (used by /althome): the client's Verdan Farm OS reference, made
+ * white-dominant.
+ *  - Hero: the botanicals product photo fading into white behind the text, with the scene
+ *    dial (circles, ticks, ring text, dot grid) drawn bold in deep forest so it reads
+ *    clearly; the testing ring stays blue
+ *  - White and pale sage sections; every block is white frosted glass (translucent
+ *    white, blur, bright top edge, soft green-grey shadow, 20px corners)
+ *  - Chartreuse buttons and pills, deep olive labels, deep forest footer
+ * Lab-route behaviour (hero scene, splash) comes from lab.css; this file only restyles.
  */
 
 [data-theme="verdan"] {
-  --glass: rgb(17 29 18 / 0.62);
-  --glass-strong: rgb(12 22 13 / 0.8);
-  --glass-edge: rgb(255 255 255 / 0.09);
-  --glass-hi: inset 0 1px 0 rgb(255 255 255 / 0.07);
-  --glass-shadow: 0 24px 48px -22px rgb(0 0 0 / 0.65), var(--glass-hi);
-  --neu-bg: linear-gradient(160deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.015));
+  --glass: rgb(255 255 255 / 0.66);
+  --glass-strong: rgb(255 255 255 / 0.8);
+  --glass-edge: rgb(255 255 255 / 0.95);
+  --glass-hi: inset 0 1px 0 rgb(255 255 255 / 1);
+  --glass-shadow: 0 22px 44px -24px rgb(40 70 30 / 0.32), 0 0 0 1px rgb(20 40 20 / 0.06), var(--glass-hi);
+  --neu-bg: linear-gradient(160deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.55));
   --neu-edge: var(--glass-edge);
   --neu-shadow: var(--glass-shadow);
-  --neu-hover: 0 28px 56px -22px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(200 224 104 / 0.28), var(--glass-hi);
-  --neu-press: inset 0 2px 10px rgb(0 0 0 / 0.45);
+  --neu-hover: 0 26px 50px -22px rgb(40 70 30 / 0.38), 0 0 0 1px rgb(150 190 60 / 0.5), var(--glass-hi);
+  --neu-press: inset 0 2px 10px rgb(40 70 30 / 0.18);
 
   & body {
     background: var(--paper);
@@ -38,42 +39,103 @@
     color: var(--label);
   }
 
-  /* ── Glass blocks everywhere ── */
+  /* ── Hero: bold deep-forest dial over the photo, with a white halo for contrast ── */
+  & .hero .ring {
+    stroke: rgb(12 38 12 / 0.85);
+    stroke-width: 1.6;
+  }
+  & .hero .ring-faint {
+    stroke: rgb(12 38 12 / 0.5);
+    stroke-width: 1.2;
+  }
+  & .hero .ring-strong {
+    stroke: #0c260c;
+    stroke-width: 2.4;
+  }
+  & .hero .ring-dash {
+    stroke: var(--splash-text);
+    stroke-width: 2.4;
+  }
+  & .hero .ticks line {
+    stroke: rgb(12 38 12 / 0.9);
+    stroke-width: 1.6;
+  }
+  & .hero .scene-text text {
+    fill: #0c260c;
+    font-size: 11.5px;
+    font-weight: 800;
+  }
+  & .hero .scene-bits span {
+    color: #0c260c;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  & .hero .scene-grid {
+    opacity: 1;
+    background: radial-gradient(circle at 1px 1px, rgb(12 38 12 / 0.55) 1.3px, transparent 2px) 0 0 / 24px 24px;
+  }
+  & .hero .scene-pulse::after {
+    border: 2px solid rgb(12 38 12 / 0.8);
+  }
+  & .hero .specimen-label {
+    color: #0c260c;
+    font-weight: 800;
+  }
+  & .hero :is(.scene-rings, .scene-text, .scene-bits, .scene-grid) {
+    filter: drop-shadow(0 0 2px rgb(255 255 255 / 0.95)) drop-shadow(0 0 10px rgb(255 255 255 / 0.7));
+  }
+
+  /* ── White glass blocks everywhere ── */
   & :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div, .pillars li) {
     background: var(--neu-bg), var(--glass);
     border: 1px solid var(--glass-edge);
     border-radius: 20px;
     box-shadow: var(--glass-shadow);
-    -webkit-backdrop-filter: blur(18px) saturate(1.25);
-    backdrop-filter: blur(18px) saturate(1.25);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(18px) saturate(1.2);
+  }
+  & .band {
+    color: var(--on-band);
   }
   & .band :is(.pillars li, .flag-specs) {
-    background: var(--neu-bg), rgb(20 34 21 / 0.55);
+    background: var(--neu-bg), var(--glass);
     border: 1px solid var(--glass-edge);
     border-radius: 20px;
     box-shadow: var(--glass-shadow);
   }
+  & .band.bgphoto {
+    --photo-op: 0.1;
+    --photo-blend: multiply;
+  }
 
-  /* Products band: the showcase cards become the reference's dark glass tiles */
+  /* Products: white glass tiles, dark type */
   & .sc-card-btn {
     background:
-      radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.08), transparent 55%),
-      rgb(14 26 15 / 0.6);
+      radial-gradient(120% 90% at 0% 0%, #fff, transparent 60%),
+      rgb(255 255 255 / 0.7);
+    color: var(--ink);
     border-color: var(--glass-edge);
-    box-shadow:
-      var(--glass-hi),
-      0 24px 44px -20px rgb(0 0 0 / 0.7);
+    box-shadow: var(--glass-shadow);
   }
   & .sc-card-btn:hover,
   & .sc-card-btn:focus-visible {
-    border-color: rgb(200 224 104 / 0.4);
+    border-color: rgb(150 190 60 / 0.6);
+  }
+  & .sc-card-btn .sc-card-name {
+    color: var(--heading);
+  }
+  & .sc-card-btn :is(.sc-card-src, .sc-card-foot) {
+    color: var(--muted);
+  }
+  & .sc-hint {
+    color: var(--ink);
   }
 
-  /* Pills: lime tint + lime text, like "Healthy" / "2 running" */
+  /* Pills: chartreuse tint, olive text */
   & :is(.sc-chip, .chip, .badge) {
-    background: rgb(200 224 104 / 0.16);
-    border-color: rgb(200 224 104 / 0.28);
-    color: #dceb8f;
+    background: rgb(150 190 60 / 0.16);
+    border-color: rgb(120 160 40 / 0.3);
+    color: var(--accent-text);
   }
   & .sc-chip.is-flag {
     background: var(--accent);
@@ -85,81 +147,39 @@
     border-radius: 999px;
   }
 
-  /* Orbs (product photos) sit in dark glass, no light neumorphic shadow */
-  & .orb {
-    box-shadow:
-      inset 0 -10px 22px color-mix(in oklab, var(--sw) 40%, transparent),
-      inset 0 4px 10px rgb(255 255 255 / 0.25),
-      0 12px 24px -10px rgb(0 0 0 / 0.6);
-  }
-
-  /* ── Sage canvas sections (values, source-to-seal, enquiry) with dark type ── */
+  /* ── Pale sage sections (values, source-to-seal, enquiry) ── */
   & :is(.sunk, .s2s) {
-    --ink: #0d170e;
-    --heading: #0a120a;
-    --muted: #1f2c1d;
-    --line: rgb(13 23 14 / 0.18);
-    --accent-text: #233f0e;
-    --label: #233f0e;
-    --band-eyebrow: #233f0e;
-    --pop: #1c3a0a;
-    color: var(--ink);
     /* !important: the full-screen panel rule paints plain sections with --paper at a
-       higher specificity; on this route these sections are sage. */
+       higher specificity; on this route these sections are pale sage. */
     background:
-      radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.12), transparent 60%),
-      radial-gradient(90% 80% at 10% 100%, rgb(13 23 14 / 0.18), transparent 60%),
-      #7a8970 !important;
+      radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.7), transparent 60%),
+      #e4ebdc !important;
   }
-  /* …and blocks inside them are the dark glass device panels again, with light type */
   & :is(.sunk, .s2s) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
-    --ink: #eef3ea;
-    --heading: #f4f8f0;
-    --muted: #aab6a4;
-    --line: #2b3a2a;
-    --accent-text: #cfe57a;
-    --label: #cfe57a;
-    --pop: #dbf27a;
-    color: var(--ink);
     background: var(--neu-bg), var(--glass-strong);
   }
-  /* Section photos tone into the sage instead of washing it out */
   & :is(.sunk, .s2s).bgphoto {
     --photo-blend: multiply;
-    --photo-op: 0.28;
+    --photo-op: 0.12;
   }
 
-  /* Source-to-seal steps sit on sage: active step reads dark, number in deep lime */
-  & .s2s .funnel-step {
-    color: var(--ink);
-  }
-  & .s2s .funnel-num {
-    color: #233f0e;
-  }
-
-  /* Header after scrolling: dark frosted glass */
+  /* Header after scrolling: white frosted glass */
   & .hdr.is-scrolled,
   & .hdr.is-open {
-    background: rgb(10 19 11 / 0.72);
-    border-bottom-color: var(--glass-edge);
+    background: rgb(255 255 255 / 0.78);
+    border-bottom-color: rgb(20 40 20 / 0.08);
   }
 
-  /* Footer: the darkest forest */
+  /* Footer: deep forest anchors the page (reversed logo comes from the footer rule) */
   & footer {
-    background: #070e08;
+    background: #0c160d;
   }
 
-  /* Lab line art and wave edges pick up the lime */
   & .labart-bg {
-    color: var(--accent);
-    opacity: 0.12;
+    color: var(--accent-text);
+    opacity: 0.14;
   }
-  & :is(.sunk, .s2s) .labart-bg {
-    color: #0d170e;
-    opacity: 0.16;
+  & .ticker {
+    color: var(--ink);
   }
-}
-[data-theme="verdan"] :is(.sunk, .s2s) > .wrap .eyebrow,
-[data-theme="verdan"] :is(.sunk, .s2s) .sec-head .eyebrow {
-  color: #233f0e;
 }

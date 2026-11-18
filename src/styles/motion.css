@@ -2767,3 +2767,4 @@ html.has-panels .s2s > .wrap {
     display: inline;
   }
 }
+.sc-card-top .sc-chip { margin-left: auto; }

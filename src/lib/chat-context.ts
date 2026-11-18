@@ -12,7 +12,7 @@ export async function buildChatInstructions(): Promise<string> {
   const productBlock = products
     .map(
       (p) =>
-        `- ${p.name} (${p.code}, ${p.role}). Botanical source: ${p.botanicalSource}. Plant part: ${p.plantPart}. Quality marker: ${p.marker}. Applications: ${p.applications.join(", ")}. Grade/assay, appearance, packing, MOQ and lead time: ${
+        `- ${p.name} (${p.role}). Botanical source: ${p.botanicalSource}. Plant part: ${p.plantPart}. Quality marker: ${p.marker}. Applications: ${p.applications.join(", ")}. Grade/assay, appearance, packing, MOQ and lead time: ${
           p.spec?.gradeAssay ? JSON.stringify(p.spec) : "shared on request (not published)"
         }. Page: /products/${p.slug}`,
     )

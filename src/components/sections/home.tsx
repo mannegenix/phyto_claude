@@ -52,7 +52,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
 export function ProductTicker({ products }: { products: Product[] }) {
   const row = products.map((p) => (
     <span key={p.slug} className="ticker-item">
-      <b>{p.code}</b> {p.short} <span className="ticker-marker">{p.marker.split(/[,/(]/)[0].trim()}</span>
+      <b>{p.short}</b> <span className="ticker-marker">{p.marker.split(/[,/(]/)[0].trim()}</span>
       <span className="ticker-ok">Tested</span>
     </span>
   ));

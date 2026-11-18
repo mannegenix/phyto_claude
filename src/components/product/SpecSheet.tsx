@@ -20,7 +20,7 @@ export function SpecSheet({ product }: { product: Product }) {
   return (
     <div className="sheet">
       <div className="sheet-h">
-        <span>PRODUCT SPECIFICATION SUMMARY · {product.code}</span>
+        <span>PRODUCT SPECIFICATION SUMMARY</span>
         <span>Representative · not a lot COA</span>
       </div>
       <div className="overflow-x-auto">

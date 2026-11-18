@@ -363,7 +363,6 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
                   onClick={(e) => openAt(i, e.currentTarget)}
                 >
                   <span className="sc-card-top">
-                    <span className="mono">{x.code}</span>
                     <span className={`sc-chip ${x.flagship ? "is-flag" : ""}`}>
                       {x.flagship ? "Flagship" : x.role.replace(" product", "")}
                     </span>
@@ -412,7 +411,6 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
             </button>
             <div className="lb-content" data-lenis-prevent>
               <div className="lb-media">
-                <span className="lb-num">{p.code.slice(3)}</span>
                 <div className="lb-model">
                   <LazyScene
                     variant={p.slug}
@@ -433,7 +431,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
                 <div className="flex flex-wrap items-center gap-2">
                   <ProductOrb product={p} size="sm" uid="lb-orb" />
                   <span className="lb-eyebrow">
-                    {p.flagship ? "Flagship" : p.role.replace(" product", "")} · {p.code}
+                    {p.flagship ? "Flagship" : p.role.replace(" product", "")}
                   </span>
                 </div>
                 <h2 id="lb-title">{p.name}</h2>

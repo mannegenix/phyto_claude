@@ -58,7 +58,7 @@ export async function Preloader() {
                 <span className="pl-orb">
                   <Illustration slug={p.slug} uid="pl" />
                 </span>
-                <span className="pl-code">{p.code}</span>
+                <span className="pl-code">{p.short}</span>
                 <span className="pl-ok">Tested</span>
               </li>
             ))}

@@ -78,7 +78,6 @@ export function ProductCarousel({ items }: { items: Item[] }) {
           >
             <ProductOrb product={p} size="md" uid={`pick-${i}`} />
             <span className="pc-pick-name">{p.short}</span>
-            <span className="pc-pick-code mono">{p.code}</span>
           </button>
         ))}
       </div>
@@ -92,15 +91,11 @@ export function ProductCarousel({ items }: { items: Item[] }) {
             aria-label={`${i + 1} of ${items.length}: ${p.name}`}
           >
             <div className="p-slide-visual">
-              <span className="p-slide-num" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <ProductOrb product={p} size="xl" uid={`slide-${i}`} />
               <span className="p-slide-tested">Every lot tested</span>
             </div>
             <div className="p-slide-body">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="chip">{p.code}</span>
                 <span className={`chip ${p.role === "Flagship product" ? "chip-flag" : ""}`}>{p.role}</span>
               </div>
               <h2 className="p-slide-name">{p.name}</h2>

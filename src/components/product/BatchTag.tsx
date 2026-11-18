@@ -28,7 +28,7 @@ export function BatchTag({ product }: { product: Product }) {
     <div className="tag">
       <div className="tag-top">
         <span className="tag-hole" />
-        <span>{product.code} · BULK EXTRACT</span>
+        <span>{product.short} · BULK EXTRACT</span>
         <span className={`chip ${product.flagship ? "chip-flag" : ""}`}>{product.role}</span>
       </div>
       <div className="flex items-start justify-between gap-3 pr-[18px]">

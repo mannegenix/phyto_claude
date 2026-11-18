@@ -176,68 +176,67 @@
   --splash-ink: #ffffff;
 }
 
-/* ── Verdan (R10, AltHome review): from the "Verdan Farm OS" reference — deep forest glass
-   over dark botanicals, muted sage canvas sections, soft chartreuse accents ── */
+/* ── Verdan light (R10, AltHome review): from the "Verdan Farm OS" reference, made
+   white-dominant — white and pale sage surfaces, white frosted-glass blocks, chartreuse
+   accents, the product photo behind the hero with bold deep-forest scene lines ── */
 [data-theme="verdan"] {
-  color-scheme: dark;
+  color-scheme: light;
   --radius: 14px;
-  --paper: #0c160d;
-  --surface: #152015;
-  --sunk: #7a8970;
-  --ink: #eef3ea;
-  --muted: #aab6a4;
-  --line: #263325;
-  --heading: #f4f8f0;
+  --paper: #f8faf5;
+  --surface: #ffffff;
+  --sunk: #e4ebdc;
+  --ink: #142014;
+  --muted: #4b5946;
+  --line: #dfe6d8;
+  --heading: #0c160d;
   --accent: #c8e068;
-  --accent-hover: #dbf27a;
+  --accent-hover: #b9d553;
   --on-accent: #10190c;
-  --accent-text: #cfe57a;
-  --label: #cfe57a;
-  --label-soft: #26331b;
-  --pop: #dbf27a;
-  --band: #0f1b10;
-  --band-2: #0a130b;
-  --on-band: #eef3ea;
-  --on-band-muted: #bcc7b5;
-  --band-eyebrow: #cfe57a;
-  --note: #e8a63a;
-  --note-bg: #2a2210;
-  --ok: #c8e068;
-  --err: #f08a7e;
+  --accent-text: #3c6a12;
+  --label: #3c6a12;
+  --label-soft: #eef4dc;
+  --pop: #5f8f1c;
+  --band: #eef3e8;
+  --band-2: #e4ebdc;
+  --on-band: #142014;
+  --on-band-muted: #4b5946;
+  --band-eyebrow: #3c6a12;
+  --note: #8a5a00;
+  --note-bg: #fbf1dc;
+  --ok: #3c6a12;
+  --err: #b42318;
   --specimen-glow: 1;
-  --specimen-pass: #dbf27a;
-  --specimen-test: #9fdcff;
-  --specimen-raw: #8d9b84;
-  --specimen-reject: #3a4636;
-  --specimen-line: #c8e068;
-  --lab-si: rgb(220 240 150);
+  --specimen-pass: #6f9a1e;
+  --specimen-test: #0a78d6;
+  --specimen-raw: #a8b6a0;
+  --specimen-reject: #d6ddd0;
+  --specimen-line: #3c6a12;
+  --lab-si: rgb(12 38 12);
   --lab-hero-bg:
-    linear-gradient(90deg, rgb(7 14 8 / 0.82) 0%, rgb(7 14 8 / 0.5) 45%, rgb(7 14 8 / 0.25) 70%),
-    linear-gradient(180deg, rgb(7 14 8 / 0.55), transparent 30%, rgb(7 14 8 / 0.75)),
-    radial-gradient(45% 55% at 72% 46%, rgb(200 224 104 / 0.18), transparent 65%),
+    linear-gradient(90deg, rgb(250 252 247 / 0.96) 0%, rgb(250 252 247 / 0.86) 34%, rgb(250 252 247 / 0.5) 60%, rgb(250 252 247 / 0.4) 100%),
+    linear-gradient(180deg, rgb(250 252 247 / 0.5), rgb(250 252 247 / 0.15) 30%, rgb(250 252 247 / 0.15) 70%, rgb(250 252 247 / 0.7)),
     url("/images/bg/botanicals-dark.webp") center / cover no-repeat,
-    #0c160d;
+    #f8faf5;
   --lab-band-bg:
-    radial-gradient(45% 70% at 82% 18%, rgb(200 224 104 / 0.12), transparent 62%),
-    radial-gradient(120% 120% at 25% 40%, #1a2a1a 0%, #111d12 50%, #0a130b 100%);
-  --lab-halo: rgb(200 224 104 / 0.22);
-  --lab-vignette: rgb(0 0 0 / 0.5);
-  --lab-panel: rgb(20 32 20 / 0.55);
-  --lab-ticker: #0a130b;
-  --lab-hero-ink: #f4f8f0;
-  --lab-hero-lede: #c7d1c1;
-  --lab-hero-eyebrow: #cfe57a;
-  --lab-em-1: #c8e068;
-  --lab-em-2: #e6f59a;
-  --lab-em-glow: rgb(200 224 104 / 0.35);
+    radial-gradient(45% 70% at 82% 18%, rgb(200 224 104 / 0.35), transparent 62%),
+    linear-gradient(160deg, #f4f8ef, #e7eedf);
+  --lab-halo: rgb(200 224 104 / 0.3);
+  --lab-vignette: transparent;
+  --lab-panel: rgb(255 255 255 / 0.72);
+  --lab-ticker: #ffffff;
+  --lab-hero-ink: #0c160d;
+  --lab-hero-lede: #33402f;
+  --lab-hero-eyebrow: #3c6a12;
+  --lab-em-1: #5f8f1c;
+  --lab-em-2: #8fbf2c;
+  --lab-em-glow: rgb(160 210 60 / 0.25);
   --lab-hero-btn: #c8e068;
   --lab-hero-btn-ink: #10190c;
-  --lab-hero-ghost: #ffffff;
-  /* The client's blue stays as the testing marker, softened to sit with forest and sage */
-  --splash: #8fd3ff;
-  --splash-text: #9fdcff;
-  --splash-scene: #9fdcff;
-  --splash-ink: #08202e;
+  --lab-hero-ghost: #0c160d;
+  --splash: #0b7cf2;
+  --splash-text: #0a66d6;
+  --splash-scene: #0a66d6;
+  --splash-ink: #ffffff;
 }
 
 /* ── Lab daylight: fully light. Pale lime glow, deep-green instruments and type ── */
@@ -571,7 +570,7 @@
 }
 
 /* ── Logo reversed on dark surfaces (footer is dark in every theme but Green light) ── */
-:is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"], [data-theme="verdan"]) .logo,
+:is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]) .logo,
 html:not([data-theme="greenlight"]) footer .logo {
   & .logo-pos { display: none; }
   & .logo-neg { display: inline-flex; }

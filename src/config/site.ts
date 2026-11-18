@@ -20,8 +20,8 @@ export const THEMES = [
   /** Dark edition of the lab route, kept for reference. */
   { id: "labgreen", no: "R08", label: "Lab green dark", swatch: ["#141615", "#8fd14f", "#15dbeb"] },
   { id: "labday", no: "R09", label: "Lab daylight", swatch: ["#e4f6cf", "#8fd14f", "#0a76b3"] },
-  /** Verdan: forest glass + sage + chartreuse, from the client's "Verdan Farm OS" reference. Used by /althome. */
-  { id: "verdan", no: "R10", label: "Verdan forest glass", swatch: ["#0c160d", "#7a8970", "#c8e068"] },
+  /** Verdan light: white + pale sage glass, chartreuse, from the client's "Verdan Farm OS" reference. Used by /althome. */
+  { id: "verdan", no: "R10", label: "Verdan light", swatch: ["#f8faf5", "#e4ebdc", "#c8e068"] },
 ] as const;
 
 /**

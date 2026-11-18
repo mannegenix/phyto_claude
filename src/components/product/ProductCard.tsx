@@ -9,8 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="card relative overflow-hidden"
       style={{ ["--sw" as string]: product.swatch }}
     >
-      <div className="flex items-center justify-between gap-2.5">
-        <span className="mono text-[0.74rem] text-muted">{product.code}</span>
+      <div className="flex items-center justify-end gap-2.5">
         {product.flagship ? (
           <span className="chip chip-flag">Flagship</span>
         ) : (

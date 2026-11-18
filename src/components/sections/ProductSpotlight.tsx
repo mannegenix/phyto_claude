@@ -50,7 +50,7 @@ export function ProductSpotlight({ items }: { items: Item[] }) {
           </div>
           <div key={p.slug} className="spot-body">
             <span className="eyebrow">
-              {p.flagship ? "Flagship" : p.role.replace(" product", "")} · {p.code}
+              {p.flagship ? "Flagship" : p.role.replace(" product", "")}
             </span>
             <h2 className="mt-3 mb-4 text-[clamp(1.9rem,3.6vw,2.9rem)]">{p.name}</h2>
             <p className="lede">{p.intro}</p>

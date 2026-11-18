@@ -56,7 +56,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
     description: product.intro,
     category: "Bulk plant extract",
     brand: { "@type": "Brand", name: siteConfig.name },
-    sku: product.code,
     url: `${siteConfig.url}/products/${product.slug}`,
   };
 
@@ -66,7 +65,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       <BotanicalArt slug={product.slug} className="specimen-bg" strokeWidth={1.1} />
       <PageHead title={product.name} crumbs={[{ href: "/products", label: "Products" }, { label: product.short }]}>
         <div className="mb-4 flex flex-wrap gap-2.5">
-          <span className="chip">{product.code}</span>
           <span className={`chip ${product.flagship ? "chip-flag" : ""}`}>{product.role}</span>
           <span className="chip">Every lot tested</span>
         </div>
@@ -198,7 +196,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             style={{ ["--sw" as string]: next.swatch }}
           >
             <div className="grid gap-2">
-              <span className="mono text-[0.78rem] text-muted">{next.code} · {next.role}</span>
+              <span className="mono text-[0.78rem] text-muted">{next.role}</span>
               <h3>{next.name}</h3>
               <span className="text-[0.95rem] text-accent-text">View specimen sheet →</span>
             </div>

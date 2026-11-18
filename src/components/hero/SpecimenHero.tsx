@@ -316,7 +316,6 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       </div>
       {item && (
         <div className="specimen-card" key={item.slug}>
-          <span className="specimen-code">{item.code}</span>
           <span className="specimen-name">{item.name}</span>
           <span className="specimen-meta">
             {item.plantPart} · {item.marker.split(",")[0]}

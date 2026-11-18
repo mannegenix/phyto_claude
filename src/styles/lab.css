@@ -340,7 +340,7 @@
 :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hdr .nav-link[aria-current="page"]::after {
   background: var(--splash);
 }
-:is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="verdan"]) {
+:is([data-theme="labgreen"], [data-theme="lablight"]) {
   --hdr-top-ink: #ffffff;
   --hdr-top-muted: rgb(255 255 255 / 0.84);
   --hdr-top-flag: var(--lab-hero-eyebrow);

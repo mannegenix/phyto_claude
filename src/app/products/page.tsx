@@ -62,7 +62,7 @@ export default async function ProductsPage() {
               <table className="min-w-[720px]">
                 <thead>
                   <tr>
-                    {["#", "Product", "Portfolio role", "Quality marker / grade basis", "Primary B2B application"].map(
+                    {["Product", "Portfolio role", "Quality marker / grade basis", "Primary B2B application"].map(
                       (h) => (
                         <th key={h} scope="col">
                           {h}
@@ -74,7 +74,6 @@ export default async function ProductsPage() {
                 <tbody>
                   {products.map((p) => (
                     <tr key={p.slug}>
-                      <td className="mono">{p.code.slice(3)}</td>
                       <td>
                         <Link href={`/products/${p.slug}`} className="font-semibold">
                           {p.name}

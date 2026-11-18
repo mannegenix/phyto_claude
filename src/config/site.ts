@@ -25,12 +25,12 @@ export const THEMES = [
 ] as const;
 
 /**
- * Pages shown in a different colour route from the rest of the site (the homepage uses
- * Verdan light; every other page uses `defaultTheme`).
+ * Pages shown in a different colour route from the rest of the site. The whole site uses
+ * `defaultTheme` (Verdan light); only the hidden classic home keeps the earlier lablight route.
  * Applied before first paint by `routeThemeBootScript` and kept in sync on client
  * navigation by `motion/RouteTheme`.
  */
-export const ROUTE_THEMES: Record<string, ThemeId> = { "/": "verdan" };
+export const ROUTE_THEMES: Record<string, ThemeId> = { "/home-classic": "lablight" };
 
 export type ThemeId = (typeof THEMES)[number]["id"];
 
@@ -49,7 +49,7 @@ export const siteConfig = {
   tagline: "Botanical Ingredients for Global Markets",
   description:
     "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
-  defaultTheme: "lablight" as ThemeId,
+  defaultTheme: "verdan" as ThemeId,
   /** Review mode: enables /compare and ?theme= previews. Never enable in production. */
   showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",
   /** Chat widget appears only when the API key is configured server-side and this flag is on. */

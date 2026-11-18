@@ -1,5 +1,6 @@
 "use client";
 
+import { LeafDropArt } from "./LeafDropArt";
 import { calmMotion } from "@/lib/motion-pref";
 
 import { useEffect, useRef } from "react";
@@ -72,10 +73,7 @@ export function RouteTransition() {
   return (
     <div ref={el} className="route-fx" aria-hidden="true">
       <div className="route-fx-art">
-        {/* The flagship product photo in a scanning ring (product images, not drawings) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/products/garcinia.webp" alt="" />
-        <span className="route-fx-ring" />
+        <LeafDropArt id="rt" />
       </div>
     </div>
   );

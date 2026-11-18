@@ -230,6 +230,9 @@ export function PanelScroll() {
     if (lenis) {
       lenis.options.virtualScroll = ({ deltaY, event }) => {
         if (!event.type.includes("wheel") || event.ctrlKey) return true;
+        // Sideways trackpad swipes belong to horizontal carousels: let the browser scroll them.
+        const we = event as WheelEvent;
+        if (Math.abs(we.deltaX) > Math.abs(we.deltaY)) return false;
         const now = performance.now();
         const abs = Math.abs(deltaY);
         const gap = now - lastWheel;

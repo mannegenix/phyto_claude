@@ -171,9 +171,23 @@
     border-bottom-color: rgb(20 40 20 / 0.08);
   }
 
-  /* Footer: deep forest anchors the page (reversed logo comes from the footer rule) */
-  & footer {
-    background: #0c160d;
+  /* Footer: light like the rest of the page (pale sage, dark type) */
+  & footer.site-footer {
+    background: #e4ebdc;
+    color: #33402f;
+    border-top: 1px solid rgb(20 40 20 / 0.08);
+  }
+  & footer.site-footer h4 {
+    color: #0c160d;
+  }
+  & footer.site-footer a {
+    color: #33402f;
+  }
+  & footer.site-footer a:hover {
+    color: #0c160d;
+  }
+  & footer .legal {
+    border-top-color: rgb(20 40 20 / 0.12);
   }
 
   & .labart-bg {

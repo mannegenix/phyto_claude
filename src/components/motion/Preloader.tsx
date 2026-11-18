@@ -1,8 +1,9 @@
 import { getProducts } from "@/lib/content";
+import { LeafDropArt } from "./LeafDropArt";
 
 /**
- * Preloader: a full "lot release" screen. The flagship product photo sits in a scanning
- * ring, a counter runs to 100 %, the five checks tick through, and each product (as its
+ * Preloader: a full "lot release" screen. A drop falls from a leaf into the Phyto bottle,
+ * a counter runs to 100 %, the five checks tick through, and each product (shown as its
  * photo) is marked tested. Pure CSS animation (see motion.css), so it never blocks content
  * when JavaScript fails. Plays on every full page load (visit or refresh); client-side
  * page changes use the extract transition instead. Never for reduced motion.
@@ -34,12 +35,7 @@ export async function Preloader() {
       </header>
 
       <div className="pl-center">
-        <div className="pl-hero">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={products[0]?.image ?? ""} alt="" />
-          <span className="pl-hero-ring" />
-          <span className="pl-hero-scan" />
-        </div>
+        <LeafDropArt id="pl" className="pl-art" />
         <div className="pl-readout">
           <div className="pl-count">
             <span className="pl-num" />

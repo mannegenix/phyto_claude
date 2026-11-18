@@ -37,26 +37,14 @@ export default async function ProductsPage() {
         lede="Garcinia Cambogia leads the portfolio. Every lot of every extract is tested to recognised global quality standards, and only lots that pass carry our label."
       />
 
-      <section className="products-stage">
-        <div className="wrap">
-          <ProductCarousel items={items} />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap grid gap-10">
+      {/* Product overview first: the whole range in one table */}
+      <section className="section product-overview">
+        <div className="wrap grid gap-6">
           <div className="sec-head">
-            <span className="eyebrow">Find by application</span>
-            <h2>Which extract fits your formulation?</h2>
+            <span className="eyebrow">Product overview</span>
+            <h2>Compare the portfolio</h2>
           </div>
-          <ProductFinder products={products} />
-
-          <details className="compare-all">
-            <summary>
-              <span>Compare the range at a glance</span>
-              <span className="mono text-[0.76rem]">Marker · role · primary application</span>
-            </summary>
-            <div className="sheet mt-4 overflow-x-auto">
+            <div className="sheet overflow-x-auto">
               <table className="min-w-[720px]">
                 <thead>
                   <tr>
@@ -85,7 +73,26 @@ export default async function ProductsPage() {
                 </tbody>
               </table>
             </div>
-          </details>
+        </div>
+      </section>
+
+      <section className="products-stage">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">The extracts</span>
+            <h2>Explore each extract</h2>
+          </div>
+          <ProductCarousel items={items} />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap grid gap-10">
+          <div className="sec-head">
+            <span className="eyebrow">Find by application</span>
+            <h2>Which extract fits your formulation?</h2>
+          </div>
+          <ProductFinder products={products} />
         </div>
       </section>
 

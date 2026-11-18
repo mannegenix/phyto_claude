@@ -574,7 +574,7 @@
 
 /* ── Logo reversed on dark surfaces (footer is dark in every theme but Green light) ── */
 :is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]) .logo,
-html:not([data-theme="greenlight"]) footer .logo {
+html:not([data-theme="greenlight"]):not([data-theme="verdan"]) footer .logo {
   & .logo-pos { display: none; }
   & .logo-neg { display: inline-flex; }
 }

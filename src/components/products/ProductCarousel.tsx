@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Product } from "@/content/types";
 import { ProductOrb } from "@/components/product/ProductOrb";
+import { useDragScroll } from "@/lib/useDragScroll";
 
 type Item = Pick<
   Product,
@@ -11,8 +12,9 @@ type Item = Pick<
 >;
 
 /**
- * Products page showcase: one large, colour-washed slide per extract. Swipe or
- * trackpad-scroll on touch, arrows / thumbnails / keyboard on desktop. No autoplay.
+ * Products page showcase: one large, colour-washed slide per extract. Drag with the mouse,
+ * swipe on touch or trackpad, or use the arrows / thumbnails (bottom right) / keyboard.
+ * No autoplay.
  */
 export function ProductCarousel({ items }: { items: Item[] }) {
   const track = useRef<HTMLDivElement>(null);
@@ -24,6 +26,25 @@ export function ProductCarousel({ items }: { items: Item[] }) {
     if (!el || !slide) return;
     el.scrollTo({ left: slide.offsetLeft - el.offsetLeft - (el.clientWidth - slide.clientWidth) / 2, behavior: "smooth" });
   }, []);
+
+  // Mouse drag: on release, settle on the slide nearest the centre.
+  const settle = useCallback(() => {
+    const el = track.current;
+    if (!el) return;
+    const mid = el.scrollLeft + el.clientWidth / 2;
+    let best = 0;
+    let dist = Infinity;
+    Array.from(el.children).forEach((c, i) => {
+      const s = c as HTMLElement;
+      const d = Math.abs(s.offsetLeft - el.offsetLeft + s.clientWidth / 2 - mid);
+      if (d < dist) {
+        dist = d;
+        best = i;
+      }
+    });
+    goTo(best);
+  }, [goTo]);
+  useDragScroll(track, settle);
 
   useEffect(() => {
     const el = track.current;
@@ -65,22 +86,6 @@ export function ProductCarousel({ items }: { items: Item[] }) {
 
   return (
     <div className="pc" aria-roledescription="carousel" aria-label="Our extracts">
-      <div className="pc-picker" role="tablist" aria-label="Choose an extract">
-        {items.map((p, i) => (
-          <button
-            key={p.slug}
-            type="button"
-            role="tab"
-            aria-selected={i === active}
-            className="pc-pick"
-            onClick={() => goTo(i)}
-            style={{ ["--sw" as string]: p.swatch }}
-          >
-            <ProductOrb product={p} size="md" uid={`pick-${i}`} />
-            <span className="pc-pick-name">{p.short}</span>
-          </button>
-        ))}
-      </div>
       <div ref={track} className="pc-track" tabIndex={0} onKeyDown={onKey}>
         {items.map((p, i) => (
           <article
@@ -126,6 +131,7 @@ export function ProductCarousel({ items }: { items: Item[] }) {
         ))}
       </div>
 
+      <div className="pc-bottom">
       <div className="pc-controls">
         <button
           type="button"
@@ -153,6 +159,23 @@ export function ProductCarousel({ items }: { items: Item[] }) {
         >
           →
         </button>
+      </div>
+      <div className="pc-picker" role="tablist" aria-label="Choose an extract">
+        {items.map((p, i) => (
+          <button
+            key={p.slug}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            className="pc-pick"
+            onClick={() => goTo(i)}
+            style={{ ["--sw" as string]: p.swatch }}
+          >
+            <ProductOrb product={p} size="md" uid={`pick-${i}`} />
+            <span className="pc-pick-name">{p.short}</span>
+          </button>
+        ))}
+      </div>
       </div>
     </div>
   );

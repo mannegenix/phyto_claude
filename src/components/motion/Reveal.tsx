@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState, type ReactNode } from "react";
+import { calmMotion } from "@/lib/motion-pref";
 
 /**
  * Fades content up as it enters the viewport. Content is always visible at rest
@@ -16,7 +17,11 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  // Follows the site motion preference (footer "Reduce motion"), not the OS setting.
+  const [reduce, setReduce] = useState(false);
+  useEffect(() => {
+    if (calmMotion()) requestAnimationFrame(() => setReduce(true));
+  }, []);
   if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div

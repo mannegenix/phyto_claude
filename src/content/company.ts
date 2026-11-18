@@ -1,10 +1,10 @@
 import type { Doc, Mailbox, OperatingFunction, ProcessStage, TestPillar, ValuePoint } from "./types";
 
 export const positioning =
-  "Phyto Elements supplies bulk plant extracts held to very high standards. We source from qualified producers, test every lot rigorously against our specification, and put our name only on extracts that meet it.";
+  "Phyto Elements supplies bulk plant extracts held to very high standards. We source from qualified producers, test every lot rigorously to recognised global quality standards and beyond, and put our name only on extracts that meet them.";
 
 export const introduction =
-  "Sourcing is flexible; our standard is not. We buy from producers we have qualified, test what arrives, and supply ingredient distributors, nutraceutical companies, formulators and contract manufacturers only with lots that pass.";
+  "Sourcing is flexible; the standard is not. We buy from producers we have qualified, test what arrives, and supply ingredient distributors, nutraceutical companies, formulators and contract manufacturers only with lots that pass.";
 
 /** The promise, in one line, used by the hero and the testing section. */
 export const promise = "Sourced widely. Tested rigorously. Only the best carries our name.";
@@ -12,11 +12,11 @@ export const promise = "Sourced widely. Tested rigorously. Only the best carries
 export const values: ValuePoint[] = [
   {
     title: "Tested before it carries our name",
-    body: "Every lot is rigorously tested against the Phyto Elements specification before it is labelled and offered for sale.",
+    body: "Every lot is rigorously tested to recognised global quality standards before it is labelled and offered for sale.",
   },
   {
     title: "Only the best passes",
-    body: "Our acceptance standards are deliberately high. Lots that fall short are not sold under our label; what reaches you is what passed.",
+    body: "We hold every lot to global benchmarks, and often go beyond them. Lots that fall short are not sold under our label; what reaches you is what passed.",
   },
   {
     title: "Sourced widely, chosen carefully",
@@ -49,11 +49,11 @@ export const stages: ProcessStage[] = [
   },
   {
     title: "Screen",
-    body: "Incoming lots are checked against their documentation and our acceptance criteria before they go on to testing.",
+    body: "Incoming lots are checked against their documentation and globally recognised acceptance criteria before they go on to testing.",
   },
   {
     title: "Test",
-    body: "Each lot is rigorously tested against the Phyto Elements specification for the product and grade.",
+    body: "Each lot is rigorously tested to recognised global quality standards for the product and grade.",
   },
   {
     title: "Pass or reject",
@@ -71,7 +71,7 @@ export const stages: ProcessStage[] = [
  */
 export const testPillars: TestPillar[] = [
   { code: "ID", art: "magnifier", title: "Identity", body: "The right botanical and the right plant part, confirmed before anything else." },
-  { code: "PU", art: "filter", title: "Purity", body: "Checked for foreign matter and contaminants against our acceptance limits." },
+  { code: "PU", art: "filter", title: "Purity", body: "Checked for foreign matter and contaminants against internationally accepted limits." },
   { code: "PO", art: "chromatogram", title: "Potency", body: "Marker-compound content measured against the grade on the specification." },
   { code: "SA", art: "petri", title: "Safety", body: "Screened against the safety limits that apply to the product and its market." },
   { code: "ST", art: "hourglass", title: "Stability", body: "Packed and stored so the lot holds its specification through its shelf life." },
@@ -92,12 +92,12 @@ export const operatingFunctions: OperatingFunction[] = [
   {
     title: "Incoming screening",
     art: "microscope",
-    body: "Check each arriving lot against its documentation and our acceptance criteria before it is accepted for testing.",
+    body: "Check each arriving lot against its documentation and globally recognised acceptance criteria before it is accepted for testing.",
   },
   {
     title: "Testing against specification",
     art: "vials",
-    body: "Test each lot against the Phyto Elements specification for the product and grade.",
+    body: "Test each lot to recognised global quality standards for the product and grade.",
   },
   {
     title: "Release decision",
@@ -116,28 +116,12 @@ export const operatingFunctions: OperatingFunction[] = [
   },
 ];
 
-/** Brief §9: five role-based mailboxes. */
+/** The one public mailbox (client: show only info@). */
 export const mailboxes: Mailbox[] = [
-  { address: "info@phytoelements.in", label: "General", use: "Company enquiries and non-product questions." },
   {
-    address: "sales@phytoelements.in",
-    label: "Sales",
-    use: "New buyers, quotations, pricing, MOQ, lead time and follow-up.",
-  },
-  {
-    address: "samples@phytoelements.in",
-    label: "Samples",
-    use: "Sample requests, dispatch details and sample follow-up.",
-  },
-  {
-    address: "quality@phytoelements.in",
-    label: "Quality & documents",
-    use: "Specifications, representative or lot COAs, SDS and technical questions.",
-  },
-  {
-    address: "orders@phytoelements.in",
-    label: "Orders & commercial",
-    use: "Purchase orders, proforma invoices, acknowledgements, dispatch and shipment.",
+    address: "info@phytoelements.in",
+    label: "Enquiries",
+    use: "Quotations, samples, specifications, Certificates of Analysis, documents and orders.",
   },
 ];
 
@@ -147,19 +131,19 @@ export const documents: Doc[] = [
     name: "Company profile",
     tag: "PDF",
     body: "Overview of Phyto Elements, portfolio, sourcing and testing approach.",
-    access: "Email on request · info@",
+    access: "Email on request · info@phytoelements.in",
   },
   {
     name: "Product specification sheet",
     tag: "SPEC",
     body: "The grade, marker compound, parameters and acceptance limits each lot is tested against.",
-    access: "Email on request · quality@",
+    access: "Email on request · info@phytoelements.in",
   },
   {
     name: "Representative COA",
     tag: "COA",
     body: "Clearly labelled as representative. Indicates the test panel and typical results.",
-    access: "Email on request · quality@",
+    access: "Email on request · info@phytoelements.in",
   },
   {
     name: "Lot-specific COA",
@@ -171,13 +155,13 @@ export const documents: Doc[] = [
     name: "Safety Data Sheet",
     tag: "SDS",
     body: "Provided where applicable to the product and transaction.",
-    access: "Email on request · quality@",
+    access: "Email on request · info@phytoelements.in",
   },
   {
     name: "Packing and storage information",
     tag: "INFO",
     body: "Packing configuration, storage conditions and shelf-life guidance.",
-    access: "Email on request · sales@",
+    access: "Email on request · info@phytoelements.in",
   },
   {
     name: "Quotation and proforma invoice",

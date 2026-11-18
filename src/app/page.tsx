@@ -1,4 +1,3 @@
-import { LabArt } from "@/components/botanicals/LabArt";
 import { getCompany, getProducts } from "@/lib/content";
 import {
   Hero,
@@ -42,13 +41,12 @@ export default async function HomePage() {
       <SourceToSeal stages={c.stages} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />
-      <section className="section labart-host">
-        <LabArt kind="shipping" backdrop pos="bl" />
+      <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <Reveal className="grid gap-[18px]">
             <span className="eyebrow">Contact</span>
-            <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Write to the right desk</h2>
-            <p className="muted">Five role-based inboxes keep quotations, samples, documents and orders organised.</p>
+            <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Write to us</h2>
+            <p className="muted">One inbox for quotations, samples, specifications, documents and orders. Phyto Elements, Hyderabad, India.</p>
           </Reveal>
           <MailList mailboxes={c.mailboxes} />
         </div>

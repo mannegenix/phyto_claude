@@ -219,7 +219,7 @@
   background: #c8f04a;
   box-shadow: 0 0 0 4px rgb(200 240 74 / 0.3), 0 0 28px rgb(200 240 74 / 0.7);
 }
-@media (prefers-reduced-motion: no-preference) {
+html:not(.pe-calm) {
   [data-theme="verdan"] .hero .specimen-label.is-on {
     animation: verdan-step 1.6s ease-in-out infinite;
   }

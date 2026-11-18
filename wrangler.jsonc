@@ -23,8 +23,7 @@
   // CRM_WEBHOOK_URL) go in the dashboard: Worker → Settings → Variables and Secrets, or `npx wrangler secret put`.
   "vars": {
     "ENQUIRY_FROM": "Phyto Elements Website <website@phytoelements.in>",
-    "ENQUIRY_TO": "sales@phytoelements.in",
-    "SAMPLES_CC": "samples@phytoelements.in",
+    "ENQUIRY_TO": "info@phytoelements.in",
     "CHAT_MODEL": "claude-haiku-5-5",
   },
 }

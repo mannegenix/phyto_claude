@@ -21,3 +21,7 @@ export async function getProduct(slug: string): Promise<Product | undefined> {
 export async function getCompany() {
   return company;
 }
+
+export async function getAbout() {
+  return import("@/content/about");
+}

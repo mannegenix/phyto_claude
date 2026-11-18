@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef, useState } from "react";
 import type { ProcessStage } from "@/content/types";
 
@@ -105,15 +107,11 @@ export function SealStepper({ stages }: { stages: ProcessStage[] }) {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
+    if (calmMotion()) requestAnimationFrame(() => setReduced(true));
     const el = root.current;
     const io = el ? new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 }) : null;
     if (el && io) io.observe(el);
     return () => {
-      mq.removeEventListener("change", sync);
       io?.disconnect();
     };
   }, []);

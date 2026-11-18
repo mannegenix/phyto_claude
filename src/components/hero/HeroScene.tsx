@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef } from "react";
 
 const RING_TEXT = "TESTED RIGOROUSLY · ONLY THE BEST CARRIES OUR NAME · PHYTO ELEMENTS · ";
@@ -16,7 +18,7 @@ export function HeroScene() {
     const el = ref.current;
     const host = el?.parentElement;
     if (!el || !host) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (calmMotion()) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     let raf = 0;

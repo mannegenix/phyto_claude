@@ -1,10 +1,8 @@
-import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 import { MailList } from "@/components/ui/MailList";
-import { ReviewNote } from "@/components/ui/ReviewNote";
 
 export const metadata: Metadata = {
   title: "Documents & Resources",
@@ -20,8 +18,7 @@ export default async function ResourcesPage() {
         crumbs={[{ label: "Documents / Resources" }]}
         lede="Technical and commercial documents are shared by email so each one matches the product, grade and lot you are evaluating."
       />
-      <section className="section labart-host">
-        <LabArt kind="coa" backdrop pos="br" />
+      <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="border-t border-line">
             {c.documents.map((d) => (
@@ -47,10 +44,6 @@ export default async function ResourcesPage() {
                 Request specifications
               </Link>
             </div>
-            <ReviewNote>
-              Company profile PDF and per-product spec sheets can move to direct downloads once approved. Lot COAs
-              stay email-only.
-            </ReviewNote>
           </div>
         </div>
       </section>

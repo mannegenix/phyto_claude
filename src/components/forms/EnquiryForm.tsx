@@ -230,7 +230,7 @@ export function EnquiryForm({
           {state.status === "error" && state.message ? (
             <span className="err">{state.message}</span>
           ) : (
-            "Enquiries go to sales@phytoelements.in. Sample requests are copied to samples@phytoelements.in."
+            "Enquiries go to info@phytoelements.in."
           )}
         </small>
         <button className="btn" type="submit" disabled={pending}>

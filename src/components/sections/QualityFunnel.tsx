@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -59,7 +61,8 @@ export function QualityFunnel({ stages }: { stages: ProcessStage[] }) {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add("all", () => {
+        if (calmMotion()) return;
         const q = gsap.utils.selector(root);
         const el = root.current;
         const section = el?.closest<HTMLElement>(".s2s") ?? el;

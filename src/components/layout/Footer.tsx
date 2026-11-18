@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCompany, getProducts } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 import { Logo } from "./Logo";
+import { MotionToggle } from "@/components/ui/MotionToggle";
 
 export async function Footer() {
   const [products, { mailboxes }] = await Promise.all([getProducts(), getCompany()]);
@@ -43,25 +44,31 @@ export async function Footer() {
               <li>
                 <Link href="/resources">Documents / Resources</Link>
               </li>
-              <li>
-                <Link href="/privacy">Privacy notice</Link>
-              </li>
             </ul>
           </div>
           <div>
             <h4>Write to us</h4>
-            <ul className="mono grid gap-2 text-[0.84rem]">
+            <ul className="grid gap-2 text-[0.9rem]">
               {mailboxes.map((m) => (
-                <li key={m.address}>{m.address}</li>
+                <li key={m.address} className="mono text-[0.84rem]">
+                  <a href={`mailto:${m.address}`}>{m.address}</a>
+                </li>
               ))}
+              <li>Hyderabad, India</li>
             </ul>
           </div>
         </div>
         <div className="legal">
           <span>
-            © {new Date().getFullYear()} Phyto Elements · {siteConfig.domain}
+            © {new Date().getFullYear()} Phyto Elements · Hyderabad, India
           </span>
-          <span>Registered legal name and address to be published after verification</span>
+          <nav className="legal-links" aria-label="Legal">
+            <Link href="/privacy">Privacy Policy</Link>
+            {/* Placeholder links until the client's Terms and Cookie policy pages are written. */}
+            <a href="#terms">Terms</a>
+            <a href="#cookies">Cookies</a>
+            <MotionToggle />
+          </nav>
         </div>
       </div>
     </footer>

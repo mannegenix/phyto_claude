@@ -1,11 +1,9 @@
 import { getProducts } from "@/lib/content";
-import { Illustration } from "@/components/botanicals/Illustration";
-import { LeafDropArt } from "./LeafDropArt";
 
 /**
- * Preloader: a full "lot release" screen. A drop falls from a leaf into a bottle,
- * a counter runs to 100 %, the five checks tick through, and the six extracts are
- * marked tested. Pure CSS animation (see motion.css), so it never blocks content
+ * Preloader: a full "lot release" screen. The flagship product photo sits in a scanning
+ * ring, a counter runs to 100 %, the five checks tick through, and each product (as its
+ * photo) is marked tested. Pure CSS animation (see motion.css), so it never blocks content
  * when JavaScript fails. Plays on every full page load (visit or refresh); client-side
  * page changes use the extract transition instead. Never for reduced motion.
  */
@@ -36,7 +34,12 @@ export async function Preloader() {
       </header>
 
       <div className="pl-center">
-        <LeafDropArt id="pl" className="pl-art" />
+        <div className="pl-hero">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={products[0]?.image ?? ""} alt="" />
+          <span className="pl-hero-ring" />
+          <span className="pl-hero-scan" />
+        </div>
         <div className="pl-readout">
           <div className="pl-count">
             <span className="pl-num" />
@@ -56,7 +59,8 @@ export async function Preloader() {
             {products.map((p, i) => (
               <li key={p.slug} style={{ ["--i" as string]: i, ["--sw" as string]: p.swatch }}>
                 <span className="pl-orb">
-                  <Illustration slug={p.slug} uid="pl" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {p.image && <img src={p.image} alt="" />}
                 </span>
                 <span className="pl-code">{p.short}</span>
                 <span className="pl-ok">Tested</span>

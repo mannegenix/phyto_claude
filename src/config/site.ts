@@ -48,7 +48,7 @@ export const siteConfig = {
   ),
   tagline: "Botanical Ingredients for Global Markets",
   description:
-    "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested against our specification, and only what passes carries our name.",
+    "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
   defaultTheme: "lablight" as ThemeId,
   /** Review mode: enables /compare and ?theme= previews. Never enable in production. */
   showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",

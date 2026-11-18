@@ -1,8 +1,9 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef, useState } from "react";
 import { botanicalPaths } from "@/components/botanicals/shapes";
-import { BotanicalArt } from "@/components/botanicals/BotanicalArt";
 
 export type SpecimenItem = {
   slug: string;
@@ -140,7 +141,6 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
   const [index, setIndex] = useState(0);
   const [passed, setPassed] = useState(false);
   const [stage, setStage] = useState<Stage>("lots");
-  const [live, setLive] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -148,7 +148,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !wrap || !ctx || items.length === 0) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = calmMotion();
     let colors = readColors();
     let T: Timing = colors.staged ? STAGED : NORMAL;
     let W = 0;
@@ -376,7 +376,6 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    requestAnimationFrame(() => setLive(true));
     if (reduce) {
       requestAnimationFrame(() => {
         setPassed(true);
@@ -401,7 +400,6 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
   return (
     <div className="specimen" aria-hidden="true">
       <div ref={wrapRef} className="specimen-stage" data-stage={stage}>
-        {!live && <BotanicalArt slug={items[0]?.slug ?? "garcinia"} className="specimen-still" />}
         <canvas ref={canvasRef} className="specimen-canvas" />
         <span className={`specimen-label is-lots ${stage === "lots" ? "is-on" : ""}`} style={{ left: "3%" }}>
           01 · Lots in

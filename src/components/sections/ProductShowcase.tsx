@@ -1,11 +1,12 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import type { Product, TestPillar } from "@/content/types";
 import { ProductOrb } from "@/components/product/ProductOrb";
-import { LazyScene } from "@/components/three/LazyScene";
 import { getLenis } from "@/components/motion/SmoothScroll";
 
 type Item = Pick<
@@ -25,22 +26,13 @@ type Item = Pick<
   | "image"
 >;
 
-const FAMILY: Record<string, string> = {
-  garcinia: "Hydroxycitric acid family",
-  curcumin: "Curcuminoid family",
-  ashwagandha: "Withanolide family",
-  boswellia: "Boswellic acid family",
-  bakuchiol: "Bakuchiol (meroterpene)",
-  bacopa: "Bacoside family",
-};
-
-const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduced = calmMotion;
 
 /**
  * Homepage "Every extract, one standard": the product cards are shown straight away
  * (no intro animation, no scroll hold). A card opens a
  * glass lightbox that grows out of the card (across, then down) with the extract's
- * 3D model and details, and Previous / Next to move through every product.
+ * product photo and details, and Previous / Next to move through every product.
  *
  * Until a visitor opens a card, the flagship card carries a pulsing "Click to explore" cue.
  */
@@ -119,23 +111,20 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
     const ctx = gsap.context(() => {
       gsap.set(panel, { left: r.left, top: r.top, width: r.width, height: r.height, borderRadius: 18 });
       gsap.set([content, ...chrome], { autoAlpha: 0 });
+      // Grows straight out of the card in one quick move (about half a second).
       motion.current = gsap
         .timeline()
-        .to(panel, { z: -160, rotationY: -10, scale: 0.92, duration: fast ? 0 : 0.32, ease: "power2.inOut" })
         .to(panel, {
-          left: innerWidth / 2 - r.width / 2,
-          top: innerHeight / 2 - r.height / 2,
-          z: 0,
-          rotationY: 0,
-          scale: 1,
-          duration: fast ? 0 : 0.55,
-          ease: "power2.inOut",
+          left: (innerWidth - W) / 2,
+          top: (innerHeight - H) / 2,
+          width: W,
+          height: H,
+          borderRadius: 26,
+          duration: fast ? 0 : 0.42,
+          ease: "power3.inOut",
         })
-        // expand across, then down
-        .to(panel, { left: (innerWidth - W) / 2, width: W, duration: fast ? 0 : 0.55, ease: "power3.inOut" })
-        .to(panel, { top: (innerHeight - H) / 2, height: H, borderRadius: 26, duration: fast ? 0 : 0.55, ease: "power3.inOut" })
-        .to(content, { autoAlpha: 1, duration: fast ? 0 : 0.45 }, "-=0.2")
-        .to(chrome, { autoAlpha: 1, duration: fast ? 0 : 0.35 }, "<");
+        .to(content, { autoAlpha: 1, duration: fast ? 0 : 0.22 }, "-=0.08")
+        .to(chrome, { autoAlpha: 1, duration: fast ? 0 : 0.2 }, "<");
     }, modal);
     return () => ctx.revert();
   }, [isOpen]);
@@ -186,7 +175,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
           <h2>Every extract, one standard</h2>
           <p className="lede">
             Garcinia Cambogia leads, and every extract in our range is held to exactly the same test. Open any extract to see its
-            source, quality marker and 3D model.
+            source, quality marker and specification.
           </p>
         </div>
 
@@ -257,20 +246,19 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
             </button>
             <div className="lb-content" data-lenis-prevent>
               <div className="lb-media">
-                <div className="lb-model">
-                  <LazyScene
-                    variant={p.slug}
-                    tint={p.swatch}
-                    fallback={
-                      <div className="grid size-full place-items-center">
-                        <ProductOrb product={p} size="xl" uid="lb-fallback" />
-                      </div>
-                    }
-                  />
+                <div className="lb-model lb-photo">
+                  {p.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.image.replace(".webp", "-wide.webp")} alt={`${p.short}: botanical and extract`} />
+                  ) : (
+                    <div className="grid size-full place-items-center">
+                      <ProductOrb product={p} size="xl" uid="lb-fallback" />
+                    </div>
+                  )}
                 </div>
                 <div className="lb-media-cap">
-                  <span>3D · {FAMILY[p.slug] ?? p.marker} · illustrative</span>
-                  <span>Drag to rotate</span>
+                  <span>{p.marker}</span>
+                  <span>Representative image</span>
                 </div>
               </div>
               <div className="lb-copy">

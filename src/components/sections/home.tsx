@@ -2,8 +2,6 @@ import Link from "next/link";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { ReviewNote } from "@/components/ui/ReviewNote";
-import { LabArt } from "@/components/botanicals/LabArt";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
 import { HeroScene } from "@/components/hero/HeroScene";
 import { QualityFunnel } from "@/components/sections/QualityFunnel";
@@ -178,17 +176,12 @@ export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]
         <ol className="pillars">
           {pillars.map((t, i) => (
             <li key={t.code} style={{ ["--i" as string]: i }}>
-              {t.art && <LabArt kind={t.art} className="la-ico pillar-ico" />}
               <span className="pillar-code">{t.code}</span>
               <h3>{t.title}</h3>
               <p>{t.body}</p>
             </li>
           ))}
         </ol>
-        <ReviewNote>
-          Confirm the actual test panel and methods per product with the client before naming any (for example HPLC,
-          heavy metals, microbiology). Until then the five pillars stay generic.
-        </ReviewNote>
       </div>
     </section>
   );
@@ -196,8 +189,7 @@ export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]
 
 export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
   return (
-    <section className="section labart-host">
-      <LabArt kind="coa" backdrop pos="bl" className="labart-sm" />
+    <section className="section">
       <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
         <Reveal className="grid gap-[18px]">
           <span className="eyebrow">How we work</span>
@@ -215,7 +207,6 @@ export function WhyUs({ functions }: { functions: OperatingFunction[] }) {
         <ul className="dot-rows">
           {functions.map((f) => (
             <li key={f.title}>
-              {f.art && <LabArt kind={f.art} className="la-ico" />}
               {f.title}
             </li>
           ))}

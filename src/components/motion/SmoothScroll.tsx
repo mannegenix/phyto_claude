@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
@@ -67,7 +69,7 @@ export function SmoothScroll() {
     window.addEventListener("popstate", onPop);
 
     if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      calmMotion() ||
       // Inside the review compare page the parent drives scrolling, so keep native scroll.
       document.documentElement.classList.contains("pe-embed")
     ) {

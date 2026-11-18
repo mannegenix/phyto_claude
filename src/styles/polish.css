@@ -223,7 +223,7 @@
   color: transparent;
 }
 
-@media (prefers-reduced-motion: reduce) {
+html.pe-calm {
   .btn:hover {
     transform: none;
   }

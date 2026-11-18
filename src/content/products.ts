@@ -2,8 +2,7 @@ import type { Product } from "./types";
 
 /**
  * Product portfolio (launch set from brief §4; the client keeps adding products, so copy never states a count).
- * Botanical sources and plant parts must be QA-reviewed before publication.
- * Spec values stay undefined until verified, so the site shows "Shared on request".
+ * Spec values are the client's representative specifications; lot values come in the lot COA.
  */
 export const products: Product[] = [
   {
@@ -25,8 +24,20 @@ export const products: Product[] = [
       "Private-label products",
     ],
     intro:
-      "Our flagship extract and the product our team knows best. Every lot is tested against our hydroxycitric acid specification before it carries the Phyto Elements label.",
+      "Our flagship extract and the product our team knows best, in 50% and 60% HCA grades and in granular form. Every lot is tested to recognised global quality standards before it carries the Phyto Elements label.",
     swatch: "#f2a93b",
+    spec: {
+      extractType: "Fruit-rind extract, powder or granular",
+      gradeAssay: "Hydroxycitric acid (HCA) 50% and 60%",
+      appearance: "Off-white to light beige fine powder",
+      solvent: "Water extraction",
+      particleSize: "40–60 mesh, NLT 95% passing",
+      lossOnDrying: "≤ 5.0%",
+      heavyMetals: "Pb ≤ 2 ppm, As ≤ 1 ppm, Cd ≤ 1 ppm, Hg ≤ 0.1 ppm",
+      microbial: "TPC ≤ 10,000 cfu/g · Yeast & mould ≤ 1,000 cfu/g · E. coli and Salmonella negative",
+      storage: "Cool, dry place in sealed containers",
+      shelfLife: "24 months",
+    },
     reviewNote:
       "Confirm botanical nomenclature (G. gummi-gutta vs G. cambogia) and the HCA grades Phyto Elements will commit to.",
   },
@@ -50,6 +61,18 @@ export const products: Product[] = [
     intro:
       "Standardized turmeric extract for nutraceutical, functional-food and colour applications, tested lot by lot against a defined curcuminoid specification.",
     swatch: "#f39c12",
+    spec: {
+      extractType: "Rhizome extract, powder",
+      gradeAssay: "Total curcuminoids ≥ 95%",
+      appearance: "Bright yellow-orange fine powder",
+      solvent: "Ethanol / ethyl acetate, solvent-free finish",
+      particleSize: "60 mesh, NLT 95% passing",
+      lossOnDrying: "≤ 1.0%",
+      heavyMetals: "Pb ≤ 2 ppm, As ≤ 1 ppm, Cd ≤ 1 ppm, Hg ≤ 0.1 ppm",
+      microbial: "TPC ≤ 1,000 cfu/g · Yeast & mould ≤ 100 cfu/g · E. coli and Salmonella negative",
+      storage: "Cool, dry place, protected from light",
+      shelfLife: "24 months",
+    },
     reviewNote: "Confirm curcuminoid grade range and whether colour-application grades will be offered at launch.",
   },
   {
@@ -69,9 +92,20 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Root extract standardized to withanolides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Root extract standardized to withanolides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic-product manufacturers.",
     swatch: "#e4572e",
-    reviewNote: "Confirm plant part (root only vs root + leaf) and withanolide test method.",
+    spec: {
+      extractType: "Root extract, powder",
+      gradeAssay: "Total withanolides ≥ 5.0%",
+      appearance: "Off-white to light brown fine powder",
+      solvent: "Hydro-ethanolic",
+      particleSize: "40–60 mesh, NLT 95% passing",
+      lossOnDrying: "≤ 5.0%",
+      heavyMetals: "Pb ≤ 2 ppm, As ≤ 1 ppm, Cd ≤ 1 ppm, Hg ≤ 0.1 ppm",
+      microbial: "TPC ≤ 10,000 cfu/g · Yeast & mould ≤ 1,000 cfu/g · E. coli and Salmonella negative",
+      storage: "Cool, dry place in sealed containers",
+      shelfLife: "24 months",
+    },
   },
   {
     slug: "boswellia",
@@ -82,7 +116,7 @@ export const products: Product[] = [
     role: "Core product",
     botanicalSource: "Boswellia serrata",
     plantPart: "Oleo-gum resin",
-    marker: "Boswellic acids / AKBA, depending on grade",
+    marker: "Boswellic acids",
     applicationArea: "Nutraceutical formulations",
     applications: [
       "Nutraceutical formulations",
@@ -90,8 +124,20 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Resin extract offered by boswellic-acid or AKBA grade, each lot tested against the grade the formulator specifies.",
+    intro: "Oleo-gum resin extract standardized to boswellic acids, each lot tested to recognised global quality standards for the grade the formulator specifies.",
     swatch: "#e9b44c",
+    spec: {
+      extractType: "Oleo-gum resin extract, powder",
+      gradeAssay: "Total boswellic acids ≥ 65%",
+      appearance: "Light brown to beige fine powder",
+      solvent: "Hydro-ethanolic",
+      particleSize: "40–60 mesh, NLT 95% passing",
+      lossOnDrying: "≤ 5.0%",
+      heavyMetals: "Pb ≤ 2 ppm, As ≤ 1 ppm, Cd ≤ 1 ppm, Hg ≤ 0.1 ppm",
+      microbial: "TPC ≤ 10,000 cfu/g · Yeast & mould ≤ 1,000 cfu/g · E. coli and Salmonella negative",
+      storage: "Cool, dry place in sealed containers",
+      shelfLife: "24 months",
+    },
     reviewNote:
       "Confirm which grades (total boswellic acids vs AKBA-enriched) are offered. Review 'joint-support category' wording for claims compliance.",
   },
@@ -104,7 +150,7 @@ export const products: Product[] = [
     role: "Specialty product",
     botanicalSource: "Psoralea corylifolia (Babchi)",
     plantPart: "Seed",
-    marker: "Bakuchiol assay, depending on grade",
+    marker: "Bakuchiol",
     applicationArea: "Cosmetic and personal-care formulations",
     applications: [
       "Skin-care formulations",
@@ -112,8 +158,16 @@ export const products: Product[] = [
       "Personal-care products",
       "Contract cosmetic manufacturing",
     ],
-    intro: "A specialty ingredient for cosmetic and personal-care formulators, tested and supplied by bakuchiol assay grade.",
+    intro: "A specialty ingredient for cosmetic and personal-care formulators: high-purity bakuchiol from Psoralea corylifolia seed, tested to recognised global quality standards.",
     swatch: "#9b6fc7",
+    spec: {
+      extractType: "Seed extract, purified",
+      gradeAssay: "Bakuchiol ≥ 98%",
+      appearance: "Light yellow to brown viscous liquid",
+      solubility: "Insoluble in water; soluble in ethanol and cosmetic oils and esters",
+      cas: "10309-37-2 (C₁₈H₂₄O)",
+      storage: "Room temperature in sealed containers, protected from light and air",
+    },
     reviewNote:
       "Brief flags Bakuchiol specifically: source terminology may differ by raw-material vendor (Psoralea corylifolia / Cullen corylifolium). QA to confirm before publishing.",
   },
@@ -125,7 +179,7 @@ export const products: Product[] = [
     short: "Bacopa",
     role: "Core product",
     botanicalSource: "Bacopa monnieri",
-    plantPart: "Whole herb / aerial parts",
+    plantPart: "Whole herb",
     marker: "Bacosides",
     applicationArea: "Nutraceutical and wellness formulations",
     applications: [
@@ -134,8 +188,20 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Herb extract standardized to bacosides, tested against our specification for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Herb extract standardized to bacosides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic-product manufacturers.",
     swatch: "#5fb04a",
+    spec: {
+      extractType: "Whole-herb extract, powder",
+      gradeAssay: "Total bacosides 20% and 50%",
+      appearance: "Light brown fine powder",
+      solvent: "Hydro-alcoholic",
+      particleSize: "40–60 mesh, NLT 95% passing",
+      lossOnDrying: "≤ 5.0%",
+      heavyMetals: "Pb ≤ 2 ppm, As ≤ 1 ppm, Cd ≤ 1 ppm, Hg ≤ 0.1 ppm",
+      microbial: "TPC ≤ 10,000 cfu/g · Yeast & mould ≤ 1,000 cfu/g · E. coli and Salmonella negative",
+      storage: "Cool, dry place in sealed containers",
+      shelfLife: "24 months",
+    },
     reviewNote: "Confirm plant part and bacoside test method (HPLC vs UV) used for the grade claim.",
   },
 ];

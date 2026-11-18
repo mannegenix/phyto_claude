@@ -1,8 +1,9 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { LeafDropArt } from "./LeafDropArt";
 
 /**
  * Page-to-page transition: clicking an internal link to another page covers the
@@ -22,7 +23,7 @@ export function RouteTransition() {
   };
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (calmMotion()) return;
     if (document.documentElement.classList.contains("pe-embed")) return;
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -71,7 +72,10 @@ export function RouteTransition() {
   return (
     <div ref={el} className="route-fx" aria-hidden="true">
       <div className="route-fx-art">
-        <LeafDropArt id="rt" />
+        {/* The flagship product photo in a scanning ring (product images, not drawings) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/products/garcinia.webp" alt="" />
+        <span className="route-fx-ring" />
       </div>
     </div>
   );

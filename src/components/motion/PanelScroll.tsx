@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
@@ -44,7 +46,7 @@ export function PanelScroll() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || root.classList.contains("pe-embed")) return;
+    if (calmMotion() || root.classList.contains("pe-embed")) return;
 
     const main = document.querySelector("main");
     if (!main) return;

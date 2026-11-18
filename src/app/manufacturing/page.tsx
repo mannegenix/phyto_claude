@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
-import { ReviewNote } from "@/components/ui/ReviewNote";
-import { LabArt } from "@/components/botanicals/LabArt";
 import { SourceToSeal, TestPillars } from "@/components/sections/home";
 
 export const metadata: Metadata = {
   title: "Manufacturing & Quality",
   description:
-    "Bulk plant extracts made and sourced to the Phyto Elements specification, then held to rigorous testing standards. Only lots that pass carry our name.",
+    "Bulk plant extracts made and sourced to defined specifications and tested to recognised global quality standards and beyond. Only lots that pass carry our name.",
 };
 
 export default async function ManufacturingPage() {
@@ -18,44 +16,34 @@ export default async function ManufacturingPage() {
       <PageHead
         title="Manufacturing & Quality"
         crumbs={[{ label: "Manufacturing & Quality" }]}
-        lede="Every extract we supply is made to our specification and held to rigorous, very high testing standards. Only the lots that pass carry the Phyto Elements label."
+        lede="Every extract we supply is made to a defined specification and tested to recognised global quality standards, and often beyond them. Only the lots that pass carry the Phyto Elements label."
       />
       <section className="section bgphoto bgphoto-quality">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">
           <div className="grid max-w-[66ch] gap-4">
             <span className="eyebrow">Manufacturing</span>
-            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Made to our specification</h2>
+            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Made to a defined specification</h2>
             <p>
               Our extracts are produced in our own manufacturing and by qualified manufacturing partners. Wherever a lot
-              is made, it is made against the same Phyto Elements specification for botanical source, plant part,
-              marker compound and grade.
+              is made, it is made against the same defined specification for botanical source, plant part, marker
+              compound and grade, aligned with recognised global quality standards.
             </p>
             <span className="eyebrow mt-6">Quality</span>
-            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Rigorous testing, very high standards</h2>
+            <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Global standards, and beyond</h2>
             <p>
-              Quality is decided in testing. Each lot is checked rigorously against our specification, and our acceptance
-              standards are set high on purpose. Lots that fall short are rejected or returned. They are never
+              Quality is decided in testing. Each lot is checked rigorously against recognised global quality standards,
+              and we hold ourselves to go beyond them where we can. Lots that fall short are rejected or returned. They are never
               relabelled, blended in or sold under our name.
             </p>
           </div>
           <div className="grid gap-[18px]">
             <p className="callout">{c.promise}</p>
-            <ReviewNote>
-              Verify before naming specific tests, laboratories, facilities or certifications:
-              <ul className="mt-1.5 list-disc pl-[18px]">
-                {c.qualityChecklist.map((i) => (
-                  <li key={i}>{i}</li>
-                ))}
-              </ul>
-            </ReviewNote>
           </div>
         </div>
       </section>
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} layout="stepper" />
-      <section className="section sunk labart-host">
-        <LabArt kind="coa" backdrop pos="tr" />
-        <LabArt kind="seal" backdrop pos="bl" />
+      <section className="section sunk">
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow">Quality documentation</span>

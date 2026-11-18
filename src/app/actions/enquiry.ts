@@ -23,7 +23,7 @@ function escapeHtml(s: string) {
 
 /**
  * Handles enquiry / sample-request submissions:
- * validate → spam check → email sales@ (cc samples@ for sample requests) → optional CRM webhook.
+ * validate → spam check → email info@ (ENQUIRY_TO) → optional CRM webhook.
  */
 export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Promise<EnquiryState> {
   const env = getEnv();
@@ -49,7 +49,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
     if (!SPEC_FILE_TYPES.includes(ext)) fieldErrors.spec = "Use a PDF, Word or Excel file.";
     else if (file.size > SPEC_FILE_MAX_BYTES)
-      fieldErrors.spec = "File is over 5 MB. Please compress it or email it to sales@.";
+      fieldErrors.spec = "File is over 5 MB. Please compress it or email it to info@phytoelements.in.";
     else attachment = { filename: file.name, content: Buffer.from(await file.arrayBuffer()) };
   }
 
@@ -63,7 +63,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
   const reference = `PE-ENQ-${Date.now().toString(36).toUpperCase().slice(-6)}`;
   const wantsSample = data.sample === "Yes" || data.type === "Sample";
   const to = [env.ENQUIRY_TO];
-  const cc = wantsSample ? [env.SAMPLES_CC] : [];
+  const cc = wantsSample && env.SAMPLES_CC ? [env.SAMPLES_CC] : [];
 
   const rows: [string, string][] = [
     ["Reference", reference],
@@ -110,7 +110,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     }
   } catch (err) {
     console.error("[enquiry] delivery failed", err);
-    return { status: "error", message: "We couldn't send your enquiry. Please email sales@phytoelements.in directly." };
+    return { status: "error", message: "We couldn't send your enquiry. Please email info@phytoelements.in directly." };
   }
 
   return {

@@ -1,5 +1,7 @@
 "use client";
 
+import { calmMotion } from "@/lib/motion-pref";
+
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -23,7 +25,7 @@ export function LazyScene({
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (calmMotion()) return;
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(

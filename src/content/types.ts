@@ -19,16 +19,26 @@ export type Product = {
   swatch: string;
   /** Optional product photo in /public (e.g. "/images/products/garcinia.webp"). Without it the illustration is shown. */
   image?: string;
-  /** Internal QA note, shown only when review notes are enabled. */
-  reviewNote: string;
-  /** Verified spec values. Leave undefined until approved; the UI shows "Shared on request". */
+  /** Internal QA note (not shown on the site). */
+  reviewNote?: string;
+  /**
+   * Representative specification (client-supplied; lot values are confirmed in the lot COA).
+   * Fields left undefined render as "Shared on request".
+   */
   spec?: Partial<{
     extractType: string;
     gradeAssay: string;
     appearance: string;
-    packing: string;
+    solvent: string;
+    particleSize: string;
+    lossOnDrying: string;
+    heavyMetals: string;
+    microbial: string;
+    solubility: string;
+    storage: string;
+    shelfLife: string;
+    cas: string;
     moq: string;
-    leadTime: string;
   }>;
 };
 

@@ -9,7 +9,6 @@ import { SpecSheet } from "@/components/product/SpecSheet";
 import { BatchTag } from "@/components/product/BatchTag";
 import { EnquiryButtons } from "@/components/product/EnquiryButtons";
 import { EnquirySection } from "@/components/sections/EnquirySection";
-import { ReviewNote } from "@/components/ui/ReviewNote";
 import { ProductOrb } from "@/components/product/ProductOrb";
 
 // Only the known products exist; any other slug is a static 404.
@@ -85,9 +84,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 <i>{product.botanicalSource.split(" (")[0]}</i>, {product.plantPart.toLowerCase()}
               </h2>
               <p className="max-w-[60ch] text-muted">
-                We buy {product.short} from producers we have qualified, against our own specification for the
-                botanical, the plant part and the {product.marker.split(",")[0].split(" (")[0]} grade. Where it comes
-                from can vary; what it has to meet does not.
+                We buy {product.short} from qualified producers against a defined specification for the botanical, the
+                plant part and the {product.marker.split(",")[0].split(" (")[0]} grade, aligned with recognised global
+                quality standards. Where it comes from can vary; what it has to meet does not.
               </p>
             </article>
 
@@ -112,10 +111,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <span className="chapter-num">03 · Specification</span>
               <h2>Specification summary</h2>
               <SpecSheet product={product} />
-              <ReviewNote>
-                {product.reviewNote} Publish only grades Phyto Elements can test and supply consistently; replace
-                &ldquo;Shared on request&rdquo; with verified values once approved.
-              </ReviewNote>
             </article>
 
             <article className="chapter">
@@ -149,7 +144,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 ))}
               </div>
               <p className="text-[0.84rem] text-muted">
-                Documents are sent from <span className="mono">quality@phytoelements.in</span>.
+                Documents are sent from <span className="mono">info@phytoelements.in</span>.
               </p>
             </article>
           </div>

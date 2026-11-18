@@ -1,5 +1,4 @@
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
-import { ReviewNote } from "@/components/ui/ReviewNote";
 import { getCompany, getProducts } from "@/lib/content";
 
 export async function EnquirySection({
@@ -28,7 +27,7 @@ export async function EnquirySection({
             {[
               "We confirm the specification and grade against your requirement.",
               "Where requested, a sample is dispatched with its supporting documents.",
-              "You receive a quotation with packing, MOQ and lead time.",
+              "You receive a quotation with MOQ and commercial terms.",
             ].map((t, i) => (
               <li key={t} className="grid grid-cols-[30px_1fr] items-start gap-3">
                 <span className="mono grid size-7 place-items-center rounded-full border-[1.5px] border-current text-[0.8rem] opacity-80">
@@ -38,9 +37,6 @@ export async function EnquirySection({
               </li>
             ))}
           </ol>
-          <ReviewNote>
-            Configure RESEND_API_KEY, Turnstile keys and CRM_WEBHOOK_URL in the environment before launch (see README).
-          </ReviewNote>
         </div>
         <EnquiryForm
           products={products.map(({ slug, name }) => ({ slug, name }))}

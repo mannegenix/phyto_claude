@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
-import { ReviewNote } from "@/components/ui/ReviewNote";
 
-export const metadata: Metadata = { title: "Privacy notice" };
+export const metadata: Metadata = { title: "Privacy Policy" };
 
 export default function PrivacyPage() {
   return (
     <>
-      <PageHead title="Privacy notice" crumbs={[{ label: "Privacy notice" }]} />
+      <PageHead title="Privacy Policy" crumbs={[{ label: "Privacy Policy" }]} />
       <section className="section">
         <div className="wrap grid max-w-[66ch] gap-4">
           <p>
@@ -22,10 +21,6 @@ export default function PrivacyPage() {
           <p>
             To access, correct or delete your information, write to <span className="mono">info@phytoelements.in</span>.
           </p>
-          <ReviewNote>
-            Draft text. Have this reviewed for India&apos;s DPDP Act 2023 and GDPR where EU buyers are targeted; add
-            cookie controls when analytics are enabled.
-          </ReviewNote>
         </div>
       </section>
     </>

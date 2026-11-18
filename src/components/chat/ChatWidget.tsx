@@ -79,7 +79,7 @@ export function ChatWidget() {
               </div>
             ))}
             {status === "submitted" && <div className="mr-8 rounded-lg bg-sunk px-3 py-2 text-muted">Thinking…</div>}
-            {error && <p className="err">The assistant is unavailable. Please email sales@phytoelements.in.</p>}
+            {error && <p className="err">The assistant is unavailable. Please email info@phytoelements.in.</p>}
           </div>
 
           <form

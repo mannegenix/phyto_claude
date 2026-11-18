@@ -11,6 +11,7 @@ import { PanelScroll } from "@/components/motion/PanelScroll";
 import { RouteTransition } from "@/components/motion/RouteTransition";
 import { themeBootScript } from "@/components/dev/theme-boot";
 import { RouteTheme, routeThemeBootScript } from "@/components/motion/RouteTheme";
+import { motionBootScript } from "@/lib/motion-pref";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: preloaderBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: routeThemeBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
         {siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}
       </head>
       <body>

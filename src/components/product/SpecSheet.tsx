@@ -2,7 +2,7 @@ import type { Product } from "@/content/types";
 
 const OnRequest = () => <span className="req">Shared on request</span>;
 
-/** Representative specification summary. Unverified values render as "Shared on request". */
+/** Representative specification summary (client-supplied values; missing values render as "Shared on request"). */
 export function SpecSheet({ product }: { product: Product }) {
   const s = product.spec ?? {};
   const rows: [string, React.ReactNode][] = [
@@ -11,12 +11,23 @@ export function SpecSheet({ product }: { product: Product }) {
     ["Plant part", product.plantPart],
     ["Extract type", s.extractType ?? <OnRequest />],
     ["Quality marker", product.marker],
-    ["Grade / assay range", s.gradeAssay ?? <OnRequest />],
+    ["Grade / assay", s.gradeAssay ?? <OnRequest />],
     ["Appearance", s.appearance ?? <OnRequest />],
-    ["Packing", s.packing ?? <OnRequest />],
-    ["MOQ", s.moq ?? <OnRequest />],
-    ["Indicative lead time", s.leadTime ?? <OnRequest />],
   ];
+  // Optional rows: shown only when the product has a value.
+  const optional: [string, string | undefined][] = [
+    ["CAS number", s.cas],
+    ["Extraction solvent", s.solvent],
+    ["Particle size", s.particleSize],
+    ["Solubility", s.solubility],
+    ["Loss on drying", s.lossOnDrying],
+    ["Heavy metals", s.heavyMetals],
+    ["Microbial limits", s.microbial],
+    ["Storage", s.storage],
+    ["Shelf life", s.shelfLife],
+  ];
+  for (const [k, v] of optional) if (v) rows.push([k, v]);
+  rows.push(["MOQ", s.moq ?? <OnRequest key="moq" />]);
   return (
     <div className="sheet">
       <div className="sheet-h">
@@ -36,8 +47,8 @@ export function SpecSheet({ product }: { product: Product }) {
         </table>
       </div>
       <div className="sheet-f">
-        Grade, assay and physical parameters are confirmed in the product specification sheet. Lot-specific results
-        appear only in the lot Certificate of Analysis.
+        Representative specification. Lot-specific values are confirmed in the Certificate of Analysis supplied
+        with each lot.
       </div>
     </div>
   );

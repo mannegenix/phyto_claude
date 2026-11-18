@@ -9,7 +9,7 @@ import { ProductFinder } from "@/components/products/ProductFinder";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Bulk plant extracts led by Garcinia Cambogia, every lot tested against our specification.",
+    "Bulk plant extracts led by Garcinia Cambogia, every lot tested to recognised global quality standards.",
 };
 
 export default async function ProductsPage() {
@@ -34,7 +34,7 @@ export default async function ProductsPage() {
       <PageHead
         title="Every extract, one standard"
         crumbs={[{ label: "Products" }]}
-        lede="Garcinia Cambogia leads the portfolio. Every lot of every extract is tested against our specification, and only lots that pass carry our label."
+        lede="Garcinia Cambogia leads the portfolio. Every lot of every extract is tested to recognised global quality standards, and only lots that pass carry our label."
       />
 
       <section className="products-stage">

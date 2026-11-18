@@ -37,19 +37,15 @@ const FAMILY: Record<string, string> = {
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Homepage "Every extract, one standard" on the bright green scene.
- * Intro: the product spheres circle above a lab flask and drop into it one by
- * one; the flask glows "tested" and gives way to the glass cards. A card opens a
+ * Homepage "Every extract, one standard": the product cards are shown straight away
+ * (no intro animation, no scroll hold). A card opens a
  * glass lightbox that grows out of the card (across, then down) with the extract's
  * 3D model and details, and Previous / Next to move through every product.
  *
- * Scrolling is held while the intro plays (from the moment the screen has settled
- * until the cards are in), so nobody scrolls past the products mid-animation. Until
- * a visitor opens a card, the flagship card carries a pulsing "Click to explore" cue.
+ * Until a visitor opens a card, the flagship card carries a pulsing "Click to explore" cue.
  */
 export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: TestPillar[] }) {
   const root = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState<"cards" | "armed" | "playing">("cards");
   // Has this visitor opened a card yet (this session)? Until then the cards invite a click.
   const [explored, setExplored] = useState(true);
   useEffect(() => {
@@ -58,116 +54,6 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
       seen = sessionStorage.getItem("pe-explored") === "1";
     } catch {}
     if (!seen) requestAnimationFrame(() => setExplored(false));
-  }, []);
-
-  // ── Intro: spheres into the flask, then the cards ─────────────────────────
-  useEffect(() => {
-    const el = root.current;
-    if (!el || reduced() || document.documentElement.classList.contains("pe-embed")) return;
-    const r = el.getBoundingClientRect();
-    // Already on screen, or back from a product page (#products): just show the cards.
-    if (r.top < window.innerHeight * 0.5 || location.hash === "#products") return;
-    setPhase("armed");
-    let tl: gsap.core.Timeline | null = null;
-    let held = false;
-    let holdRaf = 0;
-    // Hold scrolling once the incoming glide has settled on this screen.
-    const hold = () => {
-      const lenis = getLenis();
-      if (!lenis) return;
-      if (lenis.isScrolling) {
-        holdRaf = requestAnimationFrame(hold);
-        return;
-      }
-      lenis.stop();
-      held = true;
-    };
-    const release = () => {
-      cancelAnimationFrame(holdRaf);
-      if (held) getLenis()?.start();
-      held = false;
-    };
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        setPhase("playing");
-        hold();
-        const q = gsap.utils.selector(el);
-        const orbs = q(".sc-drop");
-        const flask = q(".sc-flask")[0];
-        const liquid = q(".sc-liquid")[0];
-        const glow = q(".sc-flask-glow")[0];
-        const stage = q(".sc-intro")[0] as HTMLElement;
-        const w = stage.clientWidth;
-        const h = stage.clientHeight;
-        const cx = w / 2;
-        const neckY = h * 0.42;
-        const ringR = Math.min(w * 0.32, 260);
-        const ringY = h * 0.2;
-        tl = gsap.timeline({
-          delay: 0.55,
-          onComplete: () => {
-            release();
-            setPhase("cards");
-            requestAnimationFrame(() => gsap.set(q(".sc-card"), { clearProps: "opacity,transform" }));
-          },
-        });
-        orbs.forEach((o, i) => {
-          const a = (i / orbs.length) * Math.PI * 2 - Math.PI / 2;
-          gsap.set(o, { x: cx + Math.cos(a) * ringR, y: ringY + Math.sin(a) * ringR * 0.35, scale: 0.6, opacity: 0 });
-        });
-        tl.to(orbs, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.06, ease: "back.out(1.6)" });
-        // circle once above the flask
-        const spin = { t: 0 };
-        tl.to(
-          spin,
-          {
-            t: 1,
-            duration: 1.3,
-            ease: "power1.inOut",
-            onUpdate: () => {
-              orbs.forEach((o, i) => {
-                const a = (i / orbs.length + spin.t) * Math.PI * 2 - Math.PI / 2;
-                gsap.set(o, { x: cx + Math.cos(a) * ringR, y: ringY + Math.sin(a) * ringR * 0.35 });
-              });
-            },
-          },
-          ">-0.1",
-        );
-        // drop in one by one
-        orbs.forEach((o, i) => {
-          const at = 1.55 + i * 0.26;
-          tl!
-            .to(o, { x: cx, y: neckY - 30, scale: 0.55, duration: 0.32, ease: "power2.in" }, at)
-            .to(o, { y: h * 0.7, scale: 0.35, opacity: 0, duration: 0.3, ease: "power2.in" }, at + 0.3)
-            .to(liquid, { attr: { y: 210 - (i + 1) * 9 }, duration: 0.3, ease: "power2.out" }, at + 0.5)
-            .fromTo(
-              q(".sc-splash")[0],
-              { scale: 0.3, opacity: 1 },
-              { scale: 1.6, opacity: 0, duration: 0.45, ease: "power2.out" },
-              at + 0.5,
-            );
-        });
-        tl.to(glow, { opacity: 1, duration: 0.35 }, ">-0.1")
-          .to(q(".sc-flask-tag")[0], { opacity: 1, y: 0, duration: 0.3 }, "<")
-          .to(flask, { scale: 0.7, opacity: 0, duration: 0.45, ease: "power2.in" }, "+=0.45")
-          .set(stage, { display: "none" })
-          .fromTo(
-            q(".sc-card"),
-            { opacity: 0, y: 34, scale: 0.92 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" },
-          );
-        tl.timeScale(1.3);
-      },
-      { threshold: 0.55 },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      tl?.kill();
-      release();
-    };
   }, []);
 
   // ── Lightbox ───────────────────────────────────────────────────────────────
@@ -304,47 +190,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
           </p>
         </div>
 
-        <div className={`sc-stage is-${phase} ${explored ? "" : "is-invite"}`}>
-          <div className="sc-intro" aria-hidden="true">
-            {items.map((x, i) => (
-              <div key={x.slug} className="sc-drop">
-                <ProductOrb product={x} size="sm" uid={`drop-${i}`} />
-              </div>
-            ))}
-            <div className="sc-flask">
-              <svg viewBox="0 0 200 240">
-                <defs>
-                  <clipPath id="sc-flask-clip">
-                    <path d="M82 20 H118 V86 L176 206 Q182 222 164 224 H36 Q18 222 24 206 L82 86 Z" />
-                  </clipPath>
-                  <linearGradient id="sc-liq" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" style={{ stopColor: "var(--pop)" }} />
-                    <stop offset="1" style={{ stopColor: "var(--accent-text)" }} />
-                  </linearGradient>
-                </defs>
-                <ellipse className="sc-flask-glow" cx="100" cy="160" rx="96" ry="76" />
-                <g clipPath="url(#sc-flask-clip)">
-                  <rect x="0" y="0" width="200" height="240" fill="rgb(255 255 255 / 0.16)" />
-                  <rect className="sc-liquid" x="0" y="210" width="200" height="60" fill="url(#sc-liq)" />
-                  <ellipse className="sc-splash" cx="100" cy="186" rx="34" ry="7" fill="none" stroke="#fff" strokeWidth="2" />
-                </g>
-                <path
-                  d="M82 20 H118 V86 L176 206 Q182 222 164 224 H36 Q18 222 24 206 L82 86 Z"
-                  fill="none"
-                  stroke="rgb(255 255 255 / 0.85)"
-                  strokeWidth="2.4"
-                  strokeLinejoin="round"
-                />
-                <path d="M76 20 H124" stroke="rgb(255 255 255 / 0.9)" strokeWidth="5" strokeLinecap="round" />
-                <path d="M92 100 L46 196" stroke="rgb(255 255 255 / 0.45)" strokeWidth="4" strokeLinecap="round" />
-                {[150, 170, 190].map((y) => (
-                  <path key={y} d={`M${150 - (y - 150) * 0.1} ${y} H${162 - (y - 150) * 0.1}`} stroke="rgb(255 255 255 / 0.6)" strokeWidth="1.5" />
-                ))}
-              </svg>
-              <span className="sc-flask-tag">Every lot tested</span>
-            </div>
-          </div>
-
+        <div className={`sc-stage is-cards ${explored ? "" : "is-invite"}`}>
           <ul className="sc-grid">
             {items.map((x, i) => (
               <li key={x.slug} className="sc-card" style={{ ["--sw" as string]: x.swatch, ["--k" as string]: i }}>

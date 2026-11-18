@@ -29,7 +29,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Product pages (/products and /products/[slug]) carry no illustrative designs: no botanical line drawings, no illustrative 3D molecule, no LabArt icons or backdrops. Use the product photos.
 - Lab line art: `botanicals/LabArt` draws testing, QC, document and logistics motifs (chromatogram, vials, COA, drums, shipping …). Use it as a step icon (`art` field on testPillars/operatingFunctions) or a faint backdrop (`<LabArt kind backdrop pos />` inside a `labart-host` section). Pick the motif that matches the section's copy.
 - Wheel scrolling: `PanelScroll` steps one screen per wheel gesture (trackpad momentum is swallowed until the glide ends and the wheel goes quiet); touch uses Lenis snap. Tune `GLIDE` (1.1s) / `QUIET` / `STEP` there. Source-to-seal is n+1 screens: one per stage, then the seal screen as the pause.
-- Homepage products: `sections/ProductShowcase` (flask intro, glass cards, lightbox with prev/next and 3D per product). Glass styling on the green band; neumorphic cards elsewhere.
+- Homepage products: `sections/ProductShowcase` (cards shown straight away — no intro animation or scroll hold; glass cards, lightbox with prev/next and 3D per product). Glass styling on the green band; neumorphic cards elsewhere.
 - 3D: keep three.js behind `LazyScene` (dynamic import, viewport + reduced-motion gate).
 - Deployment target is Cloudflare Workers via OpenNext. Do NOT enable `cacheComponents` / `use cache` (not reliable on the Workers runtime). Keep pages statically generatable; read env vars via `getEnv()` at request time.
 - Before finishing a change: `npm run lint && npm run typecheck && npm run build`.

@@ -63,6 +63,5 @@ export const NAV = [
   { href: "/products/garcinia", label: "Flagship: Garcinia", flag: true },
   { href: "/operations", label: "How we work" },
   { href: "/manufacturing", label: "Manufacturing & Quality" },
-  { href: "/resources", label: "Resources" },
   { href: "/contact", label: "Contact" },
 ] as const;

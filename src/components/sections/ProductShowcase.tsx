@@ -180,7 +180,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
         </div>
 
         <div className={`sc-stage is-cards ${explored ? "" : "is-invite"}`}>
-          <ul className="sc-grid">
+          <ul className="sc-grid rail">
             {items.map((x, i) => (
               <li key={x.slug} className="sc-card" style={{ ["--sw" as string]: x.swatch, ["--k" as string]: i }}>
                 {i === 0 && (

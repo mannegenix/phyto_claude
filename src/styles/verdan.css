@@ -251,3 +251,27 @@ html:not(.pe-calm) {
   color: #3c6a12;
   font-weight: 700;
 }
+
+/* Menu in the site font (Hanken Grotesk), a little heavier, sentence case */
+[data-theme="verdan"] .hdr .nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 620;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  padding-inline: 10px;
+}
+@media (max-width: 1280px) {
+  [data-theme="verdan"] .hdr .nav-link {
+    font-size: 0.84rem;
+    letter-spacing: 0;
+    padding-inline: 7px;
+  }
+}
+[data-theme="verdan"] .hdr .btn {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.84rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}

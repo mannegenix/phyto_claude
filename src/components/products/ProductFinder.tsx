@@ -31,7 +31,7 @@ export function ProductFinder({ products }: { products: Product[] }) {
           </button>
         ))}
       </div>
-      <div className="grid gap-[26px] sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+      <div className="rail rail-wide grid gap-[26px] sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
         {shown.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}

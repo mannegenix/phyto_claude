@@ -41,9 +41,6 @@ export async function Footer() {
               <li>
                 <Link href="/manufacturing">Manufacturing &amp; Quality</Link>
               </li>
-              <li>
-                <Link href="/resources">Documents / Resources</Link>
-              </li>
             </ul>
           </div>
           <div>

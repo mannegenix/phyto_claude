@@ -44,34 +44,42 @@ export default async function ProductsPage() {
             <span className="eyebrow">Product overview</span>
             <h2>Compare the portfolio</h2>
           </div>
-            <div className="sheet overflow-x-auto">
-              <table className="min-w-[720px]">
-                <thead>
-                  <tr>
-                    {["Product", "Portfolio role", "Quality marker / grade basis", "Primary B2B application"].map(
-                      (h) => (
-                        <th key={h} scope="col">
-                          {h}
-                        </th>
-                      ),
+            <div className="po-list sheet" role="table" aria-label="Product overview">
+              <div className="po-row po-head" role="row">
+                <span role="columnheader">Product</span>
+                <span role="columnheader">Role</span>
+                <span role="columnheader">Quality marker / grade</span>
+                <span role="columnheader">Primary B2B application</span>
+                <span role="columnheader" className="sr-only">
+                  Details
+                </span>
+              </div>
+              {products.map((p) => (
+                <Link key={p.slug} href={`/products/${p.slug}`} className="po-row" role="row">
+                  <span className="po-name" role="cell">
+                    {p.image && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.image} alt="" width={44} height={44} loading="lazy" />
                     )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((p) => (
-                    <tr key={p.slug}>
-                      <td>
-                        <Link href={`/products/${p.slug}`} className="font-semibold">
-                          {p.name}
-                        </Link>
-                      </td>
-                      <td>{p.role.replace(" product", "")}</td>
-                      <td>{p.marker}</td>
-                      <td>{p.applicationArea}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                    <span>
+                      <b>{p.name}</b>
+                      <small>{p.botanicalSource}</small>
+                    </span>
+                  </span>
+                  <span className="po-role" role="cell" data-k="Role">
+                    <i className={p.flagship ? "is-flag" : ""}>{p.role.replace(" product", "")}</i>
+                  </span>
+                  <span role="cell" data-k="Marker">
+                    {p.marker}
+                  </span>
+                  <span role="cell" data-k="Application">
+                    {p.applicationArea}
+                  </span>
+                  <span className="po-go" role="cell" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              ))}
             </div>
         </div>
       </section>

@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
       { source: "/quality", destination: "/manufacturing", permanent: true },
       // AltHome (the Verdan light design) became the homepage.
       { source: "/althome", destination: "/", permanent: false },
+      // The Resources page was removed; documents are requested by email (info@).
+      { source: "/resources", destination: "/contact", permanent: false },
     ];
   },
   async headers() {

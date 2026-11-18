@@ -72,6 +72,14 @@ export function PanelScroll() {
       // Natural (unstuck) document positions, from the main element and each panel's flow.
       // The first panel starts after whatever precedes it (a page header), or at main's top.
       const before = panels[0].previousElementSibling as HTMLElement | null;
+      // A page title block above the first section shares the first screen with it:
+      // the first section fills only what is left (CSS: .has-lead), so its content starts
+      // right under the title instead of being centred on a screen of its own.
+      if (before?.classList.contains("page-head")) {
+        const lead = before.getBoundingClientRect().bottom + window.scrollY;
+        panels[0].style.setProperty("--lead", `${Math.round(lead)}px`);
+        panels[0].classList.add("has-lead");
+      }
       let y = before
         ? before.getBoundingClientRect().bottom + window.scrollY + (parseFloat(getComputedStyle(panels[0]).marginTop) || 0)
         : main.getBoundingClientRect().top + window.scrollY;
@@ -294,6 +302,8 @@ export function PanelScroll() {
         p.querySelectorAll(":scope > .rip-ring").forEach((r) => r.remove());
         p.style.removeProperty("z-index");
         p.style.removeProperty("--panel-top");
+        p.style.removeProperty("--lead");
+        p.classList.remove("has-lead");
       });
       root.classList.remove("has-panels");
     };

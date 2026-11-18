@@ -38,3 +38,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - 3D: keep three.js behind `LazyScene` (dynamic import, viewport + reduced-motion gate).
 - Deployment target is Cloudflare Workers via OpenNext. Do NOT enable `cacheComponents` / `use cache` (not reliable on the Workers runtime). Keep pages statically generatable; read env vars via `getEnv()` at request time.
 - Before finishing a change: `npm run lint && npm run typecheck && npm run build`.
+- Phones and tablets (below 1121px): app-style bottom tab bar `layout/MobileDock` (Home, Products, Quality, Contact, More sheet with every page, the extracts as photo tiles, Sample and email); the header keeps the logo and a Sample button. Card grids marked `.rail` become horizontal swipe rails on phones (≤767px) with dots from `ui/RailDots`; add `rail` to any new card grid. Styles in `src/styles/mobile.css`. Never leave a card as image-only on small screens: keep the name and key line.
+- Menu type: the header nav and dock use the site font (Hanken Grotesk, `--font-sans`, heavier weights), not mono.
+- Product pages end with the full portfolio (`.pf-rail`, current extract marked "Viewing") plus Previous / Next buttons. The products overview is a flexible grid list (`.po-list`), not a fixed table.

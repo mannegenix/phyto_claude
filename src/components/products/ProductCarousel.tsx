@@ -169,10 +169,16 @@ export function ProductCarousel({ items }: { items: Item[] }) {
             aria-selected={i === active}
             className="pc-pick"
             onClick={() => goTo(i)}
+            title={p.name}
+            aria-label={p.name}
             style={{ ["--sw" as string]: p.swatch }}
           >
-            <ProductOrb product={p} size="md" uid={`pick-${i}`} />
-            <span className="pc-pick-name">{p.short}</span>
+            {p.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={p.image} alt="" width={30} height={30} loading="lazy" />
+            ) : (
+              <ProductOrb product={p} size="sm" uid={`pick-${i}`} />
+            )}
           </button>
         ))}
       </div>

@@ -6,6 +6,9 @@ import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileDock } from "@/components/layout/MobileDock";
+import { RailDots } from "@/components/ui/RailDots";
+import { getCompany, getProducts } from "@/lib/content";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { PanelScroll } from "@/components/motion/PanelScroll";
 import { RouteTransition } from "@/components/motion/RouteTransition";
@@ -32,7 +35,9 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const { mailboxes } = await getCompany();
+  const dockProducts = (await getProducts()).map(({ slug, short, image }) => ({ slug, short, image }));
   return (
     <html lang="en" data-theme={siteConfig.defaultTheme} suppressHydrationWarning>
       <head>
@@ -56,6 +61,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <RailDots />
+        <MobileDock products={dockProducts} email={mailboxes[0].address} />
         {siteConfig.chatEnabled && <ChatWidget />}
       </body>
     </html>

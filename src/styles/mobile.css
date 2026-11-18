@@ -1,0 +1,447 @@
+/*
+ * Phones and tablets: app-style layout.
+ *  - Bottom tab bar (MobileDock) with a "More" sheet; the header keeps the logo and a
+ *    Sample button. Breakpoint matches the desktop nav (1121px).
+ *  - Card grids marked `.rail` become horizontal swipe rails on phones (one card and a
+ *    peek of the next; dots under the rail from RailDots), so a section reads as one
+ *    screen instead of a long column.
+ *  - Hero: the copy sits on a white wash at the top, the photo and dial below it.
+ */
+
+/* ── Bottom tab bar ─────────────────────────────────────────────────────────── */
+.dock,
+.dock-sheet,
+.dock-scrim {
+  display: none;
+}
+@media (max-width: 1120px) {
+  :root {
+    --dock-h: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+  body {
+    padding-bottom: var(--dock-h);
+  }
+  .dock {
+    position: fixed;
+    z-index: 70;
+    left: 10px;
+    right: 10px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 560px;
+    margin-inline: auto;
+    height: 60px;
+    padding: 5px;
+    border-radius: 22px;
+    background: rgb(255 255 255 / 0.82);
+    border: 1px solid rgb(255 255 255 / 0.95);
+    box-shadow:
+      0 16px 36px -14px rgb(30 55 25 / 0.38),
+      0 0 0 1px rgb(20 40 20 / 0.06);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    backdrop-filter: blur(20px) saturate(1.3);
+  }
+  .dock-tab {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    border-radius: 17px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: 650 0.68rem/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background 0.25s,
+      color 0.25s;
+  }
+  .dock-tab svg {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .dock-tab[aria-current="page"] {
+    background: var(--accent);
+    color: var(--on-accent, #142014);
+  }
+  .dock-tab:active svg {
+    transform: scale(0.88);
+  }
+
+  .dock-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 68;
+    background: rgb(16 30 14 / 0.32);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .dock-scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .dock-sheet {
+    display: block;
+    position: fixed;
+    z-index: 69;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 640px;
+    margin-inline: auto;
+    max-height: min(82svh, 760px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 10px 18px calc(var(--dock-h) + 22px);
+    border-radius: 26px 26px 0 0;
+    background: rgb(250 252 247 / 0.97);
+    box-shadow: 0 -20px 50px -20px rgb(30 55 25 / 0.4);
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+    transform: translateY(105%);
+    visibility: hidden;
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s 0.42s;
+  }
+  .dock-sheet.is-open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  html.dock-sheet-open {
+    overflow: hidden;
+  }
+  .dock-grab {
+    display: block;
+    width: 42px;
+    height: 5px;
+    margin: 0 auto 14px;
+    border-radius: 9px;
+    background: rgb(20 40 20 / 0.18);
+  }
+  .dock-k {
+    margin: 14px 2px 8px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--label, var(--accent-text));
+  }
+  .dock-pages {
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .dock-pages a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgb(20 40 20 / 0.07);
+    color: var(--heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .dock-pages a span {
+    color: var(--accent-text);
+    font-size: 1.2rem;
+  }
+  .dock-pages a[aria-current="page"] {
+    border-color: var(--accent-text);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 40%, transparent);
+  }
+  .dock-products {
+    list-style: none;
+    margin: 0 -18px;
+    padding: 4px 18px 6px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 18px;
+    scrollbar-width: none;
+  }
+  .dock-products::-webkit-scrollbar {
+    display: none;
+  }
+  .dock-products li {
+    flex: 0 0 84px;
+    scroll-snap-align: start;
+  }
+  .dock-products a {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    text-align: center;
+    color: var(--heading);
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .dock-products img {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 8px 18px -10px rgb(30 55 25 / 0.5);
+  }
+  .dock-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .dock-actions .btn {
+    justify-content: center;
+    min-height: 48px;
+  }
+  @media (min-width: 640px) {
+    .dock-pages {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .dock-actions {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Header: logo + Sample; the dock holds the pages */
+  .hdr .hdr-sample {
+    font-size: 0.72rem;
+    padding: 8px 16px;
+  }
+  /* Floating chat sits above the dock */
+  .chat-widget {
+    bottom: calc(var(--dock-h) + 14px) !important;
+  }
+  /* Footer clears the dock */
+  footer.site-footer {
+    padding-bottom: 12px;
+  }
+}
+
+/* ── Phones and tablets: no sideways page scroll ── */
+@media (max-width: 1120px) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* ── Hero on phones and portrait tablets ─────────────────────────────────── */
+@media (max-width: 960px) {
+  [data-theme="verdan"] {
+    --lab-hero-bg:
+      linear-gradient(
+        180deg,
+        rgb(250 252 247 / 0.97) 0%,
+        rgb(250 252 247 / 0.94) 40%,
+        rgb(250 252 247 / 0.55) 56%,
+        rgb(250 252 247 / 0) 72%
+      ),
+      url("/images/bg/botanicals-dark.webp") 62% bottom / cover no-repeat,
+      #f8faf5;
+  }
+  [data-theme="verdan"] .hero .hero-title em {
+    filter: none;
+  }
+}
+@media (max-width: 600px) {
+  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hero-title {
+    font-size: clamp(2.1rem, 9.4vw, 2.7rem);
+  }
+  .hero .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* ── Swipe rails on phones ─────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  :is(ul, ol, div).rail {
+    display: flex !important;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: -16px;
+    padding: 6px 16px 14px;
+    scroll-padding-inline: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+  :is(ul, ol, div).rail::-webkit-scrollbar {
+    display: none;
+  }
+  :is(ul, ol, div).rail > * {
+    flex: 0 0 min(80vw, 330px);
+    min-width: 0;
+    margin: 0 !important;
+    scroll-snap-align: start;
+  }
+  :is(ul, ol, div).rail.rail-wide > * {
+    flex-basis: min(86vw, 360px);
+  }
+  /* Homepage product cards: a little narrower so the next card peeks in */
+  ul.sc-grid.rail > * {
+    flex-basis: min(74vw, 300px);
+  }
+  /* Rail dots (RailDots) */
+  .rail-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .rail-dots i {
+    width: 6px;
+    height: 6px;
+    border-radius: 9px;
+    background: rgb(20 40 20 / 0.18);
+    transition:
+      width 0.3s,
+      background 0.3s;
+  }
+  .rail-dots i.on {
+    width: 20px;
+    background: var(--accent-text);
+  }
+
+  /* Section heads: tighter on phones */
+  .section {
+    padding-block: 44px;
+  }
+  .sec-head h2,
+  .page-head h1 {
+    font-size: clamp(1.7rem, 7.4vw, 2.2rem);
+  }
+
+  /* Products overview: compact app list (name, source, marker) */
+  .po-row > [data-k="Application"] {
+    display: none;
+  }
+
+  /* About: story photo above the text, not after it */
+  .about-story .wrap {
+    gap: 22px;
+  }
+}
+@media (min-width: 768px) {
+  .rail-dots {
+    display: none;
+  }
+}
+
+/* ── Tablets (portrait): roomier two-column cards, larger tap targets ── */
+@media (min-width: 768px) and (max-width: 1120px) {
+  .values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .btn {
+    min-height: 44px;
+  }
+}
+
+/* ── Products carousel on phones: compact app cards (photo band, short copy, actions in a row) ── */
+@media (max-width: 767px) {
+  .p-slide {
+    flex-basis: 86vw;
+  }
+  .p-slide-visual {
+    min-height: 0;
+    height: 190px;
+    padding: 14px;
+  }
+  .p-slide .orb {
+    --orb: 150px;
+  }
+  .p-slide-num {
+    font-size: 4.2rem;
+  }
+  .p-slide-body {
+    gap: 10px;
+    padding: 18px 18px 20px;
+  }
+  .p-slide-name {
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+  .p-slide-intro {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .p-slide-facts {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px;
+  }
+  .p-slide-facts > div {
+    padding: 10px 12px;
+  }
+  .p-slide-facts dd {
+    font-size: 0.82rem;
+  }
+  .p-slide-body .btn {
+    flex: 1 1 0;
+    justify-content: center;
+    padding-inline: 10px;
+    font-size: 0.72rem;
+  }
+  .p-slide-body .flex.flex-wrap.gap-3 {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .pc-bottom {
+    gap: 12px;
+  }
+  .pc-bottom .pc-controls {
+    flex-basis: 100%;
+    max-width: none;
+  }
+  .pc-bottom .pc-picker {
+    margin-inline: auto 0;
+  }
+}
+@media (max-width: 767px) {
+  .p-slide-tested {
+    top: 12px;
+    bottom: auto;
+    right: 12px;
+    font-size: 0.6rem;
+    padding: 5px 9px;
+  }
+  .p-slide-intro {
+    -webkit-line-clamp: 2;
+  }
+  .p-slide-facts dd {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .p-slide-facts dt {
+    font-size: 0.6rem;
+  }
+}

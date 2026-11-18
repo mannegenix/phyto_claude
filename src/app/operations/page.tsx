@@ -19,7 +19,7 @@ export default async function OperationsPage() {
       />
       <section className="section">
         <div className="wrap">
-          <ol className="funcs">
+          <ol className="funcs rail">
             {c.operatingFunctions.map((f) => (
               <li key={f.title}>
                 <h3>{f.title}</h3>

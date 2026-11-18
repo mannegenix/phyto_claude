@@ -42,6 +42,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
   if (!product) notFound();
   const idx = all.findIndex((o) => o.slug === product.slug);
   const next = all[(idx + 1) % all.length];
+  const prev = all[(idx - 1 + all.length) % all.length];
   const { testPillars } = await getCompany();
 
   // Structured product data for search engines (no unverified spec values).
@@ -161,20 +162,53 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       />
 
       <section className="section">
-        <div className="wrap">
-          <span className="eyebrow">Next extract</span>
-          <Link
-            href={`/products/${next.slug}`}
-            className="next-extract mt-4"
-            style={{ ["--sw" as string]: next.swatch }}
-          >
-            <div className="grid gap-2">
-              <span className="mono text-[0.78rem] text-muted">{next.role}</span>
-              <h3>{next.name}</h3>
-              <span className="text-[0.95rem] text-accent-text">View specimen sheet →</span>
+        <div className="wrap grid gap-6">
+          <div className="pf-head">
+            <div className="sec-head">
+              <span className="eyebrow">The portfolio</span>
+              <h2>Explore every extract</h2>
             </div>
-            <ProductOrb product={next} size="lg" uid="next" />
-          </Link>
+            <nav className="pf-nav" aria-label="Previous and next extract">
+              <Link href={`/products/${prev.slug}`} rel="prev" className="pf-step">
+                <span aria-hidden="true">←</span>
+                <span>
+                  <small>Previous</small>
+                  {prev.short}
+                </span>
+              </Link>
+              <Link href={`/products/${next.slug}`} rel="next" className="pf-step is-next">
+                <span>
+                  <small>Next</small>
+                  {next.short}
+                </span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </nav>
+          </div>
+          <ul className="pf-rail rail" aria-label="All extracts">
+            {all.map((p) => {
+              const here = p.slug === product.slug;
+              return (
+                <li key={p.slug}>
+                  <Link
+                    href={`/products/${p.slug}`}
+                    className={`pf-card ${here ? "is-here" : ""}`}
+                    aria-current={here ? "page" : undefined}
+                    style={{ ["--sw" as string]: p.swatch }}
+                  >
+                    <span className="pf-photo">
+                      <ProductOrb product={p} size="md" uid={`pf-${p.slug}`} />
+                    </span>
+                    <span className="pf-text">
+                      <b>{p.name}</b>
+                      <small>{p.marker}</small>
+                    </span>
+                    <span className="pf-tag">{here ? "Viewing" : p.role.replace(" product", "")}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
     </div>

@@ -60,7 +60,7 @@ export function SealPipeline({ stages }: { stages: ProcessStage[] }) {
           <b>Passed</b>
         </span>
       </div>
-      <ol className="s2p-cards">
+      <ol className="s2p-cards rail">
         {stages.map((s, i) => (
           <li key={s.title} className="s2p-card" style={{ ["--i" as string]: i }}>
             <span className="s2p-num">{String(i + 1).padStart(2, "0")}</span>

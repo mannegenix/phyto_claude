@@ -28,15 +28,10 @@ export function Header() {
           <Logo />
         </Link>
 
-        <button
-          type="button"
-          className="hdr-menu ml-auto inline-flex rounded-brand border px-3 py-2 text-sm font-semibold min-[1121px]:hidden"
-          aria-expanded={open}
-          aria-controls="primary-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          Menu
-        </button>
+        {/* Phones and tablets: pages live in the bottom dock (MobileDock); keep the sample action up here */}
+        <Link href="/sample" className="btn btn-sm hdr-sample ml-auto min-[1121px]:hidden">
+          Sample
+        </Link>
 
         <nav
           id="primary-nav"

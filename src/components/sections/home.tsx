@@ -74,7 +74,7 @@ export function ValuesSection({ intro, values }: { intro: string; values: ValueP
           <h2>Sourced widely. Tested rigorously. Only the best carries our name.</h2>
           <p className="lede">{intro}</p>
         </Reveal>
-        <div className="values">
+        <div className="values rail">
           {values.map((v) => (
             <div key={v.title}>
               <h3>{v.title}</h3>
@@ -101,7 +101,7 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
             </p>
           </Reveal>
         )}
-        <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rail grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
@@ -173,7 +173,7 @@ export function TestPillars({ pillars, heading = true }: { pillars: TestPillar[]
             </p>
           </div>
         )}
-        <ol className="pillars">
+        <ol className="pillars rail">
           {pillars.map((t, i) => (
             <li key={t.code} style={{ ["--i" as string]: i }}>
               <span className="pillar-code">{t.code}</span>

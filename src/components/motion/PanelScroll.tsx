@@ -78,6 +78,7 @@ export function PanelScroll() {
     let touchSnap: ((e: { event: Event }) => void) | null = null;
 
     const tops: number[] = [];
+    let leadFirst = false;
     const heights: number[] = [];
 
     const layout = () => {
@@ -88,7 +89,8 @@ export function PanelScroll() {
       // A page title block above the first section shares the first screen with it:
       // the first section fills only what is left (CSS: .has-lead), so its content starts
       // right under the title instead of being centred on a screen of its own.
-      if (before?.classList.contains("page-head")) {
+      leadFirst = !!before?.classList.contains("page-head");
+      if (leadFirst && before) {
         const lead = before.getBoundingClientRect().bottom + window.scrollY;
         panels[0].style.setProperty("--lead", `${Math.round(lead)}px`);
         panels[0].classList.add("has-lead");
@@ -108,7 +110,9 @@ export function PanelScroll() {
         // Tall panels scroll through, then stick at their bottom while the next one covers them.
         p.style.setProperty("--panel-top", `${Math.min(0, vh - h)}px`);
         if (i === 0 && y > 4) snaps.push(0);
-        snaps.push(Math.max(0, Math.round(y)));
+        // With a page title above it, the first section shares the first screen: no stop at
+        // its own top (that stop only scrolled the title away and left blank space below).
+        if (!(i === 0 && leadFirst)) snaps.push(Math.max(0, Math.round(y)));
         const declared = Number(p.dataset.steps);
         if (declared > 1 && h > vh) {
           // A pinned step-by-step section: one snap per step, evenly through its scroll length.
@@ -180,7 +184,12 @@ export function PanelScroll() {
         let prog = 1;
         let len = h;
         if (i > 0 && tops[i] !== undefined) {
-          const settled = tops[i - 1] + Math.max(0, heights[i - 1] - h);
+          // After a shared first screen (title + first section) the second section's reveal
+          // starts as soon as the first section's bottom is on screen, i.e. right away.
+          const settled =
+            i === 1 && leadFirst
+              ? Math.max(0, tops[0] + heights[0] - h)
+              : tops[i - 1] + Math.max(0, heights[i - 1] - h);
           const start = Math.max(tops[i] - h, settled);
           len = Math.max(1, tops[i] - start);
           prog = Math.min(1, Math.max(0, (y - start) / len));

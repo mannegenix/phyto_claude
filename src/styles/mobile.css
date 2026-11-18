@@ -305,28 +305,6 @@
   ul.sc-grid.rail > * {
     flex-basis: min(74vw, 300px);
   }
-  /* Rail dots (RailDots) */
-  .rail-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    margin-top: 2px;
-  }
-  .rail-dots i {
-    width: 6px;
-    height: 6px;
-    border-radius: 9px;
-    background: rgb(20 40 20 / 0.18);
-    transition:
-      width 0.3s,
-      background 0.3s;
-  }
-  .rail-dots i.on {
-    width: 20px;
-    background: var(--accent-text);
-  }
-
   /* Section heads: tighter on phones */
   .section {
     padding-block: 44px;
@@ -344,11 +322,6 @@
   /* About: story photo above the text, not after it */
   .about-story .wrap {
     gap: 22px;
-  }
-}
-@media (min-width: 768px) {
-  .rail-dots {
-    display: none;
   }
 }
 
@@ -443,5 +416,254 @@
   }
   .p-slide-facts dt {
     font-size: 0.6rem;
+  }
+}
+
+/* ── Phones: rail navigation (RailDots) and section-by-section flow ─────────── */
+@media (max-width: 767px) {
+  .rail-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .rail-btn {
+    flex: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    color: var(--heading);
+    background: #fff;
+    border: 1px solid rgb(20 40 20 / 0.08);
+    box-shadow: 0 8px 18px -10px rgb(30 55 25 / 0.45);
+    transition: opacity 0.25s, transform 0.2s;
+  }
+  .rail-btn[data-dir="1"]:not(:disabled) {
+    background: var(--accent);
+    color: var(--on-accent, #142014);
+    border-color: transparent;
+  }
+  .rail-btn:disabled {
+    opacity: 0.35;
+  }
+  .rail-btn:active {
+    transform: scale(0.92);
+  }
+  .rail-mid {
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .rail-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.74rem;
+    font-weight: 650;
+    color: var(--heading);
+  }
+  .rail-count {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .rail-hint {
+    color: var(--accent-text);
+    transition: opacity 0.3s;
+  }
+  .rail-hint::after {
+    content: " \2192";
+    display: inline-block;
+  }
+  html:not(.pe-calm) .rail-nav:not(.is-used) .rail-hint::after {
+    animation: rail-hint 1.4s ease-in-out infinite;
+  }
+  .rail-nav.is-used .rail-hint {
+    opacity: 0.55;
+  }
+  .rail-bar {
+    height: 4px;
+    border-radius: 4px;
+    background: rgb(20 40 20 / 0.1);
+    overflow: hidden;
+  }
+  .rail-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--accent-text);
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* First view: the cards slide sideways once to show the rail moves */
+  html:not(.pe-calm) .rail.is-nudging > * {
+    animation: rail-nudge 1.2s cubic-bezier(0.45, 0, 0.2, 1);
+  }
+
+  /* Section by section: a section with a rail fills the screen between the header and
+     the dock, content centred; scrolling settles softly at each section's top. */
+  html {
+    scroll-snap-type: y proximity;
+  }
+  main > section,
+  main > div > section {
+    scroll-snap-align: start;
+    scroll-margin-top: var(--hdr-h, 68px);
+  }
+  main section:has(.rail),
+  main section.products-stage {
+    min-height: calc(100svh - var(--hdr-h, 68px) - var(--dock-h, 72px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 28px;
+  }
+  main section:has(.rail) > .wrap,
+  main section.products-stage > .wrap {
+    width: 100%;
+  }
+}
+@keyframes rail-hint {
+  50% {
+    transform: translateX(5px);
+  }
+}
+@keyframes rail-nudge {
+  0%,
+  100% {
+    transform: none;
+  }
+  40%,
+  55% {
+    transform: translateX(-56px);
+  }
+}
+@media (max-width: 767px) {
+  .pc .pc-count {
+    display: inline;
+  }
+  .products-stage .sec-head {
+    margin-bottom: 14px;
+  }
+}
+/* Phones: a rail section shows its heading, a short intro, the cards and the rail
+   navigation on one screen */
+@media (max-width: 767px) {
+  main section:has(.rail),
+  main section.products-stage {
+    justify-content: flex-start;
+    padding-block: 22px 18px;
+  }
+  main section:has(.rail) :is(.sec-head, .page-head) {
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  main section:has(.rail) h2 {
+    font-size: clamp(1.5rem, 6.6vw, 1.9rem);
+    line-height: 1.12;
+  }
+  main section:has(.rail) :is(.lede, .sec-head p) {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  main section:has(.rail) .wrap {
+    gap: 14px;
+  }
+}
+/* Phones: the rail navigation sits between the heading and the cards, so it is always on
+   screen with them; the products carousel puts its controls above the slide too */
+@media (max-width: 767px) {
+  .rail-nav {
+    margin: 2px 0 0;
+  }
+  .pc {
+    gap: 12px;
+  }
+  .pc-bottom {
+    order: -1;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .pc-bottom .pc-controls {
+    flex: 1 1 auto;
+    gap: 8px;
+  }
+  .pc-bottom .pc-dots {
+    display: none;
+  }
+  .pc-bottom .pc-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .pc-bottom .pc-arrow:last-child:not(:disabled) {
+    background: var(--accent);
+    color: var(--on-accent, #142014);
+  }
+  .pc .pc-count {
+    flex: 1;
+    text-align: center;
+  }
+  .pc-bottom .pc-picker {
+    flex: none;
+    gap: 3px;
+    padding: 3px;
+  }
+  .pc-bottom .pc-pick {
+    width: 28px;
+    height: 28px;
+  }
+  .p-slide-visual {
+    height: 150px;
+  }
+  .p-slide .orb {
+    --orb: 124px;
+  }
+  .p-slide-num {
+    display: none;
+  }
+  .p-slide-facts > div:nth-child(n + 2) {
+    display: none;
+  }
+  .p-slide-facts {
+    grid-template-columns: 1fr !important;
+  }
+  .p-slide-body {
+    gap: 8px;
+    padding: 14px 16px 16px;
+  }
+  .p-slide-intro {
+    -webkit-line-clamp: 2;
+  }
+}
+@media (max-width: 360px) {
+  .pc-bottom .pc-picker {
+    display: none;
+  }
+}
+/* Phones: the finder's filter chips scroll sideways in one row */
+@media (max-width: 767px) {
+  .finder-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: -16px;
+    padding: 2px 16px 6px;
+  }
+  .finder-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .finder-chips button {
+    flex: none;
+    padding: 8px 14px;
+    font-size: 0.82rem;
   }
 }

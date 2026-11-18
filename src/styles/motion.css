@@ -3708,3 +3708,84 @@ a.po-row:hover .po-go {
     justify-content: space-between;
   }
 }
+
+/* ── Preloader, short version (full load of any page except the homepage):
+   only the leaf → drop → Phyto bottle, timed like the page-to-page transition ── */
+html.pl-short .preloader {
+  display: grid;
+  place-items: center;
+  grid-template-rows: none;
+  padding: 0;
+  background:
+    radial-gradient(45% 55% at 50% 50%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--accent-text) 14%, transparent) 1px, transparent 1.6px) 0 0 / 24px 24px,
+    var(--paper);
+  animation: pl-out 0.5s ease 1.2s forwards;
+}
+html.pl-short .preloader :is(.pl-photo, .pl-corner, .pl-top, .pl-foot, .pl-readout) {
+  display: none;
+}
+html.pl-short .preloader .pl-center {
+  display: grid;
+  place-items: center;
+}
+html.pl-short .preloader .pl-art {
+  width: clamp(150px, 16vw, 220px);
+  max-height: none;
+}
+html.pl-short .preloader .pl-art .ld-leaf {
+  animation: ld-leaf 1.2s ease;
+}
+html.pl-short .preloader .pl-art .ld-drop {
+  animation: ld-drop 0.95s cubic-bezier(0.55, 0, 0.85, 0.45) 0.1s forwards;
+}
+html.pl-short .preloader .pl-art .ld-liquid {
+  animation: ld-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
+}
+html.pl-short .preloader .pl-art .ld-ripple-1 {
+  animation: ld-ripple 0.8s ease-out 0.98s forwards;
+}
+html.pl-short .preloader .pl-art .ld-ripple-2 {
+  animation: ld-ripple 0.8s ease-out 1.12s forwards;
+}
+html.pl-short .preloader .pl-art .ld-splash circle {
+  animation: ld-splash 0.45s ease-out 0.95s forwards;
+}
+html.pl-short .preloader .pl-art .ld-splash circle:nth-child(2) {
+  animation-name: ld-splash-r;
+}
+
+/* Products carousel (homepage + /products) on laptops: slide, heading and controls fit one
+   screen, so the arrows, count and thumbnails are always in view */
+@media (min-width: 861px) {
+  .products-stage {
+    padding-block: clamp(76px, 9svh, 96px) clamp(20px, 3svh, 36px);
+  }
+  .products-stage .sec-head {
+    margin-bottom: clamp(10px, 2svh, 20px);
+  }
+  .pc {
+    gap: clamp(14px, 2.2svh, 22px);
+  }
+  .p-slide {
+    min-height: 0;
+  }
+  .p-slide-visual {
+    min-height: 0;
+    padding: clamp(18px, 3svh, 32px);
+  }
+  .p-slide .orb {
+    --orb: clamp(190px, min(24vw, 36svh), 330px);
+  }
+  .p-slide-body {
+    gap: clamp(8px, 1.4svh, 12px);
+    padding: clamp(22px, 3.6svh, 36px) clamp(26px, 3vw, 40px);
+  }
+  .p-slide-name {
+    font-size: clamp(1.7rem, min(2.8vw, 4.6svh), 2.5rem);
+  }
+  .p-slide-intro {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+}

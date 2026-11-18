@@ -6,7 +6,7 @@ import {
   ValuesSection,
   WhyUs,
 } from "@/components/sections/home";
-import { ProductShowcase } from "@/components/sections/ProductShowcase";
+import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { MailList } from "@/components/ui/MailList";
 import { Reveal } from "@/components/motion/Reveal";
@@ -18,24 +18,32 @@ export default async function HomePage() {
   return (
     <>
       <Hero products={products} positioning={c.positioning} />
-      <ProductShowcase
-        pillars={c.testPillars}
-        items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
-          slug: p.slug,
-          code: p.code,
-          name: p.name,
-          short: p.short,
-          role: p.role,
-          flagship: p.flagship,
-          intro: p.intro,
-          botanicalSource: p.botanicalSource,
-          plantPart: p.plantPart,
-          marker: p.marker,
-          applications: p.applications,
-          swatch: p.swatch,
-          image: p.image,
-        }))}
-      />
+      {/* The products carousel (same as /products), in place of the ProductShowcase cards
+          (kept in sections/ProductShowcase.tsx, not shown for now). */}
+      <section id="products" className="products-stage home-products">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Portfolio</span>
+            <h2>Every extract, one standard</h2>
+          </div>
+          <ProductCarousel
+            items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
+              slug: p.slug,
+              code: p.code,
+              name: p.name,
+              short: p.short,
+              role: p.role,
+              botanicalSource: p.botanicalSource,
+              plantPart: p.plantPart,
+              marker: p.marker,
+              applications: p.applications,
+              swatch: p.swatch,
+              image: p.image,
+              intro: p.intro,
+            }))}
+          />
+        </div>
+      </section>
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
       <SourceToSeal stages={c.stages} />

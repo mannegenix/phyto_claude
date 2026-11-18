@@ -35,6 +35,11 @@ type Timing = {
   passedAt: number;
   flash: number;
   size: number;
+  /** Lots drawn this cycle (≤ COUNT) and the share that pass. */
+  count: number;
+  passShare: number;
+  /** Draw lots as round dots (finer than squares). */
+  round: boolean;
 };
 const NORMAL: Timing = {
   cycle: 8.6,
@@ -47,6 +52,9 @@ const NORMAL: Timing = {
   passedAt: 3.6,
   flash: 0,
   size: 1,
+  count: COUNT,
+  passShare: PASS_SHARE,
+  round: false,
 };
 const STAGED: Timing = {
   cycle: 13.4,
@@ -58,7 +66,10 @@ const STAGED: Timing = {
   testAt: 2.8,
   passedAt: 7.2,
   flash: 0.55,
-  size: 2.1,
+  size: 1.25,
+  count: 1150,
+  passShare: 0.52,
+  round: true,
 };
 type Stage = "lots" | "test" | "passed";
 
@@ -157,15 +168,16 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     const roll = (p: number) => {
       product = p;
       swatch = items[p].swatch;
-      const passCount = Math.round(COUNT * PASS_SHARE);
+      const n = T.count;
+      const passCount = Math.round(n * T.passShare);
       shape = sampleShape(items[p].slug, passCount);
       let assigned = 0;
-      for (let i = 0; i < COUNT; i += 1) {
+      for (let i = 0; i < n; i += 1) {
         homeX[i] = Math.random();
         homeY[i] = Math.random();
         delay[i] = Math.random() * T.spread;
         seed[i] = Math.random() * 1000;
-        const remaining = COUNT - i;
+        const remaining = n - i;
         const pass = Math.random() < (passCount - assigned) / remaining;
         target[i] = pass ? assigned++ : -1;
       }
@@ -219,7 +231,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       ctx.lineTo(gateX, scanY + 70);
       ctx.stroke();
 
-      for (let i = 0; i < COUNT; i += 1) {
+      for (let i = 0; i < T.count; i += 1) {
         const hx = W * (0.03 + homeX[i] * 0.31) + Math.sin(time * 0.7 + seed[i]) * 4;
         const hy = H * (0.14 + homeY[i] * 0.72) + Math.cos(time * 0.6 + seed[i]) * 4;
         const gy = gateTop + (0.06 + homeY[i] * 0.88) * (gateBottom - gateTop);
@@ -260,11 +272,27 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
           }
         }
         if (a <= 0.01) continue;
-        if (colors.outline) {
-          // Over a photo: a dark rim under each lot so it reads on light and dark areas.
-          ctx.globalAlpha = a * 0.55;
-          ctx.fillStyle = colors.outline;
-          ctx.fillRect(x - r / 2 - 0.9, y - r / 2 - 0.9, r + 1.8, r + 1.8);
+        if (T.round) {
+          // Staged (over a photo): a fine round dot with a thin dark rim; passed lots glow.
+          if (color === colors.pass) {
+            ctx.globalAlpha = a * 0.22;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, r * 2.6, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          if (colors.outline) {
+            ctx.globalAlpha = a * 0.5;
+            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = colors.outline;
+            ctx.stroke();
+          }
+          ctx.globalAlpha = a;
+          ctx.fillStyle = color;
+          ctx.fill();
+          continue;
         }
         if (colors.glow && color === colors.pass) {
           // Lab green: a soft halo under each passed particle, added light rather than paint.

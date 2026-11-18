@@ -36,7 +36,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
             </Link>
           </div>
           <div className="dot-list mt-[34px]">
-            <span>Six focus extracts</span>
+            <span>Focused extract range</span>
             <span>Every lot tested</span>
             <span>India &amp; export supply</span>
           </div>
@@ -95,7 +95,7 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
         {heading && (
           <Reveal className="sec-head">
             <span className="eyebrow">Portfolio</span>
-            <h2>Six extracts, one standard</h2>
+            <h2>Every extract, one standard</h2>
             <p className="lede">
               Garcinia Cambogia leads the portfolio, and the other five are held to exactly the same test. Every product
               has its own page, specification summary and enquiry form.

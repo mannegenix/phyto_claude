@@ -1,7 +1,7 @@
 import type { Product } from "./types";
 
 /**
- * Six-product launch portfolio (brief §4).
+ * Product portfolio (launch set from brief §4; the client keeps adding products, so copy never states a count).
  * Botanical sources and plant parts must be QA-reviewed before publication.
  * Spec values stay undefined until verified, so the site shows "Shared on request".
  */

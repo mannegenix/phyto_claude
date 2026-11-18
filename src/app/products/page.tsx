@@ -10,7 +10,7 @@ import { ProductFinder } from "@/components/products/ProductFinder";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Six bulk plant extracts, each lot tested against our specification: Garcinia Cambogia, Curcumin, Ashwagandha, Boswellia, Bakuchiol and Bacopa.",
+    "Bulk plant extracts led by Garcinia Cambogia, every lot tested against our specification.",
 };
 
 export default async function ProductsPage() {
@@ -33,7 +33,7 @@ export default async function ProductsPage() {
   return (
     <>
       <PageHead
-        title="Six extracts, one standard"
+        title="Every extract, one standard"
         crumbs={[{ label: "Products" }]}
         lede="Garcinia Cambogia leads the portfolio. Every lot of every extract is tested against our specification, and only lots that pass carry our label."
       />
@@ -55,7 +55,7 @@ export default async function ProductsPage() {
 
           <details className="compare-all">
             <summary>
-              <span>Compare all six at a glance</span>
+              <span>Compare the range at a glance</span>
               <span className="mono text-[0.76rem]">Marker · role · primary application</span>
             </summary>
             <div className="sheet mt-4 overflow-x-auto">

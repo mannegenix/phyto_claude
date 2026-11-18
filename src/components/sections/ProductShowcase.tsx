@@ -37,11 +37,11 @@ const FAMILY: Record<string, string> = {
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Homepage "Six extracts, one standard" on the bright green scene.
- * Intro: the six product spheres circle above a lab flask and drop into it one by
- * one; the flask glows "tested" and gives way to six glass cards. A card opens a
+ * Homepage "Every extract, one standard" on the bright green scene.
+ * Intro: the product spheres circle above a lab flask and drop into it one by
+ * one; the flask glows "tested" and gives way to the glass cards. A card opens a
  * glass lightbox that grows out of the card (across, then down) with the extract's
- * 3D model and details, and Previous / Next to move through all six.
+ * 3D model and details, and Previous / Next to move through every product.
  *
  * Scrolling is held while the intro plays (from the moment the screen has settled
  * until the cards are in), so nobody scrolls past the products mid-animation. Until
@@ -297,9 +297,9 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
       <div ref={root} className="wrap">
         <div className="sec-head">
           <span className="eyebrow">Portfolio</span>
-          <h2>Six extracts, one standard</h2>
+          <h2>Every extract, one standard</h2>
           <p className="lede">
-            Garcinia Cambogia leads; five more extracts are held to exactly the same test. Open any extract to see its
+            Garcinia Cambogia leads, and every extract in our range is held to exactly the same test. Open any extract to see its
             source, quality marker and 3D model.
           </p>
         </div>

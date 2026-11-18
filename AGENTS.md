@@ -16,6 +16,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Colour: when changing a brand token in `themes.css`, also update its Display P3 line at the end of the file. Depth/typography effects live in `src/styles/polish.css`.
 - Buttons: `.btn` (primary, accent fill) and `.btn btn-ghost` (outline in `--accent-text`). Keep this consistent in every theme.
 - Positioning: Phyto Elements sources extracts from qualified producers, tests every lot, and sells under its label only lots that pass. Quality is shown through rigorous, very high testing standards. The page and nav label stay "Manufacturing & Quality" (/manufacturing), but manufacturing is not the headline and the Garcinia plant is not a focus. Use "lot", not "batch".
+- Never state how many products/extracts there are (no "six extracts", "five more", "all six"): the client keeps adding products. Use range wording ("every extract", "our range") and render lists from `products.ts`.
 - Product codes (PE-01 …) stay in `products.ts` as internal ids only; the client does not want them shown anywhere on the site (cards, lightbox, hero, tables, structured data).
 - Content governance: never add unverified specs, certifications, capacities, customer names or health claims. Unverified spec fields stay undefined so the UI shows "Shared on request".
 - Motion: client components only; respect `prefers-reduced-motion`; content must be visible at rest (no opacity: 0 waiting on scroll). Clean up GSAP with `useGSAP` / `ctx.revert()`. Effects must clean up (client navigation).

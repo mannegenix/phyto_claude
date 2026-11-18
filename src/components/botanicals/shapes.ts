@@ -1,5 +1,5 @@
 /**
- * Line drawings of the six botanicals, as SVG path data in a 200 × 200 box.
+ * Line drawings of each botanical, as SVG path data in a 200 × 200 box.
  *
  * The same paths drive three things: the line art on product cards and pages
  * (SVG), the draw-on-scroll background of product pages, and the particle

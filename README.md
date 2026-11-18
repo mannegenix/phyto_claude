@@ -187,7 +187,7 @@ Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/c
 | Piece | Where | Notes |
 | --- | --- | --- |
 | Preloader "The Drop" | `src/components/motion/Preloader.tsx` | Pure CSS, about 2 s, once per session, skipped for reduced motion. |
-| Hero "The Living Specimen" | `src/components/hero/SpecimenHero.tsx` | Canvas particles: lots in, test gate, rejects fall, passes form the botanical. Cycles the six products. Pauses off screen. |
+| Hero "The Living Specimen" | `src/components/hero/SpecimenHero.tsx` | Canvas particles: lots in, test gate, rejects fall, passes form the botanical. Cycles through the products. Pauses off screen. |
 | Product ticker | `ProductTicker` in `sections/home.tsx` | CSS marquee, pauses on hover. |
 | Liquid section edges | `.wave-top` in `motion.css` | Masked wave on a section's top edge, slow drift. |
 | Test pillars | `TestPillars` | Identity, purity, potency, safety, stability. Generic until the client confirms methods. |

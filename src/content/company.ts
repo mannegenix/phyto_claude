@@ -23,8 +23,8 @@ export const values: ValuePoint[] = [
     body: "We work with several qualified producers, so supply stays steady while the standard stays fixed.",
   },
   {
-    title: "Six extracts, Garcinia first",
-    body: "A focused portfolio led by Garcinia Cambogia Extract, with five more extracts held to the same standard.",
+    title: "Garcinia first, one standard",
+    body: "A focused portfolio led by Garcinia Cambogia Extract, with every other extract held to the same standard.",
   },
   {
     title: "Documents tied to your lot",

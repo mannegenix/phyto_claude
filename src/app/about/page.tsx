@@ -23,9 +23,9 @@ export default async function AboutPage() {
           <div className="grid max-w-[66ch] gap-4">
             <p>{c.introduction}</p>
             <p>
-              Our portfolio is built around six extracts with applications across nutraceutical,
-              wellness, food, cosmetic and personal-care markets. Garcinia Cambogia Extract is the flagship product.
-              Curcumin, Ashwagandha, Boswellia, Bakuchiol and Bacopa form the remaining focus portfolio.
+              Our portfolio is a focused range of extracts with applications across nutraceutical, wellness,
+              food, cosmetic and personal-care markets. Garcinia Cambogia Extract is the flagship product, and
+              every extract we add to the range is held to the same standard.
             </p>
             <p>
               Sourcing is how we secure supply. Testing is how we decide what we sell. Additional extracts join the

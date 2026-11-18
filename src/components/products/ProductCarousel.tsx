@@ -64,7 +64,7 @@ export function ProductCarousel({ items }: { items: Item[] }) {
   };
 
   return (
-    <div className="pc" aria-roledescription="carousel" aria-label="Our six extracts">
+    <div className="pc" aria-roledescription="carousel" aria-label="Our extracts">
       <div className="pc-picker" role="tablist" aria-label="Choose an extract">
         {items.map((p, i) => (
           <button

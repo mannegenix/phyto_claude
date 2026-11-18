@@ -131,7 +131,7 @@ function readColors(): Colors {
 /**
  * Homepage hero visual: "The Living Specimen".
  * Mixed raw lots drift in on the left, cross a test gate, and only the lots that
- * pass travel on to form the botanical. Rejected lots fall away. The six products
+ * pass travel on to form the botanical. Rejected lots fall away. The products
  * take turns. Pauses off screen; shows a still drawing for reduced motion or no JS.
  */
 export function SpecimenHero({ items }: { items: SpecimenItem[] }) {

@@ -19,9 +19,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero products={products} positioning={c.positioning} />
-      <ValuesSection intro={c.introduction} values={c.values} />
-      <TestPillars pillars={c.testPillars} />
-      <SourceToSeal stages={c.stages} />
       <ProductShowcase
         pillars={c.testPillars}
         items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({
@@ -40,6 +37,9 @@ export default async function HomePage() {
           image: p.image,
         }))}
       />
+      <ValuesSection intro={c.introduction} values={c.values} />
+      <TestPillars pillars={c.testPillars} />
+      <SourceToSeal stages={c.stages} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />
       <section className="section labart-host">

@@ -206,11 +206,14 @@
   --ok: #3c6a12;
   --err: #b42318;
   --specimen-glow: 1;
-  --specimen-pass: #6f9a1e;
-  --specimen-test: #0a78d6;
-  --specimen-raw: #a8b6a0;
-  --specimen-reject: #d6ddd0;
+  /* Lots drawn bright with a dark rim so they read over the hero photo */
+  --specimen-pass: #c8f04a;
+  --specimen-test: #4fb8ff;
+  --specimen-raw: #eef3e8;
+  --specimen-reject: #9aa592;
   --specimen-line: #3c6a12;
+  --specimen-mode: staged;
+  --specimen-outline: #0c260c;
   --lab-si: rgb(12 38 12);
   --lab-hero-bg:
     linear-gradient(90deg, rgb(250 252 247 / 0.97) 0%, rgb(250 252 247 / 0.9) 30%, rgb(250 252 247 / 0.45) 46%, rgb(250 252 247 / 0.08) 62%, transparent 100%),

@@ -184,3 +184,56 @@
     color: var(--ink);
   }
 }
+
+/* ── Hero lot animation (staged): the step label lights up as the lots reach it ── */
+[data-theme="verdan"] .hero .specimen-label {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  background: rgb(12 38 12 / 0.35);
+  color: rgb(255 255 255 / 0.75);
+  letter-spacing: 0.14em;
+  backdrop-filter: blur(6px);
+  transition:
+    background 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease,
+    scale 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-theme="verdan"] .hero .specimen-label.is-on {
+  scale: 1.12;
+  color: #0c160d;
+  border-color: transparent;
+}
+[data-theme="verdan"] .hero .specimen-label.is-lots.is-on {
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 0.28), 0 8px 22px -8px rgb(0 0 0 / 0.5);
+}
+[data-theme="verdan"] .hero .specimen-label.is-test.is-on {
+  background: #4fb8ff;
+  color: #04233a;
+  box-shadow: 0 0 0 4px rgb(79 184 255 / 0.3), 0 0 26px rgb(79 184 255 / 0.65);
+}
+[data-theme="verdan"] .hero .specimen-label.is-pass.is-on {
+  background: #c8f04a;
+  box-shadow: 0 0 0 4px rgb(200 240 74 / 0.3), 0 0 28px rgb(200 240 74 / 0.7);
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme="verdan"] .hero .specimen-label.is-on {
+    animation: verdan-step 1.6s ease-in-out infinite;
+  }
+}
+@keyframes verdan-step {
+  50% {
+    scale: 1.18;
+  }
+}
+/* The product card's status follows the same colours */
+[data-theme="verdan"] .hero .specimen-status:not(.is-passed) {
+  color: #0a66d6;
+}
+[data-theme="verdan"] .hero .specimen-status.is-passed {
+  color: #3c6a12;
+  font-weight: 700;
+}

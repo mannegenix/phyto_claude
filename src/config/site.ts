@@ -20,16 +20,17 @@ export const THEMES = [
   /** Dark edition of the lab route, kept for reference. */
   { id: "labgreen", no: "R08", label: "Lab green dark", swatch: ["#141615", "#8fd14f", "#15dbeb"] },
   { id: "labday", no: "R09", label: "Lab daylight", swatch: ["#e4f6cf", "#8fd14f", "#0a76b3"] },
-  /** Verdan light: white + pale sage glass, chartreuse, from the client's "Verdan Farm OS" reference. Used by /althome. */
+  /** Verdan light: white + pale sage glass, chartreuse, from the client's "Verdan Farm OS" reference. Used by the homepage ("/"). */
   { id: "verdan", no: "R10", label: "Verdan light", swatch: ["#f8faf5", "#e4ebdc", "#c8e068"] },
 ] as const;
 
 /**
- * Pages shown in a different colour route from the rest of the site (review copies).
+ * Pages shown in a different colour route from the rest of the site (the homepage uses
+ * Verdan light; every other page uses `defaultTheme`).
  * Applied before first paint by `routeThemeBootScript` and kept in sync on client
  * navigation by `motion/RouteTheme`.
  */
-export const ROUTE_THEMES: Record<string, ThemeId> = { "/althome": "verdan" };
+export const ROUTE_THEMES: Record<string, ThemeId> = { "/": "verdan" };
 
 export type ThemeId = (typeof THEMES)[number]["id"];
 
@@ -59,7 +60,6 @@ export const siteConfig = {
 
 export const NAV = [
   { href: "/", label: "Home" },
-  { href: "/althome", label: "AltHome" },
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
   { href: "/products/garcinia", label: "Flagship: Garcinia", flag: true },

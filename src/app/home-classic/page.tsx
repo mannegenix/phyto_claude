@@ -14,18 +14,17 @@ import { Reveal } from "@/components/motion/Reveal";
 import type { Metadata } from "next";
 
 /**
- * AltHome: a review copy of the homepage in the R10 "Verdan" colour route (forest glass,
- * sage canvas, chartreuse), from the client's Verdan Farm OS reference video. Same
- * sections and content as "/"; the route is applied by ROUTE_THEMES in config/site.ts.
- * Not indexed, so it never competes with the real homepage.
+ * Classic home (hidden): the previous homepage design in the R07 "Lab green + blue" route,
+ * kept for reference after the Verdan light design became the homepage. Same sections and
+ * content as "/"; not linked from the menu and not indexed.
  */
 export const metadata: Metadata = {
-  title: "AltHome",
+  title: "Classic home",
   robots: { index: false, follow: false },
   alternates: { canonical: "/" },
 };
 
-export default async function AltHomePage() {
+export default async function ClassicHomePage() {
   const [products, c] = await Promise.all([getProducts(), getCompany()]);
   const flagship = products.find((p) => p.flagship) ?? products[0];
 

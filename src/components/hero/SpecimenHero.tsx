@@ -19,7 +19,7 @@ const PASS_SHARE = 0.4;
 const SHAPE_SAMPLE = 320;
 
 /**
- * Cycle timing (seconds). "staged" (a route sets `--specimen-mode: staged`, e.g. AltHome)
+ * Cycle timing (seconds). "staged" (a route sets `--specimen-mode: staged`, e.g. the homepage in Verdan light)
  * is slower and reads as three clear steps: the lots wait on the left (Lots in), cross the
  * gate where each passing lot flashes the test colour (Test), then form the botanical
  * (Passed). The step labels light up in turn.

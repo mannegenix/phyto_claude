@@ -30,7 +30,7 @@ export function Header() {
 
         {/* Phones and tablets: pages live in the bottom dock (MobileDock); keep the sample action up here */}
         <Link href="/sample" className="btn btn-sm hdr-sample ml-auto min-[1121px]:hidden">
-          Sample
+          Request Sample
         </Link>
 
         <nav

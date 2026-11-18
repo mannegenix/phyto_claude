@@ -2,7 +2,7 @@
 
 import { calmMotion } from "@/lib/motion-pref";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -40,13 +40,26 @@ export const panelTop = (el: Element) => naturalTops.get(el);
  * Off for reduced motion and inside the review compare panes. Without JavaScript
  * the page is an ordinary scrolling page.
  */
+/** Phones, tablets and touch screens scroll natively: no sticky panels or circle reveal
+ *  (on touch the reveal flashed between sections). */
+const NATIVE_SCROLL = "(max-width: 1120px), (hover: none) and (pointer: coarse)";
+
 export function PanelScroll() {
   const pathname = usePathname();
   const fx = useRef<HTMLDivElement>(null);
+  const [native, setNative] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia(NATIVE_SCROLL);
+    const sync = () => setNative(mq.matches);
+    requestAnimationFrame(sync);
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (calmMotion() || root.classList.contains("pe-embed")) return;
+    if (native !== false || calmMotion() || root.classList.contains("pe-embed")) return;
 
     const main = document.querySelector("main");
     if (!main) return;
@@ -307,7 +320,7 @@ export function PanelScroll() {
       });
       root.classList.remove("has-panels");
     };
-  }, [pathname]);
+  }, [pathname, native]);
 
   return (
     <div ref={fx} hidden />

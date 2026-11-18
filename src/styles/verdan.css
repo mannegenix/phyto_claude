@@ -1,9 +1,9 @@
 /*
  * R10 "Verdan light" (used by /althome): the client's Verdan Farm OS reference, made
  * white-dominant.
- *  - Hero: the botanicals product photo fading into white behind the text, with the scene
- *    dial (circles, ticks, ring text, dot grid) drawn bold in deep forest so it reads
- *    clearly; the testing ring stays blue
+ *  - Hero: the botanicals product photo at full strength on the right, fading into white
+ *    behind the text; the scene dial (circles, ticks, ring text, dot grid) is bold white
+ *    with a dark forest outline so it reads over the photo; the testing ring is sky blue
  *  - White and pale sage sections; every block is white frosted glass (translucent
  *    white, blur, bright top edge, soft green-grey shadow, 20px corners)
  *  - Chartreuse buttons and pills, deep olive labels, deep forest footer
@@ -39,50 +39,51 @@
     color: var(--label);
   }
 
-  /* ── Hero: bold deep-forest dial over the photo, with a white halo for contrast ── */
+  /* ── Hero: the product photo shows at full strength on the right, so the dial is drawn
+     in white with a dark forest outline (as on the dark version) to read over it ── */
   & .hero .ring {
-    stroke: rgb(12 38 12 / 0.85);
+    stroke: rgb(255 255 255 / 0.9);
     stroke-width: 1.6;
   }
   & .hero .ring-faint {
-    stroke: rgb(12 38 12 / 0.5);
+    stroke: rgb(255 255 255 / 0.6);
     stroke-width: 1.2;
   }
   & .hero .ring-strong {
-    stroke: #0c260c;
+    stroke: #ffffff;
     stroke-width: 2.4;
   }
   & .hero .ring-dash {
-    stroke: var(--splash-text);
+    stroke: #8fd3ff;
     stroke-width: 2.4;
   }
   & .hero .ticks line {
-    stroke: rgb(12 38 12 / 0.9);
+    stroke: rgb(255 255 255 / 0.95);
     stroke-width: 1.6;
   }
   & .hero .scene-text text {
-    fill: #0c260c;
+    fill: #ffffff;
     font-size: 11.5px;
     font-weight: 800;
   }
   & .hero .scene-bits span {
-    color: #0c260c;
+    color: #ffffff;
     font-size: 0.78rem;
     font-weight: 800;
   }
   & .hero .scene-grid {
     opacity: 1;
-    background: radial-gradient(circle at 1px 1px, rgb(12 38 12 / 0.55) 1.3px, transparent 2px) 0 0 / 24px 24px;
+    background: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.75) 1.3px, transparent 2px) 0 0 / 24px 24px;
   }
   & .hero .scene-pulse::after {
-    border: 2px solid rgb(12 38 12 / 0.8);
+    border: 2px solid rgb(255 255 255 / 0.85);
   }
   & .hero .specimen-label {
-    color: #0c260c;
+    color: #ffffff;
     font-weight: 800;
   }
   & .hero :is(.scene-rings, .scene-text, .scene-bits, .scene-grid) {
-    filter: drop-shadow(0 0 2px rgb(255 255 255 / 0.95)) drop-shadow(0 0 10px rgb(255 255 255 / 0.7));
+    filter: drop-shadow(0 0 1.5px rgb(8 30 10 / 0.9)) drop-shadow(0 0 8px rgb(8 30 10 / 0.45));
   }
 
   /* ── White glass blocks everywhere ── */

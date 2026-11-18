@@ -213,9 +213,9 @@
   --specimen-line: #3c6a12;
   --lab-si: rgb(12 38 12);
   --lab-hero-bg:
-    linear-gradient(90deg, rgb(250 252 247 / 0.96) 0%, rgb(250 252 247 / 0.86) 34%, rgb(250 252 247 / 0.5) 60%, rgb(250 252 247 / 0.4) 100%),
-    linear-gradient(180deg, rgb(250 252 247 / 0.5), rgb(250 252 247 / 0.15) 30%, rgb(250 252 247 / 0.15) 70%, rgb(250 252 247 / 0.7)),
-    url("/images/bg/botanicals-dark.webp") center / cover no-repeat,
+    linear-gradient(90deg, rgb(250 252 247 / 0.97) 0%, rgb(250 252 247 / 0.9) 30%, rgb(250 252 247 / 0.45) 46%, rgb(250 252 247 / 0.08) 62%, transparent 100%),
+    linear-gradient(180deg, rgb(250 252 247 / 0.45), transparent 20%, transparent 80%, rgb(250 252 247 / 0.6)),
+    url("/images/bg/botanicals-dark.webp") 70% center / cover no-repeat,
     #f8faf5;
   --lab-band-bg:
     radial-gradient(45% 70% at 82% 18%, rgb(200 224 104 / 0.35), transparent 62%),

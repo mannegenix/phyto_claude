@@ -135,7 +135,7 @@ A full Next.js app (server actions, the chat API, server rendering) needs Worker
 
 4. **Build variables** (Settings → Build → Variables and secrets). `NEXT_PUBLIC_*` values are baked in at build time:
    `NEXT_PUBLIC_SITE_URL=https://phytoelements.in`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_CHAT_ENABLED`,
-   and for review deployments only `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true`, `NEXT_PUBLIC_SHOW_REVIEW_NOTES=true`.
+   and for review deployments only `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true`.
 5. **Runtime secrets** (Worker → Settings → Variables and Secrets, type _Secret_), or `npx wrangler secret put NAME`:
    `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `ANTHROPIC_API_KEY`, `CRM_WEBHOOK_URL`.
    Non-secret routing values (`ENQUIRY_TO`, `SAMPLES_CC`, `ENQUIRY_FROM`, `CHAT_MODEL`) are in `wrangler.jsonc` → `vars`.
@@ -163,7 +163,6 @@ npm run deploy    # build + deploy to Cloudflare
 
 - Spec values (`spec` in `products.ts`) stay empty until QA-approved; the UI shows "Shared on request".
 - No capacity, certification, equipment or years-in-operation claims until verified.
-- `NEXT_PUBLIC_SHOW_REVIEW_NOTES=true` shows the "review before launch" notes on every page.
 
 ## Moving to a CMS
 

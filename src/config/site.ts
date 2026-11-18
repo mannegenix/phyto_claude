@@ -52,8 +52,6 @@ export const siteConfig = {
   defaultTheme: "lablight" as ThemeId,
   /** Review mode: enables /compare and ?theme= previews. Never enable in production. */
   showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",
-  /** Shows "review before launch" notes for internal content review. */
-  showReviewNotes: process.env.NEXT_PUBLIC_SHOW_REVIEW_NOTES === "true",
   /** Chat widget appears only when the API key is configured server-side and this flag is on. */
   chatEnabled: process.env.NEXT_PUBLIC_CHAT_ENABLED === "true",
 };

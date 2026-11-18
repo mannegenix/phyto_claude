@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { LabArt } from "@/components/botanicals/LabArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,8 +10,6 @@ import { BatchTag } from "@/components/product/BatchTag";
 import { EnquiryButtons } from "@/components/product/EnquiryButtons";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ReviewNote } from "@/components/ui/ReviewNote";
-import { BotanicalArt } from "@/components/botanicals/BotanicalArt";
-import { LazyScene } from "@/components/three/LazyScene";
 import { ProductOrb } from "@/components/product/ProductOrb";
 
 // Only the known products exist; any other slug is a static 404.
@@ -62,7 +59,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
   return (
     <div className="specimen-page" style={{ ["--sw" as string]: product.swatch }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BotanicalArt slug={product.slug} className="specimen-bg" strokeWidth={1.1} />
       <PageHead title={product.name} crumbs={[{ href: "/products", label: "Products" }, { label: product.short }]}>
         <div className="mb-4 flex flex-wrap gap-2.5">
           <span className={`chip ${product.flagship ? "chip-flag" : ""}`}>{product.role}</span>
@@ -105,7 +101,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <ol className="pillars pillars-compact">
                 {testPillars.map((t) => (
                   <li key={t.code}>
-                    {t.art && <LabArt kind={t.art} className="la-ico pillar-ico" />}
                     <span className="pillar-code">{t.code}</span>
                     <h3>{t.title}</h3>
                   </li>
@@ -160,23 +155,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           </div>
           <aside className="sticky-tag grid min-w-0 gap-5">
             <BatchTag product={product} />
-            <div className="mol-card" style={{ ["--sw" as string]: product.swatch }}>
-              <div className="mol-stage">
-                <LazyScene
-                  variant={product.slug}
-                  tint={product.swatch}
-                  fallback={
-                    <div className="grid size-full place-items-center">
-                      <ProductOrb product={product} size="lg" uid="mol-fallback" />
-                    </div>
-                  }
-                />
-              </div>
-              <div className="mol-cap">
-                <span>3D · {product.marker.split(",")[0]} family</span>
-                <span>Illustrative</span>
-              </div>
-            </div>
           </aside>
         </div>
       </section>
@@ -200,7 +178,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <h3>{next.name}</h3>
               <span className="text-[0.95rem] text-accent-text">View specimen sheet →</span>
             </div>
-            <BotanicalArt slug={next.slug} draw />
+            <ProductOrb product={next} size="lg" uid="next" />
           </Link>
         </div>
       </section>

@@ -7,6 +7,7 @@ import { LabArt } from "@/components/botanicals/LabArt";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
 import { HeroScene } from "@/components/hero/HeroScene";
 import { QualityFunnel } from "@/components/sections/QualityFunnel";
+import { SealPipeline, SealStepper } from "@/components/sections/SealViews";
 
 export function Hero({ products, positioning }: { products: Product[]; positioning: string }) {
   const items = products.map((p) => ({
@@ -113,23 +114,47 @@ export function ProductGrid({ products, heading = true }: { products: Product[];
 }
 
 /** "From source to seal": the stages scroll beside a field of lots that narrows to the ones that pass. */
-export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
-  return (
-    <section
-      className="section wave-top s2s bgphoto bgphoto-dropper"
-      data-steps={stages.length + 1}
-      style={{ ["--s2s-n" as string]: stages.length + 1 }}
-    >
-      <div className="wrap">
-        <div className="sec-head">
-          <span className="eyebrow">From source to seal</span>
-          <h2>Many lots come in. Only the ones that pass go out under our name.</h2>
-          <p className="lede">
-            We source from several qualified producers so supply stays steady. What keeps the standard fixed is the test
-            every lot has to pass.
-          </p>
+/**
+ * "From source to seal". `layout`:
+ *  - "pipeline" (homepage): one screen, the whole journey at a glance (SealPipeline)
+ *  - "stepper" (Manufacturing & Quality): one screen, auto-playing steps (SealStepper)
+ *  - "scroll" (hidden classic home): the earlier pinned scroll-through (one screen per step)
+ */
+export function SourceToSeal({
+  stages,
+  layout = "pipeline",
+}: {
+  stages: ProcessStage[];
+  layout?: "pipeline" | "stepper" | "scroll";
+}) {
+  const head = (
+    <div className="sec-head">
+      <span className="eyebrow">From source to seal</span>
+      <h2>Many lots come in. Only the ones that pass go out under our name.</h2>
+      <p className="lede">
+        We source from several qualified producers so supply stays steady. What keeps the standard fixed is the test
+        every lot has to pass.
+      </p>
+    </div>
+  );
+  if (layout === "scroll")
+    return (
+      <section
+        className="section wave-top s2s bgphoto bgphoto-dropper"
+        data-steps={stages.length + 1}
+        style={{ ["--s2s-n" as string]: stages.length + 1 }}
+      >
+        <div className="wrap">
+          {head}
+          <QualityFunnel stages={stages} />
         </div>
-        <QualityFunnel stages={stages} />
+      </section>
+    );
+  return (
+    <section className={`section wave-top s2s-lite bgphoto bgphoto-dropper`}>
+      <div className="wrap">
+        {head}
+        {layout === "stepper" ? <SealStepper stages={stages} /> : <SealPipeline stages={stages} />}
       </div>
     </section>
   );

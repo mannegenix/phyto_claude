@@ -2758,3 +2758,430 @@ html.has-panels .s2s > .wrap {
   }
 }
 .sc-card-top .sc-chip { margin-left: auto; }
+
+/* ── From source to seal, one-screen layouts (sections/SealViews) ───────────────── */
+.s2s-lite .sec-head {
+  margin-bottom: clamp(18px, 3vh, 30px);
+}
+.s2p,
+.s2a {
+  --s2-card: linear-gradient(160deg, color-mix(in oklab, var(--surface) 92%, transparent), color-mix(in oklab, var(--surface) 70%, transparent));
+  --s2-edge: color-mix(in oklab, var(--surface) 92%, transparent);
+  --s2-shadow: 0 22px 44px -24px color-mix(in oklab, var(--heading) 34%, transparent), 0 0 0 1px color-mix(in oklab, var(--heading) 7%, transparent);
+}
+
+/* B · Pipeline at a glance */
+.s2p {
+  display: grid;
+  gap: clamp(14px, 2.4vh, 22px);
+}
+.s2p-stream {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  height: clamp(120px, 19vh, 170px);
+}
+.s2p-seg {
+  --t0: calc(var(--i) * 8%);
+  --t1: calc(var(--i) * 8% + 8%);
+  position: relative;
+  clip-path: polygon(0 var(--t0), 100% min(var(--t1), 34%), 100% calc(100% - min(var(--t1), 34%)), 0 calc(100% - var(--t0)));
+  background: linear-gradient(90deg, color-mix(in oklab, var(--surface) 55%, transparent), color-mix(in oklab, var(--surface) 85%, transparent));
+  border-right: 2px dashed color-mix(in oklab, var(--splash) 50%, transparent);
+}
+.s2p-seg.is-end {
+  border-right: 0;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 45%, transparent), color-mix(in oklab, var(--accent) 80%, transparent));
+}
+.s2p-lot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--muted) 55%, var(--surface));
+}
+.s2p-lot.is-t {
+  background: var(--splash);
+}
+.s2p-lot.is-ok {
+  background: var(--accent-text);
+}
+.s2p-lot.is-x {
+  background: color-mix(in oklab, var(--muted) 25%, var(--surface));
+}
+.s2p-seal {
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(64px, 6vw, 80px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font: 700 0.6rem/1.2 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--surface) 85%, transparent), 0 0 0 7px var(--splash);
+}
+.s2p-seal b {
+  display: block;
+  font-size: 0.68rem;
+}
+.s2p-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: 14px;
+}
+.s2p-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 18px 18px 20px;
+  border-radius: 20px;
+  background: var(--s2-card);
+  border: 1px solid var(--s2-edge);
+  box-shadow: var(--s2-shadow);
+}
+.s2p-num {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-text);
+}
+.s2p-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--heading);
+}
+.s2p-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Lots drift along the stream; the highlight walks across the steps */
+  .s2p-lot {
+    animation: s2p-drift 6s ease-in-out var(--d, 0s) infinite alternate;
+  }
+  .s2p-card,
+  .s2p-seg {
+    animation: s2p-hot calc(var(--n) * 2.4s) linear calc((var(--i) - var(--n)) * 2.4s) infinite;
+  }
+}
+@keyframes s2p-drift {
+  to {
+    translate: 14px 0;
+  }
+}
+@keyframes s2p-hot {
+  0%,
+  17% {
+    box-shadow: var(--s2-shadow), 0 0 0 2px var(--splash);
+    translate: 0 -4px;
+    filter: brightness(1.04);
+  }
+  20%,
+  100% {
+    box-shadow: var(--s2-shadow), 0 0 0 2px transparent;
+    translate: 0 0;
+    filter: brightness(1);
+  }
+}
+@media (max-width: 860px) {
+  .s2p-stream {
+    height: 96px;
+  }
+  .s2p-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* A · Auto-playing stepper */
+.s2a {
+  display: grid;
+  gap: clamp(16px, 2.6vh, 26px);
+}
+.s2a-rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+}
+.s2a-rail::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 23px;
+  height: 2px;
+  background: color-mix(in oklab, var(--heading) 14%, transparent);
+}
+.s2a-rail button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--muted);
+  font: inherit;
+}
+.s2a-n {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--heading) 14%, transparent);
+  transition:
+    background 0.35s,
+    color 0.35s,
+    box-shadow 0.35s;
+}
+.s2a-t {
+  font-size: 0.95rem;
+}
+.s2a-rail .is-done .s2a-n {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: none;
+}
+.s2a-rail .is-on .s2a-n {
+  background: var(--splash);
+  color: var(--splash-ink);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--splash) 20%, transparent);
+}
+.s2a-rail .is-on .s2a-t {
+  color: var(--heading);
+  font-weight: 700;
+}
+.s2a-bar {
+  width: 80px;
+  height: 4px;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--splash) 18%, transparent);
+  overflow: hidden;
+}
+.s2a-bar::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--splash);
+}
+.s2a.is-running .s2a-bar::after {
+  animation: s2a-fill var(--step-ms) linear forwards;
+}
+@keyframes s2a-fill {
+  to {
+    width: 100%;
+  }
+}
+.s2a-body {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 26px;
+}
+.s2a-copy,
+.s2a-field {
+  border-radius: 20px;
+  background: var(--s2-card);
+  border: 1px solid var(--s2-edge);
+  box-shadow: var(--s2-shadow);
+}
+.s2a-copy {
+  padding: 28px 30px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+.s2a-k {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.s2a-copy h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  color: var(--heading);
+}
+.s2a-copy p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--muted);
+  min-height: 5em;
+}
+.s2a-ctrl {
+  display: flex;
+  gap: 18px;
+  margin-top: 8px;
+}
+.s2a-ctrl button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: 600 0.8rem var(--font-mono);
+  color: var(--accent-text);
+}
+.s2a-ctrl .is-play {
+  color: var(--splash-text);
+}
+.s2a-field {
+  padding: 18px 22px;
+  display: grid;
+  gap: 10px;
+}
+.s2a-fh {
+  display: flex;
+  justify-content: space-between;
+  font: 0.7rem var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.s2a-svg {
+  width: 100%;
+  height: auto;
+  max-height: 32vh;
+}
+.s2a-lot {
+  transition:
+    fill 0.6s ease,
+    opacity 0.6s ease;
+}
+.s2a-lot.is-raw {
+  fill: color-mix(in oklab, var(--muted) 55%, var(--surface));
+}
+.s2a-lot.is-test {
+  fill: var(--splash);
+}
+.s2a-lot.is-out {
+  fill: color-mix(in oklab, var(--muted) 22%, var(--surface));
+  opacity: 0.7;
+}
+.s2a-lot.is-pass {
+  fill: var(--accent-text);
+}
+.s2a-seal {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  scale: 0.6;
+  transition:
+    opacity 0.5s ease,
+    scale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.s2a-seal.is-on {
+  opacity: 1;
+  scale: 1;
+}
+.s2a-seal circle {
+  fill: var(--accent);
+  stroke: var(--splash);
+  stroke-width: 3;
+}
+.s2a-seal text {
+  font: 700 12px var(--font-mono);
+  letter-spacing: 0.14em;
+  fill: var(--on-accent);
+}
+.s2a-seal text.b {
+  font-size: 14px;
+}
+.s2a-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font: 0.72rem var(--font-mono);
+  color: var(--muted);
+}
+.s2a-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.s2a-legend .is-raw {
+  background: color-mix(in oklab, var(--muted) 55%, var(--surface));
+}
+.s2a-legend .is-test {
+  background: var(--splash);
+}
+.s2a-legend .is-out {
+  background: color-mix(in oklab, var(--muted) 22%, var(--surface));
+}
+.s2a-legend .is-pass {
+  background: var(--accent-text);
+}
+@media (max-width: 860px) {
+  .s2a-body {
+    grid-template-columns: 1fr;
+  }
+  .s2a-t {
+    font-size: 0.72rem;
+  }
+  .s2a-n {
+    width: 36px;
+    height: 36px;
+  }
+  .s2a-rail::before {
+    top: 18px;
+  }
+  .s2a-bar {
+    width: 44px;
+  }
+}
+/* Fit source-to-seal on one screen on shorter laptop screens (13–14") */
+@media (min-width: 861px) and (max-height: 960px) {
+  .s2s-lite.section {
+    padding-block: clamp(76px, 10vh, 96px) 28px;
+  }
+  .s2s-lite .sec-head {
+    margin-bottom: 14px;
+  }
+  .s2s-lite .sec-head h2 {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  }
+  .s2s-lite .sec-head .lede {
+    display: none;
+  }
+  .s2a {
+    gap: 12px;
+  }
+  .s2a-copy {
+    padding: 20px 24px;
+  }
+  .s2a-copy p {
+    min-height: 0;
+  }
+  .s2a-svg {
+    max-height: 26vh;
+  }
+  .s2p-stream {
+    height: clamp(96px, 15vh, 140px);
+  }
+  .s2p-card {
+    padding: 14px 16px 16px;
+  }
+}

@@ -52,7 +52,7 @@ export default async function ManufacturingPage() {
         </div>
       </section>
       <TestPillars pillars={c.testPillars} />
-      <SourceToSeal stages={c.stages} />
+      <SourceToSeal stages={c.stages} layout="stepper" />
       <section className="section sunk labart-host">
         <LabArt kind="coa" backdrop pos="tr" />
         <LabArt kind="seal" backdrop pos="bl" />

@@ -33,7 +33,7 @@ export default async function ClassicHomePage() {
       <Hero products={products} positioning={c.positioning} />
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
-      <SourceToSeal stages={c.stages} />
+      <SourceToSeal stages={c.stages} layout="scroll" />
       <ProductShowcase
         pillars={c.testPillars}
         items={[flagship, ...products.filter((p) => p.slug !== flagship.slug)].map((p) => ({

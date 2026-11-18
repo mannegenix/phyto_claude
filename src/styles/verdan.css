@@ -149,17 +149,17 @@
   }
 
   /* ── Pale sage sections (values, source-to-seal, enquiry) ── */
-  & :is(.sunk, .s2s) {
+  & :is(.sunk, .s2s, .s2s-lite) {
     /* !important: the full-screen panel rule paints plain sections with --paper at a
        higher specificity; on this route these sections are pale sage. */
     background:
       radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.7), transparent 60%),
       #e4ebdc !important;
   }
-  & :is(.sunk, .s2s) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
+  & :is(.sunk, .s2s, .s2s-lite) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
     background: var(--neu-bg), var(--glass-strong);
   }
-  & :is(.sunk, .s2s).bgphoto {
+  & :is(.sunk, .s2s, .s2s-lite).bgphoto {
     --photo-blend: multiply;
     --photo-op: 0.12;
   }

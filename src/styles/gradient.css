@@ -1,0 +1,197 @@
+/*
+ * "Gradient" look (footer toggle → html.pe-gradient), on top of Verdan light.
+ * Colours from dev1.phytoelements.in: the brand gradient blue #0B7CF2 → cyan #20B8D8 →
+ * lime #8FD14F (110deg) on buttons, bands, active states and the footer; pale green
+ * paper #F6FAF1 / #EDF5E4; deep green headings #12351A; blue small labels #0A66D6.
+ */
+html.pe-gradient {
+  --brand-gradient: linear-gradient(110deg, #0b7cf2 0%, #20b8d8 50%, #8fd14f 100%);
+  --brand-gradient-soft: linear-gradient(110deg, rgb(11 124 242 / 0.14) 0%, rgb(32 184 216 / 0.14) 50%, rgb(143 209 79 / 0.2) 100%);
+  --brand-gradient-text: linear-gradient(110deg, #0b7cf2 0%, #20b8d8 50%, #5fa62a 100%);
+}
+html.pe-gradient[data-theme] {
+  --paper: #f6faf1;
+  --surface: #ffffff;
+  --sunk: #edf5e4;
+  --ink: #0e1c10;
+  --muted: #2f4033;
+  --line: #cfdfc4;
+  --heading: #12351a;
+  --accent: #0b7cf2;
+  --accent-hover: #20b8d8;
+  --on-accent: #07120a;
+  --accent-text: #0a66d6;
+  --label: #0a66d6;
+  --pop: #8fd14f;
+  --band: #20b8d8;
+  --on-band: #07120a;
+  --on-band-muted: #0e1c10;
+  --band-eyebrow: #07120a;
+  --lab-hero-eyebrow: #0a66d6;
+  --lab-em-1: #0b7cf2;
+  --lab-em-2: #8fd14f;
+  --lab-em-glow: transparent;
+  --lab-hero-btn: #0b7cf2;
+  --lab-hero-btn-ink: #07120a;
+  --lab-hero-ghost: #0e1c10;
+  --lab-band-bg: var(--brand-gradient);
+}
+
+/* ── Buttons: gradient fill, near-black type (as on dev1) ── */
+html.pe-gradient :is(.btn:not(.btn-ghost), .hero .btn:not(.btn-ghost), .band .btn:not(.btn-ghost)) {
+  background: var(--brand-gradient);
+  background-size: 140% 100%;
+  background-position: 0 0;
+  border-color: transparent;
+  color: #07120a;
+  transition: background-position 0.35s ease, box-shadow 0.35s ease;
+}
+html.pe-gradient :is(.btn:not(.btn-ghost)):hover {
+  background: var(--brand-gradient);
+  background-size: 140% 100%;
+  background-position: 100% 0;
+  box-shadow: 0 10px 24px -12px rgb(11 124 242 / 0.6);
+}
+html.pe-gradient .btn.btn-ghost {
+  border-color: #0a66d6;
+  color: #0a66d6;
+  background: transparent;
+}
+html.pe-gradient .btn.btn-ghost:hover {
+  background: var(--brand-gradient-soft);
+}
+html.pe-gradient .band .btn.btn-ghost {
+  border-color: #07120a;
+  color: #07120a;
+}
+
+/* ── Labels and small accents in blue; the hero highlight in the brand gradient ── */
+html.pe-gradient .eyebrow {
+  color: #0a66d6;
+}
+html.pe-gradient .eyebrow::before {
+  background: var(--brand-gradient);
+}
+html.pe-gradient .hero .hero-title em,
+html.pe-gradient .hero-title em {
+  background: var(--brand-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: none;
+}
+html.pe-gradient :is(.sc-chip, .chip, .badge, .po-role i, .pf-tag) {
+  background: var(--brand-gradient-soft);
+  border-color: rgb(11 124 242 / 0.22);
+  color: #0a66d6;
+}
+html.pe-gradient :is(.sc-chip.is-flag, .po-role i.is-flag, .pf-card.is-here .pf-tag) {
+  background: var(--brand-gradient);
+  color: #07120a;
+}
+
+/* ── Bands (quality checks, manufacturing): the full brand gradient, dark type ── */
+html.pe-gradient .band {
+  background: var(--brand-gradient) !important;
+  color: #07120a;
+}
+html.pe-gradient .band :is(h1, h2, h3, .eyebrow, .lede, p) {
+  color: #07120a;
+}
+html.pe-gradient .band.bgphoto {
+  --photo-op: 0.08;
+  --photo-blend: soft-light;
+}
+html.pe-gradient .band :is(.pillars li, .flag-specs, .card) {
+  background: rgb(255 255 255 / 0.78);
+  border-color: rgb(255 255 255 / 0.9);
+}
+
+/* ── Pale green sections ── */
+html.pe-gradient :is(.sunk, .s2s, .s2s-lite) {
+  background:
+    radial-gradient(60% 50% at 88% 8%, rgb(32 184 216 / 0.1), transparent 60%),
+    radial-gradient(50% 50% at 8% 92%, rgb(143 209 79 / 0.14), transparent 60%),
+    #edf5e4 !important;
+}
+
+/* ── Header: active link and the sample button ── */
+html.pe-gradient .hdr .nav-link[aria-current="page"]::after {
+  background: var(--brand-gradient);
+}
+html.pe-gradient .hdr .nav-link[aria-current="page"],
+html.pe-gradient .hdr .nav-link.flag {
+  color: #0a66d6;
+}
+
+/* ── Footer: the brand gradient, dark type ── */
+html.pe-gradient footer.site-footer {
+  background: var(--brand-gradient) !important;
+  color: #07120a;
+  border-top: 0;
+}
+html.pe-gradient footer.site-footer :is(h4, a, p, span, button) {
+  color: #07120a;
+}
+html.pe-gradient footer .legal {
+  border-top-color: rgb(7 18 10 / 0.2);
+}
+
+/* ── Carousel, rails, dock ── */
+html.pe-gradient .pc-dots i.on,
+html.pe-gradient .rail-bar i,
+html.pe-gradient .s2a-bar {
+  background: var(--brand-gradient);
+}
+html.pe-gradient :is(.pc-arrow:not(:disabled):last-child, .rail-btn[data-dir="1"]:not(:disabled)) {
+  background: var(--brand-gradient);
+  color: #07120a;
+  border-color: transparent;
+}
+html.pe-gradient .pc-bottom .pc-pick[aria-selected="true"],
+html.pe-gradient .pf-card.is-here {
+  border-color: #0b7cf2;
+  box-shadow: 0 0 0 3px rgb(32 184 216 / 0.3);
+}
+html.pe-gradient .p-slide-tested {
+  background: var(--brand-gradient);
+  color: #07120a;
+}
+html.pe-gradient .dock-tab[aria-current="page"] {
+  background: var(--brand-gradient);
+  color: #07120a;
+}
+html.pe-gradient .dock-pages a span,
+html.pe-gradient .rail-hint {
+  color: #0a66d6;
+}
+html.pe-gradient a.po-row:hover {
+  background: var(--brand-gradient-soft);
+}
+
+/* ── Footer switch (both looks) ── */
+.skin-toggle {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.55);
+  border: 1px solid rgb(20 40 20 / 0.12);
+}
+.skin-toggle button {
+  font: 600 0.78rem/1 var(--font-sans);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.skin-toggle button[aria-pressed="true"] {
+  background: #ffffff;
+  box-shadow: 0 2px 8px -3px rgb(20 40 20 / 0.35);
+}
+html.pe-gradient .skin-toggle button[aria-pressed="true"] {
+  background: #07120a;
+  color: #ffffff !important;
+}

@@ -18,9 +18,6 @@
   :root {
     --dock-h: calc(64px + env(safe-area-inset-bottom, 0px));
   }
-  body {
-    padding-bottom: var(--dock-h);
-  }
   .dock {
     position: fixed;
     z-index: 70;
@@ -233,7 +230,7 @@
   }
   /* Footer clears the dock */
   footer.site-footer {
-    padding-bottom: 12px;
+    padding-bottom: calc(var(--dock-h) + 20px);
   }
 }
 

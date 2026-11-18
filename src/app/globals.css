@@ -6,6 +6,7 @@
 @import "../styles/lab.css";
 @import "../styles/verdan.css";
 @import "../styles/mobile.css";
+@import "../styles/gradient.css";
 
 /* Expose theme tokens to Tailwind utilities: bg-paper, text-ink, border-line, bg-accent, text-heading … */
 @theme inline {

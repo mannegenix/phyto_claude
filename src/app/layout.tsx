@@ -15,6 +15,7 @@ import { RouteTransition } from "@/components/motion/RouteTransition";
 import { themeBootScript } from "@/components/dev/theme-boot";
 import { RouteTheme, routeThemeBootScript } from "@/components/motion/RouteTheme";
 import { motionBootScript } from "@/lib/motion-pref";
+import { skinBootScript } from "@/lib/skin-pref";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: preloaderBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: routeThemeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: skinBootScript }} />
         {siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}
       </head>
       <body>

@@ -664,3 +664,56 @@
     font-size: 0.82rem;
   }
 }
+
+/* Phones: the products carousel (homepage + /products) settles with its controls at the
+   top of the screen and the whole product card above the dock; the section title scrolls
+   just above. Card trimmed to fit a 390×664 screen between header and dock. */
+@media (max-width: 767px) {
+  main section.products-stage {
+    scroll-snap-align: none;
+    min-height: 0;
+  }
+  /* html already has scroll-padding-top for the fixed header */
+  .products-stage .pc {
+    scroll-snap-align: start;
+    scroll-margin-top: 0;
+    gap: 8px;
+  }
+  .pc-track {
+    padding-block: 2px 6px;
+  }
+  .p-slide-visual {
+    height: 108px;
+    padding: 6px;
+  }
+  .p-slide .orb {
+    --orb: 96px;
+  }
+  .p-slide-body {
+    gap: 6px;
+    padding: 12px 14px 14px;
+  }
+  .p-slide-name {
+    font-size: 1.3rem;
+  }
+  .p-slide-src {
+    font-size: 0.85rem;
+  }
+  .p-slide-intro {
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .p-slide-facts {
+    margin: 2px 0;
+  }
+  .p-slide-facts > div {
+    padding: 8px 10px;
+  }
+  .p-slide-body .btn {
+    min-height: 40px;
+    padding-block: 8px;
+  }
+  .p-slide-body .mt-2 {
+    margin-top: 2px;
+  }
+}

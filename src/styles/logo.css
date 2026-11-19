@@ -1,0 +1,270 @@
+/*
+ * "Logo" look (footer switch → html.pe-logo), on top of Verdan light.
+ * Only the three colours of the Phyto Elements mark, on white and pale tints of them:
+ *   deep green #02584A (type, the one dark colour, used sparingly)
+ *   leaf lime  #94DE03 (buttons, active states)
+ *   sun yellow #FDCE18 (highlights, testing marks, small accents)
+ * Tints are those colours mixed with white; no other hues.
+ */
+html.pe-logo {
+  --logo-green: #02584a;
+  --logo-lime: #94de03;
+  --logo-sun: #fdce18;
+  --logo-lime-50: color-mix(in oklab, #94de03 10%, white);
+  --logo-lime-100: color-mix(in oklab, #94de03 20%, white);
+  --logo-sun-50: color-mix(in oklab, #fdce18 12%, white);
+  --logo-sun-100: color-mix(in oklab, #fdce18 26%, white);
+  --logo-green-line: color-mix(in oklab, #02584a 16%, white);
+  --logo-green-soft: color-mix(in oklab, #02584a 78%, white);
+}
+html.pe-logo[data-theme] {
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --sunk: var(--logo-lime-50);
+  --ink: #02584a;
+  --heading: #02584a;
+  --muted: var(--logo-green-soft);
+  --line: var(--logo-green-line);
+  --accent: #94de03;
+  --accent-hover: color-mix(in oklab, #94de03 82%, white);
+  --on-accent: #02584a;
+  --accent-text: #02584a;
+  --label: #02584a;
+  --pop: #fdce18;
+  --band: var(--logo-lime-100);
+  --band-2: var(--logo-lime-50);
+  --on-band: #02584a;
+  --on-band-muted: #02584a;
+  --band-eyebrow: #02584a;
+  --splash: #fdce18;
+  --splash-text: #02584a;
+  --splash-scene: #fdce18;
+  --splash-ink: #02584a;
+  --ok: #02584a;
+  /* hero lot animation */
+  --specimen-pass: #94de03;
+  --specimen-test: #fdce18;
+  --specimen-line: #02584a;
+  --specimen-outline: #02584a;
+  --lab-si: rgb(2 88 74);
+  --lab-hero-ink: #02584a;
+  --lab-hero-lede: #02584a;
+  --lab-hero-eyebrow: #02584a;
+  --lab-em-1: #02584a;
+  --lab-em-2: #02584a;
+  --lab-em-glow: transparent;
+  --lab-hero-btn: #94de03;
+  --lab-hero-btn-ink: #02584a;
+  --lab-hero-ghost: #02584a;
+  --lab-band-bg:
+    radial-gradient(50% 70% at 85% 15%, var(--logo-sun-100), transparent 62%),
+    linear-gradient(160deg, var(--logo-lime-50), var(--logo-lime-100));
+  --glass-shadow: 0 22px 44px -26px rgb(2 88 74 / 0.32), 0 0 0 1px rgb(2 88 74 / 0.07), inset 0 1px 0 #fff;
+  --neu-shadow: var(--glass-shadow);
+  --neu-hover: 0 26px 50px -24px rgb(2 88 74 / 0.38), 0 0 0 1px rgb(148 222 3 / 0.6), inset 0 1px 0 #fff;
+  --neu-press: inset 0 2px 10px rgb(2 88 74 / 0.16);
+}
+/* Product swatch colours become the logo lime */
+html.pe-logo [style*="--sw"] {
+  --sw: #94de03 !important;
+}
+
+/* ── Hero: the photo stays; copy on a white wash, highlight underlined in sun yellow ── */
+html.pe-logo .hero .hero-title em,
+html.pe-logo .hero-title em {
+  background: linear-gradient(transparent 68%, color-mix(in oklab, #fdce18 70%, white) 68%, color-mix(in oklab, #fdce18 70%, white) 92%, transparent 92%);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #02584a;
+  filter: none;
+}
+html.pe-logo .hero :is(.scene-rings, .scene-text, .scene-bits, .scene-grid) {
+  filter: drop-shadow(0 0 1.5px rgb(2 88 74 / 0.9)) drop-shadow(0 0 8px rgb(2 88 74 / 0.4));
+}
+html.pe-logo .hero .ring-dash {
+  stroke: #fdce18;
+}
+html.pe-logo .hero .specimen-label {
+  background: rgb(2 88 74 / 0.4);
+}
+html.pe-logo .hero .specimen-label.is-test.is-on {
+  background: #fdce18;
+  color: #02584a;
+  box-shadow: 0 0 0 4px rgb(253 206 24 / 0.3), 0 0 26px rgb(253 206 24 / 0.6);
+}
+html.pe-logo .hero .specimen-label.is-pass.is-on {
+  background: #94de03;
+  color: #02584a;
+  box-shadow: 0 0 0 4px rgb(148 222 3 / 0.3), 0 0 28px rgb(148 222 3 / 0.65);
+}
+html.pe-logo .hero .specimen-label.is-lots.is-on {
+  color: #02584a;
+}
+html.pe-logo .hero .specimen-status,
+html.pe-logo .hero .specimen-status.is-passed {
+  color: #02584a;
+}
+
+/* ── Buttons: lime with deep green type; outline buttons in deep green ── */
+html.pe-logo .btn:not(.btn-ghost),
+html.pe-logo .band .btn:not(.btn-ghost),
+html.pe-logo .hero .btn:not(.btn-ghost) {
+  background: #94de03;
+  border-color: #94de03;
+  color: #02584a;
+  box-shadow: none;
+}
+html.pe-logo .btn:not(.btn-ghost):hover {
+  background: color-mix(in oklab, #94de03 82%, white);
+  border-color: color-mix(in oklab, #94de03 82%, white);
+  box-shadow: 0 10px 22px -14px rgb(2 88 74 / 0.5);
+}
+html.pe-logo .btn.btn-ghost {
+  background: transparent;
+  border-color: #02584a;
+  color: #02584a;
+}
+html.pe-logo .btn.btn-ghost:hover {
+  background: var(--logo-sun-50);
+}
+
+/* ── Labels: deep green with a lime + sun stripe; chips in sun tint ── */
+html.pe-logo .eyebrow {
+  color: #02584a;
+}
+html.pe-logo .eyebrow::before {
+  background: linear-gradient(90deg, #94de03 0 60%, #fdce18 60% 100%);
+}
+html.pe-logo :is(.sc-chip, .chip, .badge, .po-role i, .pf-tag) {
+  background: var(--logo-sun-100);
+  border-color: color-mix(in oklab, #fdce18 55%, white);
+  color: #02584a;
+}
+html.pe-logo :is(.sc-chip.is-flag, .po-role i.is-flag, .pf-card.is-here .pf-tag) {
+  background: #fdce18;
+  color: #02584a;
+}
+
+/* ── Sections: white, pale lime and pale sun; bands are light too ── */
+html.pe-logo :is(.sunk, .s2s, .s2s-lite) {
+  background:
+    radial-gradient(55% 50% at 90% 6%, var(--logo-sun-50), transparent 62%),
+    var(--logo-lime-50) !important;
+}
+html.pe-logo .band {
+  background: var(--lab-band-bg) !important;
+  color: #02584a;
+}
+html.pe-logo .band :is(h1, h2, h3, p, .lede, .eyebrow) {
+  color: #02584a;
+}
+html.pe-logo .bgphoto {
+  --photo-blend: luminosity;
+  --photo-op: 0.06;
+}
+html.pe-logo :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div, .pillars li) {
+  background: #ffffff;
+  border-color: var(--logo-green-line);
+}
+
+/* ── Top menu: white, deep green type, lime underline and Request button ── */
+html.pe-logo .hdr,
+html.pe-logo .hdr.is-scrolled,
+html.pe-logo .hdr.is-open {
+  background: rgb(255 255 255 / 0.92) !important;
+  border-bottom: 1px solid var(--logo-green-line) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+html.pe-logo .hdr .logo .logo-neg {
+  display: none !important;
+}
+html.pe-logo .hdr .logo .logo-pos {
+  display: inline-flex !important;
+}
+html.pe-logo .hdr .nav-link {
+  color: #02584a !important;
+}
+html.pe-logo .hdr .nav-link[aria-current="page"]::after {
+  background: #94de03 !important;
+  height: 3px;
+}
+html.pe-logo .hdr .nav-link.flag {
+  font-weight: 750;
+}
+
+/* ── Footer: pale sun tint, deep green type ── */
+html.pe-logo footer.site-footer {
+  background: var(--logo-sun-50) !important;
+  color: #02584a;
+  border-top: 1px solid color-mix(in oklab, #fdce18 40%, white);
+}
+html.pe-logo footer.site-footer :is(h4, a, p, span, button) {
+  color: #02584a;
+}
+html.pe-logo footer .legal {
+  border-top-color: var(--logo-green-line);
+}
+
+/* ── Products carousel, rails, overview, dock ── */
+html.pe-logo .p-slide-visual {
+  background:
+    radial-gradient(60% 60% at 50% 52%, #ffffff, transparent 70%),
+    radial-gradient(120% 120% at 20% 10%, var(--logo-sun-100), var(--logo-lime-100) 100%);
+}
+html.pe-logo .p-slide-num {
+  color: rgb(255 255 255 / 0.7);
+}
+html.pe-logo .p-slide-facts > div {
+  background: var(--logo-lime-50);
+  border-color: var(--logo-green-line);
+}
+html.pe-logo .pc-dots i {
+  background: var(--logo-green-line);
+}
+html.pe-logo .pc-dots i.on,
+html.pe-logo .rail-bar i {
+  background: #94de03;
+}
+html.pe-logo :is(.pc-arrow:not(:disabled):last-child, .rail-btn[data-dir="1"]:not(:disabled)) {
+  background: #94de03;
+  color: #02584a;
+  border-color: transparent;
+}
+html.pe-logo .pc-bottom .pc-pick[aria-selected="true"],
+html.pe-logo .pf-card.is-here {
+  border-color: #02584a;
+  box-shadow: 0 0 0 3px rgb(148 222 3 / 0.45);
+}
+html.pe-logo a.po-row:hover {
+  background: var(--logo-lime-50);
+}
+html.pe-logo a.po-row:hover .po-go {
+  background: #94de03;
+  border-color: #94de03;
+  color: #02584a;
+}
+html.pe-logo .po-hint,
+html.pe-logo .rail-hint,
+html.pe-logo .dock-pages a span {
+  color: #02584a;
+}
+html.pe-logo .dock {
+  background: rgb(255 255 255 / 0.92);
+}
+html.pe-logo .dock-tab {
+  color: var(--logo-green-soft);
+}
+html.pe-logo .dock-tab[aria-current="page"] {
+  background: #94de03;
+  color: #02584a;
+}
+html.pe-logo .dock-sheet {
+  background: rgb(255 255 255 / 0.97);
+}
+
+/* ── Footer switch ── */
+html.pe-logo .skin-toggle button[aria-pressed="true"] {
+  background: #94de03;
+  color: #02584a !important;
+}

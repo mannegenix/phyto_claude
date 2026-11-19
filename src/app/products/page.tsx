@@ -44,6 +44,12 @@ export default async function ProductsPage() {
             <span className="eyebrow">Product overview</span>
             <h2>Compare the portfolio</h2>
           </div>
+          <p className="po-hint">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 9V4.5a1.5 1.5 0 0 1 3 0V11l3.6.6a2 2 0 0 1 1.7 2.2l-.5 4.2a3 3 0 0 1-3 2.6H11a3 3 0 0 1-2.4-1.2L5.4 15a1.5 1.5 0 0 1 2.3-1.9L9 14.5" />
+            </svg>
+            Select any extract to open its specification sheet.
+          </p>
             <div className="po-list sheet" role="table" aria-label="Product overview">
               <div className="po-row po-head" role="row">
                 <span role="columnheader">Product</span>
@@ -76,7 +82,8 @@ export default async function ProductsPage() {
                     {p.applicationArea}
                   </span>
                   <span className="po-go" role="cell" aria-hidden="true">
-                    →
+                    <span className="po-go-label">View specs</span>
+                    <span className="po-go-arrow">→</span>
                   </span>
                 </Link>
               ))}

@@ -117,6 +117,14 @@ export function PanelScroll() {
         if (declared > 1 && h > vh) {
           // A pinned step-by-step section: one snap per step, evenly through its scroll length.
           for (let k = 1; k < declared; k += 1) snaps.push(Math.round(y + ((h - vh) * k) / (declared - 1)));
+        } else if (i === 0 && leadFirst) {
+          // The shared first screen (title + first section) is taller than the window:
+          // stop once its end is on screen, before the next section's reveal.
+          const end = y + h - vh;
+          if (end > 40) {
+            for (let s = vh * STEP; s < end - 60; s += vh * STEP) snaps.push(Math.round(s));
+            snaps.push(Math.round(end));
+          }
         } else if (h - vh > 60) {
           for (let s = y + vh * STEP; s < y + h - vh - 60; s += vh * STEP) snaps.push(Math.round(s));
           snaps.push(Math.round(y + h - vh));

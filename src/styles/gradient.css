@@ -1,7 +1,8 @@
 /*
- * "Gradient" look (footer toggle → html.pe-gradient), on top of Verdan light.
+ * "Gradient" look (the default; footer toggle → html.pe-gradient), on top of Verdan light.
  * Colours from dev1.phytoelements.in: the brand gradient blue #0B7CF2 → cyan #20B8D8 →
- * lime #8FD14F (110deg) on buttons, bands, active states and the footer; pale green
+ * lime #8FD14F (110deg) on the top menu, buttons, bands and active states (the footer
+ * stays light); pale green
  * paper #F6FAF1 / #EDF5E4; deep green headings #12351A; blue small labels #0A66D6.
  */
 html.pe-gradient {
@@ -115,26 +116,46 @@ html.pe-gradient :is(.sunk, .s2s, .s2s-lite) {
     #edf5e4 !important;
 }
 
-/* ── Header: active link and the sample button ── */
-html.pe-gradient .hdr .nav-link[aria-current="page"]::after {
-  background: var(--brand-gradient);
+/* ── Top menu: the brand gradient bar, white logo, dark type, dark Request button ── */
+html.pe-gradient .hdr,
+html.pe-gradient .hdr.is-scrolled,
+html.pe-gradient .hdr.is-open {
+  background: var(--brand-gradient) !important;
+  border-bottom-color: transparent !important;
+  box-shadow: 0 10px 30px -18px rgb(11 70 140 / 0.55);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
+html.pe-gradient .hdr .logo .logo-pos {
+  display: none !important;
+}
+html.pe-gradient .hdr .logo .logo-neg {
+  display: inline-flex !important;
+}
+html.pe-gradient .hdr .nav-link {
+  color: #07120a !important;
+  opacity: 0.86;
+}
+html.pe-gradient .hdr .nav-link:hover,
 html.pe-gradient .hdr .nav-link[aria-current="page"],
 html.pe-gradient .hdr .nav-link.flag {
-  color: #0a66d6;
+  opacity: 1;
 }
-
-/* ── Footer: the brand gradient, dark type ── */
-html.pe-gradient footer.site-footer {
-  background: var(--brand-gradient) !important;
-  color: #07120a;
-  border-top: 0;
+html.pe-gradient .hdr .nav-link.flag {
+  font-weight: 750;
 }
-html.pe-gradient footer.site-footer :is(h4, a, p, span, button) {
-  color: #07120a;
+html.pe-gradient .hdr .nav-link[aria-current="page"]::after {
+  background: #07120a !important;
 }
-html.pe-gradient footer .legal {
-  border-top-color: rgb(7 18 10 / 0.2);
+html.pe-gradient .hdr .btn,
+html.pe-gradient .hdr .btn:hover {
+  background: #07120a !important;
+  border-color: #07120a !important;
+  color: #ffffff !important;
+  box-shadow: none;
+}
+html.pe-gradient .hdr .btn:hover {
+  background: #12351a !important;
 }
 
 /* ── Carousel, rails, dock ── */

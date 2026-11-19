@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getCompany, getProducts } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 import { Logo } from "./Logo";
-import { MotionToggle } from "@/components/ui/MotionToggle";
 import { SkinToggle } from "@/components/ui/SkinToggle";
 
 export async function Footer() {
@@ -66,7 +65,6 @@ export async function Footer() {
             <a href="#terms">Terms</a>
             <a href="#cookies">Cookies</a>
             <SkinToggle />
-            <MotionToggle />
           </nav>
         </div>
       </div>

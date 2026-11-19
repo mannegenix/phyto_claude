@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { currentSkin, setSkin, type Skin } from "@/lib/skin-pref";
+import { currentSkin, setSkin, SKINS, DEFAULT_SKIN, type Skin } from "@/lib/skin-pref";
 
-/** Footer switch between the Light and Gradient looks (stored on this device). */
+const LABEL: Record<Skin, string> = { light: "Light", gradient: "Gradient", logo: "Logo" };
+
+/** Footer switch between the site looks (stored on this device). */
 export function SkinToggle() {
-  const [skin, setLocal] = useState<Skin>("light");
+  const [skin, setLocal] = useState<Skin>(DEFAULT_SKIN);
   useEffect(() => {
     requestAnimationFrame(() => setLocal(currentSkin()));
   }, []);
@@ -15,9 +17,9 @@ export function SkinToggle() {
   };
   return (
     <span className="skin-toggle" role="group" aria-label="Site colours">
-      {(["light", "gradient"] as const).map((s) => (
+      {SKINS.map((s) => (
         <button key={s} type="button" aria-pressed={skin === s} onClick={() => pick(s)}>
-          {s === "light" ? "Light" : "Gradient"}
+          {LABEL[s]}
         </button>
       ))}
     </span>

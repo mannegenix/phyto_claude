@@ -1,6 +1,7 @@
 "use client";
 
 import { calmMotion } from "@/lib/motion-pref";
+import { FX_EVENT, fallBack, fxNative } from "@/lib/fx-guard";
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -51,15 +52,20 @@ export function PanelScroll() {
 
   useEffect(() => {
     const mq = window.matchMedia(NATIVE_SCROLL);
-    const sync = () => setNative(mq.matches);
+    const sync = () => setNative(mq.matches || fxNative());
     requestAnimationFrame(sync);
     mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
+    // Safety net (lib/fx-guard): drop to ordinary scrolling if the effects stall.
+    window.addEventListener(FX_EVENT, sync);
+    return () => {
+      mq.removeEventListener("change", sync);
+      window.removeEventListener(FX_EVENT, sync);
+    };
   }, []);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (native !== false || calmMotion() || root.classList.contains("pe-embed")) return;
+    if (native !== false || fxNative() || calmMotion() || root.classList.contains("pe-embed")) return;
 
     const main = document.querySelector("main");
     if (!main) return;
@@ -250,18 +256,43 @@ export function PanelScroll() {
     let gliding = false;
     let lastWheel = 0;
     let lastAbs = 0;
+    // Never stay "gliding" if Lenis does not report the end (interrupted or slow glide):
+    // otherwise every later wheel gesture would be swallowed and the page feel stuck.
+    let glideGuard = 0;
+    // Watchdog: wheel gestures that leave the page where it was. Three in a row (not at
+    // the top or bottom) means the effects have stalled on this machine → ordinary scroll.
+    let stuck = 0;
+    let checkT = 0;
+    const watch = (dir: number, from: number) => {
+      clearTimeout(checkT);
+      checkT = window.setTimeout(() => {
+        const y = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const atEdge = (dir < 0 && from < 8) || (dir > 0 && from > max - 8);
+        if (Math.abs(y - from) < 24 && !atEdge) {
+          stuck += 1;
+          if (stuck >= 3) fallBack("wheel did not move the page");
+        } else stuck = 0;
+      }, GLIDE * 1000 + 700);
+    };
     const step = (dir: number) => {
       if (!lenis) return;
       const y = lenis.targetScroll ?? window.scrollY;
       const target = dir > 0 ? snapList.find((v) => v > y + 4) : [...snapList].reverse().find((v) => v < y - 4);
+      watch(dir, window.scrollY);
       if (target === undefined) return;
       gliding = true;
+      clearTimeout(glideGuard);
+      glideGuard = window.setTimeout(() => {
+        gliding = false;
+      }, GLIDE * 1000 + 600);
       lenis.scrollTo(target, {
         duration: GLIDE,
         easing: ease,
         lock: true,
         onComplete: () => {
           gliding = false;
+          clearTimeout(glideGuard);
         },
       });
     };
@@ -288,6 +319,7 @@ export function PanelScroll() {
         lastWheel = now;
         lastAbs = abs;
         if (!gliding && fresh && abs >= 2) step(Math.sign(deltaY));
+        else if (fresh && abs >= 2) watch(Math.sign(deltaY), window.scrollY);
         return false;
       };
     }
@@ -316,6 +348,8 @@ export function PanelScroll() {
     return () => {
       cancelAnimationFrame(id);
       clearTimeout(t);
+      clearTimeout(glideGuard);
+      clearTimeout(checkT);
       ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);

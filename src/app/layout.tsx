@@ -17,6 +17,8 @@ import { RouteTheme, routeThemeBootScript } from "@/components/motion/RouteTheme
 import { motionBootScript } from "@/lib/motion-pref";
 import { skinBootScript } from "@/lib/skin-pref";
 import { heroBootScript } from "@/lib/hero-pref";
+import { fxBootScript } from "@/lib/fx-guard";
+import { FxGuard } from "@/components/motion/FxGuard";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
@@ -48,6 +50,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: skinBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: heroBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: fxBootScript }} />
         {siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}
       </head>
       <body>
@@ -65,6 +68,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <FxGuard />
         <RailDots />
         <MobileDock products={dockProducts} email={mailboxes[0].address} />
         {siteConfig.chatEnabled && <ChatWidget />}

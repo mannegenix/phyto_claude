@@ -3,6 +3,7 @@
 import { calmMotion } from "@/lib/motion-pref";
 
 import { useEffect, useRef, useState } from "react";
+import { fxNative } from "@/lib/fx-guard";
 import { botanicalPaths } from "@/components/botanicals/shapes";
 
 export type SpecimenItem = {
@@ -333,9 +334,12 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     let cycle = 0;
     let wasPassed = false;
     let wasStage: Stage = "lots";
+    let skip = false;
 
     const frame = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
+      // Real elapsed time (capped at 0.25 s, e.g. after a background tab): on a slow
+      // machine the lots still move at the right pace instead of crawling and looking stuck.
+      const dt = Math.min((now - last) / 1000, 0.25);
       last = now;
       clock += dt;
       const nextCycle = Math.floor(clock / T.cycle);
@@ -356,7 +360,10 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
         wasStage = st;
         setStage(st);
       }
-      draw(tau, clock);
+      // On machines that fell back to ordinary scrolling (slow graphics) draw every other
+      // frame: the lots keep their pace, the page stays responsive.
+      skip = fxNative() ? !skip : false;
+      if (!skip) draw(tau, clock);
       raf = visible && !document.hidden ? requestAnimationFrame(frame) : 0;
     };
 

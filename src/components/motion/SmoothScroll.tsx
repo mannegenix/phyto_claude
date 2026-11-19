@@ -1,8 +1,9 @@
 "use client";
 
 import { calmMotion } from "@/lib/motion-pref";
+import { FX_EVENT, fxNative } from "@/lib/fx-guard";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -77,6 +78,14 @@ export function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
   const fromHistory = useRef(false);
   const firstRender = useRef(true);
+  // Safety net (lib/fx-guard): ordinary scrolling when the effects stall.
+  const [native, setNative] = useState(false);
+  useEffect(() => {
+    const on = () => setNative(true);
+    if (fxNative()) requestAnimationFrame(on);
+    window.addEventListener(FX_EVENT, on);
+    return () => window.removeEventListener(FX_EVENT, on);
+  }, []);
 
   useEffect(() => {
     const onPop = () => {
@@ -85,6 +94,8 @@ export function SmoothScroll() {
     window.addEventListener("popstate", onPop);
 
     if (
+      native ||
+      fxNative() ||
       calmMotion() ||
       // Inside the review compare page the parent drives scrolling, so keep native scroll.
       document.documentElement.classList.contains("pe-embed")
@@ -137,7 +148,7 @@ export function SmoothScroll() {
       lenisRef.current = null;
       current = null;
     };
-  }, []);
+  }, [native]);
 
   // Every new page starts at the top (or its #anchor); back/forward keeps the restored position.
   useEffect(() => {

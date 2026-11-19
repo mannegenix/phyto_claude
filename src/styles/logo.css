@@ -268,3 +268,31 @@ html.pe-logo .skin-toggle button[aria-pressed="true"] {
   background: #94de03;
   color: #02584a !important;
 }
+
+/* ── Logo sun yellow on every inner page (all looks): the last word of the page title
+   gets a yellow marker, section headings a short yellow underline, labels a yellow tick ── */
+.page-head h1 .hl {
+  background: linear-gradient(transparent 60%, rgb(253 206 24 / 0.6) 60%, rgb(253 206 24 / 0.6) 90%, transparent 90%);
+  padding-inline: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.page-head ~ :is(section, div) h2:not(.p-slide-name):not(.hero-v1-title)::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 14px;
+  border-radius: 4px;
+  background: #fdce18;
+}
+.page-head ~ :is(section, div) .text-center h2::after,
+.page-head ~ :is(section, div) h2.text-center::after {
+  margin-inline: auto;
+}
+.page-head ~ :is(section, div) .eyebrow::before {
+  background: linear-gradient(90deg, currentColor 0 58%, #fdce18 58% 100%);
+}
+.page-head .crumbs span:last-child > span:last-child {
+  box-shadow: inset 0 -3px 0 rgb(253 206 24 / 0.7);
+}

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { HERO_KEY } from "@/lib/hero-pref";
 
 /**
- * Review switch at the top left of the homepage hero: "Dev 2" (the current lot-testing
- * hero, default) or "Dev 1" (the photo-slit hero layout from dev1.phytoelements.in with
- * the same copy). Stored on the device; applied before paint as html.hero-dev1.
+ * Review switch at the top left of the homepage hero: "Dev 2" (lot-testing hero; default on
+ * laptops/desktops) or "Dev 1" (photo-slit layout from dev1.phytoelements.in, same copy;
+ * default on phones/tablets — see lib/hero-pref). The pick is stored on the device.
  */
 
 export function HeroToggle() {
@@ -17,8 +17,7 @@ export function HeroToggle() {
   const pick = (next: "dev1" | "dev2") => {
     document.documentElement.classList.toggle("hero-dev1", next === "dev1");
     try {
-      if (next === "dev1") localStorage.setItem(HERO_KEY, "dev1");
-      else localStorage.removeItem(HERO_KEY);
+      localStorage.setItem(HERO_KEY, next);
     } catch {
       /* storage unavailable */
     }

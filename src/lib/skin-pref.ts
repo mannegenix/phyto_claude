@@ -1,16 +1,16 @@
 /**
  * Site look chosen in the footer:
- *  - "gradient" (default): the blue → cyan → lime brand gradient from dev1.phytoelements.in
- *    on the top menu, buttons and bands (html.pe-gradient, styles/gradient.css)
- *  - "logo": only the three logo colours on white and pale tints (html.pe-logo,
+ *  - "logo" (default): only the three logo colours on white and pale tints (html.pe-logo,
  *    styles/logo.css)
+ *  - "gradient": the blue → cyan → lime brand gradient from dev1.phytoelements.in on the
+ *    top menu, buttons and bands (html.pe-gradient, styles/gradient.css)
  *  - "light": plain Verdan light (no class)
  * A non-default choice is stored on the device; the look is applied before paint.
  */
 export const SKIN_KEY = "pe-skin";
 export const SKINS = ["light", "gradient", "logo"] as const;
 export type Skin = (typeof SKINS)[number];
-export const DEFAULT_SKIN: Skin = "gradient";
+export const DEFAULT_SKIN: Skin = "logo";
 
 export const skinBootScript = `(function(){var h=document.documentElement,s="${DEFAULT_SKIN}";try{var v=localStorage.getItem("${SKIN_KEY}");if(v==="light"||v==="gradient"||v==="logo")s=v}catch(e){}if(s!=="light")h.classList.add("pe-"+s)})()`;
 

@@ -1,7 +1,6 @@
 import { getCompany, getProducts } from "@/lib/content";
 import {
   Hero,
-  SourceToSeal,
   TestPillars,
   ValuesSection,
   WhyUs,
@@ -48,7 +47,6 @@ export default async function HomePage() {
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
       <DockCarousel head={c.dock} stages={c.dockStages} />
-      <SourceToSeal stages={c.stages} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />
       <section className="section">

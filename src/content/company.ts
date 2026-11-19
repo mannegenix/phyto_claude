@@ -195,56 +195,61 @@ export const qualityChecklist = [
   "Historical volumes, customers, countries, years in operation",
 ];
 
-/** "From sourcing to your dock" (homepage photo carousel; copy from the client's earlier site). */
+/**
+ * Homepage "From source to seal" photo carousel: the five source-to-seal steps carried by
+ * the editorial carousel and photos from the client's earlier site ("From sourcing to your
+ * dock"). The animated source-to-seal views (SealPipeline / SealStepper) still use `stages`.
+ */
 export const dock = {
-  eyebrow: "From sourcing to your dock",
-  title: "Carefully selected.",
-  titleEm: "Approved with purpose.",
-  intro: "Each stage connects the extract we acquire to the ingredient you receive.",
+  eyebrow: "From source to seal",
+  title: "Many lots come in.",
+  titleEm: "Only the ones that pass go out under our name.",
+  intro:
+    "We source from several qualified producers so supply stays steady. What keeps the standard fixed is the test every lot has to pass.",
 };
 export const dockStages: DockStage[] = [
   {
-    label: "Sourcing",
-    eyebrow: "Extract sourcing",
+    label: "Source",
+    eyebrow: "01 · Source",
     title: "A considered beginning.",
-    body: "Botanical extracts are acquired against product identity, specification and quality requirements.",
+    body: "We request material from qualified producers against our product specification, so every lot starts with a defined target.",
     detail: "Selection begins with the product requirements.",
     cta: { label: "Our operating approach", href: "/operations" },
     image: "/images/dev1/quality-sourcing.webp",
     alt: "Gloved hands selecting from incoming botanical extract samples",
   },
   {
-    label: "Evaluation",
-    eyebrow: "Sample evaluation",
+    label: "Screen",
+    eyebrow: "02 · Screen",
     title: "Look closer. Ask more.",
-    body: "Material is reviewed against the agreed product and grade requirements. Evaluation helps establish what moves forward for testing.",
+    body: "Incoming lots are checked against their documentation and globally recognised acceptance criteria before they go on to testing.",
     cta: { label: "Manufacturing & Quality", href: "/manufacturing" },
     image: "/images/dev1/quality-evaluation.webp",
     alt: "Botanical extract sample inspected with a magnifying lens",
   },
   {
-    label: "Testing",
-    eyebrow: "Quality testing",
+    label: "Test",
+    eyebrow: "03 · Test",
     title: "Standards come first.",
-    body: "Extracts are tested against the applicable acceptance criteria. Our commitment is the quality of the ingredient you receive.",
+    body: "Each lot is rigorously tested to recognised global quality standards for the product and grade.",
     cta: { label: "Explore our quality approach", href: "/manufacturing" },
     image: "/images/dev1/quality-testing.webp",
     alt: "Botanical extract vial loaded into analytical testing equipment",
   },
   {
-    label: "Approval",
-    eyebrow: "Approval for supply",
+    label: "Pass or reject",
+    eyebrow: "04 · Pass or reject",
     title: "Quality earns our name.",
-    body: "Only material meeting the applicable global quality benchmarks and confirmed product specification is approved under the Phyto Elements name.",
+    body: "Only lots that meet the specification go forward. Lots that fall short are not sold under our label.",
     cta: { label: "How release works", href: "/manufacturing" },
     image: "/images/dev1/quality-approval.webp",
     alt: "Approved botanical extract sample receiving a tamper-evident seal",
   },
   {
-    label: "Dispatch",
-    eyebrow: "Documentation and dispatch",
+    label: "Label and supply",
+    eyebrow: "05 · Label and supply",
     title: "Ready for your requirements.",
-    body: "Approved material is supplied with the relevant quality and commercial documentation. Specification and quantity are discussed with our team.",
+    body: "Passed lots are packed under the Phyto Elements label and supplied with lot-linked documentation. Specification and quantity are discussed with our team.",
     cta: { label: "Talk to our team", href: "/contact" },
     image: "/images/dev1/quality-dispatch.webp",
     alt: "Approved botanical extracts and dispatch documents prepared for shipment",

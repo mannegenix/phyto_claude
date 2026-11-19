@@ -277,7 +277,9 @@
     flex-wrap: nowrap;
     grid-template-columns: none;
     gap: 12px;
-    overflow-x: auto;
+    /* !important: some themes set overflow: visible on .values / .funcs grids */
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;

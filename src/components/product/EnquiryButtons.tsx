@@ -6,14 +6,14 @@ const BUTTONS = [
   { type: "Quote", label: "Request a Quote" },
 ] as const;
 
-/** Product-page CTAs: switch the enquiry form's request type and scroll to it. */
+/** Product-page CTAs: switch the enquiry form's request type and scroll to the form itself. */
 export function EnquiryButtons() {
   return (
     <div className="flex flex-wrap gap-2.5">
       {BUTTONS.map((b) => (
         <a
           key={b.type}
-          href="#enquire"
+          href="#enquiry-form"
           className={`btn ${"primary" in b ? "" : "btn-ghost"}`}
           onClick={() => window.dispatchEvent(new CustomEvent("pe:set-enquiry-type", { detail: b.type }))}
         >

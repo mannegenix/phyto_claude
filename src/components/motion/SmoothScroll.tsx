@@ -23,6 +23,22 @@ const ANCHOR_GAP = 84;
 const anchorY = (el: Element) => Math.max(0, el.getBoundingClientRect().top + window.scrollY - ANCHOR_GAP);
 
 /**
+ * Page Y for an in-page link target. In full-screen section mode sections are sticky, so
+ * their on-screen position is not where they sit in the page: use the section's natural
+ * top (from PanelScroll), plus the target's offset inside it.
+ */
+const targetY = (el: Element) => {
+  const panel = el.closest(".panel");
+  const top = panel ? panelTop(panel) : undefined;
+  if (panel && top !== undefined) {
+    if (panel === el) return Math.round(top);
+    const inner = el.getBoundingClientRect().top - panel.getBoundingClientRect().top;
+    return Math.max(0, Math.round(top + inner - ANCHOR_GAP));
+  }
+  return anchorY(el);
+};
+
+/**
  * Jump to a #target once the page has settled. In full-screen section mode the target
  * is a panel: wait until PanelScroll has measured it and land exactly on its screen
  * (its natural top), since sticky panels report their stuck position.
@@ -97,7 +113,7 @@ export function SmoothScroll() {
         if (!target) return;
         e.preventDefault();
         history.pushState(null, "", url.hash);
-        lenis.scrollTo(anchorY(target), { force: true });
+        lenis.scrollTo(targetY(target), { force: true });
         return;
       }
       // Another page: freeze any glide so it is not carried onto the next page.

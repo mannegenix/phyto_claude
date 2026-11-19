@@ -13,7 +13,7 @@ const LABEL: Record<Status, string> = {
 
 /**
  * Product ticker under the hero, linked to the lot animation above it (SpecimenHero sends
- * "pe:specimen"): extracts are numbered in the order the hero tests them; the one in the
+ * "pe:specimen"): extracts follow the order the hero tests them (never numbered); the one in the
  * hero shows Lot in → Testing → Passed, earlier ones stay Passed for the round, later ones
  * show Awaiting. When the round starts again from the first extract, everything resets.
  */
@@ -36,7 +36,6 @@ export function HeroTicker({ items }: { items: { slug: string; short: string; ma
       const s = status(i);
       return (
         <span key={`${copy}-${p.slug}`} className={`ticker-item is-${s} ${i === state.index ? "is-current" : ""}`}>
-          <span className="ticker-no">{String(i + 1).padStart(2, "0")}</span>
           <b>{p.short}</b> <span className="ticker-marker">{p.marker.split(/[,/(]/)[0].trim()}</span>
           <span className={`ticker-ok ticker-st is-${s}`}>{LABEL[s]}</span>
         </span>

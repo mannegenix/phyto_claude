@@ -4044,3 +4044,28 @@ html:not(.pe-calm) .ticker .ticker-st.is-test {
     box-shadow: 0 0 0 6px color-mix(in oklab, var(--specimen-test, var(--splash)) 12%, transparent);
   }
 }
+
+/* Laptops and desktops (13-inch and 125%-scaled Windows laptops included): the hero, with
+   the product ticker on its bottom edge, fits exactly one screen. The lot scene scales
+   with the screen height instead of pushing the ticker below the fold. */
+@media (min-width: 1121px) {
+  html:not(.hero-dev1)[data-theme] .hero {
+    min-height: 0;
+    height: 100svh;
+    padding-top: calc(var(--hdr-h) + clamp(12px, 3svh, 40px));
+    padding-bottom: calc(56px + clamp(10px, 2svh, 28px));
+    overflow: hidden;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .specimen-stage {
+    width: min(100%, calc((100svh - var(--hdr-h) - 230px) * 1.05));
+    min-height: 0;
+    margin-inline: auto;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .specimen-card {
+    margin-inline: auto;
+  }
+}
+/* Keep the ticker's last item clear of the review toggle on its right end */
+.hero .ticker {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 84%, transparent 94%);
+}

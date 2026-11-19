@@ -231,25 +231,33 @@ html.pe-logo .hero-v1-link {
   }
 }
 
-/* Toggle: top left of the hero, under the header */
+/* Toggle (temporary, for client review): a small pill sitting on the right end of the
+   product ticker strip (where the strip fades out), so it takes no space of its own */
 .hero-toggle {
   position: absolute;
   z-index: 6;
-  top: calc(var(--hdr-h, 68px) + 12px);
-  left: max(16px, calc((100vw - 1180px) / 2 + 16px));
+  right: 14px;
+  bottom: 12px;
   display: inline-flex;
   gap: 2px;
   padding: 3px;
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.85);
+  background: rgb(255 255 255 / 0.92);
   border: 1px solid rgb(20 40 20 / 0.12);
-  box-shadow: 0 8px 20px -12px rgb(20 40 20 / 0.4);
+  box-shadow: 0 6px 16px -10px rgb(20 40 20 / 0.45);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  opacity: 0.9;
+}
+.hero-toggle:hover {
+  opacity: 1;
+}
+html.hero-dev1 .hero-toggle {
+  bottom: 14px;
 }
 .hero-toggle button {
-  font: 650 0.74rem/1 var(--font-sans);
-  padding: 7px 12px;
+  font: 650 0.68rem/1 var(--font-sans);
+  padding: 5px 9px;
   border: 0;
   border-radius: 999px;
   background: transparent;

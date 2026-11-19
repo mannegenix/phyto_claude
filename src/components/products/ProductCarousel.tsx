@@ -93,7 +93,7 @@ export function ProductCarousel({ items }: { items: Item[] }) {
             className={`p-slide ${i === active ? "is-active" : ""}`}
             style={{ ["--sw" as string]: p.swatch }}
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${items.length}: ${p.name}`}
+            aria-label={p.name}
           >
             <div className="p-slide-visual">
               <ProductOrb product={p} size="xl" uid={`slide-${i}`} />
@@ -148,7 +148,7 @@ export function ProductCarousel({ items }: { items: Item[] }) {
           ))}
         </div>
         <span className="pc-count mono" aria-live="polite">
-          {String(active + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+          {items[active]?.short}
         </span>
         <button
           type="button"

@@ -6,7 +6,7 @@ import { calmMotion } from "@/lib/motion-pref";
 
 /**
  * Navigation above every `.rail` while it is a horizontal swipe rail (phones; see
- * styles/mobile.css): "Swipe" hint, position (01 / 06), progress bar and prev / next
+ * styles/mobile.css): "Swipe" hint, progress bar (no numbers: product rows are never numbered) and prev / next
  * buttons, so visitors can see there is more to the side. The first time a rail comes
  * into view it nudges sideways once to show that it moves.
  */
@@ -28,19 +28,17 @@ export function RailDots() {
         const items = [...rail.children] as HTMLElement[];
         const n = items.length;
         if (n < 2) return;
-        const pad = (v: number) => String(v).padStart(2, "0");
 
         const nav = document.createElement("div");
         nav.className = "rail-nav";
         nav.innerHTML = `
           <button type="button" class="rail-btn" data-dir="-1" aria-label="Previous">&#8592;</button>
           <div class="rail-mid">
-            <div class="rail-meta"><span class="rail-hint">Swipe for more</span><span class="rail-count">01 / ${pad(n)}</span></div>
+            <div class="rail-meta"><span class="rail-hint">Swipe for more</span></div>
             <div class="rail-bar"><i></i></div>
           </div>
           <button type="button" class="rail-btn" data-dir="1" aria-label="Next">&#8594;</button>`;
         rail.before(nav);
-        const count = nav.querySelector<HTMLElement>(".rail-count")!;
         const bar = nav.querySelector<HTMLElement>(".rail-bar i")!;
         const [prev, next] = nav.querySelectorAll<HTMLButtonElement>(".rail-btn");
         bar.style.width = `${100 / n}%`;
@@ -63,7 +61,6 @@ export function RailDots() {
             const atEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
             if (atEnd) best = n - 1;
             current = best;
-            count.textContent = `${pad(best + 1)} / ${pad(n)}`;
             bar.style.width = `${((best + 1) / n) * 100}%`;
             prev.disabled = rail.scrollLeft <= 4;
             next.disabled = atEnd;

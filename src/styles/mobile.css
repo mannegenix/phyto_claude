@@ -719,3 +719,13 @@
     margin-top: 2px;
   }
 }
+
+/* Phones: the page title block is a snap point too, so the soft section snap never pulls
+   a page below its title (About landed under its title and would not scroll back up) */
+@media (max-width: 767px) {
+  main > .page-head,
+  main > :first-child {
+    scroll-snap-align: start;
+    scroll-margin-top: 0;
+  }
+}

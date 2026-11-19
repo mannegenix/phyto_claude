@@ -116,7 +116,7 @@ html.pe-gradient :is(.sunk, .s2s, .s2s-lite) {
     #edf5e4 !important;
 }
 
-/* ── Top menu: the brand gradient bar, white logo, dark type, dark Request button ── */
+/* ── Top menu: the brand gradient bar, original logo, dark type, dark Request button ── */
 html.pe-gradient .hdr,
 html.pe-gradient .hdr.is-scrolled,
 html.pe-gradient .hdr.is-open {
@@ -125,12 +125,6 @@ html.pe-gradient .hdr.is-open {
   box-shadow: 0 10px 30px -18px rgb(11 70 140 / 0.55);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-}
-html.pe-gradient .hdr .logo .logo-pos {
-  display: none !important;
-}
-html.pe-gradient .hdr .logo .logo-neg {
-  display: inline-flex !important;
 }
 html.pe-gradient .hdr .nav-link {
   color: #07120a !important;
@@ -237,4 +231,38 @@ html.pe-gradient :is(main > section, main > div > section):not(.hero):not(.band)
 html.pe-gradient .s2p-card,
 html.pe-gradient .s2s :is(.card, .funnel-card) {
   background: #ffffff;
+}
+
+/* Colour switch in the top menu */
+.hdr .skin-toggle {
+  margin-left: 10px;
+  flex: none;
+}
+.hdr .skin-toggle button {
+  padding: 6px 10px;
+  font-size: 0.74rem;
+}
+html.pe-gradient .hdr .skin-toggle {
+  background: rgb(255 255 255 / 0.7);
+  border-color: rgb(255 255 255 / 0.9);
+}
+@media (max-width: 1280px) {
+  .hdr .skin-toggle button {
+    padding: 5px 8px;
+    font-size: 0.7rem;
+  }
+}
+@media (max-width: 1120px) {
+  .hdr .skin-toggle {
+    display: none;
+  }
+}
+.dock-skin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dock-skin .skin-toggle {
+  background: #fff;
 }

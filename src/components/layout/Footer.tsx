@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getCompany, getProducts } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 import { Logo } from "./Logo";
-import { SkinToggle } from "@/components/ui/SkinToggle";
 
 export async function Footer() {
   const [products, { mailboxes }] = await Promise.all([getProducts(), getCompany()]);
@@ -64,7 +63,6 @@ export async function Footer() {
             {/* Placeholder links until the client's Terms and Cookie policy pages are written. */}
             <a href="#terms">Terms</a>
             <a href="#cookies">Cookies</a>
-            <SkinToggle />
           </nav>
         </div>
       </div>

@@ -275,3 +275,12 @@ html:not(.pe-calm) {
   letter-spacing: 0.01em;
   text-transform: none;
 }
+
+/* The client's logo always shows in its original colours, in every theme and look:
+   the reversed artwork is never swapped in. */
+.logo .logo-neg {
+  display: none !important;
+}
+.logo .logo-pos {
+  display: inline-flex !important;
+}

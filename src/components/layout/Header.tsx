@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV } from "@/config/site";
 import { Logo } from "./Logo";
+import { SkinToggle } from "@/components/ui/SkinToggle";
 
 export function Header() {
   const pathname = usePathname();
@@ -49,6 +50,7 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <SkinToggle />
           <Link
             href="/sample"
             className="btn btn-sm mt-2 min-[1121px]:mt-0 min-[1121px]:ml-2"

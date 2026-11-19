@@ -3993,3 +3993,54 @@ html.pe-logo .ops-icon .op-accent {
     height: 48px;
   }
 }
+
+/* Hero ticker linked to the lot animation (hero/HeroTicker): Awaiting → Lot in → Testing → Passed */
+.ticker-no {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.8;
+}
+.ticker .ticker-st {
+  min-width: 74px;
+  text-align: center;
+  transition:
+    background 0.4s,
+    color 0.4s,
+    box-shadow 0.4s;
+}
+.ticker .ticker-st.is-awaiting {
+  background: transparent;
+  color: var(--muted);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--muted) 40%, transparent);
+}
+.ticker .ticker-st.is-lots {
+  background: var(--surface);
+  color: var(--heading);
+  box-shadow: inset 0 0 0 1.5px var(--heading);
+}
+.ticker .ticker-st.is-test {
+  background: var(--specimen-test, var(--splash));
+  color: #07120a;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--specimen-test, var(--splash)) 30%, transparent);
+}
+html:not(.pe-calm) .ticker .ticker-st.is-test {
+  animation: ticker-testing 1.1s ease-in-out infinite;
+}
+.ticker .ticker-st.is-passed {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: none;
+}
+.ticker-item.is-current {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+.ticker-item.is-current b {
+  color: var(--heading);
+  font-weight: 700;
+}
+@keyframes ticker-testing {
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--specimen-test, var(--splash)) 12%, transparent);
+  }
+}

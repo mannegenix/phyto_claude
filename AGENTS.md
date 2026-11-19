@@ -50,3 +50,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Logo artwork always shows in its original colours in every theme and look (the `-reverse` files are never displayed; rule at the end of verdan.css).
 - Logo sun yellow #FDCE18 on inner pages (all looks): `PageHead` marks the title's last word (`.hl` yellow marker), section h2s after the page head get a short yellow underline, eyebrow stripes end in yellow, the current breadcrumb is underlined in yellow. Rules at the end of `logo.css`. Homepage untouched.
 - Links to the page you are already on (logo / Home on "/", Products on /products …) glide back to the top (SmoothScroll); no reload, so the preloader does not replay.
+- Hero ticker is linked to the lot animation (`hero/HeroTicker`, event `pe:specimen` from `SpecimenHero`): extracts numbered in hero order; current one Lot in → Testing → Passed, earlier ones Passed for the round, later ones Awaiting; resets when the round restarts.

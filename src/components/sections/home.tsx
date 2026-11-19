@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeroToggle } from "@/components/hero/HeroToggle";
+import { HeroTicker } from "@/components/hero/HeroTicker";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
@@ -43,7 +44,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
         </div>
         <SpecimenHero items={items} />
       </div>
-      <ProductTicker products={products} />
+      <HeroTicker items={products.map(({ slug, short, marker }) => ({ slug, short, marker }))} />
 
       {/* Dev 1 hero (layout, photos and colours from dev1.phytoelements.in; same copy),
           shown instead of the above when html.hero-dev1 is set by the toggle */}

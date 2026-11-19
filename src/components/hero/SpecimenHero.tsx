@@ -395,6 +395,13 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     };
   }, [items]);
 
+  // Tell the product ticker under the hero which extract is in which step (HeroTicker).
+  useEffect(() => {
+    const detail = { index, stage };
+    (window as unknown as { __peSpecimen?: typeof detail }).__peSpecimen = detail;
+    window.dispatchEvent(new CustomEvent("pe:specimen", { detail }));
+  }, [index, stage]);
+
   const item = items[index] ?? items[0];
 
   return (

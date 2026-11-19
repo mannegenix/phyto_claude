@@ -45,9 +45,9 @@ export default async function HomePage() {
         </div>
       </section>
       <ValuesSection intro={c.introduction} values={c.values} />
-      <TestPillars pillars={c.testPillars} />
       <DockCarousel head={c.dock} stages={c.dockStages} />
       <WhyUs functions={c.operatingFunctions} />
+      <TestPillars pillars={c.testPillars} />
       <EnquirySection />
       <section className="section">
         <div className="wrap grid items-start gap-[clamp(28px,5vw,64px)] min-[861px]:grid-cols-2">

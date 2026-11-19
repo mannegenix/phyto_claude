@@ -116,7 +116,7 @@ export const operatingFunctions: OperatingFunction[] = [
     body: "Pack released lots in the agreed bulk format under the Phyto Elements label, with lot-linked quality documentation.",
   },
   {
-    title: "Indian & global fulfilment",
+    title: "Indian & Global fulfilment",
     icon: "fulfilment",
     art: "shipping",
     body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery support.",

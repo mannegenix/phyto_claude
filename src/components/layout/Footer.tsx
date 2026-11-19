@@ -15,7 +15,7 @@ export async function Footer() {
               <Logo />
             </Link>
             <p className="max-w-[34ch]">
-              {siteConfig.tagline}. Bulk plant extracts, tested lot by lot, for Indian &amp; global buyers.
+              {siteConfig.tagline}. Bulk plant extracts, tested lot by lot, for Indian &amp; Global buyers.
             </p>
           </div>
           <div>

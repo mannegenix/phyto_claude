@@ -1,4 +1,4 @@
-import type { Doc, Mailbox, OperatingFunction, ProcessStage, TestPillar, ValuePoint } from "./types";
+import type { Doc, Mailbox, OperatingFunction, ProcessStage, TestPillar, ValuePoint, DockStage } from "./types";
 
 export const positioning =
   "Phyto Elements supplies bulk plant extracts held to very high standards. We source from qualified producers, test every lot rigorously to recognised global quality standards and beyond, and put our name only on extracts that meet them.";
@@ -81,36 +81,43 @@ export const testPillars: TestPillar[] = [
 export const operatingFunctions: OperatingFunction[] = [
   {
     title: "Specification development",
+    icon: "spec",
     art: "coa",
     body: "Define the botanical source, plant part, marker compound and acceptance limits for each extract and grade we offer.",
   },
   {
     title: "Producer qualification",
+    icon: "producers",
     art: "sourcing",
     body: "Evaluate and approve producers against identity, quality, traceability and commercial requirements before we buy from them.",
   },
   {
     title: "Incoming screening",
+    icon: "screening",
     art: "microscope",
     body: "Check each arriving lot against its documentation and globally recognised acceptance criteria before it is accepted for testing.",
   },
   {
     title: "Testing against specification",
+    icon: "testing",
     art: "vials",
     body: "Test each lot to recognised global quality standards for the product and grade.",
   },
   {
     title: "Release decision",
+    icon: "release",
     art: "seal",
     body: "Release only lots that meet the specification. Lots that fall short are rejected or returned, never relabelled.",
   },
   {
     title: "Packing and labelling",
+    icon: "packing",
     art: "drums",
     body: "Pack released lots in the agreed bulk format under the Phyto Elements label, with lot-linked quality documentation.",
   },
   {
     title: "Domestic and export fulfilment",
+    icon: "fulfilment",
     art: "shipping",
     body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery support.",
   },
@@ -186,4 +193,60 @@ export const qualityChecklist = [
   "GMP, ISO, FSSAI, organic, Halal, Kosher or other certifications, with documents",
   "Garcinia manufacturing facility: legal entity, location, and whether to mention it at all",
   "Historical volumes, customers, countries, years in operation",
+];
+
+/** "From sourcing to your dock" (homepage photo carousel; copy from the client's earlier site). */
+export const dock = {
+  eyebrow: "From sourcing to your dock",
+  title: "Carefully selected.",
+  titleEm: "Approved with purpose.",
+  intro: "Each stage connects the extract we acquire to the ingredient you receive.",
+};
+export const dockStages: DockStage[] = [
+  {
+    label: "Sourcing",
+    eyebrow: "Extract sourcing",
+    title: "A considered beginning.",
+    body: "Botanical extracts are acquired against product identity, specification and quality requirements.",
+    detail: "Selection begins with the product requirements.",
+    cta: { label: "Our operating approach", href: "/operations" },
+    image: "/images/dev1/quality-sourcing.webp",
+    alt: "Gloved hands selecting from incoming botanical extract samples",
+  },
+  {
+    label: "Evaluation",
+    eyebrow: "Sample evaluation",
+    title: "Look closer. Ask more.",
+    body: "Material is reviewed against the agreed product and grade requirements. Evaluation helps establish what moves forward for testing.",
+    cta: { label: "Manufacturing & Quality", href: "/manufacturing" },
+    image: "/images/dev1/quality-evaluation.webp",
+    alt: "Botanical extract sample inspected with a magnifying lens",
+  },
+  {
+    label: "Testing",
+    eyebrow: "Quality testing",
+    title: "Standards come first.",
+    body: "Extracts are tested against the applicable acceptance criteria. Our commitment is the quality of the ingredient you receive.",
+    cta: { label: "Explore our quality approach", href: "/manufacturing" },
+    image: "/images/dev1/quality-testing.webp",
+    alt: "Botanical extract vial loaded into analytical testing equipment",
+  },
+  {
+    label: "Approval",
+    eyebrow: "Approval for supply",
+    title: "Quality earns our name.",
+    body: "Only material meeting the applicable global quality benchmarks and confirmed product specification is approved under the Phyto Elements name.",
+    cta: { label: "How release works", href: "/manufacturing" },
+    image: "/images/dev1/quality-approval.webp",
+    alt: "Approved botanical extract sample receiving a tamper-evident seal",
+  },
+  {
+    label: "Dispatch",
+    eyebrow: "Documentation and dispatch",
+    title: "Ready for your requirements.",
+    body: "Approved material is supplied with the relevant quality and commercial documentation. Specification and quantity are discussed with our team.",
+    cta: { label: "Talk to our team", href: "/contact" },
+    image: "/images/dev1/quality-dispatch.webp",
+    alt: "Approved botanical extracts and dispatch documents prepared for shipment",
+  },
 ];

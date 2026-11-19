@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
+import { OpIcon } from "@/components/ui/OpIcon";
 
 export const metadata: Metadata = {
   title: "How we work",
@@ -19,9 +20,13 @@ export default async function OperationsPage() {
       />
       <section className="section">
         <div className="wrap">
-          <ol className="funcs rail">
-            {c.operatingFunctions.map((f) => (
+          <ol className="ops-grid rail">
+            {c.operatingFunctions.map((f, i) => (
               <li key={f.title}>
+                <div className="ops-top">
+                  <span className="ops-num">{String(i + 1).padStart(2, "0")}</span>
+                  {f.icon && <OpIcon kind={f.icon} className="ops-icon" />}
+                </div>
                 <h3>{f.title}</h3>
                 <p>{f.body}</p>
               </li>

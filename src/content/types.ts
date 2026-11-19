@@ -47,8 +47,26 @@ export type ProcessStage = { title: string; body: string };
 export type ArtKind =
   | "chromatogram" | "vials" | "coa" | "drums" | "shipping" | "microscope"
   | "petri" | "magnifier" | "filter" | "sourcing" | "seal" | "hourglass";
-export type OperatingFunction = { title: string; body: string; art?: ArtKind };
+export type OperatingFunction = {
+  title: string;
+  body: string;
+  art?: ArtKind;
+  /** Line icon on the How we work page (components/ui/OpIcon). */
+  icon?: "spec" | "producers" | "screening" | "testing" | "release" | "packing" | "fulfilment";
+};
 export type TestPillar = { code: string; title: string; body: string; art?: ArtKind };
 export type ValuePoint = { title: string; body: string };
 export type Mailbox = { address: string; label: string; use: string };
 export type Doc = { name: string; tag: string; body: string; access: string };
+
+/** One step of the "From sourcing to your dock" photo carousel (homepage). */
+export type DockStage = {
+  label: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  detail?: string;
+  cta: { label: string; href: string };
+  image: string;
+  alt: string;
+};

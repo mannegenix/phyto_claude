@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeroToggle } from "@/components/hero/HeroToggle";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
@@ -43,6 +44,50 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
         <SpecimenHero items={items} />
       </div>
       <ProductTicker products={products} />
+
+      {/* Dev 1 hero (layout, photos and colours from dev1.phytoelements.in; same copy),
+          shown instead of the above when html.hero-dev1 is set by the toggle */}
+      <div className="hero-v1">
+        <div className="hero-v1-bloom" aria-hidden="true" />
+        <div className="hero-v1-collage" aria-hidden="true">
+          <figure className="hero-v1-slit v1-quality">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dev1/quality-sample.webp" width={1536} height={1024} alt="" />
+            <figcaption>Quality</figcaption>
+          </figure>
+          <figure className="hero-v1-slit v1-extract">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dev1/rich-curcumin.webp" width={1536} height={1024} alt="" />
+            <figcaption>Extracts</figcaption>
+          </figure>
+          <figure className="hero-v1-slit v1-nature">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dev1/rich-bacopa.webp" width={1536} height={1024} alt="" />
+            <figcaption>Reliable</figcaption>
+          </figure>
+        </div>
+        <div className="wrap hero-v1-content">
+          <span className="eyebrow">Bulk plant extracts · Tested lot by lot</span>
+          <h2 className="hero-v1-title">
+            Only the best extracts <em>carry our name</em>
+          </h2>
+          <p className="hero-v1-lede">{positioning}</p>
+          <div className="hero-v1-ctas">
+            <Link href="/sample" className="btn">
+              Request a Sample
+            </Link>
+            <Link href="/manufacturing" className="hero-v1-link">
+              Our quality standards →
+            </Link>
+          </div>
+          <div className="hero-v1-meta">
+            <span>Focused extract range</span>
+            <span>Every lot tested</span>
+            <span>India &amp; export supply</span>
+          </div>
+        </div>
+      </div>
+      <HeroToggle />
     </section>
   );
 }

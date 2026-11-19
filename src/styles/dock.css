@@ -1,0 +1,319 @@
+/*
+ * "From sourcing to your dock" (sections/DockCarousel), from dev1.phytoelements.in:
+ * heading row, then slides of a white text panel overlapping a large photo, then named
+ * stage tabs, status and square arrows. Sized so heading + slide + controls fit one screen.
+ */
+.dock-sec {
+  overflow: hidden;
+  padding-block: clamp(28px, 5svh, 64px) clamp(20px, 3svh, 40px);
+}
+.dock-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: clamp(16px, 3svh, 40px);
+}
+.dock-head h2 {
+  margin-top: 12px;
+  font-size: clamp(2rem, min(3.6vw, 5.2svh), 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  color: var(--heading);
+}
+.dock-head em {
+  font-style: normal;
+  color: var(--accent-text);
+}
+.dock-head > p {
+  max-width: 35ch;
+  color: var(--muted);
+}
+.dock-carousel {
+  --gutter: max(16px, calc((100vw - 1180px) / 2));
+  width: 100%;
+}
+.dock-track {
+  display: flex;
+  gap: 50px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 0 var(--gutter) 12px;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+  user-select: none;
+  outline: none;
+}
+.dock-track::-webkit-scrollbar {
+  display: none;
+}
+.dock-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+.dock-slide {
+  flex: 0 0 min(1180px, 86vw);
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  height: clamp(380px, calc(100svh - 360px), 600px);
+  scroll-snap-align: start;
+  scroll-margin-left: var(--gutter);
+}
+.dock-image {
+  grid-area: 1 / 2;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--sunk);
+}
+.dock-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.dock-slide:hover .dock-image img {
+  transform: scale(1.025);
+}
+.dock-panel {
+  grid-area: 1 / 1;
+  z-index: 2;
+  width: calc(100% + 70px);
+  padding: clamp(22px, 3.6svh, 52px) clamp(24px, 3.4vw, 52px);
+  background: #fff;
+  box-shadow: 0 18px 60px -45px rgb(36 88 51 / 0.4);
+  border-top: 3px solid var(--accent-text);
+}
+html.pe-gradient .dock-panel {
+  border-top: 4px solid transparent;
+  border-image: var(--brand-gradient) 1;
+}
+html.pe-logo .dock-panel {
+  border-top-color: #94de03;
+}
+.dock-panel .eyebrow {
+  font-size: 0.7rem;
+}
+.dock-panel h3 {
+  margin: clamp(10px, 2svh, 22px) 0;
+  font-size: clamp(1.8rem, min(3vw, 4.6svh), 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  color: var(--heading);
+}
+.dock-panel > p {
+  max-width: 38ch;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.dock-detail {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.74rem !important;
+  color: var(--accent-text) !important;
+}
+.dock-panel .btn {
+  margin-top: clamp(14px, 2.4svh, 26px);
+  gap: 18px;
+}
+.dock-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: clamp(14px, 2.4svh, 26px);
+}
+.dock-tabs {
+  display: flex;
+  gap: 16px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dock-tabs button {
+  min-width: 76px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dock-tabs i {
+  display: block;
+  height: 2px;
+  margin-top: 10px;
+  background: var(--line);
+}
+.dock-tabs button[aria-current] {
+  color: var(--accent-text);
+}
+.dock-tabs button[aria-current] i {
+  background: var(--accent-text);
+}
+html.pe-gradient .dock-tabs button[aria-current] i {
+  background: var(--brand-gradient);
+}
+html.pe-logo .dock-tabs button[aria-current] i {
+  background: #94de03;
+}
+.dock-status {
+  margin: 0 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.dock-arrows {
+  display: flex;
+  gap: 8px;
+}
+.dock-arrows button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--accent-text);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.dock-arrows button:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--accent) 22%, white);
+}
+html.pe-gradient .dock-arrows button:hover:not(:disabled) {
+  background: var(--brand-gradient-soft);
+}
+.dock-arrows button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+@media (max-width: 900px) {
+  .dock-head {
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+  }
+  .dock-slide {
+    flex-basis: 86vw;
+    height: auto;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .dock-image {
+    grid-area: 1 / 1;
+    height: clamp(200px, 34svh, 360px);
+  }
+  .dock-panel {
+    grid-area: 2 / 1;
+    width: calc(100% - 20px);
+    margin-top: -40px;
+    padding: 22px;
+  }
+  .dock-track {
+    gap: 16px;
+  }
+  .dock-tabs {
+    gap: 6px;
+  }
+  .dock-tabs button {
+    min-width: 28px;
+    width: 28px;
+  }
+  .dock-tabs button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .dock-tabs i {
+    margin-top: 0;
+  }
+  .dock-status {
+    font-size: 0.68rem;
+  }
+}
+@media (max-width: 540px) {
+  .dock-image {
+    height: 190px;
+  }
+  .dock-panel h3 {
+    font-size: 1.6rem;
+  }
+  .dock-panel > p {
+    font-size: 0.9rem;
+  }
+  .dock-arrows button {
+    width: 42px;
+    height: 42px;
+  }
+}
+/* Phones: stage tabs, status and arrows above the slide (always on screen with it) */
+@media (max-width: 767px) {
+  .dock-carousel {
+    display: flex;
+    flex-direction: column;
+  }
+  .dock-controls {
+    order: -1;
+    margin: 0 0 12px;
+    gap: 10px;
+  }
+  .dock-head {
+    margin-bottom: 14px;
+  }
+  .dock-head > p {
+    font-size: 0.92rem;
+  }
+  .dock-arrows button[aria-label="Next stage"]:not(:disabled) {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-color: transparent;
+  }
+  html.pe-gradient .dock-arrows button[aria-label="Next stage"]:not(:disabled) {
+    background: var(--brand-gradient);
+    color: #07120a;
+  }
+  .dock-image {
+    height: 170px;
+  }
+  .dock-panel {
+    margin-top: -28px;
+    padding: 18px;
+  }
+  .dock-panel h3 {
+    margin: 8px 0;
+    font-size: 1.45rem;
+  }
+  .dock-panel > p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .dock-detail {
+    display: none;
+  }
+  .dock-panel .btn {
+    margin-top: 12px;
+  }
+}
+@media (max-width: 767px) {
+  main section.dock-sec {
+    scroll-snap-align: none;
+  }
+  .dock-carousel {
+    scroll-snap-align: start;
+  }
+}

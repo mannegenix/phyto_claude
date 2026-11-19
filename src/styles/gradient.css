@@ -216,3 +216,25 @@ html.pe-gradient .skin-toggle button[aria-pressed="true"] {
   background: #07120a;
   color: #ffffff !important;
 }
+
+/* ── Section rhythm (gradient look, every page; as on dev1): sections alternate light
+   paper and light green; the important sections (.band: our guarantee, the
+   manufacturing standard) carry the full brand gradient ── */
+html.pe-gradient :is(main > section, main > div > section):not(.hero):not(.band):nth-of-type(odd) {
+  background-color: #f6faf1 !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgb(10 102 214 / 0.08) 1px, transparent 1.6px),
+    radial-gradient(60% 50% at 88% 12%, rgb(32 184 216 / 0.07), transparent 70%) !important;
+  background-size: 26px 26px, 100% 100% !important;
+}
+html.pe-gradient :is(main > section, main > div > section):not(.hero):not(.band):nth-of-type(even) {
+  background-color: #edf5e4 !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgb(44 122 18 / 0.08) 1px, transparent 1.6px),
+    radial-gradient(55% 50% at 10% 90%, rgb(143 209 79 / 0.14), transparent 70%) !important;
+  background-size: 26px 26px, 100% 100% !important;
+}
+html.pe-gradient .s2p-card,
+html.pe-gradient .s2s :is(.card, .funnel-card) {
+  background: #ffffff;
+}

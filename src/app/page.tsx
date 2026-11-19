@@ -7,6 +7,7 @@ import {
   WhyUs,
 } from "@/components/sections/home";
 import { ProductCarousel } from "@/components/products/ProductCarousel";
+import { DockCarousel } from "@/components/sections/DockCarousel";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { MailList } from "@/components/ui/MailList";
 import { Reveal } from "@/components/motion/Reveal";
@@ -46,6 +47,7 @@ export default async function HomePage() {
       </section>
       <ValuesSection intro={c.introduction} values={c.values} />
       <TestPillars pillars={c.testPillars} />
+      <DockCarousel head={c.dock} stages={c.dockStages} />
       <SourceToSeal stages={c.stages} />
       <WhyUs functions={c.operatingFunctions} />
       <EnquirySection />

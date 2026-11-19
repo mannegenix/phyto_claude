@@ -39,7 +39,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
           <div className="dot-list mt-[34px]">
             <span>Focused extract range</span>
             <span>Every lot tested</span>
-            <span>India &amp; export supply</span>
+            <span>Indian &amp; global supply</span>
           </div>
         </div>
         <SpecimenHero items={items} />
@@ -84,7 +84,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
           <div className="hero-v1-meta">
             <span>Focused extract range</span>
             <span>Every lot tested</span>
-            <span>India &amp; export supply</span>
+            <span>Indian &amp; global supply</span>
           </div>
         </div>
       </div>

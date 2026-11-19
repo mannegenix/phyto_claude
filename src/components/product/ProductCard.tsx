@@ -30,10 +30,10 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <div>
           <dt>Use</dt>
-          <dd>{product.applicationArea.split(",")[0].replace(" formulations", "")}</dd>
+          <dd>{product.applicationArea}</dd>
         </div>
       </dl>
-      <span className="text-[0.92rem] font-semibold text-accent-text">View product &amp; enquire →</span>
+      <span className="text-[0.92rem] font-semibold text-accent-text">View product and enquire →</span>
     </Link>
   );
 }

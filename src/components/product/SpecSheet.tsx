@@ -31,7 +31,7 @@ export function SpecSheet({ product }: { product: Product }) {
   return (
     <div className="sheet">
       <div className="sheet-h">
-        <span>PRODUCT SPECIFICATION SUMMARY</span>
+        <span>Product specification summary</span>
         <span>Representative · not a lot COA</span>
       </div>
       <div className="overflow-x-auto">

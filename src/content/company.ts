@@ -33,12 +33,12 @@ export const values: ValuePoint[] = [
 ];
 
 export const customers = [
-  "Nutraceutical and dietary-supplement manufacturers",
+  "Nutraceutical and dietary supplement manufacturers",
   "Ingredient distributors and importers",
   "Contract manufacturers and private-label formulators",
   "Functional food and beverage companies",
   "Cosmetic and personal-care manufacturers",
-  "Ayurvedic and traditional-product manufacturers",
+  "Ayurvedic and traditional product manufacturers",
 ];
 
 /** From source to seal: the five gates every lot goes through. */
@@ -116,7 +116,7 @@ export const operatingFunctions: OperatingFunction[] = [
     body: "Pack released lots in the agreed bulk format under the Phyto Elements label, with lot-linked quality documentation.",
   },
   {
-    title: "Domestic and export fulfilment",
+    title: "Indian & global fulfilment",
     icon: "fulfilment",
     art: "shipping",
     body: "Coordinate quotations, purchase orders, dispatch, export documentation, logistics and post-delivery support.",
@@ -156,7 +156,7 @@ export const documents: Doc[] = [
     name: "Lot-specific COA",
     tag: "COA",
     body: "Issued for the identified lot and matched to its lot reference.",
-    access: "With quotation or order · quality@",
+    access: "With quotation or order · info@phytoelements.in",
   },
   {
     name: "Safety Data Sheet",
@@ -174,13 +174,13 @@ export const documents: Doc[] = [
     name: "Quotation and proforma invoice",
     tag: "QUO",
     body: "Commercial terms for the confirmed specification and quantity.",
-    access: "On enquiry · sales@",
+    access: "On enquiry · info@phytoelements.in",
   },
   {
     name: "PO acknowledgement and shipment documents",
     tag: "SHIP",
     body: "Order confirmation, dispatch and export documentation.",
-    access: "On order · orders@",
+    access: "On order · info@phytoelements.in",
   },
 ];
 

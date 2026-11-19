@@ -295,7 +295,7 @@ export function ProductShowcase({ items, pillars }: { items: Item[]; pillars: Te
                     View more <span aria-hidden="true">→</span>
                   </Link>
                   <Link href="/sample" className="btn btn-ghost" onClick={finishClose}>
-                    Request a sample
+                    Request a Sample
                   </Link>
                 </div>
               </div>

@@ -881,3 +881,6 @@
   opacity: 1;
   text-decoration: underline;
 }
+.sheet-h > span:first-child {
+  text-transform: uppercase;
+}

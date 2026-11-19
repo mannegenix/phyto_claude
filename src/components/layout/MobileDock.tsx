@@ -171,7 +171,7 @@ export function MobileDock({ products, email }: { products: DockProduct[]; email
         </ul>
         <div className="dock-actions">
           <Link href="/sample" className="btn" onClick={() => setOpen(false)}>
-            Request a sample
+            Request a Sample
           </Link>
           <a href={`mailto:${email}`} className="btn btn-ghost">
             {email}

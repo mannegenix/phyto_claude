@@ -5,7 +5,7 @@ export const aboutStory = [
 ];
 
 export const aboutSpecialism =
-  "We specialize in manufacturing Garcinia in 50% and 60% standard grades, as well as in granular form, and have expanded into contract manufacturing of Turmeric extract (Curcumin 95%), Coleus extract in 10%, 20%, and 95% grades, Bacopa (Bacosides 50%), and Ashwagandha (Withania somnifera) extract.";
+  "We specialize in manufacturing Garcinia in 50% and 60% standard grades, as well as in granular form, and have expanded into contract manufacturing of turmeric extract (Curcumin 95%), coleus extract in 10%, 20%, and 95% grades, Bacopa (Bacosides 50%), and Ashwagandha (Withania somnifera) extract.";
 
 /** Strengths drawn from the client's story, each shown with a photograph. */
 export const aboutStrengths = [

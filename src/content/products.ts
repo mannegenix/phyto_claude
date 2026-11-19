@@ -15,10 +15,10 @@ export const products: Product[] = [
     flagship: true,
     botanicalSource: "Garcinia gummi-gutta (syn. Garcinia cambogia)",
     plantPart: "Fruit rind",
-    marker: "Hydroxycitric Acid (HCA)",
+    marker: "Hydroxycitric acid (HCA)",
     applicationArea: "Nutraceutical and wellness formulations",
     applications: [
-      "Dietary-supplement formulations",
+      "Dietary supplement formulations",
       "Wellness formulations",
       "Powder and capsule blends",
       "Private-label products",
@@ -56,7 +56,7 @@ export const products: Product[] = [
       "Nutraceutical formulations",
       "Functional foods",
       "Food colour applications",
-      "Traditional-product manufacturing",
+      "Traditional product manufacturing",
     ],
     intro:
       "Standardized turmeric extract for nutraceutical, functional-food and colour applications, tested lot by lot against a defined curcuminoid specification.",
@@ -92,7 +92,7 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Root extract standardized to withanolides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Root extract standardized to withanolides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic product manufacturers.",
     swatch: "#e4572e",
     spec: {
       extractType: "Root extract, powder",
@@ -120,7 +120,7 @@ export const products: Product[] = [
     applicationArea: "Nutraceutical formulations",
     applications: [
       "Nutraceutical formulations",
-      "Joint-support category blends",
+      "Joint-support blends",
       "Ayurvedic products",
       "Private-label products",
     ],
@@ -153,7 +153,7 @@ export const products: Product[] = [
     marker: "Bakuchiol",
     applicationArea: "Cosmetic and personal-care formulations",
     applications: [
-      "Skin-care formulations",
+      "Skincare formulations",
       "Cosmetic actives",
       "Personal-care products",
       "Contract cosmetic manufacturing",
@@ -188,7 +188,7 @@ export const products: Product[] = [
       "Ayurvedic products",
       "Private-label products",
     ],
-    intro: "Herb extract standardized to bacosides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic-product manufacturers.",
+    intro: "Herb extract standardized to bacosides, tested to recognised global quality standards for nutraceutical, wellness and Ayurvedic product manufacturers.",
     swatch: "#5fb04a",
     spec: {
       extractType: "Whole-herb extract, powder",

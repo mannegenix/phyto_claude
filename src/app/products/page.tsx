@@ -55,7 +55,7 @@ export default async function ProductsPage() {
                 <span role="columnheader">Product</span>
                 <span role="columnheader">Role</span>
                 <span role="columnheader">Quality marker / grade</span>
-                <span role="columnheader">Primary B2B application</span>
+                <span role="columnheader">Primary application</span>
                 <span role="columnheader" className="sr-only">
                   Details
                 </span>

@@ -12,6 +12,10 @@ import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ProductOrb } from "@/components/product/ProductOrb";
 
 // Only the known products exist; any other slug is a static 404.
+
+/** "Curcuminoids" → "curcuminoids" in running text; acronyms ("HCA …") stay as they are. */
+const lowerFirst = (t: string) => (/^[A-Z][A-Z]/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1));
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -25,7 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   if (!p) return {};
   return {
     title: p.name,
-    description: `${p.name}: bulk ${p.marker.split(",")[0]}-standardized extract from ${p.botanicalSource.split(" (")[0]} for ${p.applicationArea.toLowerCase()}. Request specifications, samples or a quote.`,
+    description: `${p.name}: bulk extract from ${p.botanicalSource.split(" (")[0]}, standardized to ${lowerFirst(p.marker.split(",")[0])}, for ${p.applicationArea.toLowerCase()}. Request specifications, samples or a quote.`,
   };
 }
 
@@ -86,7 +90,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </h2>
               <p className="max-w-[60ch] text-muted">
                 We buy {product.short} from qualified producers against a defined specification for the botanical, the
-                plant part and the {product.marker.split(",")[0].split(" (")[0]} grade, aligned with recognised global
+                plant part and the {lowerFirst(product.marker.split(",")[0].split(" (")[0])} grade, aligned with recognised global
                 quality standards. Where it comes from can vary; what it has to meet does not.
               </p>
             </article>

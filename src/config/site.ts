@@ -46,9 +46,9 @@ export const siteConfig = {
   indexable: ["phytoelements.in", "www.phytoelements.in"].includes(
     new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in").hostname,
   ),
-  tagline: "Botanical Ingredients for Global Markets",
+  tagline: "Botanical ingredients for global markets",
   description:
-    "Phyto Elements is an India-based B2B supplier of bulk plant extracts. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
+    "Phyto Elements, based in Hyderabad, India, supplies bulk plant extracts to Indian & global buyers. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
   defaultTheme: "verdan" as ThemeId,
   /** Review mode: enables /compare and ?theme= previews. Never enable in production. */
   showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",

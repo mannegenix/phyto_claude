@@ -79,7 +79,7 @@ export function ProductSpotlight({ items }: { items: Item[] }) {
                 View {p.short}
               </Link>
               <Link href="/sample" className="btn btn-ghost">
-                Request a sample
+                Request a Sample
               </Link>
             </div>
           </div>

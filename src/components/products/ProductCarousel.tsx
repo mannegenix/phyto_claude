@@ -120,10 +120,10 @@ export function ProductCarousel({ items }: { items: Item[] }) {
               </dl>
               <div className="mt-2 flex flex-wrap gap-3">
                 <Link href={`/products/${p.slug}`} className="btn" tabIndex={i === active ? 0 : -1}>
-                  View specimen sheet
+                  View specification sheet
                 </Link>
                 <Link href="/sample" className="btn btn-ghost" tabIndex={i === active ? 0 : -1}>
-                  Request a sample
+                  Request a Sample
                 </Link>
               </div>
             </div>

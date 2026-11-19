@@ -109,7 +109,15 @@ export function SmoothScroll() {
       if (url.origin !== location.origin) return;
       if (url.pathname === location.pathname) {
         // Same-page #anchor: glide to it, just below the header.
-        const target = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+        // A link to the page you are already on (logo or Home on the homepage, Products on
+        // /products …): glide back to the top, as visitors expect.
+        if (!url.hash) {
+          e.preventDefault();
+          if (location.hash) history.pushState(null, "", url.pathname + url.search);
+          lenis.scrollTo(0, { force: true });
+          return;
+        }
+        const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
         if (!target) return;
         e.preventDefault();
         history.pushState(null, "", url.hash);

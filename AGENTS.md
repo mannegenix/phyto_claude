@@ -49,3 +49,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - How we work (/operations): step cards `.ops-grid` with dev1's line icons (`ui/OpIcon`, `icon` field on `operatingFunctions`), number pill, bold display title above muted body.
 - Logo artwork always shows in its original colours in every theme and look (the `-reverse` files are never displayed; rule at the end of verdan.css).
 - Logo sun yellow #FDCE18 on inner pages (all looks): `PageHead` marks the title's last word (`.hl` yellow marker), section h2s after the page head get a short yellow underline, eyebrow stripes end in yellow, the current breadcrumb is underlined in yellow. Rules at the end of `logo.css`. Homepage untouched.
+- Links to the page you are already on (logo / Home on "/", Products on /products …) glide back to the top (SmoothScroll); no reload, so the preloader does not replay.

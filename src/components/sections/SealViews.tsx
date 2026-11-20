@@ -103,20 +103,66 @@ export function SealStepper({ stages }: { stages: ProcessStage[] }) {
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [inView, setInView] = useState(false);
-  const [hover, setHover] = useState(false);
+  // "Interacting" = the visitor is actually using the stepper (moved the pointer over it,
+  // or focused a control) in the last few seconds. A cursor that merely rests on screen
+  // while the page scrolls underneath it no longer pauses the animation.
+  const [interacting, setInteracting] = useState(false);
+  const idle = useRef(0);
   const [reduced, setReduced] = useState(false);
 
+  // Visibility, checked several ways so the stepper always starts when it is on screen —
+  // including after leaving the page and coming back, scrolling back and forth, and inside
+  // the full-screen sections (where a covered section still "intersects"):
+  //  - IntersectionObserver for the quick start/stop
+  //  - a light 700 ms check: on screen, not covered by another section, tab visible
   useEffect(() => {
     if (calmMotion()) requestAnimationFrame(() => setReduced(true));
     const el = root.current;
-    const io = el ? new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 }) : null;
-    if (el && io) io.observe(el);
+    if (!el) return;
+    const check = () => {
+      if (document.hidden) return setInView(false);
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const shown = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      if (shown < Math.min(r.height, vh) * 0.35) return setInView(false);
+      const x = Math.min(Math.max(r.left + r.width / 2, 1), window.innerWidth - 1);
+      const y = Math.min(Math.max((Math.max(r.top, 0) + Math.min(r.bottom, vh)) / 2, 1), vh - 1);
+      const hit = document.elementFromPoint(x, y);
+      setInView(!hit || el.contains(hit) || !!hit.closest(".s2a"));
+    };
+    const io = new IntersectionObserver(check, { threshold: [0, 0.35, 0.7] });
+    io.observe(el);
+    const poll = window.setInterval(check, 700);
+    document.addEventListener("visibilitychange", check);
+    window.addEventListener("pageshow", check);
+    requestAnimationFrame(check);
     return () => {
-      io?.disconnect();
+      io.disconnect();
+      clearInterval(poll);
+      document.removeEventListener("visibilitychange", check);
+      window.removeEventListener("pageshow", check);
+      clearTimeout(idle.current);
     };
   }, []);
 
-  const running = playing && inView && !hover && !reduced;
+  // Coming back into view after being away: replay the story from the first step.
+  const wasInView = useRef(false);
+  useEffect(() => {
+    if (inView && !wasInView.current) requestAnimationFrame(() => setStep(0));
+    wasInView.current = inView;
+  }, [inView]);
+
+  const touch = () => {
+    setInteracting(true);
+    clearTimeout(idle.current);
+    idle.current = window.setTimeout(() => setInteracting(false), 3000);
+  };
+  const release = () => {
+    clearTimeout(idle.current);
+    setInteracting(false);
+  };
+
+  const running = playing && inView && !interacting && !reduced;
   useEffect(() => {
     if (!running) return;
     const t = window.setTimeout(() => setStep((s) => (s + 1) % n), STEP_MS);
@@ -131,8 +177,13 @@ export function SealStepper({ stages }: { stages: ProcessStage[] }) {
       ref={root}
       className={`s2a ${running ? "is-running" : ""}`}
       style={{ ["--step-ms" as string]: `${STEP_MS}ms` }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onPointerMove={(e) => {
+        // Real movement only (some browsers send a still "move" when the page scrolls).
+        if (e.pointerType === "mouse" && (e.movementX || e.movementY)) touch();
+      }}
+      onPointerLeave={release}
+      onFocus={touch}
+      onBlur={release}
     >
       <ol className="s2a-rail">
         {stages.map((s, i) => (

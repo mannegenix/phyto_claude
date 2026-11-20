@@ -437,9 +437,8 @@ html.pe-calm {
   width: max-content;
   animation: ticker 42s linear infinite;
 }
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
-}
+/* No pause on hover: a cursor resting at the bottom of the screen would stop the ticker
+   (and its lot statuses) without the visitor noticing. */
 .ticker-item {
   display: inline-flex;
   align-items: center;

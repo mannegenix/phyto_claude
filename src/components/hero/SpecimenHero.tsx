@@ -382,6 +382,17 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       if (!document.hidden) start();
     };
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pageshow", onVisibility);
+    // Fail-safe: if the hero is on screen but the loop has stopped (a missed observer
+    // callback, back/forward cache, a stalled frame), restart it.
+    const watchdog = window.setInterval(() => {
+      if (reduce || raf || document.hidden) return;
+      const r = wrap.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        visible = true;
+        start();
+      }
+    }, 1000);
 
     if (reduce) {
       requestAnimationFrame(() => {
@@ -399,6 +410,8 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       mo.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pageshow", onVisibility);
+      clearInterval(watchdog);
     };
   }, [items]);
 

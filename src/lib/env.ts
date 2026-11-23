@@ -9,7 +9,7 @@ import { z } from "zod";
  */
 const schema = z.object({
   RESEND_API_KEY: z.string().optional(),
-  ENQUIRY_FROM: z.string().default("Phyto Elements Website <website@phytoelements.in>"),
+  ENQUIRY_FROM: z.string().default("Phyto Elements <info@phytoelements.in>"),
   ENQUIRY_TO: z.string().default("info@phytoelements.in"),
   SAMPLES_CC: z.string().optional(),
   TURNSTILE_SECRET_KEY: z.string().optional(),

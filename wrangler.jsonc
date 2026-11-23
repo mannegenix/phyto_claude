@@ -22,7 +22,7 @@
   // Non-secret runtime variables. Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY, ANTHROPIC_API_KEY,
   // CRM_WEBHOOK_URL) go in the dashboard: Worker → Settings → Variables and Secrets, or `npx wrangler secret put`.
   "vars": {
-    "ENQUIRY_FROM": "Phyto Elements Website <website@phytoelements.in>",
+    "ENQUIRY_FROM": "Phyto Elements <info@phytoelements.in>",
     "ENQUIRY_TO": "info@phytoelements.in",
     "CHAT_MODEL": "claude-haiku-5-5",
   },

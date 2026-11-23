@@ -92,7 +92,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
         to,
         cc,
         replyTo: data.email,
-        subject: `[${reference}] ${data.type} · ${productName} · ${data.company}`,
+        subject: `Website enquiry [${reference}] ${data.type} · ${productName} · ${data.company}`,
         html,
         attachments: attachment ? [attachment] : undefined,
       });

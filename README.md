@@ -131,6 +131,14 @@ npm run deploy    # build + deploy to Cloudflare
 - Spec values (`spec` in `products.ts`) stay empty until QA-approved; the UI shows "Shared on request".
 - No capacity, certification, equipment or years-in-operation claims until verified.
 
+## Search and sharing
+
+- `/sitemap.xml` and `/robots.txt` (crawlers are blocked until `NEXT_PUBLIC_ALLOW_INDEXING=true` on the live domain).
+- Canonical URL, Open Graph and Twitter card on every page via `pageMetadata` in `src/lib/seo.ts`.
+- Share images in `public/og/`: regenerate after adding a product with `node --experimental-strip-types scripts/og-images.mts` (needs Playwright + Chromium).
+- Structured data: Organization + WebSite (homepage), Product (product pages), BreadcrumbList (inner pages).
+- `/manifest.webmanifest` and `/llms.txt` (a plain-text summary for AI assistants, built from `src/content`).
+
 ## Moving to a CMS
 
 Replace the bodies of `getProducts`, `getProduct` and `getCompany` in `src/lib/content.ts` with Sanity or Payload queries. Types in `src/content/types.ts` define the schema; pages don't change.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { getProducts } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
@@ -6,11 +7,11 @@ import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { ProductFinder } from "@/components/products/ProductFinder";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Products",
-  description:
-    "Bulk plant extracts led by Garcinia Cambogia, every lot tested to recognised global quality standards.",
-};
+  description: "Bulk plant extracts led by Garcinia Cambogia, every lot tested to recognised global quality standards.",
+  path: "/products",
+});
 
 export default async function ProductsPage() {
   const products = await getProducts();
@@ -45,49 +46,59 @@ export default async function ProductsPage() {
             <h2>Compare the portfolio</h2>
           </div>
           <p className="po-hint">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
               <path d="M9 9V4.5a1.5 1.5 0 0 1 3 0V11l3.6.6a2 2 0 0 1 1.7 2.2l-.5 4.2a3 3 0 0 1-3 2.6H11a3 3 0 0 1-2.4-1.2L5.4 15a1.5 1.5 0 0 1 2.3-1.9L9 14.5" />
             </svg>
             Select any extract to open its specification sheet.
           </p>
-            <div className="po-list sheet" role="table" aria-label="Product overview">
-              <div className="po-row po-head" role="row">
-                <span role="columnheader">Product</span>
-                <span role="columnheader">Role</span>
-                <span role="columnheader">Quality marker / grade</span>
-                <span role="columnheader">Primary application</span>
-                <span role="columnheader" className="sr-only">
-                  Details
-                </span>
-              </div>
-              {products.map((p) => (
-                <Link key={p.slug} href={`/products/${p.slug}`} className="po-row" role="row">
-                  <span className="po-name" role="cell">
-                    {p.image && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={p.image} alt="" width={44} height={44} loading="lazy" />
-                    )}
-                    <span>
-                      <b>{p.name}</b>
-                      <small>{p.botanicalSource}</small>
-                    </span>
-                  </span>
-                  <span className="po-role" role="cell" data-k="Role">
-                    <i className={p.flagship ? "is-flag" : ""}>{p.role.replace(" product", "")}</i>
-                  </span>
-                  <span role="cell" data-k="Marker">
-                    {p.marker}
-                  </span>
-                  <span role="cell" data-k="Application">
-                    {p.applicationArea}
-                  </span>
-                  <span className="po-go" role="cell" aria-hidden="true">
-                    <span className="po-go-label">View specs</span>
-                    <span className="po-go-arrow">→</span>
-                  </span>
-                </Link>
-              ))}
+          <div className="po-list sheet" role="table" aria-label="Product overview">
+            <div className="po-row po-head" role="row">
+              <span role="columnheader">Product</span>
+              <span role="columnheader">Role</span>
+              <span role="columnheader">Quality marker / grade</span>
+              <span role="columnheader">Primary application</span>
+              <span role="columnheader" className="sr-only">
+                Details
+              </span>
             </div>
+            {products.map((p) => (
+              <Link key={p.slug} href={`/products/${p.slug}`} className="po-row" role="row">
+                <span className="po-name" role="cell">
+                  {p.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.image} alt="" width={44} height={44} loading="lazy" />
+                  )}
+                  <span>
+                    <b>{p.name}</b>
+                    <small>{p.botanicalSource}</small>
+                  </span>
+                </span>
+                <span className="po-role" role="cell" data-k="Role">
+                  <i className={p.flagship ? "is-flag" : ""}>{p.role.replace(" product", "")}</i>
+                </span>
+                <span role="cell" data-k="Marker">
+                  {p.marker}
+                </span>
+                <span role="cell" data-k="Application">
+                  {p.applicationArea}
+                </span>
+                <span className="po-go" role="cell" aria-hidden="true">
+                  <span className="po-go-label">View specs</span>
+                  <span className="po-go-arrow">→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

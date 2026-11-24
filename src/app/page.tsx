@@ -1,15 +1,15 @@
+import type { Metadata } from "next";
 import { getCompany, getProducts } from "@/lib/content";
-import {
-  Hero,
-  TestPillars,
-  ValuesSection,
-  WhyUs,
-} from "@/components/sections/home";
+import { siteConfig } from "@/config/site";
+import { organizationJsonLd, pageMetadata } from "@/lib/seo";
+import { Hero, TestPillars, ValuesSection, WhyUs } from "@/components/sections/home";
 import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { DockCarousel } from "@/components/sections/DockCarousel";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { MailList } from "@/components/ui/MailList";
 import { Reveal } from "@/components/motion/Reveal";
+
+export const metadata: Metadata = pageMetadata({ description: siteConfig.description, path: "/" });
 
 export default async function HomePage() {
   const [products, c] = await Promise.all([getProducts(), getCompany()]);
@@ -17,6 +17,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
       <Hero products={products} positioning={c.positioning} />
       {/* The products carousel (same as /products), in place of the ProductShowcase cards
           (kept in sections/ProductShowcase.tsx, not shown for now). */}
@@ -54,7 +55,9 @@ export default async function HomePage() {
           <Reveal className="grid gap-[18px]">
             <span className="eyebrow">Contact</span>
             <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Write to us</h2>
-            <p className="muted">One inbox for quotations, samples, specifications, documents and orders. Phyto Elements, Hyderabad, India.</p>
+            <p className="muted">
+              One inbox for quotations, samples, specifications, documents and orders. Phyto Elements, Hyderabad, India.
+            </p>
           </Reveal>
           <MailList mailboxes={c.mailboxes} />
         </div>

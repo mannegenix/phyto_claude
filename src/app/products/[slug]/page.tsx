@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { pageMetadata, productOgImage } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCompany, getProduct, getProducts } from "@/lib/content";
@@ -27,10 +28,13 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   const { slug } = await params;
   const p = await getProduct(slug);
   if (!p) return {};
-  return {
+  return pageMetadata({
     title: p.name,
     description: `${p.name}: bulk extract from ${p.botanicalSource.split(" (")[0]}, standardized to ${lowerFirst(p.marker.split(",")[0])}, for ${p.applicationArea.toLowerCase()}. Request specifications, samples or a quote.`,
-  };
+    path: `/products/${p.slug}`,
+    image: productOgImage(p.slug),
+    imageAlt: `${p.name} from Phyto Elements`,
+  });
 }
 
 const DOCS = [
@@ -57,7 +61,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
     description: product.intro,
     category: "Bulk plant extract",
     brand: { "@type": "Brand", name: siteConfig.name },
+    manufacturer: { "@id": `${siteConfig.url}/#organization` },
     url: `${siteConfig.url}/products/${product.slug}`,
+    ...(product.image ? { image: `${siteConfig.url}${product.image}` } : {}),
   };
 
   return (
@@ -81,7 +87,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <span className="chapter-num">01 · Source</span>
               {product.image && (
                 <figure className="chapter-photo">
-                  <Image src={product.image.replace(".webp", "-wide.webp")} alt={`${product.short}: raw botanical and extract powder`} width={1600} height={940} sizes="(max-width: 960px) 92vw, 760px" unoptimized />
+                  <Image
+                    src={product.image.replace(".webp", "-wide.webp")}
+                    alt={`${product.short}: raw botanical and extract powder`}
+                    width={1600}
+                    height={940}
+                    sizes="(max-width: 960px) 92vw, 760px"
+                    unoptimized
+                  />
                   <figcaption>Representative image · not a specific lot</figcaption>
                 </figure>
               )}
@@ -90,8 +103,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </h2>
               <p className="max-w-[60ch] text-muted">
                 We buy {product.short} from qualified producers against a defined specification for the botanical, the
-                plant part and the {lowerFirst(product.marker.split(",")[0].split(" (")[0])} grade, aligned with recognised global
-                quality standards. Where it comes from can vary; what it has to meet does not.
+                plant part and the {lowerFirst(product.marker.split(",")[0].split(" (")[0])} grade, aligned with
+                recognised global quality standards. Where it comes from can vary; what it has to meet does not.
               </p>
             </article>
 

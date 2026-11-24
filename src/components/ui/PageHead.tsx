@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { siteConfig } from "@/config/site";
 
 /** Page titles end on a word marked in the logo's sun yellow (see .page-head .hl). */
 function withHighlight(title: ReactNode) {
@@ -25,8 +26,21 @@ export function PageHead({
   crumbs?: { href?: string; label: string }[];
   children?: ReactNode;
 }) {
+  // Breadcrumb structured data, from the same crumbs the visitor sees.
+  const trail = [{ label: "Home", href: "/" }, ...crumbs];
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.label,
+      ...(c.href ? { item: `${siteConfig.url}${c.href === "/" ? "" : c.href}` } : {}),
+    })),
+  };
   return (
     <div className="page-head">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <div className="wrap">
         <nav className="crumbs" aria-label="Breadcrumb">
           <Link href="/">Home</Link>

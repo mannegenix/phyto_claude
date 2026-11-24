@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import { getAbout, getCompany, getProducts } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 import { Reveal } from "@/components/motion/Reveal";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "The team behind Phyto Elements has spent 15 years in nutraceutical ingredient extraction, from field-level sourcing to quality control, quality assurance and process technology.",
-};
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const [c, about, products] = await Promise.all([getCompany(), getAbout(), getProducts()]);
@@ -56,7 +58,14 @@ export default async function AboutPage() {
             {about.aboutStrengths.map((s, i) => (
               <li key={s.title} className="about-rise" style={{ ["--i" as string]: i }}>
                 <div className="about-strength-img">
-                  <Image src={s.image} alt="" width={800} height={450} sizes="(max-width: 860px) 92vw, 280px" unoptimized />
+                  <Image
+                    src={s.image}
+                    alt=""
+                    width={800}
+                    height={450}
+                    sizes="(max-width: 860px) 92vw, 280px"
+                    unoptimized
+                  />
                 </div>
                 <div className="about-strength-body">
                   <h3>{s.title}</h3>

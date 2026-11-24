@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 import { PageHead } from "@/components/ui/PageHead";
@@ -6,10 +7,11 @@ import { MailList } from "@/components/ui/MailList";
 import { LogoMark } from "@/components/layout/Logo";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description: "Contact Phyto Elements, Hyderabad, India: info@phytoelements.in.",
-};
+  path: "/contact",
+});
 
 export default async function ContactPage() {
   const c = await getCompany();

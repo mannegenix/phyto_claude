@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageHead } from "@/components/ui/PageHead";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Request a Sample",
   description: "Request a sample of any Phyto Elements extract with its supporting documents.",
-};
+  path: "/sample",
+});
 
 export default function SamplePage() {
   return (

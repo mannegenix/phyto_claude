@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 import { OpIcon } from "@/components/ui/OpIcon";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "How we work",
-  description: "From specification and producer qualification to testing, release and fulfilment: how Phyto Elements decides what carries its name.",
-};
+  description:
+    "From specification and producer qualification to testing, release and fulfilment: how Phyto Elements decides what carries its name.",
+  path: "/operations",
+});
 
 export default async function OperationsPage() {
   const c = await getCompany();

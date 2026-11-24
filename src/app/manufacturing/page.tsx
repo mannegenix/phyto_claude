@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/content";
 import { PageHead } from "@/components/ui/PageHead";
 import { SourceToSeal, TestPillars } from "@/components/sections/home";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Manufacturing & Quality",
   description:
     "Bulk plant extracts made and sourced to defined specifications and tested to recognised global quality standards and beyond. Only lots that pass carry our name.",
-};
+  path: "/manufacturing",
+});
 
 export default async function ManufacturingPage() {
   const c = await getCompany();
@@ -24,16 +26,16 @@ export default async function ManufacturingPage() {
             <span className="eyebrow">Manufacturing</span>
             <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Made to a defined specification</h2>
             <p>
-              Our extracts are produced at our own manufacturing facility and by qualified manufacturing partners. Wherever a lot
-              is made, it is made against the same defined specification for botanical source, plant part, marker
-              compound and grade, aligned with recognised global quality standards.
+              Our extracts are produced at our own manufacturing facility and by qualified manufacturing partners.
+              Wherever a lot is made, it is made against the same defined specification for botanical source, plant
+              part, marker compound and grade, aligned with recognised global quality standards.
             </p>
             <span className="eyebrow mt-6">Quality</span>
             <h2 className="text-[clamp(1.8rem,3.4vw,2.5rem)]">Global standards, and beyond</h2>
             <p>
               Quality is decided in testing. Each lot is checked rigorously against recognised global quality standards,
-              and we aim to go beyond them wherever we can. Lots that fall short are rejected or returned. They are never
-              relabelled, blended in or sold under our name.
+              and we aim to go beyond them wherever we can. Lots that fall short are rejected or returned. They are
+              never relabelled, blended in or sold under our name.
             </p>
           </div>
           <div className="grid gap-[18px]">

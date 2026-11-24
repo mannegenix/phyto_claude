@@ -4,6 +4,7 @@ import "@fontsource-variable/hanken-grotesk";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import { OG_SITE } from "@/lib/seo";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileDock } from "@/components/layout/MobileDock";
@@ -23,7 +24,14 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  openGraph: { siteName: siteConfig.name, type: "website", locale: "en_IN" },
+  // Defaults for pages that set none (404 …); pages set their own through lib/seo pageMetadata.
+  openGraph: {
+    siteName: siteConfig.name,
+    type: "website",
+    locale: "en_IN",
+    images: [{ url: OG_SITE, width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: { card: "summary_large_image", images: [OG_SITE] },
   robots: siteConfig.indexable ? undefined : { index: false, follow: false },
 };
 

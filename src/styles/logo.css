@@ -72,7 +72,12 @@ html.pe-logo [style*="--sw"] {
 /* ── Hero: the photo stays; copy on a white wash, highlight underlined in sun yellow ── */
 html.pe-logo .hero .hero-title em,
 html.pe-logo .hero-title em {
-  background: linear-gradient(transparent 68%, color-mix(in oklab, #fdce18 70%, white) 68%, color-mix(in oklab, #fdce18 70%, white) 92%, transparent 92%);
+  background: linear-gradient(
+    transparent 68%,
+    color-mix(in oklab, #fdce18 70%, white) 68%,
+    color-mix(in oklab, #fdce18 70%, white) 92%,
+    transparent 92%
+  );
   -webkit-background-clip: border-box;
   background-clip: border-box;
   color: #02584a;
@@ -90,12 +95,16 @@ html.pe-logo .hero .specimen-label {
 html.pe-logo .hero .specimen-label.is-test.is-on {
   background: #fdce18;
   color: #02584a;
-  box-shadow: 0 0 0 4px rgb(253 206 24 / 0.3), 0 0 26px rgb(253 206 24 / 0.6);
+  box-shadow:
+    0 0 0 4px rgb(253 206 24 / 0.3),
+    0 0 26px rgb(253 206 24 / 0.6);
 }
 html.pe-logo .hero .specimen-label.is-pass.is-on {
   background: #94de03;
   color: #02584a;
-  box-shadow: 0 0 0 4px rgb(148 222 3 / 0.3), 0 0 28px rgb(148 222 3 / 0.65);
+  box-shadow:
+    0 0 0 4px rgb(148 222 3 / 0.3),
+    0 0 28px rgb(148 222 3 / 0.65);
 }
 html.pe-logo .hero .specimen-label.is-lots.is-on {
   color: #02584a;
@@ -135,21 +144,19 @@ html.pe-logo .eyebrow {
 html.pe-logo .eyebrow::before {
   background: linear-gradient(90deg, #94de03 0 60%, #fdce18 60% 100%);
 }
-html.pe-logo :is(.sc-chip, .chip, .badge, .po-role i, .pf-tag) {
+html.pe-logo :is(.chip, .po-role i, .pf-tag) {
   background: var(--logo-sun-100);
   border-color: color-mix(in oklab, #fdce18 55%, white);
   color: #02584a;
 }
-html.pe-logo :is(.sc-chip.is-flag, .po-role i.is-flag, .pf-card.is-here .pf-tag) {
+html.pe-logo :is(.po-role i.is-flag, .pf-card.is-here .pf-tag) {
   background: #fdce18;
   color: #02584a;
 }
 
 /* ── Sections: white, pale lime and pale sun; bands are light too ── */
-html.pe-logo :is(.sunk, .s2s, .s2s-lite) {
-  background:
-    radial-gradient(55% 50% at 90% 6%, var(--logo-sun-50), transparent 62%),
-    var(--logo-lime-50) !important;
+html.pe-logo :is(.sunk, .s2s-lite) {
+  background: radial-gradient(55% 50% at 90% 6%, var(--logo-sun-50), transparent 62%), var(--logo-lime-50) !important;
 }
 html.pe-logo .band {
   background: var(--lab-band-bg) !important;
@@ -162,7 +169,7 @@ html.pe-logo .bgphoto {
   --photo-blend: luminosity;
   --photo-op: 0.06;
 }
-html.pe-logo :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div, .pillars li) {
+html.pe-logo :is(.card, .tag, .sheet, .enq, .values > div, .kv > div, .pillars li) {
   background: #ffffff;
   border-color: var(--logo-green-line);
 }
@@ -175,9 +182,6 @@ html.pe-logo .hdr.is-open {
   border-bottom: 1px solid var(--logo-green-line) !important;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-}
-html.pe-logo .hdr .logo .logo-neg {
-  display: none !important;
 }
 html.pe-logo .hdr .logo .logo-pos {
   display: inline-flex !important;
@@ -211,9 +215,6 @@ html.pe-logo .p-slide-visual {
   background:
     radial-gradient(60% 60% at 50% 52%, #ffffff, transparent 70%),
     radial-gradient(120% 120% at 20% 10%, var(--logo-sun-100), var(--logo-lime-100) 100%);
-}
-html.pe-logo .p-slide-num {
-  color: rgb(255 255 255 / 0.7);
 }
 html.pe-logo .p-slide-facts > div {
   background: var(--logo-lime-50);
@@ -264,10 +265,6 @@ html.pe-logo .dock-sheet {
 }
 
 /* ── Footer switch ── */
-html.pe-logo .skin-toggle button[aria-pressed="true"] {
-  background: #94de03;
-  color: #02584a !important;
-}
 
 /* ── Logo sun yellow on every inner page (all looks): the last word of the page title
    gets a yellow marker, section headings a short yellow underline, labels a yellow tick ── */

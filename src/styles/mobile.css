@@ -225,9 +225,6 @@
     padding: 8px 16px;
   }
   /* Floating chat sits above the dock */
-  .chat-widget {
-    bottom: calc(var(--dock-h) + 14px) !important;
-  }
   /* Footer clears the dock */
   footer.site-footer {
     padding-bottom: calc(var(--dock-h) + 20px);
@@ -253,15 +250,14 @@
         rgb(250 252 247 / 0.55) 56%,
         rgb(250 252 247 / 0) 72%
       ),
-      url("/images/bg/botanicals-dark.webp") 62% bottom / cover no-repeat,
-      #f8faf5;
+      url("/images/bg/botanicals-dark.webp") 62% bottom / cover no-repeat, #f8faf5;
   }
   [data-theme="verdan"] .hero .hero-title em {
     filter: none;
   }
 }
 @media (max-width: 600px) {
-  :is([data-theme="labgreen"], [data-theme="lablight"], [data-theme="labday"], [data-theme="verdan"]) .hero-title {
+  :is([data-theme="verdan"]) .hero-title {
     font-size: clamp(2.1rem, 9.4vw, 2.7rem);
   }
   .hero .btn {
@@ -301,9 +297,6 @@
     flex-basis: min(86vw, 360px);
   }
   /* Homepage product cards: a little narrower so the next card peeks in */
-  ul.sc-grid.rail > * {
-    flex-basis: min(74vw, 300px);
-  }
   /* Section heads: tighter on phones */
   .section {
     padding-block: 44px;
@@ -346,9 +339,6 @@
   }
   .p-slide .orb {
     --orb: 150px;
-  }
-  .p-slide-num {
-    font-size: 4.2rem;
   }
   .p-slide-body {
     gap: 10px;
@@ -438,7 +428,9 @@
     background: #fff;
     border: 1px solid rgb(20 40 20 / 0.08);
     box-shadow: 0 8px 18px -10px rgb(30 55 25 / 0.45);
-    transition: opacity 0.25s, transform 0.2s;
+    transition:
+      opacity 0.25s,
+      transform 0.2s;
   }
   .rail-btn[data-dir="1"]:not(:disabled) {
     background: var(--accent);
@@ -465,11 +457,6 @@
     font-size: 0.74rem;
     font-weight: 650;
     color: var(--heading);
-  }
-  .rail-count {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    color: var(--muted);
   }
   .rail-hint {
     color: var(--accent-text);
@@ -625,9 +612,6 @@
   }
   .p-slide .orb {
     --orb: 124px;
-  }
-  .p-slide-num {
-    display: none;
   }
   .p-slide-facts > div:nth-child(n + 2) {
     display: none;

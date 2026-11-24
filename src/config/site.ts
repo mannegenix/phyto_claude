@@ -1,36 +1,13 @@
 /**
  * Site-wide configuration.
  *
- * `defaultTheme` is the colour route the live site renders with. Every route stays
- * defined here and in themes.css so any of them can be brought back by changing
- * `defaultTheme`. In review mode (NEXT_PUBLIC_SHOW_THEME_SWITCHER=true) routes can
- * also be previewed with ?theme=<id> and side by side on /compare.
- *
- * Route numbers are stable references for client conversations.
+ * `defaultTheme` is the colour route the site renders with (tokens in styles/themes.css).
+ * Since Nov 24 only R10 "Verdan light" is kept; the other routes were removed.
  */
 export const THEMES = [
-  { id: "greenlight", no: "R01", label: "Green light", swatch: ["#2b8530", "#9bd866"] },
-  { id: "greendark", no: "R02", label: "Green dark", swatch: ["#0d3b2e", "#15583f"] },
-  { id: "bluelight", no: "R03", label: "Blue light", swatch: ["#15dbeb", "#0a9fd8", "#f04e12"] },
-  { id: "bluevivid", no: "R04", label: "Blue vivid", swatch: ["#1d6bf3", "#15dbeb"] },
-  { id: "bluegreen", no: "R05", label: "Blue + green (original)", swatch: ["#15dbeb", "#22c55e"] },
-  { id: "bluedark", no: "R06", label: "Blue dark", swatch: ["#0d838c", "#ffb627"] },
-  /** Selected route: Lab green + blue. Indena-style lab look in light tones with a blue testing splash. */
-  { id: "lablight", no: "R07", label: "Lab green + blue (selected)", swatch: ["#2f8f2e", "#8fd14f", "#15dbeb"] },
-  /** Dark edition of the lab route, kept for reference. */
-  { id: "labgreen", no: "R08", label: "Lab green dark", swatch: ["#141615", "#8fd14f", "#15dbeb"] },
-  { id: "labday", no: "R09", label: "Lab daylight", swatch: ["#e4f6cf", "#8fd14f", "#0a76b3"] },
-  /** Verdan light: white + pale sage glass, chartreuse, from the client's "Verdan Farm OS" reference. Used by the homepage ("/"). */
+  /** Verdan light: white + pale sage glass, chartreuse, from the client's "Verdan Farm OS" reference. */
   { id: "verdan", no: "R10", label: "Verdan light", swatch: ["#f8faf5", "#e4ebdc", "#c8e068"] },
 ] as const;
-
-/**
- * Pages shown in a different colour route from the rest of the site. The whole site uses
- * `defaultTheme` (Verdan light); add a path here to give one page another route.
- * Applied before first paint by `routeThemeBootScript` and kept in sync on client
- * navigation by `motion/RouteTheme`.
- */
-export const ROUTE_THEMES: Record<string, ThemeId> = {};
 
 export type ThemeId = (typeof THEMES)[number]["id"];
 
@@ -54,10 +31,6 @@ export const siteConfig = {
   description:
     "Phyto Elements, based in Hyderabad, India, supplies bulk plant extracts to Indian & Global buyers. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
   defaultTheme: "verdan" as ThemeId,
-  /** Review mode: enables /compare and ?theme= previews. Never enable in production. */
-  showThemeSwitcher: process.env.NEXT_PUBLIC_SHOW_THEME_SWITCHER === "true",
-  /** Chat widget appears only when the API key is configured server-side and this flag is on. */
-  chatEnabled: process.env.NEXT_PUBLIC_CHAT_ENABLED === "true",
 };
 
 export const NAV = [

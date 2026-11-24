@@ -6,13 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import type { ProcessStage } from "@/content/types";
 
 /**
- * One-screen "From source to seal" layouts (replace the pinned scroll-through version):
- *  - SealPipeline (homepage): the whole journey at a glance — a stream of lots that
- *    narrows at each check and ends in the Phyto Passed seal, with the step cards under
- *    it. The highlight moves across the steps on its own; nothing needs a click.
- *  - SealStepper (Manufacturing & Quality): an auto-playing stepper — the steps advance by
- *    themselves, the lot grid changes for each step, and visitors can click any step or pause.
- * Both are illustrative: no counts, no reject rates.
+ * "From source to seal" on Manufacturing & Quality: an auto-playing stepper — the steps
+ * advance by themselves, the lot grid changes for each step, and visitors can click any step
+ * or pause. Illustrative: no counts, no reject rates.
  */
 
 /** Deterministic pseudo-random sequence (same output on server and client). */
@@ -22,55 +18,6 @@ function seq(seed: number) {
     s = (s * 9301 + 49297) % 233280;
     return s / 233280;
   };
-}
-
-// ── B · Pipeline at a glance ───────────────────────────────────────────────────
-const PIPE_COUNTS = [26, 20, 14, 9, 9];
-
-export function SealPipeline({ stages }: { stages: ProcessStage[] }) {
-  const n = stages.length;
-  return (
-    <div className="s2p" style={{ ["--n" as string]: n }}>
-      <div className="s2p-stream" aria-hidden="true">
-        {stages.map((s, i) => {
-          const rnd = seq(3 + i * 11);
-          const count = PIPE_COUNTS[Math.min(i, PIPE_COUNTS.length - 1)];
-          const last = i === n - 1;
-          return (
-            <div key={s.title} className={`s2p-seg ${last ? "is-end" : ""}`} style={{ ["--i" as string]: i }}>
-              {Array.from({ length: count }, (_, k) => {
-                const kind = i === n - 2 && k > 5 ? "x" : i >= n - 2 ? "ok" : i === n - 3 ? "t" : "raw";
-                return (
-                  <i
-                    key={k}
-                    className={`s2p-lot is-${kind}`}
-                    style={{
-                      left: `${8 + rnd() * 78}%`,
-                      top: `${10 + rnd() * 80}%`,
-                      ["--d" as string]: `${(rnd() * -6).toFixed(2)}s`,
-                    }}
-                  />
-                );
-              })}
-            </div>
-          );
-        })}
-        <span className="s2p-seal">
-          Phyto
-          <b>Passed</b>
-        </span>
-      </div>
-      <ol className="s2p-cards rail">
-        {stages.map((s, i) => (
-          <li key={s.title} className="s2p-card" style={{ ["--i" as string]: i }}>
-            <span className="s2p-num">{String(i + 1).padStart(2, "0")}</span>
-            <h3>{s.title}</h3>
-            <p>{s.body}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
 }
 
 // ── A · Auto-playing stepper ───────────────────────────────────────────────────

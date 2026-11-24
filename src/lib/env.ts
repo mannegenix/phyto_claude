@@ -14,8 +14,6 @@ const schema = z.object({
   SAMPLES_CC: z.string().optional(),
   TURNSTILE_SECRET_KEY: z.string().optional(),
   CRM_WEBHOOK_URL: z.url().optional(),
-  ANTHROPIC_API_KEY: z.string().optional(),
-  CHAT_MODEL: z.string().default("claude-haiku-5-5"),
 });
 
 export function getEnv() {
@@ -26,7 +24,5 @@ export function getEnv() {
     SAMPLES_CC: process.env.SAMPLES_CC || undefined,
     TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || undefined,
     CRM_WEBHOOK_URL: process.env.CRM_WEBHOOK_URL || undefined,
-    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || undefined,
-    CHAT_MODEL: process.env.CHAT_MODEL || undefined,
   });
 }

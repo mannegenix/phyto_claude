@@ -23,8 +23,6 @@ const nextConfig: NextConfig = {
     // /quality was briefly the address of Manufacturing & Quality; keep old links working.
     return [
       { source: "/quality", destination: "/manufacturing", permanent: true },
-      // AltHome (the Verdan light design) became the homepage.
-      { source: "/althome", destination: "/", permanent: false },
       // The Resources page was removed; documents are requested by email (info@).
       { source: "/resources", destination: "/contact", permanent: false },
     ];

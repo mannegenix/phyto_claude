@@ -42,7 +42,7 @@ export default async function ManufacturingPage() {
         </div>
       </section>
       <TestPillars pillars={c.testPillars} />
-      <SourceToSeal stages={c.stages} layout="stepper" />
+      <SourceToSeal stages={c.stages} />
       <section className="section sunk">
         <div className="wrap">
           <div className="sec-head">

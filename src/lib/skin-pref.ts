@@ -1,38 +1,6 @@
 /**
- * Site look chosen in the footer:
- *  - "logo" (default): only the three logo colours on white and pale tints (html.pe-logo,
- *    styles/logo.css)
- *  - "gradient": the blue → cyan → lime brand gradient from dev1.phytoelements.in on the
- *    top menu, buttons and bands (html.pe-gradient, styles/gradient.css)
- *  - "light": plain Verdan light (no class)
- * A non-default choice is stored on the device; the look is applied before paint.
+ * Site look. Since Nov 24 every visitor gets the Logo look: only the three logo colours on
+ * white and pale tints (html.pe-logo, styles/logo.css). The look switch and the Gradient and
+ * Light looks were removed; an older stored choice is cleared.
  */
-export const SKIN_KEY = "pe-skin";
-export const SKINS = ["light", "gradient", "logo"] as const;
-export type Skin = (typeof SKINS)[number];
-export const DEFAULT_SKIN: Skin = "logo";
-
-/**
- * Since Nov 24 the switch is hidden and every visitor gets the Logo look (an earlier stored
- * choice is cleared). To offer the choice again, render <SkinToggle /> and restore reading
- * the stored value here.
- */
-export const skinBootScript = `(function(){var h=document.documentElement;try{localStorage.removeItem("${SKIN_KEY}")}catch(e){}h.classList.add("pe-${DEFAULT_SKIN}")})()`;
-
-export function currentSkin(): Skin {
-  if (typeof document === "undefined") return DEFAULT_SKIN;
-  const c = document.documentElement.classList;
-  return c.contains("pe-logo") ? "logo" : c.contains("pe-gradient") ? "gradient" : "light";
-}
-
-export function setSkin(skin: Skin) {
-  const c = document.documentElement.classList;
-  c.toggle("pe-gradient", skin === "gradient");
-  c.toggle("pe-logo", skin === "logo");
-  try {
-    if (skin === DEFAULT_SKIN) localStorage.removeItem(SKIN_KEY);
-    else localStorage.setItem(SKIN_KEY, skin);
-  } catch {
-    /* storage unavailable: the choice lasts for this page only */
-  }
-}
+export const skinBootScript = `(function(){try{localStorage.removeItem("pe-skin")}catch(e){}document.documentElement.classList.add("pe-logo")})()`;

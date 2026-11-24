@@ -2,12 +2,10 @@ import Link from "next/link";
 import { HeroMode } from "@/components/hero/HeroMode";
 import { HeroTicker } from "@/components/hero/HeroTicker";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
-import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { SpecimenHero } from "@/components/hero/SpecimenHero";
 import { HeroScene } from "@/components/hero/HeroScene";
-import { QualityFunnel } from "@/components/sections/QualityFunnel";
-import { SealPipeline, SealStepper } from "@/components/sections/SealViews";
+import { SealStepper } from "@/components/sections/SealViews";
 
 export function Hero({ products, positioning }: { products: Product[]; positioning: string }) {
   const items = products.map((p) => ({
@@ -93,24 +91,6 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
   );
 }
 
-/** Product ticker under the hero: every extract, every lot, the same check. */
-export function ProductTicker({ products }: { products: Product[] }) {
-  const row = products.map((p) => (
-    <span key={p.slug} className="ticker-item">
-      <b>{p.short}</b> <span className="ticker-marker">{p.marker.split(/[,/(]/)[0].trim()}</span>
-      <span className="ticker-ok">Tested</span>
-    </span>
-  ));
-  return (
-    <div className="ticker" aria-hidden="true">
-      <div className="ticker-track">
-        {row}
-        {row}
-      </div>
-    </div>
-  );
-}
-
 export function ValuesSection({ intro, values }: { intro: string; values: ValuePoint[] }) {
   return (
     <section className="section sunk bgphoto bgphoto-quality">
@@ -133,44 +113,8 @@ export function ValuesSection({ intro, values }: { intro: string; values: ValueP
   );
 }
 
-export function ProductGrid({ products, heading = true }: { products: Product[]; heading?: boolean }) {
-  return (
-    <section className={`section bgphoto bgphoto-amber ${heading ? "wave-top" : ""}`}>
-      <div className="wrap">
-        {heading && (
-          <Reveal className="sec-head">
-            <span className="eyebrow">Portfolio</span>
-            <h2>Every extract, one standard</h2>
-            <p className="lede">
-              Garcinia Cambogia leads the portfolio, and the other five are held to exactly the same test. Every product
-              has its own page, specification summary and enquiry form.
-            </p>
-          </Reveal>
-        )}
-        <div className="rail grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/** "From source to seal": the stages scroll beside a field of lots that narrows to the ones that pass. */
-/**
- * "From source to seal". `layout`:
- *  - "pipeline" (homepage): one screen, the whole journey at a glance (SealPipeline)
- *  - "stepper" (Manufacturing & Quality): one screen, auto-playing steps (SealStepper)
- *  - "scroll" (hidden classic home): the earlier pinned scroll-through (one screen per step)
- */
-export function SourceToSeal({
-  stages,
-  layout = "pipeline",
-}: {
-  stages: ProcessStage[];
-  layout?: "pipeline" | "stepper" | "scroll";
-}) {
+/** "From source to seal" on Manufacturing & Quality: one screen, auto-playing steps (SealStepper). */
+export function SourceToSeal({ stages }: { stages: ProcessStage[] }) {
   const head = (
     <div className="sec-head">
       <span className="eyebrow">From source to seal</span>
@@ -181,24 +125,11 @@ export function SourceToSeal({
       </p>
     </div>
   );
-  if (layout === "scroll")
-    return (
-      <section
-        className="section wave-top s2s bgphoto bgphoto-dropper"
-        data-steps={stages.length + 1}
-        style={{ ["--s2s-n" as string]: stages.length + 1 }}
-      >
-        <div className="wrap">
-          {head}
-          <QualityFunnel stages={stages} />
-        </div>
-      </section>
-    );
   return (
     <section className={`section wave-top s2s-lite bgphoto bgphoto-dropper`}>
       <div className="wrap">
         {head}
-        {layout === "stepper" ? <SealStepper stages={stages} /> : <SealPipeline stages={stages} />}
+        <SealStepper stages={stages} />
       </div>
     </section>
   );

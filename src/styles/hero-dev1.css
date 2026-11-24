@@ -29,14 +29,10 @@ html.hero-dev1 .hero-v1 {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(ellipse at 76% 36%, #c4f06a, transparent 55%),
-    #f6faf1;
+  background: radial-gradient(ellipse at 76% 36%, #c4f06a, transparent 55%), #f6faf1;
 }
 html.pe-logo .hero-v1-bloom {
-  background:
-    radial-gradient(ellipse at 76% 36%, color-mix(in oklab, #94de03 45%, white), transparent 55%),
-    #ffffff;
+  background: radial-gradient(ellipse at 76% 36%, color-mix(in oklab, #94de03 45%, white), transparent 55%), #ffffff;
 }
 .hero-v1-collage {
   position: absolute;
@@ -233,46 +229,3 @@ html.pe-logo .hero-v1-link {
 
 /* Toggle (temporary, for client review): a small pill sitting on the right end of the
    product ticker strip (where the strip fades out), so it takes no space of its own */
-.hero-toggle {
-  position: absolute;
-  z-index: 6;
-  right: 14px;
-  bottom: 12px;
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.92);
-  border: 1px solid rgb(20 40 20 / 0.12);
-  box-shadow: 0 6px 16px -10px rgb(20 40 20 / 0.45);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  opacity: 0.9;
-}
-.hero-toggle:hover {
-  opacity: 1;
-}
-html.hero-dev1 .hero-toggle {
-  bottom: 14px;
-}
-.hero-toggle button {
-  font: 650 0.68rem/1 var(--font-sans);
-  padding: 5px 9px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: #142014;
-  cursor: pointer;
-}
-.hero-toggle button[aria-pressed="true"] {
-  background: #142014;
-  color: #fff;
-}
-html.pe-gradient .hero-toggle button[aria-pressed="true"] {
-  background: linear-gradient(110deg, #0b7cf2, #20b8d8 50%, #8fd14f);
-  color: #07120a;
-}
-html.pe-logo .hero-toggle button[aria-pressed="true"] {
-  background: #94de03;
-  color: #02584a;
-}

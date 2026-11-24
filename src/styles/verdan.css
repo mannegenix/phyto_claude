@@ -87,7 +87,7 @@
   }
 
   /* ── White glass blocks everywhere ── */
-  & :is(.card, .tag, .sheet, .funnel-card, .enq, .next-extract, .values > div, .funcs li, .kv > div, .pillars li) {
+  & :is(.card, .tag, .sheet, .enq, .values > div, .kv > div, .pillars li) {
     background: var(--neu-bg), var(--glass);
     border: 1px solid var(--glass-edge);
     border-radius: 20px;
@@ -98,7 +98,7 @@
   & .band {
     color: var(--on-band);
   }
-  & .band :is(.pillars li, .flag-specs) {
+  & .band :is(.pillars li) {
     background: var(--neu-bg), var(--glass);
     border: 1px solid var(--glass-edge);
     border-radius: 20px;
@@ -110,37 +110,12 @@
   }
 
   /* Products: white glass tiles, dark type */
-  & .sc-card-btn {
-    background:
-      radial-gradient(120% 90% at 0% 0%, #fff, transparent 60%),
-      rgb(255 255 255 / 0.7);
-    color: var(--ink);
-    border-color: var(--glass-edge);
-    box-shadow: var(--glass-shadow);
-  }
-  & .sc-card-btn:hover,
-  & .sc-card-btn:focus-visible {
-    border-color: rgb(150 190 60 / 0.6);
-  }
-  & .sc-card-btn .sc-card-name {
-    color: var(--heading);
-  }
-  & .sc-card-btn :is(.sc-card-src, .sc-card-foot) {
-    color: var(--muted);
-  }
-  & .sc-hint {
-    color: var(--ink);
-  }
 
   /* Pills: chartreuse tint, olive text */
-  & :is(.sc-chip, .chip, .badge) {
+  & :is(.chip) {
     background: rgb(150 190 60 / 0.16);
     border-color: rgb(120 160 40 / 0.3);
     color: var(--accent-text);
-  }
-  & .sc-chip.is-flag {
-    background: var(--accent);
-    color: var(--on-accent);
   }
 
   /* Buttons: rounded pills */
@@ -149,17 +124,15 @@
   }
 
   /* ── Pale sage sections (values, source-to-seal, enquiry) ── */
-  & :is(.sunk, .s2s, .s2s-lite) {
+  & :is(.sunk, .s2s-lite) {
     /* !important: the full-screen panel rule paints plain sections with --paper at a
        higher specificity; on this route these sections are pale sage. */
-    background:
-      radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.7), transparent 60%),
-      #e4ebdc !important;
+    background: radial-gradient(70% 60% at 85% 10%, rgb(255 255 255 / 0.7), transparent 60%), #e4ebdc !important;
   }
-  & :is(.sunk, .s2s, .s2s-lite) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
+  & :is(.sunk, .s2s-lite) :is(.card, .tag, .sheet, .funnel-card, .enq, .values > div, .kv > div, .funcs li) {
     background: var(--neu-bg), var(--glass-strong);
   }
-  & :is(.sunk, .s2s, .s2s-lite).bgphoto {
+  & :is(.sunk, .s2s-lite).bgphoto {
     --photo-blend: multiply;
     --photo-op: 0.12;
   }
@@ -189,11 +162,6 @@
   & footer .legal {
     border-top-color: rgb(20 40 20 / 0.12);
   }
-
-  & .labart-bg {
-    color: var(--accent-text);
-    opacity: 0.14;
-  }
   & .ticker {
     color: var(--ink);
   }
@@ -222,16 +190,22 @@
 }
 [data-theme="verdan"] .hero .specimen-label.is-lots.is-on {
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgb(255 255 255 / 0.28), 0 8px 22px -8px rgb(0 0 0 / 0.5);
+  box-shadow:
+    0 0 0 4px rgb(255 255 255 / 0.28),
+    0 8px 22px -8px rgb(0 0 0 / 0.5);
 }
 [data-theme="verdan"] .hero .specimen-label.is-test.is-on {
   background: #4fb8ff;
   color: #04233a;
-  box-shadow: 0 0 0 4px rgb(79 184 255 / 0.3), 0 0 26px rgb(79 184 255 / 0.65);
+  box-shadow:
+    0 0 0 4px rgb(79 184 255 / 0.3),
+    0 0 26px rgb(79 184 255 / 0.65);
 }
 [data-theme="verdan"] .hero .specimen-label.is-pass.is-on {
   background: #c8f04a;
-  box-shadow: 0 0 0 4px rgb(200 240 74 / 0.3), 0 0 28px rgb(200 240 74 / 0.7);
+  box-shadow:
+    0 0 0 4px rgb(200 240 74 / 0.3),
+    0 0 28px rgb(200 240 74 / 0.7);
 }
 html:not(.pe-calm) {
   [data-theme="verdan"] .hero .specimen-label.is-on {
@@ -278,9 +252,6 @@ html:not(.pe-calm) {
 
 /* The client's logo always shows in its original colours, in every theme and look:
    the reversed artwork is never swapped in. */
-.logo .logo-neg {
-  display: none !important;
-}
 .logo .logo-pos {
   display: inline-flex !important;
 }

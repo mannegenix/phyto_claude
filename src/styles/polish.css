@@ -20,7 +20,6 @@
     -moz-osx-font-smoothing: auto;
   }
   /* Light text on dark backgrounds looks bolder than it is; thin it back slightly. */
-  :is([data-theme="greendark"], [data-theme="bluedark"], [data-theme="labgreen"]) body,
   .band,
   footer.site-footer {
     -webkit-font-smoothing: antialiased;
@@ -172,56 +171,8 @@
 }
 
 /* ── Rotating card top edges for every theme (blue themes define their own in themes.css) ── */
-[data-theme="greenlight"] {
-  --edge-1: var(--accent);
-  --edge-2: #6bbf3a;
-  --edge-3: #c37f56;
-}
-[data-theme="greendark"] {
-  --edge-1: var(--accent);
-  --edge-2: #4fbf8a;
-  --edge-3: #c37f56;
-}
-[data-theme="bluedark"] {
-  --edge-1: var(--accent);
-  --edge-2: var(--pop);
-  --edge-3: #ffb627;
-}
-:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) :is(.card, .funcs li, .values > div) {
-  border-top: 3px solid var(--edge-1);
-}
-:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"])
-  :is(.card, .values > div):nth-child(3n + 2) {
-  border-top-color: var(--edge-2);
-}
-:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"])
-  :is(.card, .values > div):nth-child(3n) {
-  border-top-color: var(--edge-3);
-}
-:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) .values {
-  gap: 12px;
-  background: none;
-  border: 0;
-}
-:is([data-theme="greenlight"], [data-theme="greendark"], [data-theme="bluedark"]) .values > div {
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--edge-1);
-  border-radius: var(--radius);
-}
 
 /* Green themes: two-tone headline highlight to match the blue themes' gradients. */
-[data-theme="greenlight"] .hero-title em {
-  background: linear-gradient(90deg, var(--accent), #4f9f1f 60%, #7ab800);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-[data-theme="greendark"] .hero-title em {
-  background: linear-gradient(90deg, var(--accent), #c8f08f);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
 
 html.pe-calm {
   .btn:hover {

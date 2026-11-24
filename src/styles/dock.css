@@ -89,10 +89,6 @@
   box-shadow: 0 18px 60px -45px rgb(36 88 51 / 0.4);
   border-top: 3px solid var(--accent-text);
 }
-html.pe-gradient .dock-panel {
-  border-top: 4px solid transparent;
-  border-image: var(--brand-gradient) 1;
-}
 html.pe-logo .dock-panel {
   border-top-color: #94de03;
 }
@@ -164,9 +160,6 @@ html.pe-logo .dock-panel {
 .dock-tabs button[aria-current] i {
   background: var(--accent-text);
 }
-html.pe-gradient .dock-tabs button[aria-current] i {
-  background: var(--brand-gradient);
-}
 html.pe-logo .dock-tabs button[aria-current] i {
   background: #94de03;
 }
@@ -192,9 +185,6 @@ html.pe-logo .dock-tabs button[aria-current] i {
 }
 .dock-arrows button:hover:not(:disabled) {
   background: color-mix(in oklab, var(--accent) 22%, white);
-}
-html.pe-gradient .dock-arrows button:hover:not(:disabled) {
-  background: var(--brand-gradient-soft);
 }
 .dock-arrows button:disabled {
   opacity: 0.3;
@@ -282,10 +272,6 @@ html.pe-gradient .dock-arrows button:hover:not(:disabled) {
     background: var(--accent);
     color: var(--on-accent);
     border-color: transparent;
-  }
-  html.pe-gradient .dock-arrows button[aria-label="Next stage"]:not(:disabled) {
-    background: var(--brand-gradient);
-    color: #07120a;
   }
   .dock-image {
     height: 170px;

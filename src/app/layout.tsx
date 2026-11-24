@@ -12,14 +12,11 @@ import { getCompany, getProducts } from "@/lib/content";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { PanelScroll } from "@/components/motion/PanelScroll";
 import { RouteTransition } from "@/components/motion/RouteTransition";
-import { themeBootScript } from "@/components/dev/theme-boot";
-import { RouteTheme, routeThemeBootScript } from "@/components/motion/RouteTheme";
 import { motionBootScript } from "@/lib/motion-pref";
 import { skinBootScript } from "@/lib/skin-pref";
 import { heroBootScript } from "@/lib/hero-pref";
 import { fxBootScript } from "@/lib/fx-guard";
 import { FxGuard } from "@/components/motion/FxGuard";
-import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
 export const metadata: Metadata = {
@@ -46,12 +43,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" data-theme={siteConfig.defaultTheme} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: preloaderBootScript }} />
-        <script dangerouslySetInnerHTML={{ __html: routeThemeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: skinBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: heroBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: fxBootScript }} />
-        {siteConfig.showThemeSwitcher && <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />}
       </head>
       <body>
         <Preloader />
@@ -61,7 +56,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <RouteTheme />
         <SmoothScroll />
         <PanelScroll />
         <RouteTransition />
@@ -71,7 +65,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <FxGuard />
         <RailDots />
         <MobileDock products={dockProducts} email={mailboxes[0].address} />
-        {siteConfig.chatEnabled && <ChatWidget />}
       </body>
     </html>
   );

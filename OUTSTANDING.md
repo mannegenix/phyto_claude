@@ -8,10 +8,6 @@ Last updated: 24 Nov 2026
 
 ## 1. Now
 
-- [ ] **Decide on search-engine indexing** (Abhi). The live build currently has
-      `NEXT_PUBLIC_ALLOW_INDEXING=true`, so robots.txt allows crawlers and pages carry no
-      noindex. If the site is not signed off yet: set it to `false` in Cloudflare
-      (Settings › Build › Variables) and Retry build. If it is: go to section 4 (Go-live).
 - [ ] **Test both enquiry forms end to end** (Abhi). From /sample and /contact (Turnstile
       ticked): the email arrives in the Zoho inbox from info@phytoelements.in, the subject
       starts "Website enquiry [ref]", and Reply goes to the visitor's address.
@@ -37,8 +33,6 @@ Last updated: 24 Nov 2026
 
 ## 4. Go-live
 
-- [ ] **Open to search engines** (Abhi): `NEXT_PUBLIC_ALLOW_INDEXING=true` (if reset in step 1)
-      and Retry build; check /robots.txt says `Allow: /`.
 - [ ] **Google Search Console** (Abhi): add the domain property (DNS TXT record in
       Cloudflare), submit `https://phytoelements.in/sitemap.xml`, request indexing of the
       homepage and product pages.
@@ -66,6 +60,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: indexing decided: the site stays open to search engines
+  (`NEXT_PUBLIC_ALLOW_INDEXING=true`; live robots.txt allows crawlers, no noindex).
 - 24 Nov: Cloudflare tidy-up (unused variables and the old chat key removed; workers.dev and
   Preview URLs disabled).
 - 24 Nov: email (Zoho inbox + Resend from info@), Turnstile, Cloudflare Web Analytics,

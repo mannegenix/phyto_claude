@@ -3,6 +3,7 @@
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { submitEnquiry } from "@/app/actions/enquiry";
 import { Turnstile } from "@/components/forms/Turnstile";
+import { CountryPhone } from "@/components/forms/CountryPhone";
 import { siteConfig } from "@/config/site";
 import { ENQUIRY_TYPES, SPEC_FILE_TYPES, TIMELINES, UNITS, type EnquiryState } from "@/lib/enquiry-schema";
 
@@ -130,26 +131,7 @@ export function EnquiryForm({
         <input className="input" id="enq-email" name="email" type="email" autoComplete="email" required />
         <FieldError msg={errors.email} />
       </div>
-      <div className="fld" {...field("phone")}>
-        <label htmlFor="enq-phone">
-          Phone / WhatsApp <span className="opt">with country code</span>
-        </label>
-        <input
-          className="input"
-          id="enq-phone"
-          name="phone"
-          type="tel"
-          placeholder="+91 …"
-          autoComplete="tel"
-          required
-        />
-        <FieldError msg={errors.phone} />
-      </div>
-      <div className="fld" {...field("country")}>
-        <label htmlFor="enq-country">Country</label>
-        <input className="input" id="enq-country" name="country" autoComplete="country-name" required />
-        <FieldError msg={errors.country} />
-      </div>
+      <CountryPhone countryError={errors.country} phoneError={errors.phone} />
       <div className="fld" {...field("product")}>
         <label htmlFor="enq-product">Product of interest</label>
         <select className="input" id="enq-product" name="product" defaultValue={preselect} required>

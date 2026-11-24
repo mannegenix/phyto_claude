@@ -51,6 +51,13 @@ Last updated: 24 Nov 2026
 - [ ] **AI chat assistant** like mannegenix.com (Dev): built fresh; answers only from site
       content; new API key and on/off setting at build time.
 
+## 5b. Parked
+
+- [ ] **Country from location** (Dev): optionally pre-select the country (and phone code) in the
+      enquiry form from the visitor's location. Prefer Cloudflare's request country
+      (`CF-IPCountry`, no permission prompt) over the browser's location permission; it must
+      stay editable and be mentioned in the Privacy Policy if location data is used.
+
 ## 6. After launch (housekeeping)
 
 - [ ] **DMARC** (Abhi, 2–4 weeks after launch): when Cloudflare DMARC reports show only Zoho
@@ -60,6 +67,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: enquiry form: searchable country dropdown (India pinned, "Other" with text check) and
+  phone split into a searchable code dropdown, filled from the country, plus the number.
 - 24 Nov: automatic acknowledgement to enquirers (client chose Option B, a copy of their
   request for their records).
 - 24 Nov: hero product strip: client asked to remove it; kept in the code, hidden (Abhi's

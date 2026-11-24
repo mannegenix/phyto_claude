@@ -12,16 +12,22 @@ export const UNITS = ["kg", "MT", "g (sample)"] as const;
 export const SPEC_FILE_TYPES = [".pdf", ".doc", ".docx", ".xls", ".xlsx"];
 export const SPEC_FILE_MAX_BYTES = 5 * 1024 * 1024;
 
+/** A country typed in under "Other": letters (any script), spaces and . , ' ( ) & - */
+export const COUNTRY_TEXT = /^\p{L}[\p{L} .,'()&-]{1,59}$/u;
+/** A dialling code typed in under "Other": optional + and 1 to 4 digits. */
+export const DIAL_TEXT = /^\+?\d{1,4}$/;
+/** The number part of a phone: digits with optional spaces or dashes, 4 to 14 digits. */
+export const PHONE_NUMBER = /^(?=(?:\D*\d){4,14}\D*$)\d[\d\s-]*$/;
+/** Full phone as submitted: "+<code> <number>". */
+const PHONE_FULL = /^\+\d{1,4} (?=(?:\D*\d){4,14}\D*$)\d[\d\s-]*$/;
+
 export const enquirySchema = z.object({
   type: z.enum(ENQUIRY_TYPES),
   name: z.string().trim().min(2, "Enter your full name."),
   company: z.string().trim().min(2, "Enter your company name."),
   email: z.email("Enter a valid business email, e.g. name@company.com."),
-  phone: z
-    .string()
-    .trim()
-    .regex(/^\+\d[\d\s-]{6,}$/, "Start with + and the country code, e.g. +91 98xxx xxxxx."),
-  country: z.string().trim().min(2, "Enter your country."),
+  phone: z.string().trim().regex(PHONE_FULL, "Choose your country code and enter your phone number."),
+  country: z.string().trim().regex(COUNTRY_TEXT, "Select your country."),
   product: z.string().min(1, "Select a product."),
   grade: z.string().trim().max(300).optional().default(""),
   quantity: z.string().trim().min(1, "Enter the quantity you need."),

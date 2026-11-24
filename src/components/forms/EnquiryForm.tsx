@@ -4,6 +4,7 @@ import { startTransition, useActionState, useEffect, useRef, useState } from "re
 import { submitEnquiry } from "@/app/actions/enquiry";
 import { Turnstile } from "@/components/forms/Turnstile";
 import { CountryPhone } from "@/components/forms/CountryPhone";
+import { Req } from "@/components/forms/Req";
 import { siteConfig } from "@/config/site";
 import { ENQUIRY_TYPES, SPEC_FILE_TYPES, TIMELINES, UNITS, type EnquiryState } from "@/lib/enquiry-schema";
 
@@ -105,7 +106,9 @@ export function EnquiryForm({
       }}
     >
       <fieldset className="fld fld-full border-0 p-0">
-        <legend>I&apos;d like to</legend>
+        <legend>
+          I&apos;d like to <Req />
+        </legend>
         <div className="seg">
           {ENQUIRY_TYPES.map((t) => (
             <label key={t}>
@@ -117,23 +120,31 @@ export function EnquiryForm({
       </fieldset>
 
       <div className="fld" {...field("name")}>
-        <label htmlFor="enq-name">Full name</label>
+        <label htmlFor="enq-name">
+          Full name <Req />
+        </label>
         <input className="input" id="enq-name" name="name" autoComplete="name" required />
         <FieldError msg={errors.name} />
       </div>
       <div className="fld" {...field("company")}>
-        <label htmlFor="enq-company">Company name</label>
+        <label htmlFor="enq-company">
+          Company name <Req />
+        </label>
         <input className="input" id="enq-company" name="company" autoComplete="organization" required />
         <FieldError msg={errors.company} />
       </div>
       <div className="fld" {...field("email")}>
-        <label htmlFor="enq-email">Business email</label>
+        <label htmlFor="enq-email">
+          Business email <Req />
+        </label>
         <input className="input" id="enq-email" name="email" type="email" autoComplete="email" required />
         <FieldError msg={errors.email} />
       </div>
       <CountryPhone countryError={errors.country} phoneError={errors.phone} />
       <div className="fld" {...field("product")}>
-        <label htmlFor="enq-product">Product of interest</label>
+        <label htmlFor="enq-product">
+          Product of interest <Req />
+        </label>
         <select className="input" id="enq-product" name="product" defaultValue={preselect} required>
           <option value="">Select a product</option>
           {products.map((p) => (
@@ -150,7 +161,9 @@ export function EnquiryForm({
         <input className="input" id="enq-grade" name="grade" placeholder="e.g. marker %, mesh size, solvent limits" />
       </div>
       <div className="fld" {...field("quantity")}>
-        <label htmlFor="enq-qty">Required quantity</label>
+        <label htmlFor="enq-qty">
+          Required quantity <Req />
+        </label>
         <div className="grid grid-cols-[1fr_120px] gap-2">
           <input className="input" id="enq-qty" name="quantity" inputMode="decimal" placeholder="e.g. 500" required />
           <select className="input" name="unit" aria-label="Unit" defaultValue="kg">
@@ -181,7 +194,9 @@ export function EnquiryForm({
         </select>
       </div>
       <fieldset className="fld fld-full border-0 p-0">
-        <legend>Sample required?</legend>
+        <legend>
+          Sample required? <Req />
+        </legend>
         <div className="seg">
           <label>
             <input type="radio" name="sample" value="Yes" defaultChecked={type === "Sample"} key={`y-${type}`} /> Yes
@@ -223,7 +238,7 @@ export function EnquiryForm({
                 , and I have read the <a href="/privacy">Privacy Policy</a>
               </>
             ) : null}
-            .
+            . <Req />
           </span>
         </label>
         <FieldError msg={errors.consent} />
@@ -236,7 +251,9 @@ export function EnquiryForm({
           {state.status === "error" && state.message ? (
             <span className="err">{state.message}</span>
           ) : (
-            "Enquiries go to info@phytoelements.in."
+            <>
+              Fields marked <span className="req">*</span> are required. Enquiries go to info@phytoelements.in.
+            </>
           )}
         </small>
         <button className="btn" type="submit" disabled={pending}>

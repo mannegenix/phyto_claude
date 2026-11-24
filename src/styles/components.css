@@ -845,3 +845,10 @@
 .fld[data-invalid="true"] .ss-btn {
   border-color: var(--err);
 }
+
+/* Required-field asterisk (forms/Req) */
+.req {
+  margin-left: 2px;
+  color: var(--err);
+  font-weight: 700;
+}

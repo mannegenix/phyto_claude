@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { OTHER, SearchSelect, type SearchOption } from "@/components/forms/SearchSelect";
+import { Req } from "@/components/forms/Req";
 import { ALIASES, COUNTRIES, MAIN_FOR_CODE, PINNED_ISO, countryByIso } from "@/lib/countries";
 import { COUNTRY_TEXT, DIAL_TEXT, PHONE_NUMBER } from "@/lib/enquiry-schema";
 
@@ -80,7 +81,9 @@ export function CountryPhone({ countryError, phoneError }: { countryError?: stri
       <input type="hidden" name="phone" value={phone} />
 
       <div className="fld" data-invalid={countryError || otherCountryErr ? true : undefined}>
-        <label htmlFor="enq-country">Country</label>
+        <label htmlFor="enq-country">
+          Country <Req />
+        </label>
         <SearchSelect
           id="enq-country"
           value={countryIso}
@@ -110,7 +113,9 @@ export function CountryPhone({ countryError, phoneError }: { countryError?: stri
       </div>
 
       <div className="fld" data-invalid={phoneError || otherDialErr || numberErr ? true : undefined}>
-        <label htmlFor="enq-phone">Phone / WhatsApp</label>
+        <label htmlFor="enq-phone">
+          Phone / WhatsApp <Req />
+        </label>
         <div className="phone-row">
           <SearchSelect
             id="enq-dial"

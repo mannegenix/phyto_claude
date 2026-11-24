@@ -1,8 +1,8 @@
 "use client";
 
-import Script from "next/script";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { submitEnquiry } from "@/app/actions/enquiry";
+import { Turnstile } from "@/components/forms/Turnstile";
 import { siteConfig } from "@/config/site";
 import { ENQUIRY_TYPES, SPEC_FILE_TYPES, TIMELINES, UNITS, type EnquiryState } from "@/lib/enquiry-schema";
 
@@ -103,8 +103,6 @@ export function EnquiryForm({
         startTransition(() => action(fd));
       }}
     >
-      {turnstileKey && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
-
       <fieldset className="fld fld-full border-0 p-0">
         <legend>I&apos;d like to</legend>
         <div className="seg">
@@ -249,7 +247,7 @@ export function EnquiryForm({
         <FieldError msg={errors.consent} />
       </div>
 
-      {turnstileKey && <div className="cf-turnstile fld-full" data-sitekey={turnstileKey} />}
+      {turnstileKey && <Turnstile siteKey={turnstileKey} resetSignal={state} />}
 
       <div className="fld-full flex flex-wrap items-center justify-between gap-3.5">
         <small className="max-w-[44ch] text-[0.8rem] text-muted">

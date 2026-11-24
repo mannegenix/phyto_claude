@@ -39,13 +39,17 @@ export const siteConfig = {
   domain: "phytoelements.in",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in",
   /**
-   * Search engines may index the site only on the live domain. Any other address
-   * (dev2.phytoelements.in, *.workers.dev, previews) is served with noindex and a
-   * disallow-all robots.txt so it never competes with the real site.
+   * Search engines may index the site only when BOTH are true:
+   *  - NEXT_PUBLIC_SITE_URL is the live domain (phytoelements.in / www), and
+   *  - NEXT_PUBLIC_ALLOW_INDEXING is "true" (the go-live switch).
+   * Anything else (dev2, *.workers.dev, previews, the live domain while it is still being
+   * tested, or the variables missing) is served with noindex and a disallow-all robots.txt.
    */
-  indexable: ["phytoelements.in", "www.phytoelements.in"].includes(
-    new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://phytoelements.in").hostname,
-  ),
+  indexable:
+    process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true" &&
+    ["phytoelements.in", "www.phytoelements.in"].includes(
+      new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://dev2.phytoelements.in").hostname,
+    ),
   tagline: "Botanical ingredients for global markets",
   description:
     "Phyto Elements, based in Hyderabad, India, supplies bulk plant extracts to Indian & Global buyers. Every lot is tested to recognised global quality standards, and only what passes carries our name.",

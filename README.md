@@ -134,7 +134,7 @@ A full Next.js app (server actions, the chat API, server rendering) needs Worker
    | Node version                         | from `.node-version` (22)                                    |
 
 4. **Build variables** (Settings → Build → Variables and secrets). `NEXT_PUBLIC_*` values are baked in at build time:
-   `NEXT_PUBLIC_SITE_URL=https://phytoelements.in`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_CHAT_ENABLED`,
+   `NEXT_PUBLIC_SITE_URL=https://phytoelements.in`, `NEXT_PUBLIC_ALLOW_INDEXING=true` (go-live switch; leave unset until launch), `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_CHAT_ENABLED`,
    and for review deployments only `NEXT_PUBLIC_SHOW_THEME_SWITCHER=true`.
 5. **Runtime secrets** (Worker → Settings → Variables and Secrets, type _Secret_), or `npx wrangler secret put NAME`:
    `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `ANTHROPIC_API_KEY`, `CRM_WEBHOOK_URL`.

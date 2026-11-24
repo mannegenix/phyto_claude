@@ -17,7 +17,6 @@ Last updated: 24 Nov 2026
 - [ ] **Client review of the live site** (Client). Latest changes: standard scrolling, hero
       step spacing, hero product strip hidden, Lime tag summary card, 404/500 pages, share
       images.
-- [ ] **Hero product strip** (Client). Hidden for now: bring back or delete.
 
 ## 3. Legal pages
 
@@ -58,6 +57,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: hero product strip: client asked to remove it; kept in the code, hidden (Abhi's
+  call), so it can come back with one CSS line.
 - 24 Nov: Privacy Policy, Terms of Use and Cookie Notice written from the client's answers
   and published; consent line covers current or future requirements; footer notes that
   images are illustrative (AI-generated).

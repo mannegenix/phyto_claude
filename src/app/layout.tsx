@@ -9,14 +9,11 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileDock } from "@/components/layout/MobileDock";
 import { RailDots } from "@/components/ui/RailDots";
 import { getCompany, getProducts } from "@/lib/content";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
-import { PanelScroll } from "@/components/motion/PanelScroll";
+import { SamePageTop } from "@/components/motion/SamePageTop";
 import { RouteTransition } from "@/components/motion/RouteTransition";
 import { motionBootScript } from "@/lib/motion-pref";
 import { skinBootScript } from "@/lib/skin-pref";
 import { heroBootScript } from "@/lib/hero-pref";
-import { fxBootScript } from "@/lib/fx-guard";
-import { FxGuard } from "@/components/motion/FxGuard";
 import { Preloader, preloaderBootScript } from "@/components/motion/Preloader";
 
 export const metadata: Metadata = {
@@ -46,7 +43,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: skinBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: heroBootScript }} />
-        <script dangerouslySetInnerHTML={{ __html: fxBootScript }} />
       </head>
       <body>
         <Preloader />
@@ -56,13 +52,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <SmoothScroll />
-        <PanelScroll />
+        <SamePageTop />
         <RouteTransition />
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <FxGuard />
         <RailDots />
         <MobileDock products={dockProducts} email={mailboxes[0].address} />
       </body>

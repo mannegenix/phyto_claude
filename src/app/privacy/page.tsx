@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PageHead } from "@/components/ui/PageHead";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = { title: "Privacy Policy" };
 
+/** Hidden (404) until the client supplies the policy details: siteConfig.legalPagesLive. */
 export default function PrivacyPage() {
+  if (!siteConfig.legalPagesLive) notFound();
   return (
     <>
       <PageHead title="Privacy Policy" crumbs={[{ label: "Privacy Policy" }]} />

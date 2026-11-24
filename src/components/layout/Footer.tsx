@@ -58,12 +58,14 @@ export async function Footer() {
           <span>
             © {new Date().getFullYear()} Phyto Elements · Hyderabad, India
           </span>
-          <nav className="legal-links" aria-label="Legal">
-            <Link href="/privacy">Privacy Policy</Link>
-            {/* Placeholder links until the client's Terms and Cookie policy pages are written. */}
-            <a href="#terms">Terms</a>
-            <a href="#cookies">Cookies</a>
-          </nav>
+          {/* Hidden until the client supplies the policy details (siteConfig.legalPagesLive). */}
+          {siteConfig.legalPagesLive && (
+            <nav className="legal-links" aria-label="Legal">
+              <Link href="/privacy">Privacy Policy</Link>
+              <a href="#terms">Terms</a>
+              <a href="#cookies">Cookies</a>
+            </nav>
+          )}
         </div>
       </div>
     </footer>

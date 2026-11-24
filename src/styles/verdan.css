@@ -49,10 +49,6 @@
     stroke: rgb(255 255 255 / 0.6);
     stroke-width: 1.2;
   }
-  & .hero .ring-strong {
-    stroke: #ffffff;
-    stroke-width: 2.4;
-  }
   & .hero .ring-dash {
     stroke: #8fd3ff;
     stroke-width: 2.4;
@@ -167,14 +163,20 @@
   }
 }
 
+/* The floating mono codes (ID · PU …, SPEC ▸ PASS) collided with the step labels and the
+   product card on shorter screens; the step labels already carry that story. */
+[data-theme="verdan"] .hero .scene-bits {
+  display: none;
+}
+
 /* ── Hero lot animation (staged): the step label lights up as the lots reach it ── */
 [data-theme="verdan"] .hero .specimen-label {
-  padding: 5px 11px;
+  padding: 0.5em 1.05em;
   border-radius: 999px;
   border: 1px solid rgb(255 255 255 / 0.35);
   background: rgb(12 38 12 / 0.35);
   color: rgb(255 255 255 / 0.75);
-  letter-spacing: 0.14em;
+  letter-spacing: clamp(0.04em, 0.03em + 0.25cqi, 0.14em);
   backdrop-filter: blur(6px);
   transition:
     background 0.5s ease,

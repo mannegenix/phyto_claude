@@ -3,7 +3,6 @@
 import { calmMotion } from "@/lib/motion-pref";
 
 import { useEffect, useRef, useState } from "react";
-import { fxNative } from "@/lib/fx-guard";
 import { botanicalPaths } from "@/components/botanicals/shapes";
 
 export type SpecimenItem = {
@@ -136,6 +135,14 @@ function readColors(): Colors {
  * pass travel on to form the botanical. Rejected lots fall away. The products
  * take turns. Pauses off screen; shows a still drawing for reduced motion or no JS.
  */
+/**
+ * Centres of the three steps, as a share of the stage width, evenly spaced: lots wait around
+ * `lots`, are tested at the gate on `test`, and passing lots form the botanical around
+ * `passed`. The step labels sit on the same centres, so they line up with the animation.
+ */
+const ZONES = { lots: 0.17, test: 0.44, passed: 0.71 } as const;
+const pct = (v: number) => `${v * 100}%`;
+
 export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -199,21 +206,24 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      const gateX = W * 0.4;
+      const gateX = W * ZONES.test;
       const gateTop = H * 0.12;
       const gateBottom = H * 0.88;
-      const size = Math.min(W * 0.56, H * 0.84);
-      const sx = W * 0.71 - size / 2;
+      const size = Math.min(W * 0.5, H * 0.84);
+      const sx = W * ZONES.passed - size / 2;
       const sy = H * 0.5 - size / 2;
       const fadeIn = clamp01(tau / 0.6);
       const dissolve = clamp01((tau - T.dissolveAt) / (T.cycle - T.dissolveAt));
       const testing = tau > T.testAt && tau < T.passedAt;
 
       // Test gate: a dashed rule with a scanning highlight (brighter while lots are tested).
-      ctx.globalAlpha = colors.staged ? (testing ? 0.95 : 0.5) : 0.45;
+      // Kept prominent (client): thicker, brighter, with a soft glow; strongest while testing.
+      ctx.globalAlpha = colors.staged ? (testing ? 1 : 0.85) : 0.75;
       ctx.strokeStyle = colors.test;
-      ctx.lineWidth = colors.staged ? (testing ? 2.2 : 1.4) : 1;
-      ctx.setLineDash([3, 5]);
+      ctx.lineWidth = colors.staged ? (testing ? 4 : 3) : 2.5;
+      ctx.shadowColor = colors.test;
+      ctx.shadowBlur = testing ? 14 : 8;
+      ctx.setLineDash([8, 5]);
       ctx.beginPath();
       ctx.moveTo(gateX, gateTop);
       ctx.lineTo(gateX, gateBottom);
@@ -226,14 +236,15 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
       grad.addColorStop(1, "transparent");
       ctx.globalAlpha = 0.9;
       ctx.strokeStyle = grad;
-      ctx.lineWidth = colors.staged ? 4 : 2;
+      ctx.lineWidth = colors.staged ? 7 : 4;
       ctx.beginPath();
       ctx.moveTo(gateX, scanY);
       ctx.lineTo(gateX, scanY + 70);
       ctx.stroke();
+      ctx.shadowBlur = 0;
 
       for (let i = 0; i < T.count; i += 1) {
-        const hx = W * (0.03 + homeX[i] * 0.31) + Math.sin(time * 0.7 + seed[i]) * 4;
+        const hx = W * (ZONES.lots - 0.14 + homeX[i] * 0.28) + Math.sin(time * 0.7 + seed[i]) * 4;
         const hy = H * (0.14 + homeY[i] * 0.72) + Math.cos(time * 0.6 + seed[i]) * 4;
         const gy = gateTop + (0.06 + homeY[i] * 0.88) * (gateBottom - gateTop);
         const u = reduce ? 99 : tau - T.start - delay[i];
@@ -334,7 +345,6 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     let cycle = 0;
     let wasPassed = false;
     let wasStage: Stage = "lots";
-    let skip = false;
 
     const frame = (now: number) => {
       // Real elapsed time (capped at 0.25 s, e.g. after a background tab): on a slow
@@ -360,10 +370,7 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
         wasStage = st;
         setStage(st);
       }
-      // On machines that fell back to ordinary scrolling (slow graphics) draw every other
-      // frame: the lots keep their pace, the page stays responsive.
-      skip = fxNative() ? !skip : false;
-      if (!skip) draw(tau, clock);
+      draw(tau, clock);
       raf = visible && !document.hidden ? requestAnimationFrame(frame) : 0;
     };
 
@@ -428,18 +435,15 @@ export function SpecimenHero({ items }: { items: SpecimenItem[] }) {
     <div className="specimen" aria-hidden="true">
       <div ref={wrapRef} className="specimen-stage" data-stage={stage}>
         <canvas ref={canvasRef} className="specimen-canvas" />
-        <span className={`specimen-label is-lots ${stage === "lots" ? "is-on" : ""}`} style={{ left: "3%" }}>
+        <span className={`specimen-label is-lots ${stage === "lots" ? "is-on" : ""}`} style={{ left: pct(ZONES.lots) }}>
           01 · Lots in
         </span>
-        <span
-          className={`specimen-label is-test ${stage === "test" ? "is-on" : ""}`}
-          style={{ left: "40%", transform: "translateX(-50%)" }}
-        >
+        <span className={`specimen-label is-test ${stage === "test" ? "is-on" : ""}`} style={{ left: pct(ZONES.test) }}>
           02 · Test
         </span>
         <span
           className={`specimen-label is-pass ${stage === "passed" ? "is-on" : ""}`}
-          style={{ left: "71%", transform: "translateX(-50%)" }}
+          style={{ left: pct(ZONES.passed) }}
         >
           03 · Passed
         </span>

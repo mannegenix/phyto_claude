@@ -31,6 +31,11 @@ export const siteConfig = {
   description:
     "Phyto Elements, based in Hyderabad, India, supplies bulk plant extracts to Indian & Global buyers. Every lot is tested to recognised global quality standards, and only what passes carries our name.",
   defaultTheme: "verdan" as ThemeId,
+  /**
+   * Privacy / Terms / Cookies are hidden until the client supplies the details: /privacy
+   * answers 404, and the footer and enquiry-form links are not shown. Set true to publish.
+   */
+  legalPagesLive: false,
 };
 
 export const NAV = [

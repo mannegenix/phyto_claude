@@ -330,6 +330,7 @@ html.pe-calm {
 }
 .specimen-stage {
   position: relative;
+  container-type: inline-size;
   aspect-ratio: 1.12;
   min-height: 320px;
   border-radius: calc(var(--radius) * 2);
@@ -341,11 +342,14 @@ html.pe-calm {
   position: absolute;
   inset: 0;
 }
+/* Step labels: centred on their zone (left = zone centre) and sized from the stage width
+   (cqi), so the three never touch however small the stage gets. */
 .specimen-label {
   position: absolute;
   top: 4.5%;
+  translate: -50% 0;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: clamp(6.5px, 1.9cqi, 0.66rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -353,7 +357,6 @@ html.pe-calm {
 }
 @media (max-width: 520px) {
   .specimen-label {
-    font-size: 0.56rem;
     letter-spacing: 0.06em;
   }
 }
@@ -554,17 +557,11 @@ html.pe-calm {
 }
 
 /* ── Source-to-seal funnel ─────────────────────────────────────────────── */
-html.pe-calm {
-}
 
 /* ── Line-drawn botanicals ─────────────────────────────────────────────── */
 .botanical {
   display: block;
   overflow: visible;
-}
-@supports (animation-timeline: view()) {
-  html:not(.pe-calm) {
-  }
 }
 
 /* Card art: line drawing in the product card corner */
@@ -603,13 +600,6 @@ html.pe-calm {
 html:not(.has-panels) .specimen-page > .section,
 .specimen-page .page-head {
   background: transparent;
-}
-.has-panels .specimen-page .panel.sunk {
-  background-color: var(--sunk);
-}
-@supports (animation-timeline: scroll()) {
-  html:not(.pe-calm) {
-  }
 }
 .chapter {
   display: grid;
@@ -1047,78 +1037,7 @@ body {
   background: var(--sw);
 }
 
-/* ── Full-screen section mode (enabled by PanelScroll: html.has-panels) ── */
-html.has-panels .panel {
-  position: sticky;
-  top: var(--panel-top, 0px);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.has-panels .panel:not(.band):not(.sunk):not(.hero) {
-  background-color: var(--paper);
-}
-.has-panels .panel > .wrap {
-  width: 100%;
-  transform-origin: 50% 30%;
-  will-change: transform;
-}
-/* Fixed backdrop: the pattern stays still while each section's content changes over it */
-.has-panels .panel:not(.band):not(.hero) {
-  background-image:
-    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--accent-text) 12%, transparent) 1px, transparent 1.6px),
-    radial-gradient(60% 50% at 85% 15%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
-  background-size:
-    26px 26px,
-    100% 100%;
-  background-attachment: fixed;
-}
-.has-panels .specimen-page .panel:not(.band) {
-  background-image: radial-gradient(
-    60% 50% at 85% 10%,
-    color-mix(in oklab, var(--sw) 26%, transparent),
-    transparent 70%
-  );
-  background-size: 100% 100%;
-  background-attachment: fixed;
-}
-/* A soft shadow on each rising section's top edge gives depth to the stack */
-.has-panels .panel + .panel {
-  box-shadow: 0 -24px 48px -28px rgb(10 40 15 / 0.35);
-}
-.has-panels .wave-top.panel {
-  box-shadow: none;
-  filter: drop-shadow(0 -14px 22px rgb(10 40 15 / 0.16));
-}
-
-/* ── Ripple reveal: the next section is uncovered by a circle from the screen centre ── */
-.rip-ring {
-  position: absolute;
-  left: 50%;
-  top: 50svh;
-  z-index: 5;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-  border: 1px solid color-mix(in oklab, var(--splash, var(--accent)) 70%, transparent);
-  box-shadow:
-    0 0 0 2px color-mix(in oklab, var(--accent) 22%, transparent),
-    0 0 24px 4px color-mix(in oklab, var(--accent) 22%, transparent),
-    inset 0 0 24px 4px color-mix(in oklab, var(--splash, var(--accent)) 18%, transparent);
-  will-change: transform, opacity;
-}
-.has-panels .panel {
-  will-change: clip-path;
-}
-/* Incoming content settles from a slight zoom as the ripple opens */
-.has-panels .panel > .wrap {
-  position: relative;
-  scale: calc(1.035 - 0.035 * var(--rip-p, 1));
-}
+/* ── Leaf-to-bottle art (preloader, page transition) ── */
 .drop-fx svg,
 .leafdrop {
   width: 100%;
@@ -1248,15 +1167,17 @@ html.has-panels .panel {
   z-index: 3;
 }
 .hero {
-  padding-bottom: calc(clamp(28px, 4vw, 48px) + 56px);
+  padding-bottom: clamp(28px, 4vw, 48px);
+}
+/* Product strip under the hero: hidden for now (client, Nov 24). HeroTicker is still
+   rendered; delete this rule and restore the 56px it reserved in the hero padding to show it. */
+.hero .ticker {
+  display: none;
 }
 
 /* ── Source to seal, pinned: one screen per step, then the seal, then a short hold ── */
 
 /* Sections fully covered by the next one are not painted */
-.has-panels .panel.is-covered {
-  visibility: hidden;
-}
 
 /* ── Photo backdrops: real lab and nature photos, very faint, fixed behind the content ── */
 .bgphoto {
@@ -1277,9 +1198,6 @@ html.has-panels .panel {
   mix-blend-mode: var(--photo-blend, multiply);
   -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
   mask-image: linear-gradient(90deg, transparent 18%, #000 62%);
-}
-.has-panels .bgphoto::after {
-  background-attachment: fixed;
 }
 .bgphoto-instrument {
   --photo: url("/images/bg/lab-instrument.webp");
@@ -1351,12 +1269,8 @@ html.has-panels .panel {
 /* Glass on the green scene, with a soft neumorphic lift: frosted surface + light edge + raised shadow */
 
 /* Cards announce themselves: a light sweep across each card as they arrive */
-html:not(.pe-calm) {
-}
 
 /* Until a card has been opened: the flagship card pulses with a "Click to explore" tag */
-html:not(.pe-calm) {
-}
 
 /* ── Lightbox: glass panel that grows out of the card ── */
 
@@ -1364,10 +1278,6 @@ html:not(.pe-calm) {
 
 /* ── Lab line art: testing, quality control, documents, logistics (botanicals/LabArt) ── */
 /* Faint drawing behind a section's content */
-@supports (animation-timeline: view()) {
-  html:not(.pe-calm) {
-  }
-}
 /* Small icons on steps and pillars */
 .bgphoto-quality {
   --photo: url("/images/bg/quality-sample.webp");
@@ -1411,10 +1321,6 @@ html:not(.pe-calm) {
 }
 
 /* Showcase hint under the six cards: a pulsing dot inviting a click */
-html:not(.pe-calm) {
-}
-html.pe-calm {
-}
 
 /* ── From source to seal, one-screen layouts (sections/SealViews) ───────────────── */
 .s2s-lite .sec-head {
@@ -1433,9 +1339,6 @@ html.pe-calm {
 }
 
 /* B · Pipeline at a glance */
-html:not(.pe-calm) {
-  /* Lots drift along the stream; the highlight walks across the steps */
-}
 
 /* A · Auto-playing stepper */
 .s2a {
@@ -1894,30 +1797,11 @@ html:not(.pe-calm) {
 }
 
 /* First section after a page title: shares the first screen with the title */
-html.has-panels .panel.has-lead {
-  min-height: calc(100svh - var(--lead, 0px));
-  justify-content: flex-start;
-  padding-top: clamp(24px, 4vh, 44px);
-}
 .page-head + .section {
   padding-top: clamp(28px, 4vh, 48px);
 }
 .page-head {
   padding-bottom: clamp(22px, 3vw, 36px) !important;
-}
-/* About: cards rise in, one after another, as they scroll into view */
-@supports (animation-timeline: view()) {
-  html:not(.pe-calm) .about-rise {
-    animation: about-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry calc(60% + var(--i, 0) * 8%);
-  }
-}
-@keyframes about-rise {
-  from {
-    opacity: 0.25;
-    translate: 0 28px;
-  }
 }
 .about-photo {
   max-height: min(56vh, 460px);
@@ -2535,14 +2419,16 @@ html:not(.pe-calm) .ticker .ticker-st.is-test {
    with the screen height instead of pushing the ticker below the fold. */
 @media (min-width: 1121px) {
   html:not(.hero-dev1)[data-theme] .hero {
-    min-height: 0;
-    height: 100svh;
+    /* One screen when it fits; on very short windows the hero grows instead of letting the
+       copy, the lot scene and the ticker run into each other. */
+    min-height: 100svh;
+    height: auto;
     padding-top: calc(var(--hdr-h) + clamp(12px, 3svh, 40px));
-    padding-bottom: calc(56px + clamp(10px, 2svh, 28px));
+    padding-bottom: clamp(10px, 2svh, 28px);
     overflow: hidden;
   }
   html:not(.hero-dev1)[data-theme] .hero .specimen-stage {
-    width: min(100%, calc((100svh - var(--hdr-h) - 230px) * 1.05));
+    width: min(100%, max(360px, calc((100svh - var(--hdr-h) - 230px) * 1.05)));
     min-height: 0;
     margin-inline: auto;
   }
@@ -2550,7 +2436,27 @@ html:not(.pe-calm) .ticker .ticker-st.is-test {
     margin-inline: auto;
   }
 }
-/* Keep the ticker's last item clear of the review toggle on its right end */
-.hero .ticker {
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 84%, transparent 94%);
+/* Short laptop windows (13-inch with browser bars and the dock): tighten the copy so the hero
+   still fits one screen, with the ticker clear of the last line. */
+@media (min-width: 1121px) and (max-height: 860px) {
+  html:not(.hero-dev1)[data-theme] .hero {
+    padding-top: calc(var(--hdr-h) + clamp(8px, 2svh, 24px));
+  }
+  html:not(.hero-dev1)[data-theme] .hero .hero-title {
+    font-size: clamp(2.2rem, 7.4svh, 4.4rem);
+    margin-block: 1.6svh 2.2svh;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .lede {
+    font-size: clamp(0.95rem, 2.15svh, 1.1rem);
+    line-height: 1.55;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .wrap > div > .mt-\[30px\] {
+    margin-top: 2.6svh;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .dot-list {
+    margin-top: 2.6svh;
+  }
+  html:not(.hero-dev1)[data-theme] .hero .specimen {
+    gap: 10px;
+  }
 }

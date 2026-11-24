@@ -214,9 +214,6 @@
   & .ring-faint {
     stroke: color-mix(in srgb, var(--lab-si) 14%, transparent);
   }
-  & .ring-strong {
-    stroke: color-mix(in srgb, var(--lab-si) 70%, transparent);
-  }
   & .ring-dash {
     stroke-dasharray: 2 10;
     stroke: color-mix(in srgb, var(--lab-si) 45%, transparent);
@@ -471,13 +468,3 @@
 }
 
 /* ── Review compare page ───────────────────────────────────────── */
-.compare {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  background: #0d0f0e;
-  color: #e8ece8;
-  font-family: var(--font-sans);
-}

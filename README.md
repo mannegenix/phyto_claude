@@ -31,7 +31,7 @@ Requires Node.js 20.9+ (Node 22 or 24 recommended).
 | --------------- | ------------------------------------------------------------------------------------------------ |
 | Framework       | Next.js 16 (App Router, Turbopack), React 19, TypeScript                                         |
 | Styling         | Tailwind CSS v4 + theme tokens (CSS variables) in `src/styles/themes.css`                        |
-| Scroll & motion | GSAP + ScrollTrigger, Lenis smooth scroll, Motion (Framer Motion)                                |
+| Scroll & motion | Standard browser scrolling (no scroll effects); CSS animations and a canvas hero                 |
 | Forms           | Server Action + zod validation, Cloudflare Turnstile, Resend email, CRM webhook                  |
 | Fonts           | Self-hosted variable fonts via @fontsource (Bricolage Grotesque, Hanken Grotesk, JetBrains Mono) |
 | Content         | Typed local content in `src/content/`, read through `src/lib/content.ts` (CMS-ready)             |
@@ -50,7 +50,7 @@ src/
     sections/              homepage sections, DockCarousel, SealViews, EnquirySection
     product/, products/    ProductCard, ProductOrb, SpecSheet, ProductCarousel, ProductFinder
     forms/EnquiryForm.tsx  client form (keeps input on validation errors)
-    motion/                Preloader, RouteTransition, SmoothScroll, PanelScroll, Reveal, FxGuard
+    motion/                Preloader, RouteTransition, SamePageTop, Reveal (plain wrapper)
     ui/                    PageHead, MailList, OpIcon, RailDots
   content/                 products.ts, company.ts, types.ts  ← all site copy lives here
   config/site.ts           site settings, theme, nav, indexing switch
@@ -165,6 +165,6 @@ Each product shows its botanical inside a tinted glass orb (`components/product/
 
 The products page is a showcase carousel (`components/products/ProductCarousel.tsx`), an application filter grid (`ProductFinder.tsx`) and a collapsible comparison table.
 
-## Full-screen sections
+## Scrolling
 
-Every page reads as a series of screens (`components/motion/PanelScroll.tsx`): each top-level `<section>` fills the viewport and stays put while the next one rises over it; one wheel or trackpad gesture moves one screen, and taller sections are stepped through. The background pattern is fixed, so only the content changes; incoming content drifts up, outgoing content recedes, and a drop of extract falls with ripples at each change. Touch devices scroll natively with the same stacking. Reduced-motion visitors get a normal page.
+The site uses the browser's standard scrolling on every page and device: no smooth-scroll library, no full-screen panels and no scroll-triggered animations (client decision, Nov 24).

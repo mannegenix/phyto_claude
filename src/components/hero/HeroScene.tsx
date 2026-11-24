@@ -57,7 +57,6 @@ export function HeroScene() {
           <circle cx="300" cy="300" r="170" className="ring" />
           <circle cx="300" cy="300" r="118" className="ring ring-faint" />
           <path d="M300 0V64M300 536V600M0 300H64M536 300H600" className="ring" />
-          <path d="M300 268V332M268 300H332" className="ring ring-strong" />
           <g className="ticks">
             {Array.from({ length: 60 }, (_, i) => (
               <line

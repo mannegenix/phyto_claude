@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { submitEnquiry } from "@/app/actions/enquiry";
+import { siteConfig } from "@/config/site";
 import { ENQUIRY_TYPES, SPEC_FILE_TYPES, TIMELINES, UNITS, type EnquiryState } from "@/lib/enquiry-schema";
 
 type ProductOption = { slug: string; name: string };
@@ -234,8 +235,14 @@ export function EnquiryForm({
         <label className="flex items-start gap-2.5 text-[0.88rem] font-normal text-muted">
           <input type="checkbox" name="consent" className="mt-1 accent-[var(--accent)]" required />
           <span>
-            I agree to be contacted by Phyto Elements about this enquiry and acknowledge the{" "}
-            <a href="/privacy">privacy notice</a>.
+            I agree to be contacted by Phyto Elements about this enquiry
+            {siteConfig.legalPagesLive ? (
+              <>
+                {" "}
+                and acknowledge the <a href="/privacy">privacy notice</a>
+              </>
+            ) : null}
+            .
           </span>
         </label>
         <FieldError msg={errors.consent} />

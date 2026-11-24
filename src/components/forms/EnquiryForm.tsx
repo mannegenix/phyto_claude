@@ -5,8 +5,16 @@ import { submitEnquiry } from "@/app/actions/enquiry";
 import { Turnstile } from "@/components/forms/Turnstile";
 import { CountryPhone } from "@/components/forms/CountryPhone";
 import { Req } from "@/components/forms/Req";
+import { FileField } from "@/components/forms/FileField";
 import { siteConfig } from "@/config/site";
-import { ENQUIRY_TYPES, SPEC_FILE_TYPES, TIMELINES, UNITS, type EnquiryState } from "@/lib/enquiry-schema";
+import {
+  ENQUIRY_TYPES,
+  SPEC_FILE_TYPES,
+  TIMELINES,
+  UNITS,
+  type EnquiryState,
+  SPEC_FILE_MAX_BYTES,
+} from "@/lib/enquiry-schema";
 
 type ProductOption = { slug: string; name: string };
 
@@ -219,10 +227,16 @@ export function EnquiryForm({
       </div>
       <div className="fld fld-full" {...field("spec")}>
         <label htmlFor="enq-file">
-          Attach your specification <span className="opt">optional · PDF, Word or Excel · max 5 MB</span>
+          Attach your specification <span className="opt">optional</span>
         </label>
-        <input className="input" id="enq-file" name="spec" type="file" accept={SPEC_FILE_TYPES.join(",")} />
-        <FieldError msg={errors.spec} />
+        <FileField
+          id="enq-file"
+          name="spec"
+          accept={SPEC_FILE_TYPES}
+          maxBytes={SPEC_FILE_MAX_BYTES}
+          hint="PDF, Word or Excel, up to 5 MB"
+          error={errors.spec}
+        />
       </div>
 
       {/* Honeypot: hidden from people, filled by bots. */}

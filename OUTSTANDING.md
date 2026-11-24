@@ -21,12 +21,16 @@ Last updated: 24 Nov 2026
 
 ## 3. Legal pages (waiting on the client)
 
-- [ ] **Client supplies the policy details** (Client): legal entity name, CIN / GST,
-      registered address; Grievance Officer name and email (DPDP Act); markets served
-      (EU / UK / US → GDPR wording); how long enquiry data is kept; marketing-email opt-in or
-      not; who data is shared with (Zoho, Resend, Cloudflare, any CRM or distributors);
-      governing law and courts; product disclaimer, quotation / terms-of-sale basis, sample
-      policy; image rights; effective date.
+- [x] **Client supplied the policy details** (24 Nov; "Queries: Terms, Privacy, Legal and
+      others"). Partnership firm, registered address, Grievance Officer, Zoho, logistics
+      sharing, analytics planned, no arbitration, quotes non-binding until PO, buyer handles
+      import rules, effective 24 Nov 2026, sign-off Ashwin Jangalapalli.
+- [ ] **Four open points to confirm with the client** (Abhi):
+      (1) publish the Grievance Officer's own email (ashwin.j@) as the one exception to
+      "info@ only", or "info@, attention Grievance Officer"; (2) how long to keep enquiries
+      that never become business; (3) Telangana law and Hyderabad courts; (4) where the
+      product and source-to-seal photos come from (licensed stock, AI-generated, supplier),
+      since a disclaimer alone does not cover photos used without a licence.
 - [ ] **Write Privacy, Terms and Cookies pages** (Dev), then set
       `siteConfig.legalPagesLive = true` (restores footer links, consent-line link, sitemap
       entry).

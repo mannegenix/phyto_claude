@@ -25,3 +25,7 @@ export async function getCompany() {
 export async function getAbout() {
   return import("@/content/about");
 }
+
+export async function getLegal() {
+  return import("@/content/legal");
+}

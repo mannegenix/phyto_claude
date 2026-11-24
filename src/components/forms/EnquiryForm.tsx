@@ -17,7 +17,9 @@ const TYPE_LABEL: Record<(typeof ENQUIRY_TYPES)[number], string> = {
 // The Cloudflare build settings cannot hold an empty value, so "false"/"none" also mean "not set".
 const rawTurnstileKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
 const turnstileKey =
-  rawTurnstileKey && !["false", "none", "0", "off"].includes(rawTurnstileKey.toLowerCase()) ? rawTurnstileKey : undefined;
+  rawTurnstileKey && !["false", "none", "0", "off"].includes(rawTurnstileKey.toLowerCase())
+    ? rawTurnstileKey
+    : undefined;
 
 function FieldError({ msg }: { msg?: string }) {
   return msg ? <span className="err">{msg}</span> : null;
@@ -76,8 +78,8 @@ export function EnquiryForm({
             <dd className="mono">{state.routedTo}</dd>
           </dl>
           <p className="text-[0.92rem] text-muted">
-            Our reply will come from <b>info@phytoelements.in</b>. Please quote your reference if you write to us
-            about this request.
+            Our reply will come from <b>info@phytoelements.in</b>. Please quote your reference if you write to us about
+            this request.
           </p>
         </div>
       </div>
@@ -235,11 +237,10 @@ export function EnquiryForm({
         <label className="flex items-start gap-2.5 text-[0.88rem] font-normal text-muted">
           <input type="checkbox" name="consent" className="mt-1 accent-[var(--accent)]" required />
           <span>
-            I agree to be contacted by Phyto Elements about this enquiry
+            I agree to be contacted by Phyto Elements about this enquiry and about my current or future requirements
             {siteConfig.legalPagesLive ? (
               <>
-                {" "}
-                and acknowledge the <a href="/privacy">privacy notice</a>
+                , and I have read the <a href="/privacy">Privacy Policy</a>
               </>
             ) : null}
             .

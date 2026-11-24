@@ -708,3 +708,42 @@
 .sheet-h > span:first-child {
   text-transform: uppercase;
 }
+
+/* ── Legal pages (Privacy, Terms, Cookies): readable single column ── */
+.legal-doc {
+  max-width: 72ch;
+  display: grid;
+  gap: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.legal-doc .legal-intro {
+  color: var(--muted);
+}
+.legal-doc section {
+  display: grid;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.legal-doc h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--heading);
+}
+.legal-doc ul {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+  list-style: disc;
+}
+.legal-doc a {
+  color: var(--heading);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.site-footer .legal-note {
+  opacity: 0.8;
+}

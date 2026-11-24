@@ -55,15 +55,14 @@ export async function Footer() {
           </div>
         </div>
         <div className="legal">
-          <span>
-            © {new Date().getFullYear()} Phyto Elements · Hyderabad, India
-          </span>
-          {/* Hidden until the client supplies the policy details (siteConfig.legalPagesLive). */}
+          <span>© {new Date().getFullYear()} Phyto Elements · Hyderabad, India</span>
+          <span className="legal-note">Product and process images are illustrative.</span>
+          {/* Shown when siteConfig.legalPagesLive is true. */}
           {siteConfig.legalPagesLive && (
             <nav className="legal-links" aria-label="Legal">
               <Link href="/privacy">Privacy Policy</Link>
-              <a href="#terms">Terms</a>
-              <a href="#cookies">Cookies</a>
+              <Link href="/terms">Terms of Use</Link>
+              <Link href="/cookies">Cookie Notice</Link>
             </nav>
           )}
         </div>

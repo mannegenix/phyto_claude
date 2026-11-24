@@ -19,21 +19,15 @@ Last updated: 24 Nov 2026
       images.
 - [ ] **Hero product strip** (Client). Hidden for now: bring back or delete.
 
-## 3. Legal pages (waiting on the client)
+## 3. Legal pages
 
 - [x] **Client supplied the policy details** (24 Nov; "Queries: Terms, Privacy, Legal and
       others"). Partnership firm, registered address, Grievance Officer, Zoho, logistics
       sharing, analytics planned, no arbitration, quotes non-binding until PO, buyer handles
       import rules, effective 24 Nov 2026, sign-off Ashwin Jangalapalli.
-- [ ] **Four open points to confirm with the client** (Abhi):
-      (1) publish the Grievance Officer's own email (ashwin.j@) as the one exception to
-      "info@ only", or "info@, attention Grievance Officer"; (2) how long to keep enquiries
-      that never become business; (3) Telangana law and Hyderabad courts; (4) where the
-      product and source-to-seal photos come from (licensed stock, AI-generated, supplier),
-      since a disclaimer alone does not cover photos used without a licence.
-- [ ] **Write Privacy, Terms and Cookies pages** (Dev), then set
-      `siteConfig.legalPagesLive = true` (restores footer links, consent-line link, sitemap
-      entry).
+- [ ] **Client's lawyer reviews** the Privacy Policy, Terms of Use and Cookie Notice
+      (live since 24 Nov; copy in `src/content/legal.ts`) (Client).
+- [ ] **Add GSTIN** to the policies once registered (Client, then Dev).
 
 ## 4. Go-live
 
@@ -64,6 +58,9 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: Privacy Policy, Terms of Use and Cookie Notice written from the client's answers
+  and published; consent line covers current or future requirements; footer notes that
+  images are illustrative (AI-generated).
 - 24 Nov: indexing decided: the site stays open to search engines
   (`NEXT_PUBLIC_ALLOW_INDEXING=true`; live robots.txt allows crawlers, no noindex).
 - 24 Nov: Cloudflare tidy-up (unused variables and the old chat key removed; workers.dev and

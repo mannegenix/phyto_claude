@@ -15,9 +15,6 @@ Last updated: 24 Nov 2026
 - [ ] **Test both enquiry forms end to end** (Abhi). From /sample and /contact (Turnstile
       ticked): the email arrives in the Zoho inbox from info@phytoelements.in, the subject
       starts "Website enquiry [ref]", and Reply goes to the visitor's address.
-- [ ] **Cloudflare tidy-up** (Abhi). Delete `NEXT_PUBLIC_SHOW_THEME_SWITCHER` and
-      `NEXT_PUBLIC_SHOW_REVIEW_NOTES` if still present; confirm workers.dev and Preview URLs
-      are disabled for the Worker.
 
 ## 2. Client sign-off
 
@@ -69,6 +66,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: Cloudflare tidy-up (unused variables and the old chat key removed; workers.dev and
+  Preview URLs disabled).
 - 24 Nov: email (Zoho inbox + Resend from info@), Turnstile, Cloudflare Web Analytics,
   production domain only, 404 / 500 pages, Logo look only, hero by screen size, unused code
   and themes removed, standard scrolling, hero overlap fixes, legal pages hidden, Lime tag

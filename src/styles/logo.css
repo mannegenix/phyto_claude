@@ -293,3 +293,49 @@ html.pe-logo .dock-sheet {
 .page-head .crumbs span:last-child > span:last-child {
   box-shadow: inset 0 -3px 0 rgb(253 206 24 / 0.7);
 }
+
+/* ── Product page summary card: "Lime tag" (client's Option B, Nov 24) ──
+   Set apart from the white blocks beside it: pale lime card with a lime edge, a solid lime
+   header band and a sun-yellow "Every lot tested" foot. Logo colours only. */
+html.pe-logo .sticky-tag .tag {
+  background: color-mix(in oklab, var(--logo-lime) 13%, white);
+  border: 2px solid var(--logo-lime);
+  box-shadow: 0 20px 44px -26px color-mix(in oklab, var(--logo-lime) 80%, transparent);
+  overflow: hidden;
+  backdrop-filter: none;
+}
+html.pe-logo .sticky-tag .tag-top {
+  background: var(--logo-lime);
+  color: var(--logo-green);
+  font-weight: 700;
+  border: 0;
+}
+html.pe-logo .sticky-tag .tag-hole {
+  border-color: var(--logo-green);
+  background: white;
+}
+html.pe-logo .sticky-tag .tag .chip {
+  background: white;
+  color: var(--logo-green);
+  border-color: white;
+}
+html.pe-logo .sticky-tag .tag-name {
+  color: var(--logo-green);
+}
+html.pe-logo .sticky-tag .tag :is(dt, dd) {
+  border-color: color-mix(in oklab, var(--logo-lime) 45%, white);
+}
+html.pe-logo .sticky-tag .tag dt {
+  color: var(--logo-green);
+  opacity: 0.72;
+}
+html.pe-logo .sticky-tag .tag dd {
+  color: var(--logo-green);
+  font-weight: 600;
+}
+html.pe-logo .sticky-tag .tag-foot {
+  background: var(--logo-sun);
+  color: var(--logo-green);
+  font-weight: 700;
+  border: 0;
+}

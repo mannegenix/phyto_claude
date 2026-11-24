@@ -13,7 +13,10 @@ const TYPE_LABEL: Record<(typeof ENQUIRY_TYPES)[number], string> = {
   Quote: "Request a quote",
 };
 
-const turnstileKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+// The Cloudflare build settings cannot hold an empty value, so "false"/"none" also mean "not set".
+const rawTurnstileKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+const turnstileKey =
+  rawTurnstileKey && !["false", "none", "0", "off"].includes(rawTurnstileKey.toLowerCase()) ? rawTurnstileKey : undefined;
 
 function FieldError({ msg }: { msg?: string }) {
   return msg ? <span className="err">{msg}</span> : null;

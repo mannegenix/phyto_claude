@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { getEnv } from "@/lib/env";
+import { buildAckEmail } from "@/lib/ack-email";
 import { getProduct } from "@/lib/content";
 import { enquirySchema, SPEC_FILE_MAX_BYTES, SPEC_FILE_TYPES, type EnquiryState } from "@/lib/enquiry-schema";
 
@@ -23,7 +24,8 @@ function escapeHtml(s: string) {
 
 /**
  * Handles enquiry / sample-request submissions:
- * validate → spam check → email info@ (ENQUIRY_TO) → optional CRM webhook.
+ * validate → spam check → email info@ (ENQUIRY_TO) → optional CRM webhook →
+ * acknowledgement to the enquirer (a copy of their request; failure never blocks the enquiry).
  */
 export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Promise<EnquiryState> {
   const env = getEnv();
@@ -111,6 +113,32 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
   } catch (err) {
     console.error("[enquiry] delivery failed", err);
     return { status: "error", message: "We couldn't send your enquiry. Please email info@phytoelements.in directly." };
+  }
+
+  // Acknowledgement to the enquirer, from info@ (replies come back to the info@ inbox).
+  if (env.RESEND_API_KEY) {
+    try {
+      const ack = buildAckEmail({
+        reference,
+        name: data.name,
+        type: data.type,
+        productName,
+        grade: data.grade,
+        quantity: `${data.quantity} ${data.unit}`,
+        sample: wantsSample ? "Yes" : "No",
+        attachmentName: attachment?.filename,
+      });
+      const { error } = await new Resend(env.RESEND_API_KEY).emails.send({
+        from: env.ENQUIRY_FROM,
+        to: [data.email],
+        subject: ack.subject,
+        html: ack.html,
+        text: ack.text,
+      });
+      if (error) throw new Error(error.message);
+    } catch (err) {
+      console.error("[enquiry] acknowledgement failed", reference, err);
+    }
   }
 
   return {

@@ -9,8 +9,13 @@ Last updated: 24 Nov 2026
 ## 1. Now
 
 - [ ] **Test both enquiry forms end to end** (Abhi). From /sample and /contact (Turnstile
-      ticked): the email arrives in the Zoho inbox from info@phytoelements.in, the subject
-      starts "Website enquiry [ref]", and Reply goes to the visitor's address.
+      ticked), using an address you can read: (1) the enquiry arrives in the Zoho inbox from
+      info@phytoelements.in, subject "Website enquiry [ref]", and Reply goes to the visitor;
+      (2) the visitor receives the automatic copy "Your enquiry [ref]: <product>" from
+      info@, not in spam, and replying to it lands in the info@ inbox.
+- [ ] **Zoho domain checks** (Abhi or client, Zoho admin): Admin Console → Domains →
+      phytoelements.in → Email Configuration → Verify SPF, DKIM (`zmail`, then Enable) and
+      MX. DNS records are already correct (checked 24 Nov).
 
 ## 2. Client sign-off
 
@@ -45,8 +50,6 @@ Last updated: 24 Nov 2026
       guide pages, internal linking. No new claims without client approval.
 - [ ] **AI chat assistant** like mannegenix.com (Dev): built fresh; answers only from site
       content; new API key and on/off setting at build time.
-- [ ] **Acknowledgement email to enquirers** (Dev, optional): automatic reply from info@ with
-      the reference number.
 
 ## 6. After launch (housekeeping)
 
@@ -57,6 +60,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24 Nov: automatic acknowledgement to enquirers (client chose Option B, a copy of their
+  request for their records).
 - 24 Nov: hero product strip: client asked to remove it; kept in the code, hidden (Abhi's
   call), so it can come back with one CSS line.
 - 24 Nov: Privacy Policy, Terms of Use and Cookie Notice written from the client's answers

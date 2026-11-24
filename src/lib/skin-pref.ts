@@ -12,7 +12,12 @@ export const SKINS = ["light", "gradient", "logo"] as const;
 export type Skin = (typeof SKINS)[number];
 export const DEFAULT_SKIN: Skin = "logo";
 
-export const skinBootScript = `(function(){var h=document.documentElement,s="${DEFAULT_SKIN}";try{var v=localStorage.getItem("${SKIN_KEY}");if(v==="light"||v==="gradient"||v==="logo")s=v}catch(e){}if(s!=="light")h.classList.add("pe-"+s)})()`;
+/**
+ * Since Nov 24 the switch is hidden and every visitor gets the Logo look (an earlier stored
+ * choice is cleared). To offer the choice again, render <SkinToggle /> and restore reading
+ * the stored value here.
+ */
+export const skinBootScript = `(function(){var h=document.documentElement;try{localStorage.removeItem("${SKIN_KEY}")}catch(e){}h.classList.add("pe-${DEFAULT_SKIN}")})()`;
 
 export function currentSkin(): Skin {
   if (typeof document === "undefined") return DEFAULT_SKIN;

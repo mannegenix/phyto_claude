@@ -26,11 +26,11 @@ export const THEMES = [
 
 /**
  * Pages shown in a different colour route from the rest of the site. The whole site uses
- * `defaultTheme` (Verdan light); only the hidden classic home keeps the earlier lablight route.
+ * `defaultTheme` (Verdan light); add a path here to give one page another route.
  * Applied before first paint by `routeThemeBootScript` and kept in sync on client
  * navigation by `motion/RouteTheme`.
  */
-export const ROUTE_THEMES: Record<string, ThemeId> = { "/home-classic": "lablight" };
+export const ROUTE_THEMES: Record<string, ThemeId> = {};
 
 export type ThemeId = (typeof THEMES)[number]["id"];
 

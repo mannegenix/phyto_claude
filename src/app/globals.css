@@ -10,6 +10,7 @@
 @import "../styles/logo.css";
 @import "../styles/hero-dev1.css";
 @import "../styles/dock.css";
+@import "../styles/system-pages.css";
 
 /* Expose theme tokens to Tailwind utilities: bg-paper, text-ink, border-line, bg-accent, text-heading … */
 @theme inline {

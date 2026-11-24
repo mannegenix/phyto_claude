@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeroToggle } from "@/components/hero/HeroToggle";
+import { HeroMode } from "@/components/hero/HeroMode";
 import { HeroTicker } from "@/components/hero/HeroTicker";
 import type { Product, ValuePoint, OperatingFunction, ProcessStage, TestPillar } from "@/content/types";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -88,7 +88,7 @@ export function Hero({ products, positioning }: { products: Product[]; positioni
           </div>
         </div>
       </div>
-      <HeroToggle />
+      <HeroMode />
     </section>
   );
 }

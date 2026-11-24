@@ -1,8 +1,10 @@
 /**
- * Homepage hero choice (review toggle) → html.hero-dev1.
- * Default by screen: Dev 1 (photo slits) on phones and tablets (≤1120px), Dev 2 (lot-testing
- * scene) on laptops and desktops, 13-inch included. A visitor's pick is stored and wins.
+ * Homepage hero by screen (no toggle since Nov 24) → html.hero-dev1:
+ *  - Dev 1 (photo slits) on phones and tablets: ≤1120px wide, or a touch screen of any width
+ *    (iPads in landscape included)
+ *  - Dev 2 (lot-testing scene) on laptops and desktops, 13-inch and up
+ * Applied before paint by the boot script and kept in step on resize / rotation by
+ * hero/HeroMode.
  */
-export const HERO_KEY = "pe-hero";
-export const HERO_SMALL = "(max-width: 1120px)";
-export const heroBootScript = `try{var v=null;try{v=localStorage.getItem("${HERO_KEY}")}catch(e){}if(v==="dev1"||(v!=="dev2"&&matchMedia("${HERO_SMALL}").matches))document.documentElement.classList.add("hero-dev1")}catch(e){}`;
+export const HERO_SMALL = "(max-width: 1120px), (hover: none) and (pointer: coarse)";
+export const heroBootScript = `try{localStorage.removeItem("pe-hero");if(matchMedia("${HERO_SMALL}").matches)document.documentElement.classList.add("hero-dev1")}catch(e){}`;

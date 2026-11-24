@@ -48,9 +48,19 @@ export function EnquiryForm({
     return () => window.removeEventListener("pe:set-enquiry-type", onSet);
   }, []);
 
+  // On success: bring the confirmation into view and announce it (hook for analytics later).
+  const doneRef = useRef<HTMLDivElement>(null);
+  const sent = state.status === "success" ? state.reference : null;
+  useEffect(() => {
+    if (!sent) return;
+    doneRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    doneRef.current?.focus({ preventScroll: true });
+    window.dispatchEvent(new CustomEvent("pe:enquiry-sent", { detail: { reference: sent } }));
+  }, [sent]);
+
   if (state.status === "success") {
     return (
-      <div className="enq" role="status">
+      <div className="enq" role="status" ref={doneRef} tabIndex={-1}>
         <div className="fld-full grid gap-2.5 rounded-brand border border-[var(--ok)] p-5">
           <h4 className="text-[1.2rem] text-[var(--ok)]">Enquiry received</h4>
           <p>
@@ -64,6 +74,10 @@ export function EnquiryForm({
             <dt className="mono text-[0.72rem] text-muted uppercase">Routed to</dt>
             <dd className="mono">{state.routedTo}</dd>
           </dl>
+          <p className="text-[0.92rem] text-muted">
+            Our reply will come from <b>info@phytoelements.in</b>. Please quote your reference if you write to us
+            about this request.
+          </p>
         </div>
       </div>
     );

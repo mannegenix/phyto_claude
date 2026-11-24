@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV } from "@/config/site";
-import { SkinToggle } from "@/components/ui/SkinToggle";
 
 type DockProduct = { slug: string; short: string; image?: string };
 
@@ -136,10 +135,6 @@ export function MobileDock({ products, email }: { products: DockProduct[]; email
         inert={!open}
       >
         <span className="dock-grab" aria-hidden="true" />
-        <div className="dock-skin">
-          <p className="dock-k">Colours</p>
-          <SkinToggle />
-        </div>
         <p className="dock-k">Pages</p>
         <ul className="dock-pages">
           {NAV.map((item) => (

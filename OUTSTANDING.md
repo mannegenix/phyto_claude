@@ -27,12 +27,7 @@ Last updated: 24 Nov 2026
 
 ## 4. Go-live
 
-- [ ] **Google Search Console** (Abhi): add the domain property (DNS TXT record in
-      Cloudflare), submit `https://phytoelements.in/sitemap.xml`, request indexing of the
-      homepage and product pages.
-- [ ] **Bing Webmaster Tools** (Abhi): import from Search Console, submit the sitemap.
-- [ ] **Check share previews** (Abhi): paste the homepage and a product link into WhatsApp /
-      LinkedIn (LinkedIn Post Inspector refreshes its cache).
+- Nothing open.
 
 ## 5. Phase 2
 
@@ -59,6 +54,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 25 Nov: go-live done: Google Search Console (domain verified, sitemap submitted, key pages
+  requested), Bing Webmaster Tools (imported), share previews checked on LinkedIn and WhatsApp.
 - 25 Nov: enquiry forms tested end to end (enquiry, automatic copy, replies); Zoho SPF,
   DKIM and MX verified; client reviewed the live site.
 - 24–25 Nov: enquiry form: required fields marked *, new file upload field; Turnstile fixed for

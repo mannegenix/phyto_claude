@@ -21,7 +21,8 @@ Last updated: 24 Nov 2026
 
 - [ ] **Client review of the live site** (Client). Latest changes: standard scrolling, hero
       step spacing, hero product strip hidden, Lime tag summary card, 404/500 pages, share
-      images.
+      images, legal pages, automatic reply email, enquiry form (country and phone dropdowns,
+      required-field asterisks, file upload).
 
 ## 3. Legal pages
 
@@ -67,6 +68,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 24–25 Nov: enquiry form: required fields marked *, new file upload field; Turnstile fixed for
+  menu navigation.
 - 24 Nov: enquiry form: searchable country dropdown (India pinned, "Other" with text check) and
   phone split into a searchable code dropdown, filled from the country, plus the number.
 - 24 Nov: automatic acknowledgement to enquirers (client chose Option B, a copy of their

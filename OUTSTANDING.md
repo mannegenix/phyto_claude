@@ -8,21 +8,11 @@ Last updated: 24 Nov 2026
 
 ## 1. Now
 
-- [ ] **Test both enquiry forms end to end** (Abhi). From /sample and /contact (Turnstile
-      ticked), using an address you can read: (1) the enquiry arrives in the Zoho inbox from
-      info@phytoelements.in, subject "Website enquiry [ref]", and Reply goes to the visitor;
-      (2) the visitor receives the automatic copy "Your enquiry [ref]: <product>" from
-      info@, not in spam, and replying to it lands in the info@ inbox.
-- [ ] **Zoho domain checks** (Abhi or client, Zoho admin): Admin Console → Domains →
-      phytoelements.in → Email Configuration → Verify SPF, DKIM (`zmail`, then Enable) and
-      MX. DNS records are already correct (checked 24 Nov).
+- Nothing open.
 
 ## 2. Client sign-off
 
-- [ ] **Client review of the live site** (Client). Latest changes: standard scrolling, hero
-      step spacing, hero product strip hidden, Lime tag summary card, 404/500 pages, share
-      images, legal pages, automatic reply email, enquiry form (country and phone dropdowns,
-      required-field asterisks, file upload).
+- Nothing open.
 
 ## 3. Legal pages
 
@@ -31,7 +21,8 @@ Last updated: 24 Nov 2026
       sharing, analytics planned, no arbitration, quotes non-binding until PO, buyer handles
       import rules, effective 24 Nov 2026, sign-off Ashwin Jangalapalli.
 - [ ] **Client's lawyer reviews** the Privacy Policy, Terms of Use and Cookie Notice
-      (live since 24 Nov; copy in `src/content/legal.ts`) (Client).
+      (live since 24 Nov; copy in `src/content/legal.ts`) (Client, no follow-up from us;
+      we update the text when they send changes).
 - [ ] **Add GSTIN** to the policies once registered (Client, then Dev).
 
 ## 4. Go-live
@@ -68,6 +59,8 @@ Last updated: 24 Nov 2026
 
 ## Done
 
+- 25 Nov: enquiry forms tested end to end (enquiry, automatic copy, replies); Zoho SPF,
+  DKIM and MX verified; client reviewed the live site.
 - 24–25 Nov: enquiry form: required fields marked *, new file upload field; Turnstile fixed for
   menu navigation.
 - 24 Nov: enquiry form: searchable country dropdown (India pinned, "Other" with text check) and

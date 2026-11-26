@@ -3,11 +3,15 @@
  * ("Queries: Terms, Privacy, Legal and others", 24 Nov 2026). Drafted for the client's
  * review; their lawyer should sign them off. Email addresses in the text become links.
  *
- * Block types: a string is a paragraph; { list: [...] } is a bullet list.
+ * Block types: a string is a paragraph; { list: [...] } is a bullet list; { table } is a table.
+ * "Cookie settings" in the text becomes a button that reopens the consent settings.
  */
-export type LegalBlock = string | { list: string[] };
+export type LegalBlock = string | { list: string[] } | { table: { head: string[]; rows: string[][] } };
 export type LegalSection = { heading: string; blocks: LegalBlock[] };
 export type LegalDoc = { title: string; summary: string; intro: string[]; sections: LegalSection[] };
+
+/** Effective dates per document (the Privacy Policy and Cookie Notice changed when analytics was added). */
+const EFFECTIVE = { privacy: "27 November 2026", terms: "24 November 2026", cookies: "27 November 2026" };
 
 export const legalEntity = {
   name: "Phyto Elements",
@@ -20,7 +24,6 @@ export const legalEntity = {
     // The one published exception to "info@ only": required by Indian rules (Nov 24, client).
     email: "ashwin.j@phytoelements.in",
   },
-  effective: "24 November 2026",
 };
 
 const e = legalEntity;
@@ -30,7 +33,7 @@ export const privacyPolicy: LegalDoc = {
   summary: "How Phyto Elements collects, uses, shares and protects the information you give us through this website.",
   intro: [
     `This policy explains how ${e.name} ("we", "us"), ${e.type} with its registered office at ${e.address}, handles personal data collected through phytoelements.in. It is written to meet India's Digital Personal Data Protection Act, 2023 and the Information Technology Act, 2000 and its rules.`,
-    `Effective date: ${e.effective}.`,
+    `Effective date: ${EFFECTIVE.privacy}.`,
   ],
   sections: [
     {
@@ -44,7 +47,8 @@ export const privacyPolicy: LegalDoc = {
             "your message and any specification file you attach.",
           ],
         },
-        "We also receive basic technical data when you visit, such as your IP address, browser type and the pages requested. Our hosting and security provider uses it to deliver the site and protect it from abuse, and our website analytics count visits without cookies and without identifying you.",
+        "We also receive basic technical data when you visit, such as your IP address, browser type and the pages requested. Our hosting and security provider uses it to deliver the site and protect it from abuse, and Cloudflare Web Analytics counts visits without cookies and without identifying you.",
+        "If you accept analytics or marketing cookies in our cookie banner, Google Analytics and LinkedIn also receive information about your visit, such as the pages you view, your device and browser, your approximate location and how you arrived. We use this only to understand how the site is used and how our LinkedIn activity performs; we do not send them your name, email, phone number or what you write in our forms. They do not run unless you accept, and you can change your choice at any time in Cookie settings.",
       ],
     },
     {
@@ -70,7 +74,8 @@ export const privacyPolicy: LegalDoc = {
           list: [
             "Zoho, for our email inbox and records;",
             "Resend, which delivers the emails our website forms send to us;",
-            "Cloudflare, which hosts the website, protects the forms from spam (Turnstile) and provides cookie-free visit statistics.",
+            "Cloudflare, which hosts the website, protects the forms from spam (Turnstile) and provides cookie-free visit statistics;",
+            "Google (Google Analytics) and LinkedIn (LinkedIn Insight Tag), only if you accept analytics or marketing cookies; they process visit data under their own terms and privacy policies.",
           ],
         },
         "We share your name, address and contact details with logistics partners to deliver products you order. Any other disclosure is made only on a need-to-know basis to fulfil your request, or where the law requires it.",
@@ -123,7 +128,7 @@ export const privacyPolicy: LegalDoc = {
     {
       heading: "Changes to this policy",
       blocks: [
-        "We may update this policy, for example when we add analytics or new services. The effective date above shows when it last changed. Material changes will be shown on this page.",
+        "We may update this policy, for example when we add new services. The effective date above shows when it last changed. Material changes will be shown on this page.",
       ],
     },
   ],
@@ -134,7 +139,7 @@ export const termsOfUse: LegalDoc = {
   summary: "The terms that apply to using the Phyto Elements website and the information on it.",
   intro: [
     `These terms apply to your use of phytoelements.in, operated by ${e.name}, ${e.type} with its registered office at ${e.address}. By using the website you accept them.`,
-    `Effective date: ${e.effective}.`,
+    `Effective date: ${EFFECTIVE.terms}.`,
   ],
   sections: [
     {
@@ -202,32 +207,51 @@ export const cookieNotice: LegalDoc = {
   title: "Cookie Notice",
   summary: "Which cookies and similar technologies the Phyto Elements website uses.",
   intro: [
-    "Cookies are small files a website stores in your browser. This notice explains what this website uses today.",
-    `Effective date: ${e.effective}.`,
+    "Cookies are small files a website stores in your browser. This notice explains which ones this website uses and how you can choose.",
+    `Effective date: ${EFFECTIVE.cookies}.`,
   ],
   sections: [
     {
-      heading: "What we use today",
+      heading: "Your choice",
+      blocks: [
+        "When you first visit, a banner asks whether you accept analytics and marketing cookies. Nothing beyond strictly necessary cookies is set until you choose, and rejecting is as easy as accepting.",
+        "You can change your choice at any time in Cookie settings (also linked at the foot of every page). If you withdraw consent, we delete the analytics and marketing cookies we can reach and stop loading those tools.",
+        "Strictly necessary cookies are needed for the site to work securely and do not need consent. You can also block or delete cookies in your browser settings, but the forms may not work without them.",
+      ],
+    },
+    {
+      heading: "Cookies we use",
       blocks: [
         {
-          list: [
-            "Strictly necessary security cookies: our hosting and security provider, Cloudflare, may set short-lived cookies to protect the site and its forms from bots and abuse. Turnstile, the spam check on our forms, works the same way.",
-            "Cookie-free statistics: Cloudflare Web Analytics counts page views without cookies and without identifying you.",
-          ],
+          table: {
+            head: ["Cookie", "Provider", "Purpose", "Type", "Lasts"],
+            rows: [
+              ["pe-consent", "Phyto Elements", "Remembers your cookie choice", "Strictly necessary", "12 months"],
+              [
+                "__cf_bm and Turnstile cookies",
+                "Cloudflare",
+                "Protects the site and forms from bots and abuse",
+                "Strictly necessary",
+                "30 minutes or less",
+              ],
+              [
+                "_ga, _ga_<ID>",
+                "Google Analytics",
+                "Counts visits and shows how the site is used",
+                "Analytics (with consent)",
+                "Up to 13 months",
+              ],
+              [
+                "li_sugr, bcookie, lidc, UserMatchHistory, AnalyticsSyncHistory",
+                "LinkedIn",
+                "Measures visits from LinkedIn and how our LinkedIn activity performs",
+                "Marketing (with consent)",
+                "1 day to 1 year",
+              ],
+            ],
+          },
         },
-        "We do not use advertising or tracking cookies, and we do not store your preferences in your browser.",
-      ],
-    },
-    {
-      heading: "Your choices",
-      blocks: [
-        "Strictly necessary cookies are needed for the site to work securely and do not need consent. You can block or delete cookies in your browser settings, but the forms may not work without them.",
-      ],
-    },
-    {
-      heading: "Analytics in future",
-      blocks: [
-        "We plan to add Google Analytics and LinkedIn analytics. Before they are switched on, this notice will be updated and the website will ask for your consent; they will not run unless you accept.",
+        "Cloudflare Web Analytics also counts page views, without cookies and without identifying you. Google and LinkedIn may change their cookie names or lifetimes; their own policies give the current details.",
       ],
     },
     {

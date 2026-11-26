@@ -9,7 +9,9 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileDock } from "@/components/layout/MobileDock";
 import { RailDots } from "@/components/ui/RailDots";
-import { getCompany, getProducts } from "@/lib/content";
+import { getCompany, getConsentCopy, getProducts } from "@/lib/content";
+import { ConsentBanner } from "@/components/consent/ConsentBanner";
+import { Trackers } from "@/components/consent/Trackers";
 import { SamePageTop } from "@/components/motion/SamePageTop";
 import { RouteTransition } from "@/components/motion/RouteTransition";
 import { motionBootScript } from "@/lib/motion-pref";
@@ -43,6 +45,7 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const { mailboxes } = await getCompany();
+  const consentCopy = await getConsentCopy();
   const dockProducts = (await getProducts()).map(({ slug, short, image }) => ({ slug, short, image }));
   return (
     <html lang="en" data-theme={siteConfig.defaultTheme} suppressHydrationWarning>
@@ -67,6 +70,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <RailDots />
         <MobileDock products={dockProducts} email={mailboxes[0].address} />
+        <ConsentBanner copy={consentCopy} />
+        <Trackers />
       </body>
     </html>
   );

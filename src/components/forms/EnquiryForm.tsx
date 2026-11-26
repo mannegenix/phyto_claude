@@ -63,12 +63,14 @@ export function EnquiryForm({
 
   // On success: bring the confirmation into view and announce it (hook for analytics later).
   const doneRef = useRef<HTMLDivElement>(null);
+  const sentFacts = useRef<Record<string, string | boolean>>({});
   const sent = state.status === "success" ? state.reference : null;
   useEffect(() => {
     if (!sent) return;
     doneRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     doneRef.current?.focus({ preventScroll: true });
-    window.dispatchEvent(new CustomEvent("pe:enquiry-sent", { detail: { reference: sent } }));
+    // For analytics (consent/Trackers): request facts only, never personal data.
+    window.dispatchEvent(new CustomEvent("pe:enquiry-sent", { detail: { reference: sent, ...sentFacts.current } }));
   }, [sent]);
 
   if (state.status === "success") {
@@ -107,6 +109,14 @@ export function EnquiryForm({
       className="enq"
       noValidate
       onSubmit={(e) => {
+        const facts = new FormData(e.currentTarget);
+        const spec = facts.get("spec");
+        sentFacts.current = {
+          type: String(facts.get("type") ?? ""),
+          product: String(facts.get("product") ?? ""),
+          sample: facts.get("sample") === "Yes",
+          attachment: spec instanceof File && spec.size > 0,
+        };
         // Submit manually so React doesn't reset the fields when validation fails.
         e.preventDefault();
         const fd = new FormData(e.currentTarget);

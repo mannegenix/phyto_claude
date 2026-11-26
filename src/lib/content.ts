@@ -29,3 +29,7 @@ export async function getAbout() {
 export async function getLegal() {
   return import("@/content/legal");
 }
+
+export async function getConsentCopy() {
+  return (await import("@/content/consent")).consentCopy;
+}

@@ -36,6 +36,14 @@ export const siteConfig = {
    * hide them again (the pages answer 404, footer and enquiry-form links disappear).
    */
   legalPagesLive: true,
+  /**
+   * Analytics IDs (public by design). Load only after cookie consent (components/consent).
+   * GA4 property "phytoelements.in"; LinkedIn Insight Tag partner ID. Empty = off.
+   */
+  analytics: {
+    ga4: "G-KXKWP3161Y",
+    linkedin: "11416945",
+  },
 };
 
 export const NAV = [

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 import { PageHead } from "@/components/ui/PageHead";
 import type { LegalBlock, LegalDoc } from "@/content/legal";
+import { CookieSettingsLink } from "@/components/consent/ConsentBanner";
 
 const DOC_LINKS: Record<string, string> = {
   "Privacy Policy": "/privacy",
@@ -9,11 +10,12 @@ const DOC_LINKS: Record<string, string> = {
   "Cookie Notice": "/cookies",
 };
 
-/** Turns email addresses and mentions of the other legal pages into links. */
+/** Turns email addresses, mentions of the other legal pages and "Cookie settings" into links. */
 function withLinks(text: string): ReactNode {
-  const parts = text.split(/([\w.+-]+@[\w-]+(?:\.[\w-]+)+|Privacy Policy|Terms of Use|Cookie Notice)/g);
+  const parts = text.split(/([\w.+-]+@[\w-]+(?:\.[\w-]+)+|Privacy Policy|Terms of Use|Cookie Notice|Cookie settings)/g);
   return parts.map((p, i) => {
     if (i % 2 === 0) return <Fragment key={i}>{p}</Fragment>;
+    if (p === "Cookie settings") return <CookieSettingsLink key={i} className="cb-inline" />;
     if (DOC_LINKS[p])
       return (
         <Link key={i} href={DOC_LINKS[p]}>
@@ -30,6 +32,33 @@ function withLinks(text: string): ReactNode {
 
 function Block({ block }: { block: LegalBlock }) {
   if (typeof block === "string") return <p>{withLinks(block)}</p>;
+  if ("table" in block)
+    return (
+      <div className="legal-table">
+        <table>
+          <thead>
+            <tr>
+              {block.table.head.map((h) => (
+                <th key={h} scope="col">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {block.table.rows.map((row) => (
+              <tr key={row[0]}>
+                {row.map((cell, i) => (
+                  <td key={i} data-label={block.table.head[i]}>
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   return (
     <ul>
       {block.list.map((item) => (

@@ -4,7 +4,7 @@ In priority order. Update this file whenever an item is done, added or repriorit
 (tick it, move it to "Done", note the date). Owner: **Abhi** (settings, testing, client),
 **Client** (information to supply), **Dev** (code changes).
 
-Last updated: 24 Nov 2026
+Last updated: 27 Nov 2026
 
 ## 1. Now
 
@@ -31,8 +31,11 @@ Last updated: 24 Nov 2026
 
 ## 5. Phase 2
 
-- [ ] **GA4 analytics** (Dev + Abhi): GA4 property, tag, and an enquiry conversion from the
-      form's existing `pe:enquiry-sent` event. Needs the Cookies page and a consent banner.
+- [ ] **GA4 settings** (Abhi/Client, in GA4): mark `enquiry_sent` as a key event (it appears
+      after the first enquiry from a visitor who accepted cookies); data retention 14 months;
+      define internal traffic (office IP) so own visits are filtered.
+- [ ] **LinkedIn conversions** (optional, Dev + Client): if the client runs LinkedIn ads, create
+      a conversion in Campaign Manager and send it on `enquiry_sent`.
 - [ ] **SEO content plan** (Dev + Client): target keywords per extract and buyer type, FAQ /
       guide pages, internal linking. No new claims without client approval.
 - [ ] **AI chat assistant** like mannegenix.com (Dev): built fresh; answers only from site
@@ -53,6 +56,10 @@ Last updated: 24 Nov 2026
       run `node --experimental-strip-types scripts/og-images.mts` for its share image.
 
 ## Done
+
+- 27 Nov: GA4 + LinkedIn Insight Tag live behind a cookie consent banner (bottom bar,
+  Settings dialog, footer "Cookie settings"); Cookie Notice (cookie table) and Privacy Policy
+  updated, effective 27 Nov 2026.
 
 - 25 Nov: go-live done: Google Search Console (domain verified, sitemap submitted, key pages
   requested), Bing Webmaster Tools (imported), share previews checked on LinkedIn and WhatsApp.

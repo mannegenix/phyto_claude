@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCompany, getProducts } from "@/lib/content";
 import { siteConfig } from "@/config/site";
+import { CookieSettingsLink } from "@/components/consent/ConsentBanner";
 import { Logo } from "./Logo";
 
 export async function Footer() {
@@ -63,6 +64,7 @@ export async function Footer() {
               <Link href="/privacy">Privacy Policy</Link>
               <Link href="/terms">Terms of Use</Link>
               <Link href="/cookies">Cookie Notice</Link>
+              <CookieSettingsLink />
             </nav>
           )}
         </div>
